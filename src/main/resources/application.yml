@@ -1,0 +1,51 @@
+#设置服务器端口号和内容路径
+server:
+  port: 8080
+  servlet:
+    context-path: /hospital
+    session:
+      timeout: 5m
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+#配置文件上传大小
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+#数据库配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/hospital?characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#配置Redis
+  redis:
+    host: 192.168.220.132
+    password: 123456
+    port: 6379
+#配置Mybatis
+mybatis:
+  type-aliases-package: edu.neu.hospital.bean
+  mapper-locations: classpath:mapper/*.xml
+logging:
+  level:
+    root: INFO
+
+#配置分页
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+
+
+
