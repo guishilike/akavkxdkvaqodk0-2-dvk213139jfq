@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.FmeditemDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.Fmeditem">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="format" jdbcType="VARCHAR" property="format" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="expClassID" jdbcType="INTEGER" property="expclassid" />
+    <result column="deptID" jdbcType="INTEGER" property="deptid" />
+    <result column="mnemonicCode" jdbcType="VARCHAR" property="mnemoniccode" />
+    <result column="recordType" jdbcType="VARCHAR" property="recordtype" />
+    <result column="creationDate" jdbcType="DATE" property="creationdate" />
+    <result column="appearUserId" jdbcType="INTEGER" property="appearuserid" />
+    <result column="changeUserId" jdbcType="INTEGER" property="changeuserid" />
+    <result column="status" jdbcType="CHAR" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, code, `name`, format, price, expClassID, deptID, mnemonicCode, recordType, creationDate, 
+    appearUserId, changeUserId, `status`
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.FmeditemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fmeditem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from fmeditem
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from fmeditem
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.FmeditemExample">
+    delete from fmeditem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Fmeditem" useGeneratedKeys="true">
+    insert into fmeditem (code, `name`, format, 
+      price, expClassID, deptID, 
+      mnemonicCode, recordType, creationDate, 
+      appearUserId, changeUserId, `status`
+      )
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{format,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{expclassid,jdbcType=INTEGER}, #{deptid,jdbcType=INTEGER}, 
+      #{mnemoniccode,jdbcType=VARCHAR}, #{recordtype,jdbcType=VARCHAR}, #{creationdate,jdbcType=DATE}, 
+      #{appearuserid,jdbcType=INTEGER}, #{changeuserid,jdbcType=INTEGER}, #{status,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Fmeditem" useGeneratedKeys="true">
+    insert into fmeditem
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="format != null">
+        format,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="expclassid != null">
+        expClassID,
+      </if>
+      <if test="deptid != null">
+        deptID,
+      </if>
+      <if test="mnemoniccode != null">
+        mnemonicCode,
+      </if>
+      <if test="recordtype != null">
+        recordType,
+      </if>
+      <if test="creationdate != null">
+        creationDate,
+      </if>
+      <if test="appearuserid != null">
+        appearUserId,
+      </if>
+      <if test="changeuserid != null">
+        changeUserId,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null">
+        #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="expclassid != null">
+        #{expclassid,jdbcType=INTEGER},
+      </if>
+      <if test="deptid != null">
+        #{deptid,jdbcType=INTEGER},
+      </if>
+      <if test="mnemoniccode != null">
+        #{mnemoniccode,jdbcType=VARCHAR},
+      </if>
+      <if test="recordtype != null">
+        #{recordtype,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=DATE},
+      </if>
+      <if test="appearuserid != null">
+        #{appearuserid,jdbcType=INTEGER},
+      </if>
+      <if test="changeuserid != null">
+        #{changeuserid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.FmeditemExample" resultType="java.lang.Long">
+    select count(*) from fmeditem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update fmeditem
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.format != null">
+        format = #{record.format,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.expclassid != null">
+        expClassID = #{record.expclassid,jdbcType=INTEGER},
+      </if>
+      <if test="record.deptid != null">
+        deptID = #{record.deptid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mnemoniccode != null">
+        mnemonicCode = #{record.mnemoniccode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordtype != null">
+        recordType = #{record.recordtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creationdate != null">
+        creationDate = #{record.creationdate,jdbcType=DATE},
+      </if>
+      <if test="record.appearuserid != null">
+        appearUserId = #{record.appearuserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeuserid != null">
+        changeUserId = #{record.changeuserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update fmeditem
+    set id = #{record.id,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      format = #{record.format,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      expClassID = #{record.expclassid,jdbcType=INTEGER},
+      deptID = #{record.deptid,jdbcType=INTEGER},
+      mnemonicCode = #{record.mnemoniccode,jdbcType=VARCHAR},
+      recordType = #{record.recordtype,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=DATE},
+      appearUserId = #{record.appearuserid,jdbcType=INTEGER},
+      changeUserId = #{record.changeuserid,jdbcType=INTEGER},
+      `status` = #{record.status,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.neu.hospital.bean.Fmeditem">
+    update fmeditem
+    <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null">
+        format = #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="expclassid != null">
+        expClassID = #{expclassid,jdbcType=INTEGER},
+      </if>
+      <if test="deptid != null">
+        deptID = #{deptid,jdbcType=INTEGER},
+      </if>
+      <if test="mnemoniccode != null">
+        mnemonicCode = #{mnemoniccode,jdbcType=VARCHAR},
+      </if>
+      <if test="recordtype != null">
+        recordType = #{recordtype,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        creationDate = #{creationdate,jdbcType=DATE},
+      </if>
+      <if test="appearuserid != null">
+        appearUserId = #{appearuserid,jdbcType=INTEGER},
+      </if>
+      <if test="changeuserid != null">
+        changeUserId = #{changeuserid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.neu.hospital.bean.Fmeditem">
+    update fmeditem
+    set code = #{code,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      format = #{format,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      expClassID = #{expclassid,jdbcType=INTEGER},
+      deptID = #{deptid,jdbcType=INTEGER},
+      mnemonicCode = #{mnemoniccode,jdbcType=VARCHAR},
+      recordType = #{recordtype,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=DATE},
+      appearUserId = #{appearuserid,jdbcType=INTEGER},
+      changeUserId = #{changeuserid,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

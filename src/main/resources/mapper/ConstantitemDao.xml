@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.ConstantitemDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.Constantitem">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="constantTypeID" jdbcType="INTEGER" property="constanttypeid" />
+    <result column="constantCode" jdbcType="VARCHAR" property="constantcode" />
+    <result column="constant" jdbcType="VARCHAR" property="constant" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appeardate" />
+    <result column="apearUserID" jdbcType="INTEGER" property="apearuserid" />
+    <result column="changeDate" jdbcType="TIMESTAMP" property="changedate" />
+    <result column="changeUserID" jdbcType="INTEGER" property="changeuserid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, constantTypeID, constantCode, constant, `status`, appearDate, apearUserID, changeDate, 
+    changeUserID
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.ConstantitemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from constantitem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from constantitem
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from constantitem
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.ConstantitemExample">
+    delete from constantitem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Constantitem" useGeneratedKeys="true">
+    insert into constantitem (constantTypeID, constantCode, constant, 
+      `status`, appearDate, apearUserID, 
+      changeDate, changeUserID)
+    values (#{constanttypeid,jdbcType=INTEGER}, #{constantcode,jdbcType=VARCHAR}, #{constant,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{appeardate,jdbcType=TIMESTAMP}, #{apearuserid,jdbcType=INTEGER}, 
+      #{changedate,jdbcType=TIMESTAMP}, #{changeuserid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Constantitem" useGeneratedKeys="true">
+    insert into constantitem
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="constanttypeid != null">
+        constantTypeID,
+      </if>
+      <if test="constantcode != null">
+        constantCode,
+      </if>
+      <if test="constant != null">
+        constant,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="appeardate != null">
+        appearDate,
+      </if>
+      <if test="apearuserid != null">
+        apearUserID,
+      </if>
+      <if test="changedate != null">
+        changeDate,
+      </if>
+      <if test="changeuserid != null">
+        changeUserID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="constanttypeid != null">
+        #{constanttypeid,jdbcType=INTEGER},
+      </if>
+      <if test="constantcode != null">
+        #{constantcode,jdbcType=VARCHAR},
+      </if>
+      <if test="constant != null">
+        #{constant,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="appeardate != null">
+        #{appeardate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="apearuserid != null">
+        #{apearuserid,jdbcType=INTEGER},
+      </if>
+      <if test="changedate != null">
+        #{changedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeuserid != null">
+        #{changeuserid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.ConstantitemExample" resultType="java.lang.Long">
+    select count(*) from constantitem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update constantitem
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.constanttypeid != null">
+        constantTypeID = #{record.constanttypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.constantcode != null">
+        constantCode = #{record.constantcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.constant != null">
+        constant = #{record.constant,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.appeardate != null">
+        appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.apearuserid != null">
+        apearUserID = #{record.apearuserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.changedate != null">
+        changeDate = #{record.changedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeuserid != null">
+        changeUserID = #{record.changeuserid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update constantitem
+    set id = #{record.id,jdbcType=INTEGER},
+      constantTypeID = #{record.constanttypeid,jdbcType=INTEGER},
+      constantCode = #{record.constantcode,jdbcType=VARCHAR},
+      constant = #{record.constant,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=CHAR},
+      appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
+      apearUserID = #{record.apearuserid,jdbcType=INTEGER},
+      changeDate = #{record.changedate,jdbcType=TIMESTAMP},
+      changeUserID = #{record.changeuserid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.neu.hospital.bean.Constantitem">
+    update constantitem
+    <set>
+      <if test="constanttypeid != null">
+        constantTypeID = #{constanttypeid,jdbcType=INTEGER},
+      </if>
+      <if test="constantcode != null">
+        constantCode = #{constantcode,jdbcType=VARCHAR},
+      </if>
+      <if test="constant != null">
+        constant = #{constant,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
+      <if test="appeardate != null">
+        appearDate = #{appeardate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="apearuserid != null">
+        apearUserID = #{apearuserid,jdbcType=INTEGER},
+      </if>
+      <if test="changedate != null">
+        changeDate = #{changedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeuserid != null">
+        changeUserID = #{changeuserid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.neu.hospital.bean.Constantitem">
+    update constantitem
+    set constantTypeID = #{constanttypeid,jdbcType=INTEGER},
+      constantCode = #{constantcode,jdbcType=VARCHAR},
+      constant = #{constant,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=CHAR},
+      appearDate = #{appeardate,jdbcType=TIMESTAMP},
+      apearUserID = #{apearuserid,jdbcType=INTEGER},
+      changeDate = #{changedate,jdbcType=TIMESTAMP},
+      changeUserID = #{changeuserid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

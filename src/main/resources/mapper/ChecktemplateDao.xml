@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.ChecktemplateDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.Checktemplate">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="doctorId" jdbcType="INTEGER" property="doctorid" />
+    <result column="templateCode" jdbcType="VARCHAR" property="templatecode" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="appearTime" jdbcType="TIMESTAMP" property="appeartime" />
+    <result column="changeTime" jdbcType="TIMESTAMP" property="changetime" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="reserve1" jdbcType="VARCHAR" property="reserve1" />
+    <result column="reserve2" jdbcType="VARCHAR" property="reserve2" />
+    <result column="reserve3" jdbcType="VARCHAR" property="reserve3" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, doctorId, templateCode, `name`, appearTime, changeTime, `status`, reserve1, reserve2, 
+    reserve3
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.ChecktemplateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from checktemplate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from checktemplate
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from checktemplate
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.ChecktemplateExample">
+    delete from checktemplate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Checktemplate" useGeneratedKeys="true">
+    insert into checktemplate (doctorId, templateCode, `name`, 
+      appearTime, changeTime, `status`, 
+      reserve1, reserve2, reserve3
+      )
+    values (#{doctorid,jdbcType=INTEGER}, #{templatecode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{appeartime,jdbcType=TIMESTAMP}, #{changetime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
+      #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Checktemplate" useGeneratedKeys="true">
+    insert into checktemplate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="doctorid != null">
+        doctorId,
+      </if>
+      <if test="templatecode != null">
+        templateCode,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="appeartime != null">
+        appearTime,
+      </if>
+      <if test="changetime != null">
+        changeTime,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="reserve1 != null">
+        reserve1,
+      </if>
+      <if test="reserve2 != null">
+        reserve2,
+      </if>
+      <if test="reserve3 != null">
+        reserve3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="doctorid != null">
+        #{doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="templatecode != null">
+        #{templatecode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="appeartime != null">
+        #{appeartime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changetime != null">
+        #{changetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="reserve1 != null">
+        #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null">
+        #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve3 != null">
+        #{reserve3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.ChecktemplateExample" resultType="java.lang.Long">
+    select count(*) from checktemplate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update checktemplate
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.doctorid != null">
+        doctorId = #{record.doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.templatecode != null">
+        templateCode = #{record.templatecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appeartime != null">
+        appearTime = #{record.appeartime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changetime != null">
+        changeTime = #{record.changetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.reserve1 != null">
+        reserve1 = #{record.reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reserve2 != null">
+        reserve2 = #{record.reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reserve3 != null">
+        reserve3 = #{record.reserve3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update checktemplate
+    set id = #{record.id,jdbcType=INTEGER},
+      doctorId = #{record.doctorid,jdbcType=INTEGER},
+      templateCode = #{record.templatecode,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      appearTime = #{record.appeartime,jdbcType=TIMESTAMP},
+      changeTime = #{record.changetime,jdbcType=TIMESTAMP},
+      `status` = #{record.status,jdbcType=CHAR},
+      reserve1 = #{record.reserve1,jdbcType=VARCHAR},
+      reserve2 = #{record.reserve2,jdbcType=VARCHAR},
+      reserve3 = #{record.reserve3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.neu.hospital.bean.Checktemplate">
+    update checktemplate
+    <set>
+      <if test="doctorid != null">
+        doctorId = #{doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="templatecode != null">
+        templateCode = #{templatecode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="appeartime != null">
+        appearTime = #{appeartime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changetime != null">
+        changeTime = #{changetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
+      <if test="reserve1 != null">
+        reserve1 = #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null">
+        reserve2 = #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve3 != null">
+        reserve3 = #{reserve3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.neu.hospital.bean.Checktemplate">
+    update checktemplate
+    set doctorId = #{doctorid,jdbcType=INTEGER},
+      templateCode = #{templatecode,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      appearTime = #{appeartime,jdbcType=TIMESTAMP},
+      changeTime = #{changetime,jdbcType=TIMESTAMP},
+      `status` = #{status,jdbcType=CHAR},
+      reserve1 = #{reserve1,jdbcType=VARCHAR},
+      reserve2 = #{reserve2,jdbcType=VARCHAR},
+      reserve3 = #{reserve3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
