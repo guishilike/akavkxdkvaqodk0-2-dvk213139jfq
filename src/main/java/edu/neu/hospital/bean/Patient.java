@@ -5,64 +5,50 @@ import java.util.Date;
 
 /**
  * patient
+ *
  * @author LiJie
  */
 public class Patient implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 患者ID
      */
     private Integer id;
-
     /**
      * 患者姓名
      */
-    private String patientname;
-
+    private String patientName;
     /**
      * 身份证号
      */
-    private String identitycardno;
-
+    private String identityCardNo;
     /**
      * 年龄
      */
     private Integer age;
-
     /**
      * 性别
      */
     private String gender;
-
     /**
      * 出生日期
      */
     private Date birthday;
-
     /**
      * 家庭住址
      */
-    private String familyaddress;
-
-    private Integer appearuserid;
-
-    private Integer changeuserid;
-
-    private Date appeardate;
-
-    private Date changedate;
-
+    private String familyAddress;
+    private Integer appearUserID;
+    private Integer changeUserID;
+    private Date appearDate;
+    private Date changeDate;
     /**
      * 是否有效
      */
     private String status;
-
     private String reserve1;
-
     private String reserve2;
-
     private String reserve3;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
@@ -72,20 +58,20 @@ public class Patient implements Serializable {
         this.id = id;
     }
 
-    public String getPatientname() {
-        return patientname;
+    public String getPatientName() {
+        return patientName;
     }
 
-    public void setPatientname(String patientname) {
-        this.patientname = patientname;
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 
-    public String getIdentitycardno() {
-        return identitycardno;
+    public String getIdentityCardNo() {
+        return identityCardNo;
     }
 
-    public void setIdentitycardno(String identitycardno) {
-        this.identitycardno = identitycardno;
+    public void setIdentityCardNo(String identityCardNo) {
+        this.identityCardNo = identityCardNo;
     }
 
     public Integer getAge() {
@@ -112,44 +98,44 @@ public class Patient implements Serializable {
         this.birthday = birthday;
     }
 
-    public String getFamilyaddress() {
-        return familyaddress;
+    public String getFamilyAddress() {
+        return familyAddress;
     }
 
-    public void setFamilyaddress(String familyaddress) {
-        this.familyaddress = familyaddress;
+    public void setFamilyAddress(String familyAddress) {
+        this.familyAddress = familyAddress;
     }
 
-    public Integer getAppearuserid() {
-        return appearuserid;
+    public Integer getAppearUserID() {
+        return appearUserID;
     }
 
-    public void setAppearuserid(Integer appearuserid) {
-        this.appearuserid = appearuserid;
+    public void setAppearUserID(Integer appearUserID) {
+        this.appearUserID = appearUserID;
     }
 
-    public Integer getChangeuserid() {
-        return changeuserid;
+    public Integer getChangeUserID() {
+        return changeUserID;
     }
 
-    public void setChangeuserid(Integer changeuserid) {
-        this.changeuserid = changeuserid;
+    public void setChangeUserID(Integer changeUserID) {
+        this.changeUserID = changeUserID;
     }
 
-    public Date getAppeardate() {
-        return appeardate;
+    public Date getAppearDate() {
+        return appearDate;
     }
 
-    public void setAppeardate(Date appeardate) {
-        this.appeardate = appeardate;
+    public void setAppearDate(Date appearDate) {
+        this.appearDate = appearDate;
     }
 
-    public Date getChangedate() {
-        return changedate;
+    public Date getChangeDate() {
+        return changeDate;
     }
 
-    public void setChangedate(Date changedate) {
-        this.changedate = changedate;
+    public void setChangeDate(Date changeDate) {
+        this.changeDate = changeDate;
     }
 
     public String getStatus() {
@@ -197,20 +183,20 @@ public class Patient implements Serializable {
         }
         Patient other = (Patient) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getPatientname() == null ? other.getPatientname() == null : this.getPatientname().equals(other.getPatientname()))
-            && (this.getIdentitycardno() == null ? other.getIdentitycardno() == null : this.getIdentitycardno().equals(other.getIdentitycardno()))
-            && (this.getAge() == null ? other.getAge() == null : this.getAge().equals(other.getAge()))
-            && (this.getGender() == null ? other.getGender() == null : this.getGender().equals(other.getGender()))
-            && (this.getBirthday() == null ? other.getBirthday() == null : this.getBirthday().equals(other.getBirthday()))
-            && (this.getFamilyaddress() == null ? other.getFamilyaddress() == null : this.getFamilyaddress().equals(other.getFamilyaddress()))
-            && (this.getAppearuserid() == null ? other.getAppearuserid() == null : this.getAppearuserid().equals(other.getAppearuserid()))
-            && (this.getChangeuserid() == null ? other.getChangeuserid() == null : this.getChangeuserid().equals(other.getChangeuserid()))
-            && (this.getAppeardate() == null ? other.getAppeardate() == null : this.getAppeardate().equals(other.getAppeardate()))
-            && (this.getChangedate() == null ? other.getChangedate() == null : this.getChangedate().equals(other.getChangedate()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
-            && (this.getReserve2() == null ? other.getReserve2() == null : this.getReserve2().equals(other.getReserve2()))
-            && (this.getReserve3() == null ? other.getReserve3() == null : this.getReserve3().equals(other.getReserve3()));
+                && (this.getPatientName() == null ? other.getPatientName() == null : this.getPatientName().equals(other.getPatientName()))
+                && (this.getIdentityCardNo() == null ? other.getIdentityCardNo() == null : this.getIdentityCardNo().equals(other.getIdentityCardNo()))
+                && (this.getAge() == null ? other.getAge() == null : this.getAge().equals(other.getAge()))
+                && (this.getGender() == null ? other.getGender() == null : this.getGender().equals(other.getGender()))
+                && (this.getBirthday() == null ? other.getBirthday() == null : this.getBirthday().equals(other.getBirthday()))
+                && (this.getFamilyAddress() == null ? other.getFamilyAddress() == null : this.getFamilyAddress().equals(other.getFamilyAddress()))
+                && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
+                && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
+                && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
+                && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+                && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
+                && (this.getReserve2() == null ? other.getReserve2() == null : this.getReserve2().equals(other.getReserve2()))
+                && (this.getReserve3() == null ? other.getReserve3() == null : this.getReserve3().equals(other.getReserve3()));
     }
 
     @Override
@@ -218,16 +204,16 @@ public class Patient implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getPatientname() == null) ? 0 : getPatientname().hashCode());
-        result = prime * result + ((getIdentitycardno() == null) ? 0 : getIdentitycardno().hashCode());
+        result = prime * result + ((getPatientName() == null) ? 0 : getPatientName().hashCode());
+        result = prime * result + ((getIdentityCardNo() == null) ? 0 : getIdentityCardNo().hashCode());
         result = prime * result + ((getAge() == null) ? 0 : getAge().hashCode());
         result = prime * result + ((getGender() == null) ? 0 : getGender().hashCode());
         result = prime * result + ((getBirthday() == null) ? 0 : getBirthday().hashCode());
-        result = prime * result + ((getFamilyaddress() == null) ? 0 : getFamilyaddress().hashCode());
-        result = prime * result + ((getAppearuserid() == null) ? 0 : getAppearuserid().hashCode());
-        result = prime * result + ((getChangeuserid() == null) ? 0 : getChangeuserid().hashCode());
-        result = prime * result + ((getAppeardate() == null) ? 0 : getAppeardate().hashCode());
-        result = prime * result + ((getChangedate() == null) ? 0 : getChangedate().hashCode());
+        result = prime * result + ((getFamilyAddress() == null) ? 0 : getFamilyAddress().hashCode());
+        result = prime * result + ((getAppearUserID() == null) ? 0 : getAppearUserID().hashCode());
+        result = prime * result + ((getChangeUserID() == null) ? 0 : getChangeUserID().hashCode());
+        result = prime * result + ((getAppearDate() == null) ? 0 : getAppearDate().hashCode());
+        result = prime * result + ((getChangeDate() == null) ? 0 : getChangeDate().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getReserve1() == null) ? 0 : getReserve1().hashCode());
         result = prime * result + ((getReserve2() == null) ? 0 : getReserve2().hashCode());
@@ -242,16 +228,16 @@ public class Patient implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", patientname=").append(patientname);
-        sb.append(", identitycardno=").append(identitycardno);
+        sb.append(", patientName=").append(patientName);
+        sb.append(", identityCardNo=").append(identityCardNo);
         sb.append(", age=").append(age);
         sb.append(", gender=").append(gender);
         sb.append(", birthday=").append(birthday);
-        sb.append(", familyaddress=").append(familyaddress);
-        sb.append(", appearuserid=").append(appearuserid);
-        sb.append(", changeuserid=").append(changeuserid);
-        sb.append(", appeardate=").append(appeardate);
-        sb.append(", changedate=").append(changedate);
+        sb.append(", familyAddress=").append(familyAddress);
+        sb.append(", appearUserID=").append(appearUserID);
+        sb.append(", changeUserID=").append(changeUserID);
+        sb.append(", appearDate=").append(appearDate);
+        sb.append(", changeDate=").append(changeDate);
         sb.append(", status=").append(status);
         sb.append(", reserve1=").append(reserve1);
         sb.append(", reserve2=").append(reserve2);

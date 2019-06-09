@@ -2,8 +2,9 @@ package edu.neu.hospital.dao;
 
 import edu.neu.hospital.bean.Department;
 import edu.neu.hospital.example.DepartmentExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface DepartmentDao {
     long countByExample(DepartmentExample example);

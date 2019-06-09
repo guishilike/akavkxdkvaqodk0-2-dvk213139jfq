@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * department
  *
- * @author LiJie
+ * @author Lijie
  */
 public class Department implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class Department implements Serializable {
     /**
      * 科室类型
      */
-    private Integer deptType;
+    private Integer deptTypeID;
     /**
      * 创建日期
      */
@@ -83,12 +83,12 @@ public class Department implements Serializable {
         this.deptCategoryID = deptCategoryID;
     }
 
-    public Integer getDeptType() {
-        return deptType;
+    public Integer getDeptTypeID() {
+        return deptTypeID;
     }
 
-    public void setDeptType(Integer deptType) {
-        this.deptType = deptType;
+    public void setDeptTypeID(Integer deptTypeID) {
+        this.deptTypeID = deptTypeID;
     }
 
     public Date getAppearDate() {
@@ -147,7 +147,7 @@ public class Department implements Serializable {
                 && (this.getDeptCode() == null ? other.getDeptCode() == null : this.getDeptCode().equals(other.getDeptCode()))
                 && (this.getDeptName() == null ? other.getDeptName() == null : this.getDeptName().equals(other.getDeptName()))
                 && (this.getDeptCategoryID() == null ? other.getDeptCategoryID() == null : this.getDeptCategoryID().equals(other.getDeptCategoryID()))
-                && (this.getDeptType() == null ? other.getDeptType() == null : this.getDeptType().equals(other.getDeptType()))
+                && (this.getDeptTypeID() == null ? other.getDeptTypeID() == null : this.getDeptTypeID().equals(other.getDeptTypeID()))
                 && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
                 && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
                 && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
@@ -163,7 +163,7 @@ public class Department implements Serializable {
         result = prime * result + ((getDeptCode() == null) ? 0 : getDeptCode().hashCode());
         result = prime * result + ((getDeptName() == null) ? 0 : getDeptName().hashCode());
         result = prime * result + ((getDeptCategoryID() == null) ? 0 : getDeptCategoryID().hashCode());
-        result = prime * result + ((getDeptType() == null) ? 0 : getDeptType().hashCode());
+        result = prime * result + ((getDeptTypeID() == null) ? 0 : getDeptTypeID().hashCode());
         result = prime * result + ((getAppearDate() == null) ? 0 : getAppearDate().hashCode());
         result = prime * result + ((getAppearUserID() == null) ? 0 : getAppearUserID().hashCode());
         result = prime * result + ((getChangeDate() == null) ? 0 : getChangeDate().hashCode());
@@ -182,7 +182,7 @@ public class Department implements Serializable {
         sb.append(", deptCode=").append(deptCode);
         sb.append(", deptName=").append(deptName);
         sb.append(", deptCategoryID=").append(deptCategoryID);
-        sb.append(", deptType=").append(deptType);
+        sb.append(", deptTypeID=").append(deptTypeID);
         sb.append(", appearDate=").append(appearDate);
         sb.append(", appearUserID=").append(appearUserID);
         sb.append(", changeDate=").append(changeDate);

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientcardExample {
+public class PatientCardExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -15,24 +15,24 @@ public class PatientcardExample {
 
     private Long offset;
 
-    public PatientcardExample() {
+    public PatientCardExample() {
         oredCriteria = new ArrayList<Criteria>();
-    }
-
-    public void setOrderByClause(String orderByClause) {
-        this.orderByClause = orderByClause;
     }
 
     public String getOrderByClause() {
         return orderByClause;
     }
 
-    public void setDistinct(boolean distinct) {
-        this.distinct = distinct;
+    public void setOrderByClause(String orderByClause) {
+        this.orderByClause = orderByClause;
     }
 
     public boolean isDistinct() {
         return distinct;
+    }
+
+    public void setDistinct(boolean distinct) {
+        this.distinct = distinct;
     }
 
     public List<Criteria> getOredCriteria() {
@@ -68,20 +68,20 @@ public class PatientcardExample {
         distinct = false;
     }
 
-    public void setLimit(Integer limit) {
-        this.limit = limit;
-    }
-
     public Integer getLimit() {
         return limit;
     }
 
-    public void setOffset(Long offset) {
-        this.offset = offset;
+    public void setLimit(Integer limit) {
+        this.limit = limit;
     }
 
     public Long getOffset() {
         return offset;
+    }
+
+    public void setOffset(Long offset) {
+        this.offset = offset;
     }
 
     protected abstract static class GeneratedCriteria {
@@ -185,133 +185,133 @@ public class PatientcardExample {
             return (Criteria) this;
         }
 
-        public Criteria andPatientidIsNull() {
+        public Criteria andPatientIDIsNull() {
             addCriterion("patientID is null");
             return (Criteria) this;
         }
 
-        public Criteria andPatientidIsNotNull() {
+        public Criteria andPatientIDIsNotNull() {
             addCriterion("patientID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPatientidEqualTo(Integer value) {
-            addCriterion("patientID =", value, "patientid");
+        public Criteria andPatientIDEqualTo(Integer value) {
+            addCriterion("patientID =", value, "patientID");
             return (Criteria) this;
         }
 
-        public Criteria andPatientidNotEqualTo(Integer value) {
-            addCriterion("patientID <>", value, "patientid");
+        public Criteria andPatientIDNotEqualTo(Integer value) {
+            addCriterion("patientID <>", value, "patientID");
             return (Criteria) this;
         }
 
-        public Criteria andPatientidGreaterThan(Integer value) {
-            addCriterion("patientID >", value, "patientid");
+        public Criteria andPatientIDGreaterThan(Integer value) {
+            addCriterion("patientID >", value, "patientID");
             return (Criteria) this;
         }
 
-        public Criteria andPatientidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("patientID >=", value, "patientid");
+        public Criteria andPatientIDGreaterThanOrEqualTo(Integer value) {
+            addCriterion("patientID >=", value, "patientID");
             return (Criteria) this;
         }
 
-        public Criteria andPatientidLessThan(Integer value) {
-            addCriterion("patientID <", value, "patientid");
+        public Criteria andPatientIDLessThan(Integer value) {
+            addCriterion("patientID <", value, "patientID");
             return (Criteria) this;
         }
 
-        public Criteria andPatientidLessThanOrEqualTo(Integer value) {
-            addCriterion("patientID <=", value, "patientid");
+        public Criteria andPatientIDLessThanOrEqualTo(Integer value) {
+            addCriterion("patientID <=", value, "patientID");
             return (Criteria) this;
         }
 
-        public Criteria andPatientidIn(List<Integer> values) {
-            addCriterion("patientID in", values, "patientid");
+        public Criteria andPatientIDIn(List<Integer> values) {
+            addCriterion("patientID in", values, "patientID");
             return (Criteria) this;
         }
 
-        public Criteria andPatientidNotIn(List<Integer> values) {
-            addCriterion("patientID not in", values, "patientid");
+        public Criteria andPatientIDNotIn(List<Integer> values) {
+            addCriterion("patientID not in", values, "patientID");
             return (Criteria) this;
         }
 
-        public Criteria andPatientidBetween(Integer value1, Integer value2) {
-            addCriterion("patientID between", value1, value2, "patientid");
+        public Criteria andPatientIDBetween(Integer value1, Integer value2) {
+            addCriterion("patientID between", value1, value2, "patientID");
             return (Criteria) this;
         }
 
-        public Criteria andPatientidNotBetween(Integer value1, Integer value2) {
-            addCriterion("patientID not between", value1, value2, "patientid");
+        public Criteria andPatientIDNotBetween(Integer value1, Integer value2) {
+            addCriterion("patientID not between", value1, value2, "patientID");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameIsNull() {
+        public Criteria andPatientNameIsNull() {
             addCriterion("patientName is null");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameIsNotNull() {
+        public Criteria andPatientNameIsNotNull() {
             addCriterion("patientName is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameEqualTo(String value) {
-            addCriterion("patientName =", value, "patientname");
+        public Criteria andPatientNameEqualTo(String value) {
+            addCriterion("patientName =", value, "patientName");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameNotEqualTo(String value) {
-            addCriterion("patientName <>", value, "patientname");
+        public Criteria andPatientNameNotEqualTo(String value) {
+            addCriterion("patientName <>", value, "patientName");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameGreaterThan(String value) {
-            addCriterion("patientName >", value, "patientname");
+        public Criteria andPatientNameGreaterThan(String value) {
+            addCriterion("patientName >", value, "patientName");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameGreaterThanOrEqualTo(String value) {
-            addCriterion("patientName >=", value, "patientname");
+        public Criteria andPatientNameGreaterThanOrEqualTo(String value) {
+            addCriterion("patientName >=", value, "patientName");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameLessThan(String value) {
-            addCriterion("patientName <", value, "patientname");
+        public Criteria andPatientNameLessThan(String value) {
+            addCriterion("patientName <", value, "patientName");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameLessThanOrEqualTo(String value) {
-            addCriterion("patientName <=", value, "patientname");
+        public Criteria andPatientNameLessThanOrEqualTo(String value) {
+            addCriterion("patientName <=", value, "patientName");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameLike(String value) {
-            addCriterion("patientName like", value, "patientname");
+        public Criteria andPatientNameLike(String value) {
+            addCriterion("patientName like", value, "patientName");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameNotLike(String value) {
-            addCriterion("patientName not like", value, "patientname");
+        public Criteria andPatientNameNotLike(String value) {
+            addCriterion("patientName not like", value, "patientName");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameIn(List<String> values) {
-            addCriterion("patientName in", values, "patientname");
+        public Criteria andPatientNameIn(List<String> values) {
+            addCriterion("patientName in", values, "patientName");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameNotIn(List<String> values) {
-            addCriterion("patientName not in", values, "patientname");
+        public Criteria andPatientNameNotIn(List<String> values) {
+            addCriterion("patientName not in", values, "patientName");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameBetween(String value1, String value2) {
-            addCriterion("patientName between", value1, value2, "patientname");
+        public Criteria andPatientNameBetween(String value1, String value2) {
+            addCriterion("patientName between", value1, value2, "patientName");
             return (Criteria) this;
         }
 
-        public Criteria andPatientnameNotBetween(String value1, String value2) {
-            addCriterion("patientName not between", value1, value2, "patientname");
+        public Criteria andPatientNameNotBetween(String value1, String value2) {
+            addCriterion("patientName not between", value1, value2, "patientName");
             return (Criteria) this;
         }
 
@@ -445,123 +445,123 @@ public class PatientcardExample {
             return (Criteria) this;
         }
 
-        public Criteria andAppearuseridIsNull() {
+        public Criteria andAppearUserIdIsNull() {
             addCriterion("appearUserId is null");
             return (Criteria) this;
         }
 
-        public Criteria andAppearuseridIsNotNull() {
+        public Criteria andAppearUserIdIsNotNull() {
             addCriterion("appearUserId is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAppearuseridEqualTo(Integer value) {
-            addCriterion("appearUserId =", value, "appearuserid");
+        public Criteria andAppearUserIdEqualTo(Integer value) {
+            addCriterion("appearUserId =", value, "appearUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAppearuseridNotEqualTo(Integer value) {
-            addCriterion("appearUserId <>", value, "appearuserid");
+        public Criteria andAppearUserIdNotEqualTo(Integer value) {
+            addCriterion("appearUserId <>", value, "appearUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAppearuseridGreaterThan(Integer value) {
-            addCriterion("appearUserId >", value, "appearuserid");
+        public Criteria andAppearUserIdGreaterThan(Integer value) {
+            addCriterion("appearUserId >", value, "appearUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAppearuseridGreaterThanOrEqualTo(Integer value) {
-            addCriterion("appearUserId >=", value, "appearuserid");
+        public Criteria andAppearUserIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("appearUserId >=", value, "appearUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAppearuseridLessThan(Integer value) {
-            addCriterion("appearUserId <", value, "appearuserid");
+        public Criteria andAppearUserIdLessThan(Integer value) {
+            addCriterion("appearUserId <", value, "appearUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAppearuseridLessThanOrEqualTo(Integer value) {
-            addCriterion("appearUserId <=", value, "appearuserid");
+        public Criteria andAppearUserIdLessThanOrEqualTo(Integer value) {
+            addCriterion("appearUserId <=", value, "appearUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAppearuseridIn(List<Integer> values) {
-            addCriterion("appearUserId in", values, "appearuserid");
+        public Criteria andAppearUserIdIn(List<Integer> values) {
+            addCriterion("appearUserId in", values, "appearUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAppearuseridNotIn(List<Integer> values) {
-            addCriterion("appearUserId not in", values, "appearuserid");
+        public Criteria andAppearUserIdNotIn(List<Integer> values) {
+            addCriterion("appearUserId not in", values, "appearUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAppearuseridBetween(Integer value1, Integer value2) {
-            addCriterion("appearUserId between", value1, value2, "appearuserid");
+        public Criteria andAppearUserIdBetween(Integer value1, Integer value2) {
+            addCriterion("appearUserId between", value1, value2, "appearUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAppearuseridNotBetween(Integer value1, Integer value2) {
-            addCriterion("appearUserId not between", value1, value2, "appearuserid");
+        public Criteria andAppearUserIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("appearUserId not between", value1, value2, "appearUserId");
             return (Criteria) this;
         }
 
-        public Criteria andChangeuseridIsNull() {
+        public Criteria andChangeUserIdIsNull() {
             addCriterion("changeUserId is null");
             return (Criteria) this;
         }
 
-        public Criteria andChangeuseridIsNotNull() {
+        public Criteria andChangeUserIdIsNotNull() {
             addCriterion("changeUserId is not null");
             return (Criteria) this;
         }
 
-        public Criteria andChangeuseridEqualTo(Integer value) {
-            addCriterion("changeUserId =", value, "changeuserid");
+        public Criteria andChangeUserIdEqualTo(Integer value) {
+            addCriterion("changeUserId =", value, "changeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andChangeuseridNotEqualTo(Integer value) {
-            addCriterion("changeUserId <>", value, "changeuserid");
+        public Criteria andChangeUserIdNotEqualTo(Integer value) {
+            addCriterion("changeUserId <>", value, "changeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andChangeuseridGreaterThan(Integer value) {
-            addCriterion("changeUserId >", value, "changeuserid");
+        public Criteria andChangeUserIdGreaterThan(Integer value) {
+            addCriterion("changeUserId >", value, "changeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andChangeuseridGreaterThanOrEqualTo(Integer value) {
-            addCriterion("changeUserId >=", value, "changeuserid");
+        public Criteria andChangeUserIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("changeUserId >=", value, "changeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andChangeuseridLessThan(Integer value) {
-            addCriterion("changeUserId <", value, "changeuserid");
+        public Criteria andChangeUserIdLessThan(Integer value) {
+            addCriterion("changeUserId <", value, "changeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andChangeuseridLessThanOrEqualTo(Integer value) {
-            addCriterion("changeUserId <=", value, "changeuserid");
+        public Criteria andChangeUserIdLessThanOrEqualTo(Integer value) {
+            addCriterion("changeUserId <=", value, "changeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andChangeuseridIn(List<Integer> values) {
-            addCriterion("changeUserId in", values, "changeuserid");
+        public Criteria andChangeUserIdIn(List<Integer> values) {
+            addCriterion("changeUserId in", values, "changeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andChangeuseridNotIn(List<Integer> values) {
-            addCriterion("changeUserId not in", values, "changeuserid");
+        public Criteria andChangeUserIdNotIn(List<Integer> values) {
+            addCriterion("changeUserId not in", values, "changeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andChangeuseridBetween(Integer value1, Integer value2) {
-            addCriterion("changeUserId between", value1, value2, "changeuserid");
+        public Criteria andChangeUserIdBetween(Integer value1, Integer value2) {
+            addCriterion("changeUserId between", value1, value2, "changeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andChangeuseridNotBetween(Integer value1, Integer value2) {
-            addCriterion("changeUserId not between", value1, value2, "changeuserid");
+        public Criteria andChangeUserIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("changeUserId not between", value1, value2, "changeUserId");
             return (Criteria) this;
         }
 
@@ -637,6 +637,7 @@ public class PatientcardExample {
     }
 
     /**
+     *
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -661,38 +662,6 @@ public class PatientcardExample {
         private boolean listValue;
 
         private String typeHandler;
-
-        public String getCondition() {
-            return condition;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public Object getSecondValue() {
-            return secondValue;
-        }
-
-        public boolean isNoValue() {
-            return noValue;
-        }
-
-        public boolean isSingleValue() {
-            return singleValue;
-        }
-
-        public boolean isBetweenValue() {
-            return betweenValue;
-        }
-
-        public boolean isListValue() {
-            return listValue;
-        }
-
-        public String getTypeHandler() {
-            return typeHandler;
-        }
 
         protected Criterion(String condition) {
             super();
@@ -728,6 +697,38 @@ public class PatientcardExample {
 
         protected Criterion(String condition, Object value, Object secondValue) {
             this(condition, value, secondValue, null);
+        }
+
+        public String getCondition() {
+            return condition;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+
+        public Object getSecondValue() {
+            return secondValue;
+        }
+
+        public boolean isNoValue() {
+            return noValue;
+        }
+
+        public boolean isSingleValue() {
+            return singleValue;
+        }
+
+        public boolean isBetweenValue() {
+            return betweenValue;
+        }
+
+        public boolean isListValue() {
+            return listValue;
+        }
+
+        public String getTypeHandler() {
+            return typeHandler;
         }
     }
 }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="edu.neu.hospital.dao.PatientcardDao">
-  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.Patientcard">
+<mapper namespace="edu.neu.hospital.dao.PatientCardDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.PatientCard">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="patientID" jdbcType="INTEGER" property="patientid" />
-    <result column="patientName" jdbcType="VARCHAR" property="patientname" />
+    <result column="patientID" jdbcType="INTEGER" property="patientID" />
+    <result column="patientName" jdbcType="VARCHAR" property="patientName" />
     <result column="passwd" jdbcType="VARCHAR" property="passwd" />
     <result column="money" jdbcType="DECIMAL" property="money" />
-    <result column="appearUserId" jdbcType="INTEGER" property="appearuserid" />
-    <result column="changeUserId" jdbcType="INTEGER" property="changeuserid" />
+    <result column="appearUserId" jdbcType="INTEGER" property="appearUserId" />
+    <result column="changeUserId" jdbcType="INTEGER" property="changeUserId" />
     <result column="status" jdbcType="CHAR" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -72,7 +72,7 @@
   <sql id="Base_Column_List">
     id, patientID, patientName, passwd, money, appearUserId, changeUserId, `status`
   </sql>
-  <select id="selectByExample" parameterType="edu.neu.hospital.example.PatientcardExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.PatientCardExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -104,27 +104,27 @@
     delete from patientcard
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.PatientcardExample">
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.PatientCardExample">
     delete from patientcard
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Patientcard" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.PatientCard" useGeneratedKeys="true">
     insert into patientcard (patientID, patientName, passwd, 
       money, appearUserId, changeUserId, 
       `status`)
-    values (#{patientid,jdbcType=INTEGER}, #{patientname,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, 
-      #{money,jdbcType=DECIMAL}, #{appearuserid,jdbcType=INTEGER}, #{changeuserid,jdbcType=INTEGER}, 
+    values (#{patientID,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, 
+      #{money,jdbcType=DECIMAL}, #{appearUserId,jdbcType=INTEGER}, #{changeUserId,jdbcType=INTEGER}, 
       #{status,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Patientcard" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.PatientCard" useGeneratedKeys="true">
     insert into patientcard
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="patientid != null">
+      <if test="patientID != null">
         patientID,
       </if>
-      <if test="patientname != null">
+      <if test="patientName != null">
         patientName,
       </if>
       <if test="passwd != null">
@@ -133,10 +133,10 @@
       <if test="money != null">
         money,
       </if>
-      <if test="appearuserid != null">
+      <if test="appearUserId != null">
         appearUserId,
       </if>
-      <if test="changeuserid != null">
+      <if test="changeUserId != null">
         changeUserId,
       </if>
       <if test="status != null">
@@ -144,11 +144,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="patientid != null">
-        #{patientid,jdbcType=INTEGER},
+      <if test="patientID != null">
+        #{patientID,jdbcType=INTEGER},
       </if>
-      <if test="patientname != null">
-        #{patientname,jdbcType=VARCHAR},
+      <if test="patientName != null">
+        #{patientName,jdbcType=VARCHAR},
       </if>
       <if test="passwd != null">
         #{passwd,jdbcType=VARCHAR},
@@ -156,18 +156,18 @@
       <if test="money != null">
         #{money,jdbcType=DECIMAL},
       </if>
-      <if test="appearuserid != null">
-        #{appearuserid,jdbcType=INTEGER},
+      <if test="appearUserId != null">
+        #{appearUserId,jdbcType=INTEGER},
       </if>
-      <if test="changeuserid != null">
-        #{changeuserid,jdbcType=INTEGER},
+      <if test="changeUserId != null">
+        #{changeUserId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="edu.neu.hospital.example.PatientcardExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="edu.neu.hospital.example.PatientCardExample" resultType="java.lang.Long">
     select count(*) from patientcard
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -179,11 +179,11 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.patientid != null">
-        patientID = #{record.patientid,jdbcType=INTEGER},
+      <if test="record.patientID != null">
+        patientID = #{record.patientID,jdbcType=INTEGER},
       </if>
-      <if test="record.patientname != null">
-        patientName = #{record.patientname,jdbcType=VARCHAR},
+      <if test="record.patientName != null">
+        patientName = #{record.patientName,jdbcType=VARCHAR},
       </if>
       <if test="record.passwd != null">
         passwd = #{record.passwd,jdbcType=VARCHAR},
@@ -191,11 +191,11 @@
       <if test="record.money != null">
         money = #{record.money,jdbcType=DECIMAL},
       </if>
-      <if test="record.appearuserid != null">
-        appearUserId = #{record.appearuserid,jdbcType=INTEGER},
+      <if test="record.appearUserId != null">
+        appearUserId = #{record.appearUserId,jdbcType=INTEGER},
       </if>
-      <if test="record.changeuserid != null">
-        changeUserId = #{record.changeuserid,jdbcType=INTEGER},
+      <if test="record.changeUserId != null">
+        changeUserId = #{record.changeUserId,jdbcType=INTEGER},
       </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=CHAR},
@@ -208,25 +208,25 @@
   <update id="updateByExample" parameterType="map">
     update patientcard
     set id = #{record.id,jdbcType=INTEGER},
-      patientID = #{record.patientid,jdbcType=INTEGER},
-      patientName = #{record.patientname,jdbcType=VARCHAR},
+      patientID = #{record.patientID,jdbcType=INTEGER},
+      patientName = #{record.patientName,jdbcType=VARCHAR},
       passwd = #{record.passwd,jdbcType=VARCHAR},
       money = #{record.money,jdbcType=DECIMAL},
-      appearUserId = #{record.appearuserid,jdbcType=INTEGER},
-      changeUserId = #{record.changeuserid,jdbcType=INTEGER},
+      appearUserId = #{record.appearUserId,jdbcType=INTEGER},
+      changeUserId = #{record.changeUserId,jdbcType=INTEGER},
       `status` = #{record.status,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="edu.neu.hospital.bean.Patientcard">
+  <update id="updateByPrimaryKeySelective" parameterType="edu.neu.hospital.bean.PatientCard">
     update patientcard
     <set>
-      <if test="patientid != null">
-        patientID = #{patientid,jdbcType=INTEGER},
+      <if test="patientID != null">
+        patientID = #{patientID,jdbcType=INTEGER},
       </if>
-      <if test="patientname != null">
-        patientName = #{patientname,jdbcType=VARCHAR},
+      <if test="patientName != null">
+        patientName = #{patientName,jdbcType=VARCHAR},
       </if>
       <if test="passwd != null">
         passwd = #{passwd,jdbcType=VARCHAR},
@@ -234,11 +234,11 @@
       <if test="money != null">
         money = #{money,jdbcType=DECIMAL},
       </if>
-      <if test="appearuserid != null">
-        appearUserId = #{appearuserid,jdbcType=INTEGER},
+      <if test="appearUserId != null">
+        appearUserId = #{appearUserId,jdbcType=INTEGER},
       </if>
-      <if test="changeuserid != null">
-        changeUserId = #{changeuserid,jdbcType=INTEGER},
+      <if test="changeUserId != null">
+        changeUserId = #{changeUserId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         `status` = #{status,jdbcType=CHAR},
@@ -246,14 +246,14 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="edu.neu.hospital.bean.Patientcard">
+  <update id="updateByPrimaryKey" parameterType="edu.neu.hospital.bean.PatientCard">
     update patientcard
-    set patientID = #{patientid,jdbcType=INTEGER},
-      patientName = #{patientname,jdbcType=VARCHAR},
+    set patientID = #{patientID,jdbcType=INTEGER},
+      patientName = #{patientName,jdbcType=VARCHAR},
       passwd = #{passwd,jdbcType=VARCHAR},
       money = #{money,jdbcType=DECIMAL},
-      appearUserId = #{appearuserid,jdbcType=INTEGER},
-      changeUserId = #{changeuserid,jdbcType=INTEGER},
+      appearUserId = #{appearUserId,jdbcType=INTEGER},
+      changeUserId = #{changeUserId,jdbcType=INTEGER},
       `status` = #{status,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

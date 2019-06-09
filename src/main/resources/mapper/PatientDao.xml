@@ -3,16 +3,16 @@
 <mapper namespace="edu.neu.hospital.dao.PatientDao">
   <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.Patient">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="patientName" jdbcType="VARCHAR" property="patientname" />
-    <result column="IdentityCardNo" jdbcType="CHAR" property="identitycardno" />
+    <result column="patientName" jdbcType="VARCHAR" property="patientName" />
+    <result column="IdentityCardNo" jdbcType="CHAR" property="identityCardNo" />
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="gender" jdbcType="CHAR" property="gender" />
     <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
-    <result column="familyAddress" jdbcType="VARCHAR" property="familyaddress" />
-    <result column="appearUserID" jdbcType="INTEGER" property="appearuserid" />
-    <result column="changeUserID" jdbcType="INTEGER" property="changeuserid" />
-    <result column="appearDate" jdbcType="TIMESTAMP" property="appeardate" />
-    <result column="changeDate" jdbcType="TIMESTAMP" property="changedate" />
+    <result column="familyAddress" jdbcType="VARCHAR" property="familyAddress" />
+    <result column="appearUserID" jdbcType="INTEGER" property="appearUserID" />
+    <result column="changeUserID" jdbcType="INTEGER" property="changeUserID" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
+    <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
     <result column="status" jdbcType="CHAR" property="status" />
     <result column="reserve1" jdbcType="VARCHAR" property="reserve1" />
     <result column="reserve2" jdbcType="VARCHAR" property="reserve2" />
@@ -124,19 +124,19 @@
       appearUserID, changeUserID, appearDate, 
       changeDate, `status`, reserve1, 
       reserve2, reserve3)
-    values (#{patientname,jdbcType=VARCHAR}, #{identitycardno,jdbcType=CHAR}, #{age,jdbcType=INTEGER}, 
-      #{gender,jdbcType=CHAR}, #{birthday,jdbcType=TIMESTAMP}, #{familyaddress,jdbcType=VARCHAR}, 
-      #{appearuserid,jdbcType=INTEGER}, #{changeuserid,jdbcType=INTEGER}, #{appeardate,jdbcType=TIMESTAMP}, 
-      #{changedate,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{reserve1,jdbcType=VARCHAR}, 
+    values (#{patientName,jdbcType=VARCHAR}, #{identityCardNo,jdbcType=CHAR}, #{age,jdbcType=INTEGER}, 
+      #{gender,jdbcType=CHAR}, #{birthday,jdbcType=TIMESTAMP}, #{familyAddress,jdbcType=VARCHAR}, 
+      #{appearUserID,jdbcType=INTEGER}, #{changeUserID,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, 
+      #{changeDate,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{reserve1,jdbcType=VARCHAR}, 
       #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Patient" useGeneratedKeys="true">
     insert into patient
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="patientname != null">
+      <if test="patientName != null">
         patientName,
       </if>
-      <if test="identitycardno != null">
+      <if test="identityCardNo != null">
         IdentityCardNo,
       </if>
       <if test="age != null">
@@ -148,19 +148,19 @@
       <if test="birthday != null">
         birthday,
       </if>
-      <if test="familyaddress != null">
+      <if test="familyAddress != null">
         familyAddress,
       </if>
-      <if test="appearuserid != null">
+      <if test="appearUserID != null">
         appearUserID,
       </if>
-      <if test="changeuserid != null">
+      <if test="changeUserID != null">
         changeUserID,
       </if>
-      <if test="appeardate != null">
+      <if test="appearDate != null">
         appearDate,
       </if>
-      <if test="changedate != null">
+      <if test="changeDate != null">
         changeDate,
       </if>
       <if test="status != null">
@@ -177,11 +177,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="patientname != null">
-        #{patientname,jdbcType=VARCHAR},
+      <if test="patientName != null">
+        #{patientName,jdbcType=VARCHAR},
       </if>
-      <if test="identitycardno != null">
-        #{identitycardno,jdbcType=CHAR},
+      <if test="identityCardNo != null">
+        #{identityCardNo,jdbcType=CHAR},
       </if>
       <if test="age != null">
         #{age,jdbcType=INTEGER},
@@ -192,20 +192,20 @@
       <if test="birthday != null">
         #{birthday,jdbcType=TIMESTAMP},
       </if>
-      <if test="familyaddress != null">
-        #{familyaddress,jdbcType=VARCHAR},
+      <if test="familyAddress != null">
+        #{familyAddress,jdbcType=VARCHAR},
       </if>
-      <if test="appearuserid != null">
-        #{appearuserid,jdbcType=INTEGER},
+      <if test="appearUserID != null">
+        #{appearUserID,jdbcType=INTEGER},
       </if>
-      <if test="changeuserid != null">
-        #{changeuserid,jdbcType=INTEGER},
+      <if test="changeUserID != null">
+        #{changeUserID,jdbcType=INTEGER},
       </if>
-      <if test="appeardate != null">
-        #{appeardate,jdbcType=TIMESTAMP},
+      <if test="appearDate != null">
+        #{appearDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="changedate != null">
-        #{changedate,jdbcType=TIMESTAMP},
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
         #{status,jdbcType=CHAR},
@@ -233,11 +233,11 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.patientname != null">
-        patientName = #{record.patientname,jdbcType=VARCHAR},
+      <if test="record.patientName != null">
+        patientName = #{record.patientName,jdbcType=VARCHAR},
       </if>
-      <if test="record.identitycardno != null">
-        IdentityCardNo = #{record.identitycardno,jdbcType=CHAR},
+      <if test="record.identityCardNo != null">
+        IdentityCardNo = #{record.identityCardNo,jdbcType=CHAR},
       </if>
       <if test="record.age != null">
         age = #{record.age,jdbcType=INTEGER},
@@ -248,20 +248,20 @@
       <if test="record.birthday != null">
         birthday = #{record.birthday,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.familyaddress != null">
-        familyAddress = #{record.familyaddress,jdbcType=VARCHAR},
+      <if test="record.familyAddress != null">
+        familyAddress = #{record.familyAddress,jdbcType=VARCHAR},
       </if>
-      <if test="record.appearuserid != null">
-        appearUserID = #{record.appearuserid,jdbcType=INTEGER},
+      <if test="record.appearUserID != null">
+        appearUserID = #{record.appearUserID,jdbcType=INTEGER},
       </if>
-      <if test="record.changeuserid != null">
-        changeUserID = #{record.changeuserid,jdbcType=INTEGER},
+      <if test="record.changeUserID != null">
+        changeUserID = #{record.changeUserID,jdbcType=INTEGER},
       </if>
-      <if test="record.appeardate != null">
-        appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
+      <if test="record.appearDate != null">
+        appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.changedate != null">
-        changeDate = #{record.changedate,jdbcType=TIMESTAMP},
+      <if test="record.changeDate != null">
+        changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=CHAR},
@@ -283,16 +283,16 @@
   <update id="updateByExample" parameterType="map">
     update patient
     set id = #{record.id,jdbcType=INTEGER},
-      patientName = #{record.patientname,jdbcType=VARCHAR},
-      IdentityCardNo = #{record.identitycardno,jdbcType=CHAR},
+      patientName = #{record.patientName,jdbcType=VARCHAR},
+      IdentityCardNo = #{record.identityCardNo,jdbcType=CHAR},
       age = #{record.age,jdbcType=INTEGER},
       gender = #{record.gender,jdbcType=CHAR},
       birthday = #{record.birthday,jdbcType=TIMESTAMP},
-      familyAddress = #{record.familyaddress,jdbcType=VARCHAR},
-      appearUserID = #{record.appearuserid,jdbcType=INTEGER},
-      changeUserID = #{record.changeuserid,jdbcType=INTEGER},
-      appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
-      changeDate = #{record.changedate,jdbcType=TIMESTAMP},
+      familyAddress = #{record.familyAddress,jdbcType=VARCHAR},
+      appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+      changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+      appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
       `status` = #{record.status,jdbcType=CHAR},
       reserve1 = #{record.reserve1,jdbcType=VARCHAR},
       reserve2 = #{record.reserve2,jdbcType=VARCHAR},
@@ -304,11 +304,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="edu.neu.hospital.bean.Patient">
     update patient
     <set>
-      <if test="patientname != null">
-        patientName = #{patientname,jdbcType=VARCHAR},
+      <if test="patientName != null">
+        patientName = #{patientName,jdbcType=VARCHAR},
       </if>
-      <if test="identitycardno != null">
-        IdentityCardNo = #{identitycardno,jdbcType=CHAR},
+      <if test="identityCardNo != null">
+        IdentityCardNo = #{identityCardNo,jdbcType=CHAR},
       </if>
       <if test="age != null">
         age = #{age,jdbcType=INTEGER},
@@ -319,20 +319,20 @@
       <if test="birthday != null">
         birthday = #{birthday,jdbcType=TIMESTAMP},
       </if>
-      <if test="familyaddress != null">
-        familyAddress = #{familyaddress,jdbcType=VARCHAR},
+      <if test="familyAddress != null">
+        familyAddress = #{familyAddress,jdbcType=VARCHAR},
       </if>
-      <if test="appearuserid != null">
-        appearUserID = #{appearuserid,jdbcType=INTEGER},
+      <if test="appearUserID != null">
+        appearUserID = #{appearUserID,jdbcType=INTEGER},
       </if>
-      <if test="changeuserid != null">
-        changeUserID = #{changeuserid,jdbcType=INTEGER},
+      <if test="changeUserID != null">
+        changeUserID = #{changeUserID,jdbcType=INTEGER},
       </if>
-      <if test="appeardate != null">
-        appearDate = #{appeardate,jdbcType=TIMESTAMP},
+      <if test="appearDate != null">
+        appearDate = #{appearDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="changedate != null">
-        changeDate = #{changedate,jdbcType=TIMESTAMP},
+      <if test="changeDate != null">
+        changeDate = #{changeDate,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
         `status` = #{status,jdbcType=CHAR},
@@ -351,16 +351,16 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="edu.neu.hospital.bean.Patient">
     update patient
-    set patientName = #{patientname,jdbcType=VARCHAR},
-      IdentityCardNo = #{identitycardno,jdbcType=CHAR},
+    set patientName = #{patientName,jdbcType=VARCHAR},
+      IdentityCardNo = #{identityCardNo,jdbcType=CHAR},
       age = #{age,jdbcType=INTEGER},
       gender = #{gender,jdbcType=CHAR},
       birthday = #{birthday,jdbcType=TIMESTAMP},
-      familyAddress = #{familyaddress,jdbcType=VARCHAR},
-      appearUserID = #{appearuserid,jdbcType=INTEGER},
-      changeUserID = #{changeuserid,jdbcType=INTEGER},
-      appearDate = #{appeardate,jdbcType=TIMESTAMP},
-      changeDate = #{changedate,jdbcType=TIMESTAMP},
+      familyAddress = #{familyAddress,jdbcType=VARCHAR},
+      appearUserID = #{appearUserID,jdbcType=INTEGER},
+      changeUserID = #{changeUserID,jdbcType=INTEGER},
+      appearDate = #{appearDate,jdbcType=TIMESTAMP},
+      changeDate = #{changeDate,jdbcType=TIMESTAMP},
       `status` = #{status,jdbcType=CHAR},
       reserve1 = #{reserve1,jdbcType=VARCHAR},
       reserve2 = #{reserve2,jdbcType=VARCHAR},

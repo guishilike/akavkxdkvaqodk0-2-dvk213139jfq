@@ -2,8 +2,9 @@ package edu.neu.hospital.dao;
 
 import edu.neu.hospital.bean.User;
 import edu.neu.hospital.example.UserExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserDao {
     long countByExample(UserExample example);

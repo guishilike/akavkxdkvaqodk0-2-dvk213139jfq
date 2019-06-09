@@ -6,7 +6,7 @@
     <result column="deptCode" jdbcType="VARCHAR" property="deptCode" />
     <result column="deptName" jdbcType="VARCHAR" property="deptName" />
     <result column="deptCategoryID" jdbcType="INTEGER" property="deptCategoryID" />
-    <result column="deptType" jdbcType="INTEGER" property="deptType" />
+    <result column="deptTypeID" jdbcType="INTEGER" property="deptTypeID" />
     <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
     <result column="appearUserID" jdbcType="INTEGER" property="appearUserID" />
     <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, deptCode, deptName, deptCategoryID, deptType, appearDate, appearUserID, changeDate, 
+    id, deptCode, deptName, deptCategoryID, deptTypeID, appearDate, appearUserID, changeDate, 
     changeUserID, `status`
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.DepartmentExample" resultMap="BaseResultMap">
@@ -115,11 +115,11 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Department" useGeneratedKeys="true">
     insert into department (deptCode, deptName, deptCategoryID, 
-      deptType, appearDate, appearUserID, 
+      deptTypeID, appearDate, appearUserID, 
       changeDate, changeUserID, `status`
       )
     values (#{deptCode,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, #{deptCategoryID,jdbcType=INTEGER}, 
-      #{deptType,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, #{appearUserID,jdbcType=INTEGER}, 
+      #{deptTypeID,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, #{appearUserID,jdbcType=INTEGER}, 
       #{changeDate,jdbcType=TIMESTAMP}, #{changeUserID,jdbcType=INTEGER}, #{status,jdbcType=CHAR}
       )
   </insert>
@@ -135,8 +135,8 @@
       <if test="deptCategoryID != null">
         deptCategoryID,
       </if>
-      <if test="deptType != null">
-        deptType,
+      <if test="deptTypeID != null">
+        deptTypeID,
       </if>
       <if test="appearDate != null">
         appearDate,
@@ -164,8 +164,8 @@
       <if test="deptCategoryID != null">
         #{deptCategoryID,jdbcType=INTEGER},
       </if>
-      <if test="deptType != null">
-        #{deptType,jdbcType=INTEGER},
+      <if test="deptTypeID != null">
+        #{deptTypeID,jdbcType=INTEGER},
       </if>
       <if test="appearDate != null">
         #{appearDate,jdbcType=TIMESTAMP},
@@ -205,8 +205,8 @@
       <if test="record.deptCategoryID != null">
         deptCategoryID = #{record.deptCategoryID,jdbcType=INTEGER},
       </if>
-      <if test="record.deptType != null">
-        deptType = #{record.deptType,jdbcType=INTEGER},
+      <if test="record.deptTypeID != null">
+        deptTypeID = #{record.deptTypeID,jdbcType=INTEGER},
       </if>
       <if test="record.appearDate != null">
         appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
@@ -234,7 +234,7 @@
       deptCode = #{record.deptCode,jdbcType=VARCHAR},
       deptName = #{record.deptName,jdbcType=VARCHAR},
       deptCategoryID = #{record.deptCategoryID,jdbcType=INTEGER},
-      deptType = #{record.deptType,jdbcType=INTEGER},
+      deptTypeID = #{record.deptTypeID,jdbcType=INTEGER},
       appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
       appearUserID = #{record.appearUserID,jdbcType=INTEGER},
       changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
@@ -256,8 +256,8 @@
       <if test="deptCategoryID != null">
         deptCategoryID = #{deptCategoryID,jdbcType=INTEGER},
       </if>
-      <if test="deptType != null">
-        deptType = #{deptType,jdbcType=INTEGER},
+      <if test="deptTypeID != null">
+        deptTypeID = #{deptTypeID,jdbcType=INTEGER},
       </if>
       <if test="appearDate != null">
         appearDate = #{appearDate,jdbcType=TIMESTAMP},
@@ -282,7 +282,7 @@
     set deptCode = #{deptCode,jdbcType=VARCHAR},
       deptName = #{deptName,jdbcType=VARCHAR},
       deptCategoryID = #{deptCategoryID,jdbcType=INTEGER},
-      deptType = #{deptType,jdbcType=INTEGER},
+      deptTypeID = #{deptTypeID,jdbcType=INTEGER},
       appearDate = #{appearDate,jdbcType=TIMESTAMP},
       appearUserID = #{appearUserID,jdbcType=INTEGER},
       changeDate = #{changeDate,jdbcType=TIMESTAMP},

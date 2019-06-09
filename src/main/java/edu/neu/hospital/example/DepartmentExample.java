@@ -19,20 +19,20 @@ public class DepartmentExample {
         oredCriteria = new ArrayList<Criteria>();
     }
 
-    public String getOrderByClause() {
-        return orderByClause;
-    }
-
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
-    public boolean isDistinct() {
-        return distinct;
+    public String getOrderByClause() {
+        return orderByClause;
     }
 
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
+    }
+
+    public boolean isDistinct() {
+        return distinct;
     }
 
     public List<Criteria> getOredCriteria() {
@@ -68,20 +68,20 @@ public class DepartmentExample {
         distinct = false;
     }
 
-    public Integer getLimit() {
-        return limit;
-    }
-
     public void setLimit(Integer limit) {
         this.limit = limit;
     }
 
-    public Long getOffset() {
-        return offset;
+    public Integer getLimit() {
+        return limit;
     }
 
     public void setOffset(Long offset) {
         this.offset = offset;
+    }
+
+    public Long getOffset() {
+        return offset;
     }
 
     protected abstract static class GeneratedCriteria {
@@ -385,63 +385,63 @@ public class DepartmentExample {
             return (Criteria) this;
         }
 
-        public Criteria andDeptTypeIsNull() {
-            addCriterion("deptType is null");
+        public Criteria andDeptTypeIDIsNull() {
+            addCriterion("deptTypeID is null");
             return (Criteria) this;
         }
 
-        public Criteria andDeptTypeIsNotNull() {
-            addCriterion("deptType is not null");
+        public Criteria andDeptTypeIDIsNotNull() {
+            addCriterion("deptTypeID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDeptTypeEqualTo(Integer value) {
-            addCriterion("deptType =", value, "deptType");
+        public Criteria andDeptTypeIDEqualTo(Integer value) {
+            addCriterion("deptTypeID =", value, "deptTypeID");
             return (Criteria) this;
         }
 
-        public Criteria andDeptTypeNotEqualTo(Integer value) {
-            addCriterion("deptType <>", value, "deptType");
+        public Criteria andDeptTypeIDNotEqualTo(Integer value) {
+            addCriterion("deptTypeID <>", value, "deptTypeID");
             return (Criteria) this;
         }
 
-        public Criteria andDeptTypeGreaterThan(Integer value) {
-            addCriterion("deptType >", value, "deptType");
+        public Criteria andDeptTypeIDGreaterThan(Integer value) {
+            addCriterion("deptTypeID >", value, "deptTypeID");
             return (Criteria) this;
         }
 
-        public Criteria andDeptTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("deptType >=", value, "deptType");
+        public Criteria andDeptTypeIDGreaterThanOrEqualTo(Integer value) {
+            addCriterion("deptTypeID >=", value, "deptTypeID");
             return (Criteria) this;
         }
 
-        public Criteria andDeptTypeLessThan(Integer value) {
-            addCriterion("deptType <", value, "deptType");
+        public Criteria andDeptTypeIDLessThan(Integer value) {
+            addCriterion("deptTypeID <", value, "deptTypeID");
             return (Criteria) this;
         }
 
-        public Criteria andDeptTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("deptType <=", value, "deptType");
+        public Criteria andDeptTypeIDLessThanOrEqualTo(Integer value) {
+            addCriterion("deptTypeID <=", value, "deptTypeID");
             return (Criteria) this;
         }
 
-        public Criteria andDeptTypeIn(List<Integer> values) {
-            addCriterion("deptType in", values, "deptType");
+        public Criteria andDeptTypeIDIn(List<Integer> values) {
+            addCriterion("deptTypeID in", values, "deptTypeID");
             return (Criteria) this;
         }
 
-        public Criteria andDeptTypeNotIn(List<Integer> values) {
-            addCriterion("deptType not in", values, "deptType");
+        public Criteria andDeptTypeIDNotIn(List<Integer> values) {
+            addCriterion("deptTypeID not in", values, "deptTypeID");
             return (Criteria) this;
         }
 
-        public Criteria andDeptTypeBetween(Integer value1, Integer value2) {
-            addCriterion("deptType between", value1, value2, "deptType");
+        public Criteria andDeptTypeIDBetween(Integer value1, Integer value2) {
+            addCriterion("deptTypeID between", value1, value2, "deptTypeID");
             return (Criteria) this;
         }
 
-        public Criteria andDeptTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("deptType not between", value1, value2, "deptType");
+        public Criteria andDeptTypeIDNotBetween(Integer value1, Integer value2) {
+            addCriterion("deptTypeID not between", value1, value2, "deptTypeID");
             return (Criteria) this;
         }
 
@@ -757,7 +757,6 @@ public class DepartmentExample {
     }
 
     /**
-     *
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -782,6 +781,38 @@ public class DepartmentExample {
         private boolean listValue;
 
         private String typeHandler;
+
+        public String getCondition() {
+            return condition;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+
+        public Object getSecondValue() {
+            return secondValue;
+        }
+
+        public boolean isNoValue() {
+            return noValue;
+        }
+
+        public boolean isSingleValue() {
+            return singleValue;
+        }
+
+        public boolean isBetweenValue() {
+            return betweenValue;
+        }
+
+        public boolean isListValue() {
+            return listValue;
+        }
+
+        public String getTypeHandler() {
+            return typeHandler;
+        }
 
         protected Criterion(String condition) {
             super();
@@ -817,38 +848,6 @@ public class DepartmentExample {
 
         protected Criterion(String condition, Object value, Object secondValue) {
             this(condition, value, secondValue, null);
-        }
-
-        public String getCondition() {
-            return condition;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public Object getSecondValue() {
-            return secondValue;
-        }
-
-        public boolean isNoValue() {
-            return noValue;
-        }
-
-        public boolean isSingleValue() {
-            return singleValue;
-        }
-
-        public boolean isBetweenValue() {
-            return betweenValue;
-        }
-
-        public boolean isListValue() {
-            return listValue;
-        }
-
-        public String getTypeHandler() {
-            return typeHandler;
         }
     }
 }
