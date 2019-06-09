@@ -35,14 +35,14 @@ public class Commonmedicinesmaterialslist implements Serializable {
     private String appearuserid;
 
     /**
-     * 创建日期
-     */
-    private Date appeardate;
-
-    /**
      * 修改人
      */
     private String changeuserid;
+
+    /**
+     * 创建日期
+     */
+    private Date appeardate;
 
     /**
      * 修改日期
@@ -100,20 +100,20 @@ public class Commonmedicinesmaterialslist implements Serializable {
         this.appearuserid = appearuserid;
     }
 
-    public Date getAppeardate() {
-        return appeardate;
-    }
-
-    public void setAppeardate(Date appeardate) {
-        this.appeardate = appeardate;
-    }
-
     public String getChangeuserid() {
         return changeuserid;
     }
 
     public void setChangeuserid(String changeuserid) {
         this.changeuserid = changeuserid;
+    }
+
+    public Date getAppeardate() {
+        return appeardate;
+    }
+
+    public void setAppeardate(Date appeardate) {
+        this.appeardate = appeardate;
     }
 
     public Date getChangedate() {
@@ -165,8 +165,8 @@ public class Commonmedicinesmaterialslist implements Serializable {
             && (this.getMedicinesmaterialsid() == null ? other.getMedicinesmaterialsid() == null : this.getMedicinesmaterialsid().equals(other.getMedicinesmaterialsid()))
             && (this.getDosage() == null ? other.getDosage() == null : this.getDosage().equals(other.getDosage()))
             && (this.getAppearuserid() == null ? other.getAppearuserid() == null : this.getAppearuserid().equals(other.getAppearuserid()))
-            && (this.getAppeardate() == null ? other.getAppeardate() == null : this.getAppeardate().equals(other.getAppeardate()))
             && (this.getChangeuserid() == null ? other.getChangeuserid() == null : this.getChangeuserid().equals(other.getChangeuserid()))
+            && (this.getAppeardate() == null ? other.getAppeardate() == null : this.getAppeardate().equals(other.getAppeardate()))
             && (this.getChangedate() == null ? other.getChangedate() == null : this.getChangedate().equals(other.getChangedate()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
@@ -182,8 +182,8 @@ public class Commonmedicinesmaterialslist implements Serializable {
         result = prime * result + ((getMedicinesmaterialsid() == null) ? 0 : getMedicinesmaterialsid().hashCode());
         result = prime * result + ((getDosage() == null) ? 0 : getDosage().hashCode());
         result = prime * result + ((getAppearuserid() == null) ? 0 : getAppearuserid().hashCode());
-        result = prime * result + ((getAppeardate() == null) ? 0 : getAppeardate().hashCode());
         result = prime * result + ((getChangeuserid() == null) ? 0 : getChangeuserid().hashCode());
+        result = prime * result + ((getAppeardate() == null) ? 0 : getAppeardate().hashCode());
         result = prime * result + ((getChangedate() == null) ? 0 : getChangedate().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getReserve1() == null) ? 0 : getReserve1().hashCode());
@@ -202,8 +202,8 @@ public class Commonmedicinesmaterialslist implements Serializable {
         sb.append(", medicinesmaterialsid=").append(medicinesmaterialsid);
         sb.append(", dosage=").append(dosage);
         sb.append(", appearuserid=").append(appearuserid);
-        sb.append(", appeardate=").append(appeardate);
         sb.append(", changeuserid=").append(changeuserid);
+        sb.append(", appeardate=").append(appeardate);
         sb.append(", changedate=").append(changedate);
         sb.append(", status=").append(status);
         sb.append(", reserve1=").append(reserve1);

@@ -375,62 +375,52 @@ public class DisposalExample {
             return (Criteria) this;
         }
 
-        public Criteria andMarkEqualTo(String value) {
+        public Criteria andMarkEqualTo(Integer value) {
             addCriterion("mark =", value, "mark");
             return (Criteria) this;
         }
 
-        public Criteria andMarkNotEqualTo(String value) {
+        public Criteria andMarkNotEqualTo(Integer value) {
             addCriterion("mark <>", value, "mark");
             return (Criteria) this;
         }
 
-        public Criteria andMarkGreaterThan(String value) {
+        public Criteria andMarkGreaterThan(Integer value) {
             addCriterion("mark >", value, "mark");
             return (Criteria) this;
         }
 
-        public Criteria andMarkGreaterThanOrEqualTo(String value) {
+        public Criteria andMarkGreaterThanOrEqualTo(Integer value) {
             addCriterion("mark >=", value, "mark");
             return (Criteria) this;
         }
 
-        public Criteria andMarkLessThan(String value) {
+        public Criteria andMarkLessThan(Integer value) {
             addCriterion("mark <", value, "mark");
             return (Criteria) this;
         }
 
-        public Criteria andMarkLessThanOrEqualTo(String value) {
+        public Criteria andMarkLessThanOrEqualTo(Integer value) {
             addCriterion("mark <=", value, "mark");
             return (Criteria) this;
         }
 
-        public Criteria andMarkLike(String value) {
-            addCriterion("mark like", value, "mark");
-            return (Criteria) this;
-        }
-
-        public Criteria andMarkNotLike(String value) {
-            addCriterion("mark not like", value, "mark");
-            return (Criteria) this;
-        }
-
-        public Criteria andMarkIn(List<String> values) {
+        public Criteria andMarkIn(List<Integer> values) {
             addCriterion("mark in", values, "mark");
             return (Criteria) this;
         }
 
-        public Criteria andMarkNotIn(List<String> values) {
+        public Criteria andMarkNotIn(List<Integer> values) {
             addCriterion("mark not in", values, "mark");
             return (Criteria) this;
         }
 
-        public Criteria andMarkBetween(String value1, String value2) {
+        public Criteria andMarkBetween(Integer value1, Integer value2) {
             addCriterion("mark between", value1, value2, "mark");
             return (Criteria) this;
         }
 
-        public Criteria andMarkNotBetween(String value1, String value2) {
+        public Criteria andMarkNotBetween(Integer value1, Integer value2) {
             addCriterion("mark not between", value1, value2, "mark");
             return (Criteria) this;
         }

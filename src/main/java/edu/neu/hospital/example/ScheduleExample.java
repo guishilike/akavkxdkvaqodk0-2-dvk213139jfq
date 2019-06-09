@@ -2,6 +2,7 @@ package edu.neu.hospital.example;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class ScheduleExample {
@@ -125,6 +126,32 @@ public class ScheduleExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                dateList.add(new java.sql.Date(iter.next().getTime()));
+            }
+            addCriterion(condition, dateList, property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
+        }
+
         public Criteria andIdIsNull() {
             addCriterion("id is null");
             return (Criteria) this;
@@ -196,52 +223,52 @@ public class ScheduleExample {
         }
 
         public Criteria andOndutydateEqualTo(Date value) {
-            addCriterion("onDutyDate =", value, "ondutydate");
+            addCriterionForJDBCDate("onDutyDate =", value, "ondutydate");
             return (Criteria) this;
         }
 
         public Criteria andOndutydateNotEqualTo(Date value) {
-            addCriterion("onDutyDate <>", value, "ondutydate");
+            addCriterionForJDBCDate("onDutyDate <>", value, "ondutydate");
             return (Criteria) this;
         }
 
         public Criteria andOndutydateGreaterThan(Date value) {
-            addCriterion("onDutyDate >", value, "ondutydate");
+            addCriterionForJDBCDate("onDutyDate >", value, "ondutydate");
             return (Criteria) this;
         }
 
         public Criteria andOndutydateGreaterThanOrEqualTo(Date value) {
-            addCriterion("onDutyDate >=", value, "ondutydate");
+            addCriterionForJDBCDate("onDutyDate >=", value, "ondutydate");
             return (Criteria) this;
         }
 
         public Criteria andOndutydateLessThan(Date value) {
-            addCriterion("onDutyDate <", value, "ondutydate");
+            addCriterionForJDBCDate("onDutyDate <", value, "ondutydate");
             return (Criteria) this;
         }
 
         public Criteria andOndutydateLessThanOrEqualTo(Date value) {
-            addCriterion("onDutyDate <=", value, "ondutydate");
+            addCriterionForJDBCDate("onDutyDate <=", value, "ondutydate");
             return (Criteria) this;
         }
 
         public Criteria andOndutydateIn(List<Date> values) {
-            addCriterion("onDutyDate in", values, "ondutydate");
+            addCriterionForJDBCDate("onDutyDate in", values, "ondutydate");
             return (Criteria) this;
         }
 
         public Criteria andOndutydateNotIn(List<Date> values) {
-            addCriterion("onDutyDate not in", values, "ondutydate");
+            addCriterionForJDBCDate("onDutyDate not in", values, "ondutydate");
             return (Criteria) this;
         }
 
         public Criteria andOndutydateBetween(Date value1, Date value2) {
-            addCriterion("onDutyDate between", value1, value2, "ondutydate");
+            addCriterionForJDBCDate("onDutyDate between", value1, value2, "ondutydate");
             return (Criteria) this;
         }
 
         public Criteria andOndutydateNotBetween(Date value1, Date value2) {
-            addCriterion("onDutyDate not between", value1, value2, "ondutydate");
+            addCriterionForJDBCDate("onDutyDate not between", value1, value2, "ondutydate");
             return (Criteria) this;
         }
 
@@ -435,76 +462,6 @@ public class ScheduleExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNull() {
-            addCriterion("`status` is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIsNotNull() {
-            addCriterion("`status` is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusEqualTo(String value) {
-            addCriterion("`status` =", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotEqualTo(String value) {
-            addCriterion("`status` <>", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusGreaterThan(String value) {
-            addCriterion("`status` >", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusGreaterThanOrEqualTo(String value) {
-            addCriterion("`status` >=", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLessThan(String value) {
-            addCriterion("`status` <", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLessThanOrEqualTo(String value) {
-            addCriterion("`status` <=", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLike(String value) {
-            addCriterion("`status` like", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotLike(String value) {
-            addCriterion("`status` not like", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIn(List<String> values) {
-            addCriterion("`status` in", values, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotIn(List<String> values) {
-            addCriterion("`status` not in", values, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusBetween(String value1, String value2) {
-            addCriterion("`status` between", value1, value2, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotBetween(String value1, String value2) {
-            addCriterion("`status` not between", value1, value2, "status");
-            return (Criteria) this;
-        }
-
         public Criteria andOndutytimeIsNull() {
             addCriterion("onDutyTime is null");
             return (Criteria) this;
@@ -682,6 +639,76 @@ public class ScheduleExample {
 
         public Criteria andRemainingamountNotBetween(Integer value1, Integer value2) {
             addCriterion("remainingAmount not between", value1, value2, "remainingamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNull() {
+            addCriterion("`status` is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNotNull() {
+            addCriterion("`status` is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusEqualTo(String value) {
+            addCriterion("`status` =", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotEqualTo(String value) {
+            addCriterion("`status` <>", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThan(String value) {
+            addCriterion("`status` >", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("`status` >=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThan(String value) {
+            addCriterion("`status` <", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThanOrEqualTo(String value) {
+            addCriterion("`status` <=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLike(String value) {
+            addCriterion("`status` like", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotLike(String value) {
+            addCriterion("`status` not like", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIn(List<String> values) {
+            addCriterion("`status` in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotIn(List<String> values) {
+            addCriterion("`status` not in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusBetween(String value1, String value2) {
+            addCriterion("`status` between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotBetween(String value1, String value2) {
+            addCriterion("`status` not between", value1, value2, "status");
             return (Criteria) this;
         }
 

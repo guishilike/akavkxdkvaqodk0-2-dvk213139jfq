@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.Disposaldetials">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="disposalID" jdbcType="INTEGER" property="disposalid" />
-    <result column="FmedItemID" jdbcType="INTEGER" property="fmeditemid" />
+    <result column="fMedItemID" jdbcType="INTEGER" property="fmeditemid" />
     <result column="appearUserID" jdbcType="INTEGER" property="appearuserid" />
     <result column="changeUserID" jdbcType="INTEGER" property="changeuserid" />
     <result column="appearDate" jdbcType="TIMESTAMP" property="appeardate" />
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, disposalID, FmedItemID, appearUserID, changeUserID, appearDate, changeDate, `status`, 
+    id, disposalID, fMedItemID, appearUserID, changeUserID, appearDate, changeDate, `status`, 
     reserve1, reserve2
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.DisposaldetialsExample" resultMap="BaseResultMap">
@@ -114,7 +114,7 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Disposaldetials" useGeneratedKeys="true">
-    insert into disposaldetials (disposalID, FmedItemID, appearUserID, 
+    insert into disposaldetials (disposalID, fMedItemID, appearUserID, 
       changeUserID, appearDate, changeDate, 
       `status`, reserve1, reserve2
       )
@@ -130,7 +130,7 @@
         disposalID,
       </if>
       <if test="fmeditemid != null">
-        FmedItemID,
+        fMedItemID,
       </if>
       <if test="appearuserid != null">
         appearUserID,
@@ -200,7 +200,7 @@
         disposalID = #{record.disposalid,jdbcType=INTEGER},
       </if>
       <if test="record.fmeditemid != null">
-        FmedItemID = #{record.fmeditemid,jdbcType=INTEGER},
+        fMedItemID = #{record.fmeditemid,jdbcType=INTEGER},
       </if>
       <if test="record.appearuserid != null">
         appearUserID = #{record.appearuserid,jdbcType=INTEGER},
@@ -232,7 +232,7 @@
     update disposaldetials
     set id = #{record.id,jdbcType=INTEGER},
       disposalID = #{record.disposalid,jdbcType=INTEGER},
-      FmedItemID = #{record.fmeditemid,jdbcType=INTEGER},
+      fMedItemID = #{record.fmeditemid,jdbcType=INTEGER},
       appearUserID = #{record.appearuserid,jdbcType=INTEGER},
       changeUserID = #{record.changeuserid,jdbcType=INTEGER},
       appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
@@ -251,7 +251,7 @@
         disposalID = #{disposalid,jdbcType=INTEGER},
       </if>
       <if test="fmeditemid != null">
-        FmedItemID = #{fmeditemid,jdbcType=INTEGER},
+        fMedItemID = #{fmeditemid,jdbcType=INTEGER},
       </if>
       <if test="appearuserid != null">
         appearUserID = #{appearuserid,jdbcType=INTEGER},
@@ -280,7 +280,7 @@
   <update id="updateByPrimaryKey" parameterType="edu.neu.hospital.bean.Disposaldetials">
     update disposaldetials
     set disposalID = #{disposalid,jdbcType=INTEGER},
-      FmedItemID = #{fmeditemid,jdbcType=INTEGER},
+      fMedItemID = #{fmeditemid,jdbcType=INTEGER},
       appearUserID = #{appearuserid,jdbcType=INTEGER},
       changeUserID = #{changeuserid,jdbcType=INTEGER},
       appearDate = #{appeardate,jdbcType=TIMESTAMP},

@@ -24,11 +24,11 @@ public class Patientcard implements Serializable {
      */
     private BigDecimal money;
 
-    private String status;
-
     private Integer appearuserid;
 
     private Integer changeuserid;
+
+    private String status;
 
     private static final long serialVersionUID = 1L;
 
@@ -72,14 +72,6 @@ public class Patientcard implements Serializable {
         this.money = money;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Integer getAppearuserid() {
         return appearuserid;
     }
@@ -94,6 +86,14 @@ public class Patientcard implements Serializable {
 
     public void setChangeuserid(Integer changeuserid) {
         this.changeuserid = changeuserid;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
@@ -113,9 +113,9 @@ public class Patientcard implements Serializable {
             && (this.getPatientname() == null ? other.getPatientname() == null : this.getPatientname().equals(other.getPatientname()))
             && (this.getPasswd() == null ? other.getPasswd() == null : this.getPasswd().equals(other.getPasswd()))
             && (this.getMoney() == null ? other.getMoney() == null : this.getMoney().equals(other.getMoney()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getAppearuserid() == null ? other.getAppearuserid() == null : this.getAppearuserid().equals(other.getAppearuserid()))
-            && (this.getChangeuserid() == null ? other.getChangeuserid() == null : this.getChangeuserid().equals(other.getChangeuserid()));
+            && (this.getChangeuserid() == null ? other.getChangeuserid() == null : this.getChangeuserid().equals(other.getChangeuserid()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
     }
 
     @Override
@@ -127,9 +127,9 @@ public class Patientcard implements Serializable {
         result = prime * result + ((getPatientname() == null) ? 0 : getPatientname().hashCode());
         result = prime * result + ((getPasswd() == null) ? 0 : getPasswd().hashCode());
         result = prime * result + ((getMoney() == null) ? 0 : getMoney().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getAppearuserid() == null) ? 0 : getAppearuserid().hashCode());
         result = prime * result + ((getChangeuserid() == null) ? 0 : getChangeuserid().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         return result;
     }
 
@@ -144,9 +144,9 @@ public class Patientcard implements Serializable {
         sb.append(", patientname=").append(patientname);
         sb.append(", passwd=").append(passwd);
         sb.append(", money=").append(money);
-        sb.append(", status=").append(status);
         sb.append(", appearuserid=").append(appearuserid);
         sb.append(", changeuserid=").append(changeuserid);
+        sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

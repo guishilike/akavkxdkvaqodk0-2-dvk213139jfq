@@ -7,9 +7,9 @@
     <result column="deptName" jdbcType="VARCHAR" property="deptname" />
     <result column="onDutyDoctorID" jdbcType="INTEGER" property="ondutydoctorid" />
     <result column="levelName" jdbcType="INTEGER" property="levelname" />
-    <result column="status" jdbcType="CHAR" property="status" />
     <result column="onDutyTime" jdbcType="INTEGER" property="ondutytime" />
     <result column="limitNumber" jdbcType="INTEGER" property="limitnumber" />
+    <result column="status" jdbcType="CHAR" property="status" />
     <result column="reserve1" jdbcType="VARCHAR" property="reserve1" />
     <result column="reserve2" jdbcType="VARCHAR" property="reserve2" />
   </resultMap>
@@ -72,10 +72,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, week, deptName, onDutyDoctorID, levelName, `status`, onDutyTime, limitNumber, 
+    id, week, deptName, onDutyDoctorID, levelName, onDutyTime, limitNumber, `status`, 
     reserve1, reserve2
   </sql>
-  <select id="selectByExample" parameterType="edu.neu.hospital.example.ScheduleruleExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="edu.neu.hospital.bean.ScheduleruleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -107,7 +107,7 @@
     delete from schedulerule
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.ScheduleruleExample">
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.bean.ScheduleruleExample">
     delete from schedulerule
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -115,12 +115,12 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Schedulerule" useGeneratedKeys="true">
     insert into schedulerule (week, deptName, onDutyDoctorID, 
-      levelName, `status`, onDutyTime, 
-      limitNumber, reserve1, reserve2
+      levelName, onDutyTime, limitNumber, 
+      `status`, reserve1, reserve2
       )
     values (#{week,jdbcType=INTEGER}, #{deptname,jdbcType=VARCHAR}, #{ondutydoctorid,jdbcType=INTEGER}, 
-      #{levelname,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{ondutytime,jdbcType=INTEGER}, 
-      #{limitnumber,jdbcType=INTEGER}, #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR}
+      #{levelname,jdbcType=INTEGER}, #{ondutytime,jdbcType=INTEGER}, #{limitnumber,jdbcType=INTEGER}, 
+      #{status,jdbcType=CHAR}, #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Schedulerule" useGeneratedKeys="true">
@@ -138,14 +138,14 @@
       <if test="levelname != null">
         levelName,
       </if>
-      <if test="status != null">
-        `status`,
-      </if>
       <if test="ondutytime != null">
         onDutyTime,
       </if>
       <if test="limitnumber != null">
         limitNumber,
+      </if>
+      <if test="status != null">
+        `status`,
       </if>
       <if test="reserve1 != null">
         reserve1,
@@ -167,14 +167,14 @@
       <if test="levelname != null">
         #{levelname,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=CHAR},
-      </if>
       <if test="ondutytime != null">
         #{ondutytime,jdbcType=INTEGER},
       </if>
       <if test="limitnumber != null">
         #{limitnumber,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
       </if>
       <if test="reserve1 != null">
         #{reserve1,jdbcType=VARCHAR},
@@ -184,7 +184,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="edu.neu.hospital.example.ScheduleruleExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="edu.neu.hospital.bean.ScheduleruleExample" resultType="java.lang.Long">
     select count(*) from schedulerule
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -208,14 +208,14 @@
       <if test="record.levelname != null">
         levelName = #{record.levelname,jdbcType=INTEGER},
       </if>
-      <if test="record.status != null">
-        `status` = #{record.status,jdbcType=CHAR},
-      </if>
       <if test="record.ondutytime != null">
         onDutyTime = #{record.ondutytime,jdbcType=INTEGER},
       </if>
       <if test="record.limitnumber != null">
         limitNumber = #{record.limitnumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=CHAR},
       </if>
       <if test="record.reserve1 != null">
         reserve1 = #{record.reserve1,jdbcType=VARCHAR},
@@ -235,9 +235,9 @@
       deptName = #{record.deptname,jdbcType=VARCHAR},
       onDutyDoctorID = #{record.ondutydoctorid,jdbcType=INTEGER},
       levelName = #{record.levelname,jdbcType=INTEGER},
-      `status` = #{record.status,jdbcType=CHAR},
       onDutyTime = #{record.ondutytime,jdbcType=INTEGER},
       limitNumber = #{record.limitnumber,jdbcType=INTEGER},
+      `status` = #{record.status,jdbcType=CHAR},
       reserve1 = #{record.reserve1,jdbcType=VARCHAR},
       reserve2 = #{record.reserve2,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -259,14 +259,14 @@
       <if test="levelname != null">
         levelName = #{levelname,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=CHAR},
-      </if>
       <if test="ondutytime != null">
         onDutyTime = #{ondutytime,jdbcType=INTEGER},
       </if>
       <if test="limitnumber != null">
         limitNumber = #{limitnumber,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
       </if>
       <if test="reserve1 != null">
         reserve1 = #{reserve1,jdbcType=VARCHAR},
@@ -283,9 +283,9 @@
       deptName = #{deptname,jdbcType=VARCHAR},
       onDutyDoctorID = #{ondutydoctorid,jdbcType=INTEGER},
       levelName = #{levelname,jdbcType=INTEGER},
-      `status` = #{status,jdbcType=CHAR},
       onDutyTime = #{ondutytime,jdbcType=INTEGER},
       limitNumber = #{limitnumber,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=CHAR},
       reserve1 = #{reserve1,jdbcType=VARCHAR},
       reserve2 = #{reserve2,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

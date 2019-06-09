@@ -1,6 +1,5 @@
 package edu.neu.hospital.dao;
 
-import edu.neu.hospital.bean.Check;
 import edu.neu.hospital.example.CheckExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

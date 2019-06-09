@@ -8,11 +8,11 @@
     <result column="isDefault" jdbcType="CHAR" property="isdefault" />
     <result column="displaySequenceNumber" jdbcType="VARCHAR" property="displaysequencenumber" />
     <result column="registrationFee" jdbcType="DECIMAL" property="registrationfee" />
-    <result column="status" jdbcType="CHAR" property="status" />
     <result column="appearUserID" jdbcType="INTEGER" property="appearuserid" />
     <result column="changeUserID" jdbcType="INTEGER" property="changeuserid" />
     <result column="appearDate" jdbcType="TIMESTAMP" property="appeardate" />
     <result column="changeDate" jdbcType="TIMESTAMP" property="changedate" />
+    <result column="status" jdbcType="CHAR" property="status" />
     <result column="reserve1" jdbcType="VARCHAR" property="reserve1" />
     <result column="reserve2" jdbcType="VARCHAR" property="reserve2" />
     <result column="reserve3" jdbcType="VARCHAR" property="reserve3" />
@@ -77,7 +77,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, registeredLevelCode, registeredLevelName, isDefault, displaySequenceNumber, registrationFee, 
-    `status`, appearUserID, changeUserID, appearDate, changeDate, reserve1, reserve2, 
+    appearUserID, changeUserID, appearDate, changeDate, `status`, reserve1, reserve2, 
     reserve3
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.RegisteredlevelExample" resultMap="BaseResultMap">
@@ -121,13 +121,13 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Registeredlevel" useGeneratedKeys="true">
     insert into registeredlevel (registeredLevelCode, registeredLevelName, 
       isDefault, displaySequenceNumber, registrationFee, 
-      `status`, appearUserID, changeUserID, 
-      appearDate, changeDate, reserve1, 
+      appearUserID, changeUserID, appearDate, 
+      changeDate, `status`, reserve1, 
       reserve2, reserve3)
     values (#{registeredlevelcode,jdbcType=VARCHAR}, #{registeredlevelname,jdbcType=VARCHAR}, 
       #{isdefault,jdbcType=CHAR}, #{displaysequencenumber,jdbcType=VARCHAR}, #{registrationfee,jdbcType=DECIMAL}, 
-      #{status,jdbcType=CHAR}, #{appearuserid,jdbcType=INTEGER}, #{changeuserid,jdbcType=INTEGER}, 
-      #{appeardate,jdbcType=TIMESTAMP}, #{changedate,jdbcType=TIMESTAMP}, #{reserve1,jdbcType=VARCHAR}, 
+      #{appearuserid,jdbcType=INTEGER}, #{changeuserid,jdbcType=INTEGER}, #{appeardate,jdbcType=TIMESTAMP}, 
+      #{changedate,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{reserve1,jdbcType=VARCHAR}, 
       #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Registeredlevel" useGeneratedKeys="true">
@@ -148,9 +148,6 @@
       <if test="registrationfee != null">
         registrationFee,
       </if>
-      <if test="status != null">
-        `status`,
-      </if>
       <if test="appearuserid != null">
         appearUserID,
       </if>
@@ -162,6 +159,9 @@
       </if>
       <if test="changedate != null">
         changeDate,
+      </if>
+      <if test="status != null">
+        `status`,
       </if>
       <if test="reserve1 != null">
         reserve1,
@@ -189,9 +189,6 @@
       <if test="registrationfee != null">
         #{registrationfee,jdbcType=DECIMAL},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=CHAR},
-      </if>
       <if test="appearuserid != null">
         #{appearuserid,jdbcType=INTEGER},
       </if>
@@ -203,6 +200,9 @@
       </if>
       <if test="changedate != null">
         #{changedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
       </if>
       <if test="reserve1 != null">
         #{reserve1,jdbcType=VARCHAR},
@@ -242,9 +242,6 @@
       <if test="record.registrationfee != null">
         registrationFee = #{record.registrationfee,jdbcType=DECIMAL},
       </if>
-      <if test="record.status != null">
-        `status` = #{record.status,jdbcType=CHAR},
-      </if>
       <if test="record.appearuserid != null">
         appearUserID = #{record.appearuserid,jdbcType=INTEGER},
       </if>
@@ -256,6 +253,9 @@
       </if>
       <if test="record.changedate != null">
         changeDate = #{record.changedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=CHAR},
       </if>
       <if test="record.reserve1 != null">
         reserve1 = #{record.reserve1,jdbcType=VARCHAR},
@@ -279,11 +279,11 @@
       isDefault = #{record.isdefault,jdbcType=CHAR},
       displaySequenceNumber = #{record.displaysequencenumber,jdbcType=VARCHAR},
       registrationFee = #{record.registrationfee,jdbcType=DECIMAL},
-      `status` = #{record.status,jdbcType=CHAR},
       appearUserID = #{record.appearuserid,jdbcType=INTEGER},
       changeUserID = #{record.changeuserid,jdbcType=INTEGER},
       appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
       changeDate = #{record.changedate,jdbcType=TIMESTAMP},
+      `status` = #{record.status,jdbcType=CHAR},
       reserve1 = #{record.reserve1,jdbcType=VARCHAR},
       reserve2 = #{record.reserve2,jdbcType=VARCHAR},
       reserve3 = #{record.reserve3,jdbcType=VARCHAR}
@@ -309,9 +309,6 @@
       <if test="registrationfee != null">
         registrationFee = #{registrationfee,jdbcType=DECIMAL},
       </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=CHAR},
-      </if>
       <if test="appearuserid != null">
         appearUserID = #{appearuserid,jdbcType=INTEGER},
       </if>
@@ -323,6 +320,9 @@
       </if>
       <if test="changedate != null">
         changeDate = #{changedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
       </if>
       <if test="reserve1 != null">
         reserve1 = #{reserve1,jdbcType=VARCHAR},
@@ -343,11 +343,11 @@
       isDefault = #{isdefault,jdbcType=CHAR},
       displaySequenceNumber = #{displaysequencenumber,jdbcType=VARCHAR},
       registrationFee = #{registrationfee,jdbcType=DECIMAL},
-      `status` = #{status,jdbcType=CHAR},
       appearUserID = #{appearuserid,jdbcType=INTEGER},
       changeUserID = #{changeuserid,jdbcType=INTEGER},
       appearDate = #{appeardate,jdbcType=TIMESTAMP},
       changeDate = #{changedate,jdbcType=TIMESTAMP},
+      `status` = #{status,jdbcType=CHAR},
       reserve1 = #{reserve1,jdbcType=VARCHAR},
       reserve2 = #{reserve2,jdbcType=VARCHAR},
       reserve3 = #{reserve3,jdbcType=VARCHAR}

@@ -25,7 +25,7 @@ public class Disposal implements Serializable {
     /**
      * 处置标志
      */
-    private String mark;
+    private Integer mark;
 
     private Integer appearuserid;
 
@@ -75,11 +75,11 @@ public class Disposal implements Serializable {
         this.num = num;
     }
 
-    public String getMark() {
+    public Integer getMark() {
         return mark;
     }
 
-    public void setMark(String mark) {
+    public void setMark(Integer mark) {
         this.mark = mark;
     }
 

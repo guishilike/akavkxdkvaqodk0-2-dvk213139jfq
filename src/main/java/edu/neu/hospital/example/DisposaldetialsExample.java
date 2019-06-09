@@ -246,62 +246,62 @@ public class DisposaldetialsExample {
         }
 
         public Criteria andFmeditemidIsNull() {
-            addCriterion("FmedItemID is null");
+            addCriterion("fMedItemID is null");
             return (Criteria) this;
         }
 
         public Criteria andFmeditemidIsNotNull() {
-            addCriterion("FmedItemID is not null");
+            addCriterion("fMedItemID is not null");
             return (Criteria) this;
         }
 
         public Criteria andFmeditemidEqualTo(Integer value) {
-            addCriterion("FmedItemID =", value, "fmeditemid");
+            addCriterion("fMedItemID =", value, "fmeditemid");
             return (Criteria) this;
         }
 
         public Criteria andFmeditemidNotEqualTo(Integer value) {
-            addCriterion("FmedItemID <>", value, "fmeditemid");
+            addCriterion("fMedItemID <>", value, "fmeditemid");
             return (Criteria) this;
         }
 
         public Criteria andFmeditemidGreaterThan(Integer value) {
-            addCriterion("FmedItemID >", value, "fmeditemid");
+            addCriterion("fMedItemID >", value, "fmeditemid");
             return (Criteria) this;
         }
 
         public Criteria andFmeditemidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("FmedItemID >=", value, "fmeditemid");
+            addCriterion("fMedItemID >=", value, "fmeditemid");
             return (Criteria) this;
         }
 
         public Criteria andFmeditemidLessThan(Integer value) {
-            addCriterion("FmedItemID <", value, "fmeditemid");
+            addCriterion("fMedItemID <", value, "fmeditemid");
             return (Criteria) this;
         }
 
         public Criteria andFmeditemidLessThanOrEqualTo(Integer value) {
-            addCriterion("FmedItemID <=", value, "fmeditemid");
+            addCriterion("fMedItemID <=", value, "fmeditemid");
             return (Criteria) this;
         }
 
         public Criteria andFmeditemidIn(List<Integer> values) {
-            addCriterion("FmedItemID in", values, "fmeditemid");
+            addCriterion("fMedItemID in", values, "fmeditemid");
             return (Criteria) this;
         }
 
         public Criteria andFmeditemidNotIn(List<Integer> values) {
-            addCriterion("FmedItemID not in", values, "fmeditemid");
+            addCriterion("fMedItemID not in", values, "fmeditemid");
             return (Criteria) this;
         }
 
         public Criteria andFmeditemidBetween(Integer value1, Integer value2) {
-            addCriterion("FmedItemID between", value1, value2, "fmeditemid");
+            addCriterion("fMedItemID between", value1, value2, "fmeditemid");
             return (Criteria) this;
         }
 
         public Criteria andFmeditemidNotBetween(Integer value1, Integer value2) {
-            addCriterion("FmedItemID not between", value1, value2, "fmeditemid");
+            addCriterion("fMedItemID not between", value1, value2, "fmeditemid");
             return (Criteria) this;
         }
 

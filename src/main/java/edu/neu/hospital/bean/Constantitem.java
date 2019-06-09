@@ -14,12 +14,7 @@ public class Constantitem implements Serializable {
 
     private String constantcode;
 
-    private String constant;
-
-    /**
-     * 状态 1：有效，2无效
-     */
-    private String status;
+    private String constantname;
 
     private Date appeardate;
 
@@ -28,6 +23,11 @@ public class Constantitem implements Serializable {
     private Date changedate;
 
     private Integer changeuserid;
+
+    /**
+     * 状态 1：有效，2无效
+     */
+    private String status;
 
     private static final long serialVersionUID = 1L;
 
@@ -55,20 +55,12 @@ public class Constantitem implements Serializable {
         this.constantcode = constantcode;
     }
 
-    public String getConstant() {
-        return constant;
+    public String getConstantname() {
+        return constantname;
     }
 
-    public void setConstant(String constant) {
-        this.constant = constant;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setConstantname(String constantname) {
+        this.constantname = constantname;
     }
 
     public Date getAppeardate() {
@@ -103,6 +95,14 @@ public class Constantitem implements Serializable {
         this.changeuserid = changeuserid;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -118,12 +118,12 @@ public class Constantitem implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getConstanttypeid() == null ? other.getConstanttypeid() == null : this.getConstanttypeid().equals(other.getConstanttypeid()))
             && (this.getConstantcode() == null ? other.getConstantcode() == null : this.getConstantcode().equals(other.getConstantcode()))
-            && (this.getConstant() == null ? other.getConstant() == null : this.getConstant().equals(other.getConstant()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getConstantname() == null ? other.getConstantname() == null : this.getConstantname().equals(other.getConstantname()))
             && (this.getAppeardate() == null ? other.getAppeardate() == null : this.getAppeardate().equals(other.getAppeardate()))
             && (this.getApearuserid() == null ? other.getApearuserid() == null : this.getApearuserid().equals(other.getApearuserid()))
             && (this.getChangedate() == null ? other.getChangedate() == null : this.getChangedate().equals(other.getChangedate()))
-            && (this.getChangeuserid() == null ? other.getChangeuserid() == null : this.getChangeuserid().equals(other.getChangeuserid()));
+            && (this.getChangeuserid() == null ? other.getChangeuserid() == null : this.getChangeuserid().equals(other.getChangeuserid()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
     }
 
     @Override
@@ -133,12 +133,12 @@ public class Constantitem implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getConstanttypeid() == null) ? 0 : getConstanttypeid().hashCode());
         result = prime * result + ((getConstantcode() == null) ? 0 : getConstantcode().hashCode());
-        result = prime * result + ((getConstant() == null) ? 0 : getConstant().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getConstantname() == null) ? 0 : getConstantname().hashCode());
         result = prime * result + ((getAppeardate() == null) ? 0 : getAppeardate().hashCode());
         result = prime * result + ((getApearuserid() == null) ? 0 : getApearuserid().hashCode());
         result = prime * result + ((getChangedate() == null) ? 0 : getChangedate().hashCode());
         result = prime * result + ((getChangeuserid() == null) ? 0 : getChangeuserid().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         return result;
     }
 
@@ -151,12 +151,12 @@ public class Constantitem implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", constanttypeid=").append(constanttypeid);
         sb.append(", constantcode=").append(constantcode);
-        sb.append(", constant=").append(constant);
-        sb.append(", status=").append(status);
+        sb.append(", constantname=").append(constantname);
         sb.append(", appeardate=").append(appeardate);
         sb.append(", apearuserid=").append(apearuserid);
         sb.append(", changedate=").append(changedate);
         sb.append(", changeuserid=").append(changeuserid);
+        sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

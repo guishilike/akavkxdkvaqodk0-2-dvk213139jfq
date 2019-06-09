@@ -75,11 +75,6 @@ public class Registrationinfo implements Serializable {
     private String registrationstatus;
 
     /**
-     * 是否有效
-     */
-    private String status;
-
-    /**
      * 创建人员ID
      */
     private Integer appearuserid;
@@ -89,6 +84,11 @@ public class Registrationinfo implements Serializable {
     private Integer changeuserid;
 
     private Date changedate;
+
+    /**
+     * 是否有效
+     */
+    private String status;
 
     private String reserve1;
 
@@ -202,14 +202,6 @@ public class Registrationinfo implements Serializable {
         this.registrationstatus = registrationstatus;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Integer getAppearuserid() {
         return appearuserid;
     }
@@ -240,6 +232,14 @@ public class Registrationinfo implements Serializable {
 
     public void setChangedate(Date changedate) {
         this.changedate = changedate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getReserve1() {
@@ -291,11 +291,11 @@ public class Registrationinfo implements Serializable {
             && (this.getIsseendocator() == null ? other.getIsseendocator() == null : this.getIsseendocator().equals(other.getIsseendocator()))
             && (this.getExpense() == null ? other.getExpense() == null : this.getExpense().equals(other.getExpense()))
             && (this.getRegistrationstatus() == null ? other.getRegistrationstatus() == null : this.getRegistrationstatus().equals(other.getRegistrationstatus()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getAppearuserid() == null ? other.getAppearuserid() == null : this.getAppearuserid().equals(other.getAppearuserid()))
             && (this.getAppeardate() == null ? other.getAppeardate() == null : this.getAppeardate().equals(other.getAppeardate()))
             && (this.getChangeuserid() == null ? other.getChangeuserid() == null : this.getChangeuserid().equals(other.getChangeuserid()))
             && (this.getChangedate() == null ? other.getChangedate() == null : this.getChangedate().equals(other.getChangedate()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
             && (this.getReserve2() == null ? other.getReserve2() == null : this.getReserve2().equals(other.getReserve2()))
             && (this.getReserve3() == null ? other.getReserve3() == null : this.getReserve3().equals(other.getReserve3()));
@@ -318,11 +318,11 @@ public class Registrationinfo implements Serializable {
         result = prime * result + ((getIsseendocator() == null) ? 0 : getIsseendocator().hashCode());
         result = prime * result + ((getExpense() == null) ? 0 : getExpense().hashCode());
         result = prime * result + ((getRegistrationstatus() == null) ? 0 : getRegistrationstatus().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getAppearuserid() == null) ? 0 : getAppearuserid().hashCode());
         result = prime * result + ((getAppeardate() == null) ? 0 : getAppeardate().hashCode());
         result = prime * result + ((getChangeuserid() == null) ? 0 : getChangeuserid().hashCode());
         result = prime * result + ((getChangedate() == null) ? 0 : getChangedate().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getReserve1() == null) ? 0 : getReserve1().hashCode());
         result = prime * result + ((getReserve2() == null) ? 0 : getReserve2().hashCode());
         result = prime * result + ((getReserve3() == null) ? 0 : getReserve3().hashCode());
@@ -348,11 +348,11 @@ public class Registrationinfo implements Serializable {
         sb.append(", isseendocator=").append(isseendocator);
         sb.append(", expense=").append(expense);
         sb.append(", registrationstatus=").append(registrationstatus);
-        sb.append(", status=").append(status);
         sb.append(", appearuserid=").append(appearuserid);
         sb.append(", appeardate=").append(appeardate);
         sb.append(", changeuserid=").append(changeuserid);
         sb.append(", changedate=").append(changedate);
+        sb.append(", status=").append(status);
         sb.append(", reserve1=").append(reserve1);
         sb.append(", reserve2=").append(reserve2);
         sb.append(", reserve3=").append(reserve3);

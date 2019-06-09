@@ -23,7 +23,7 @@ public class Inspection implements Serializable {
     /**
      * 检查检验标志
      */
-    private String mark;
+    private Integer mark;
 
     private Integer appearuserid;
 
@@ -65,11 +65,11 @@ public class Inspection implements Serializable {
         this.doctorid = doctorid;
     }
 
-    public String getMark() {
+    public Integer getMark() {
         return mark;
     }
 
-    public void setMark(String mark) {
+    public void setMark(Integer mark) {
         this.mark = mark;
     }
 

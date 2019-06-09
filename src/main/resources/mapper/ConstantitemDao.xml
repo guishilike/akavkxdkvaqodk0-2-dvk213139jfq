@@ -5,12 +5,12 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="constantTypeID" jdbcType="INTEGER" property="constanttypeid" />
     <result column="constantCode" jdbcType="VARCHAR" property="constantcode" />
-    <result column="constant" jdbcType="VARCHAR" property="constant" />
-    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="constantName" jdbcType="VARCHAR" property="constantname" />
     <result column="appearDate" jdbcType="TIMESTAMP" property="appeardate" />
     <result column="apearUserID" jdbcType="INTEGER" property="apearuserid" />
     <result column="changeDate" jdbcType="TIMESTAMP" property="changedate" />
     <result column="changeUserID" jdbcType="INTEGER" property="changeuserid" />
+    <result column="status" jdbcType="CHAR" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,8 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, constantTypeID, constantCode, constant, `status`, appearDate, apearUserID, changeDate, 
-    changeUserID
+    id, constantTypeID, constantCode, constantName, appearDate, apearUserID, changeDate, 
+    changeUserID, `status`
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.ConstantitemExample" resultMap="BaseResultMap">
     select
@@ -113,12 +113,12 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Constantitem" useGeneratedKeys="true">
-    insert into constantitem (constantTypeID, constantCode, constant, 
-      `status`, appearDate, apearUserID, 
-      changeDate, changeUserID)
-    values (#{constanttypeid,jdbcType=INTEGER}, #{constantcode,jdbcType=VARCHAR}, #{constant,jdbcType=VARCHAR}, 
-      #{status,jdbcType=CHAR}, #{appeardate,jdbcType=TIMESTAMP}, #{apearuserid,jdbcType=INTEGER}, 
-      #{changedate,jdbcType=TIMESTAMP}, #{changeuserid,jdbcType=INTEGER})
+    insert into constantitem (constantTypeID, constantCode, constantName, 
+      appearDate, apearUserID, changeDate, 
+      changeUserID, `status`)
+    values (#{constanttypeid,jdbcType=INTEGER}, #{constantcode,jdbcType=VARCHAR}, #{constantname,jdbcType=VARCHAR}, 
+      #{appeardate,jdbcType=TIMESTAMP}, #{apearuserid,jdbcType=INTEGER}, #{changedate,jdbcType=TIMESTAMP}, 
+      #{changeuserid,jdbcType=INTEGER}, #{status,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Constantitem" useGeneratedKeys="true">
     insert into constantitem
@@ -129,11 +129,8 @@
       <if test="constantcode != null">
         constantCode,
       </if>
-      <if test="constant != null">
-        constant,
-      </if>
-      <if test="status != null">
-        `status`,
+      <if test="constantname != null">
+        constantName,
       </if>
       <if test="appeardate != null">
         appearDate,
@@ -147,6 +144,9 @@
       <if test="changeuserid != null">
         changeUserID,
       </if>
+      <if test="status != null">
+        `status`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="constanttypeid != null">
@@ -155,11 +155,8 @@
       <if test="constantcode != null">
         #{constantcode,jdbcType=VARCHAR},
       </if>
-      <if test="constant != null">
-        #{constant,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=CHAR},
+      <if test="constantname != null">
+        #{constantname,jdbcType=VARCHAR},
       </if>
       <if test="appeardate != null">
         #{appeardate,jdbcType=TIMESTAMP},
@@ -172,6 +169,9 @@
       </if>
       <if test="changeuserid != null">
         #{changeuserid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
@@ -193,11 +193,8 @@
       <if test="record.constantcode != null">
         constantCode = #{record.constantcode,jdbcType=VARCHAR},
       </if>
-      <if test="record.constant != null">
-        constant = #{record.constant,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null">
-        `status` = #{record.status,jdbcType=CHAR},
+      <if test="record.constantname != null">
+        constantName = #{record.constantname,jdbcType=VARCHAR},
       </if>
       <if test="record.appeardate != null">
         appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
@@ -211,6 +208,9 @@
       <if test="record.changeuserid != null">
         changeUserID = #{record.changeuserid,jdbcType=INTEGER},
       </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=CHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -221,12 +221,12 @@
     set id = #{record.id,jdbcType=INTEGER},
       constantTypeID = #{record.constanttypeid,jdbcType=INTEGER},
       constantCode = #{record.constantcode,jdbcType=VARCHAR},
-      constant = #{record.constant,jdbcType=VARCHAR},
-      `status` = #{record.status,jdbcType=CHAR},
+      constantName = #{record.constantname,jdbcType=VARCHAR},
       appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
       apearUserID = #{record.apearuserid,jdbcType=INTEGER},
       changeDate = #{record.changedate,jdbcType=TIMESTAMP},
-      changeUserID = #{record.changeuserid,jdbcType=INTEGER}
+      changeUserID = #{record.changeuserid,jdbcType=INTEGER},
+      `status` = #{record.status,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -240,11 +240,8 @@
       <if test="constantcode != null">
         constantCode = #{constantcode,jdbcType=VARCHAR},
       </if>
-      <if test="constant != null">
-        constant = #{constant,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=CHAR},
+      <if test="constantname != null">
+        constantName = #{constantname,jdbcType=VARCHAR},
       </if>
       <if test="appeardate != null">
         appearDate = #{appeardate,jdbcType=TIMESTAMP},
@@ -258,6 +255,9 @@
       <if test="changeuserid != null">
         changeUserID = #{changeuserid,jdbcType=INTEGER},
       </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -265,12 +265,12 @@
     update constantitem
     set constantTypeID = #{constanttypeid,jdbcType=INTEGER},
       constantCode = #{constantcode,jdbcType=VARCHAR},
-      constant = #{constant,jdbcType=VARCHAR},
-      `status` = #{status,jdbcType=CHAR},
+      constantName = #{constantname,jdbcType=VARCHAR},
       appearDate = #{appeardate,jdbcType=TIMESTAMP},
       apearUserID = #{apearuserid,jdbcType=INTEGER},
       changeDate = #{changedate,jdbcType=TIMESTAMP},
-      changeUserID = #{changeuserid,jdbcType=INTEGER}
+      changeUserID = #{changeuserid,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

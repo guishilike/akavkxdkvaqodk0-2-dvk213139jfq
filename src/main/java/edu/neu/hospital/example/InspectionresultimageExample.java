@@ -1,4 +1,4 @@
-package edu.neu.hospital.example;
+package edu.neu.hospital.bean;
 
 import java.util.ArrayList;
 import java.util.Date;

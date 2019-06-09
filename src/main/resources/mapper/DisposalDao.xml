@@ -6,7 +6,7 @@
     <result column="medicalRecordID" jdbcType="INTEGER" property="medicalrecordid" />
     <result column="doctorID" jdbcType="INTEGER" property="doctorid" />
     <result column="num" jdbcType="INTEGER" property="num" />
-    <result column="mark" jdbcType="CHAR" property="mark" />
+    <result column="mark" jdbcType="INTEGER" property="mark" />
     <result column="appearUserID" jdbcType="INTEGER" property="appearuserid" />
     <result column="changeUserID" jdbcType="INTEGER" property="changeuserid" />
     <result column="appearDate" jdbcType="TIMESTAMP" property="appeardate" />
@@ -121,7 +121,7 @@
       appearDate, changeDate, `status`, 
       reserve1, reserve2)
     values (#{medicalrecordid,jdbcType=INTEGER}, #{doctorid,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
-      #{mark,jdbcType=CHAR}, #{appearuserid,jdbcType=INTEGER}, #{changeuserid,jdbcType=INTEGER}, 
+      #{mark,jdbcType=INTEGER}, #{appearuserid,jdbcType=INTEGER}, #{changeuserid,jdbcType=INTEGER}, 
       #{appeardate,jdbcType=TIMESTAMP}, #{changedate,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
       #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR})
   </insert>
@@ -173,7 +173,7 @@
         #{num,jdbcType=INTEGER},
       </if>
       <if test="mark != null">
-        #{mark,jdbcType=CHAR},
+        #{mark,jdbcType=INTEGER},
       </if>
       <if test="appearuserid != null">
         #{appearuserid,jdbcType=INTEGER},
@@ -220,7 +220,7 @@
         num = #{record.num,jdbcType=INTEGER},
       </if>
       <if test="record.mark != null">
-        mark = #{record.mark,jdbcType=CHAR},
+        mark = #{record.mark,jdbcType=INTEGER},
       </if>
       <if test="record.appearuserid != null">
         appearUserID = #{record.appearuserid,jdbcType=INTEGER},
@@ -254,7 +254,7 @@
       medicalRecordID = #{record.medicalrecordid,jdbcType=INTEGER},
       doctorID = #{record.doctorid,jdbcType=INTEGER},
       num = #{record.num,jdbcType=INTEGER},
-      mark = #{record.mark,jdbcType=CHAR},
+      mark = #{record.mark,jdbcType=INTEGER},
       appearUserID = #{record.appearuserid,jdbcType=INTEGER},
       changeUserID = #{record.changeuserid,jdbcType=INTEGER},
       appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
@@ -279,7 +279,7 @@
         num = #{num,jdbcType=INTEGER},
       </if>
       <if test="mark != null">
-        mark = #{mark,jdbcType=CHAR},
+        mark = #{mark,jdbcType=INTEGER},
       </if>
       <if test="appearuserid != null">
         appearUserID = #{appearuserid,jdbcType=INTEGER},
@@ -310,7 +310,7 @@
     set medicalRecordID = #{medicalrecordid,jdbcType=INTEGER},
       doctorID = #{doctorid,jdbcType=INTEGER},
       num = #{num,jdbcType=INTEGER},
-      mark = #{mark,jdbcType=CHAR},
+      mark = #{mark,jdbcType=INTEGER},
       appearUserID = #{appearuserid,jdbcType=INTEGER},
       changeUserID = #{changeuserid,jdbcType=INTEGER},
       appearDate = #{appeardate,jdbcType=TIMESTAMP},

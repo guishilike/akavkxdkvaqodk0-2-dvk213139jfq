@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="medicalRecordID" jdbcType="INTEGER" property="medicalrecordid" />
     <result column="doctorID" jdbcType="INTEGER" property="doctorid" />
+    <result column="mark" jdbcType="INTEGER" property="mark" />
     <result column="appearDate" jdbcType="TIMESTAMP" property="appeardate" />
     <result column="takeMedicineSign" jdbcType="CHAR" property="takemedicinesign" />
     <result column="status" jdbcType="CHAR" property="status" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, medicalRecordID, doctorID, appearDate, takeMedicineSign, `status`, reserve1, 
+    id, medicalRecordID, doctorID, mark, appearDate, takeMedicineSign, `status`, reserve1, 
     reserve2, reserve3
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.PrescriptionExample" resultMap="BaseResultMap">
@@ -113,12 +114,14 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Prescription" useGeneratedKeys="true">
-    insert into prescription (medicalRecordID, doctorID, appearDate, 
-      takeMedicineSign, `status`, reserve1, 
-      reserve2, reserve3)
-    values (#{medicalrecordid,jdbcType=INTEGER}, #{doctorid,jdbcType=INTEGER}, #{appeardate,jdbcType=TIMESTAMP}, 
-      #{takemedicinesign,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{reserve1,jdbcType=VARCHAR}, 
-      #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR})
+    insert into prescription (medicalRecordID, doctorID, mark, 
+      appearDate, takeMedicineSign, `status`, 
+      reserve1, reserve2, reserve3
+      )
+    values (#{medicalrecordid,jdbcType=INTEGER}, #{doctorid,jdbcType=INTEGER}, #{mark,jdbcType=INTEGER}, 
+      #{appeardate,jdbcType=TIMESTAMP}, #{takemedicinesign,jdbcType=CHAR}, #{status,jdbcType=CHAR}, 
+      #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Prescription" useGeneratedKeys="true">
     insert into prescription
@@ -128,6 +131,9 @@
       </if>
       <if test="doctorid != null">
         doctorID,
+      </if>
+      <if test="mark != null">
+        mark,
       </if>
       <if test="appeardate != null">
         appearDate,
@@ -154,6 +160,9 @@
       </if>
       <if test="doctorid != null">
         #{doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="mark != null">
+        #{mark,jdbcType=INTEGER},
       </if>
       <if test="appeardate != null">
         #{appeardate,jdbcType=TIMESTAMP},
@@ -193,6 +202,9 @@
       <if test="record.doctorid != null">
         doctorID = #{record.doctorid,jdbcType=INTEGER},
       </if>
+      <if test="record.mark != null">
+        mark = #{record.mark,jdbcType=INTEGER},
+      </if>
       <if test="record.appeardate != null">
         appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
       </if>
@@ -221,6 +233,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       medicalRecordID = #{record.medicalrecordid,jdbcType=INTEGER},
       doctorID = #{record.doctorid,jdbcType=INTEGER},
+      mark = #{record.mark,jdbcType=INTEGER},
       appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
       takeMedicineSign = #{record.takemedicinesign,jdbcType=CHAR},
       `status` = #{record.status,jdbcType=CHAR},
@@ -239,6 +252,9 @@
       </if>
       <if test="doctorid != null">
         doctorID = #{doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="mark != null">
+        mark = #{mark,jdbcType=INTEGER},
       </if>
       <if test="appeardate != null">
         appearDate = #{appeardate,jdbcType=TIMESTAMP},
@@ -265,6 +281,7 @@
     update prescription
     set medicalRecordID = #{medicalrecordid,jdbcType=INTEGER},
       doctorID = #{doctorid,jdbcType=INTEGER},
+      mark = #{mark,jdbcType=INTEGER},
       appearDate = #{appeardate,jdbcType=TIMESTAMP},
       takeMedicineSign = #{takemedicinesign,jdbcType=CHAR},
       `status` = #{status,jdbcType=CHAR},

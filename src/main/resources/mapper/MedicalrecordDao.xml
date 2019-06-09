@@ -6,11 +6,11 @@
     <result column="medicalRecordNo" jdbcType="CHAR" property="medicalrecordno" />
     <result column="patientID" jdbcType="INTEGER" property="patientid" />
     <result column="diagnosisStatus" jdbcType="CHAR" property="diagnosisstatus" />
-    <result column="status" jdbcType="CHAR" property="status" />
     <result column="appearUserID" jdbcType="INTEGER" property="appearuserid" />
     <result column="changeUserID" jdbcType="INTEGER" property="changeuserid" />
     <result column="appearDate" jdbcType="TIMESTAMP" property="appeardate" />
     <result column="changeDate" jdbcType="TIMESTAMP" property="changedate" />
+    <result column="status" jdbcType="CHAR" property="status" />
     <result column="reserve1" jdbcType="VARCHAR" property="reserve1" />
     <result column="reserve2" jdbcType="VARCHAR" property="reserve2" />
     <result column="reserve3" jdbcType="VARCHAR" property="reserve3" />
@@ -74,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, medicalRecordNo, patientID, diagnosisStatus, `status`, appearUserID, changeUserID, 
-    appearDate, changeDate, reserve1, reserve2, reserve3
+    id, medicalRecordNo, patientID, diagnosisStatus, appearUserID, changeUserID, appearDate, 
+    changeDate, `status`, reserve1, reserve2, reserve3
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.MedicalrecordExample" resultMap="BaseResultMap">
     select
@@ -117,12 +117,12 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Medicalrecord" useGeneratedKeys="true">
     insert into medicalrecord (medicalRecordNo, patientID, diagnosisStatus, 
-      `status`, appearUserID, changeUserID, 
-      appearDate, changeDate, reserve1, 
+      appearUserID, changeUserID, appearDate, 
+      changeDate, `status`, reserve1, 
       reserve2, reserve3)
     values (#{medicalrecordno,jdbcType=CHAR}, #{patientid,jdbcType=INTEGER}, #{diagnosisstatus,jdbcType=CHAR}, 
-      #{status,jdbcType=CHAR}, #{appearuserid,jdbcType=INTEGER}, #{changeuserid,jdbcType=INTEGER}, 
-      #{appeardate,jdbcType=TIMESTAMP}, #{changedate,jdbcType=TIMESTAMP}, #{reserve1,jdbcType=VARCHAR}, 
+      #{appearuserid,jdbcType=INTEGER}, #{changeuserid,jdbcType=INTEGER}, #{appeardate,jdbcType=TIMESTAMP}, 
+      #{changedate,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{reserve1,jdbcType=VARCHAR}, 
       #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Medicalrecord" useGeneratedKeys="true">
@@ -137,9 +137,6 @@
       <if test="diagnosisstatus != null">
         diagnosisStatus,
       </if>
-      <if test="status != null">
-        `status`,
-      </if>
       <if test="appearuserid != null">
         appearUserID,
       </if>
@@ -151,6 +148,9 @@
       </if>
       <if test="changedate != null">
         changeDate,
+      </if>
+      <if test="status != null">
+        `status`,
       </if>
       <if test="reserve1 != null">
         reserve1,
@@ -172,9 +172,6 @@
       <if test="diagnosisstatus != null">
         #{diagnosisstatus,jdbcType=CHAR},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=CHAR},
-      </if>
       <if test="appearuserid != null">
         #{appearuserid,jdbcType=INTEGER},
       </if>
@@ -186,6 +183,9 @@
       </if>
       <if test="changedate != null">
         #{changedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
       </if>
       <if test="reserve1 != null">
         #{reserve1,jdbcType=VARCHAR},
@@ -219,9 +219,6 @@
       <if test="record.diagnosisstatus != null">
         diagnosisStatus = #{record.diagnosisstatus,jdbcType=CHAR},
       </if>
-      <if test="record.status != null">
-        `status` = #{record.status,jdbcType=CHAR},
-      </if>
       <if test="record.appearuserid != null">
         appearUserID = #{record.appearuserid,jdbcType=INTEGER},
       </if>
@@ -233,6 +230,9 @@
       </if>
       <if test="record.changedate != null">
         changeDate = #{record.changedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=CHAR},
       </if>
       <if test="record.reserve1 != null">
         reserve1 = #{record.reserve1,jdbcType=VARCHAR},
@@ -254,11 +254,11 @@
       medicalRecordNo = #{record.medicalrecordno,jdbcType=CHAR},
       patientID = #{record.patientid,jdbcType=INTEGER},
       diagnosisStatus = #{record.diagnosisstatus,jdbcType=CHAR},
-      `status` = #{record.status,jdbcType=CHAR},
       appearUserID = #{record.appearuserid,jdbcType=INTEGER},
       changeUserID = #{record.changeuserid,jdbcType=INTEGER},
       appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
       changeDate = #{record.changedate,jdbcType=TIMESTAMP},
+      `status` = #{record.status,jdbcType=CHAR},
       reserve1 = #{record.reserve1,jdbcType=VARCHAR},
       reserve2 = #{record.reserve2,jdbcType=VARCHAR},
       reserve3 = #{record.reserve3,jdbcType=VARCHAR}
@@ -278,9 +278,6 @@
       <if test="diagnosisstatus != null">
         diagnosisStatus = #{diagnosisstatus,jdbcType=CHAR},
       </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=CHAR},
-      </if>
       <if test="appearuserid != null">
         appearUserID = #{appearuserid,jdbcType=INTEGER},
       </if>
@@ -292,6 +289,9 @@
       </if>
       <if test="changedate != null">
         changeDate = #{changedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
       </if>
       <if test="reserve1 != null">
         reserve1 = #{reserve1,jdbcType=VARCHAR},
@@ -310,11 +310,11 @@
     set medicalRecordNo = #{medicalrecordno,jdbcType=CHAR},
       patientID = #{patientid,jdbcType=INTEGER},
       diagnosisStatus = #{diagnosisstatus,jdbcType=CHAR},
-      `status` = #{status,jdbcType=CHAR},
       appearUserID = #{appearuserid,jdbcType=INTEGER},
       changeUserID = #{changeuserid,jdbcType=INTEGER},
       appearDate = #{appeardate,jdbcType=TIMESTAMP},
       changeDate = #{changedate,jdbcType=TIMESTAMP},
+      `status` = #{status,jdbcType=CHAR},
       reserve1 = #{reserve1,jdbcType=VARCHAR},
       reserve2 = #{reserve2,jdbcType=VARCHAR},
       reserve3 = #{reserve3,jdbcType=VARCHAR}

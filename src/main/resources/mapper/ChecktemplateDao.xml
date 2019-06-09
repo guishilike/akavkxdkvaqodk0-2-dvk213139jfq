@@ -6,8 +6,8 @@
     <result column="doctorId" jdbcType="INTEGER" property="doctorid" />
     <result column="templateCode" jdbcType="VARCHAR" property="templatecode" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="appearTime" jdbcType="TIMESTAMP" property="appeartime" />
-    <result column="changeTime" jdbcType="TIMESTAMP" property="changetime" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appeardate" />
+    <result column="changeDate" jdbcType="TIMESTAMP" property="changedate" />
     <result column="status" jdbcType="CHAR" property="status" />
     <result column="reserve1" jdbcType="VARCHAR" property="reserve1" />
     <result column="reserve2" jdbcType="VARCHAR" property="reserve2" />
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, doctorId, templateCode, `name`, appearTime, changeTime, `status`, reserve1, reserve2, 
+    id, doctorId, templateCode, `name`, appearDate, changeDate, `status`, reserve1, reserve2, 
     reserve3
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.ChecktemplateExample" resultMap="BaseResultMap">
@@ -115,11 +115,11 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Checktemplate" useGeneratedKeys="true">
     insert into checktemplate (doctorId, templateCode, `name`, 
-      appearTime, changeTime, `status`, 
+      appearDate, changeDate, `status`, 
       reserve1, reserve2, reserve3
       )
     values (#{doctorid,jdbcType=INTEGER}, #{templatecode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{appeartime,jdbcType=TIMESTAMP}, #{changetime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
+      #{appeardate,jdbcType=TIMESTAMP}, #{changedate,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
       #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR}
       )
   </insert>
@@ -135,11 +135,11 @@
       <if test="name != null">
         `name`,
       </if>
-      <if test="appeartime != null">
-        appearTime,
+      <if test="appeardate != null">
+        appearDate,
       </if>
-      <if test="changetime != null">
-        changeTime,
+      <if test="changedate != null">
+        changeDate,
       </if>
       <if test="status != null">
         `status`,
@@ -164,11 +164,11 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="appeartime != null">
-        #{appeartime,jdbcType=TIMESTAMP},
+      <if test="appeardate != null">
+        #{appeardate,jdbcType=TIMESTAMP},
       </if>
-      <if test="changetime != null">
-        #{changetime,jdbcType=TIMESTAMP},
+      <if test="changedate != null">
+        #{changedate,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
         #{status,jdbcType=CHAR},
@@ -205,11 +205,11 @@
       <if test="record.name != null">
         `name` = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.appeartime != null">
-        appearTime = #{record.appeartime,jdbcType=TIMESTAMP},
+      <if test="record.appeardate != null">
+        appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.changetime != null">
-        changeTime = #{record.changetime,jdbcType=TIMESTAMP},
+      <if test="record.changedate != null">
+        changeDate = #{record.changedate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=CHAR},
@@ -234,8 +234,8 @@
       doctorId = #{record.doctorid,jdbcType=INTEGER},
       templateCode = #{record.templatecode,jdbcType=VARCHAR},
       `name` = #{record.name,jdbcType=VARCHAR},
-      appearTime = #{record.appeartime,jdbcType=TIMESTAMP},
-      changeTime = #{record.changetime,jdbcType=TIMESTAMP},
+      appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
+      changeDate = #{record.changedate,jdbcType=TIMESTAMP},
       `status` = #{record.status,jdbcType=CHAR},
       reserve1 = #{record.reserve1,jdbcType=VARCHAR},
       reserve2 = #{record.reserve2,jdbcType=VARCHAR},
@@ -256,11 +256,11 @@
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="appeartime != null">
-        appearTime = #{appeartime,jdbcType=TIMESTAMP},
+      <if test="appeardate != null">
+        appearDate = #{appeardate,jdbcType=TIMESTAMP},
       </if>
-      <if test="changetime != null">
-        changeTime = #{changetime,jdbcType=TIMESTAMP},
+      <if test="changedate != null">
+        changeDate = #{changedate,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
         `status` = #{status,jdbcType=CHAR},
@@ -282,8 +282,8 @@
     set doctorId = #{doctorid,jdbcType=INTEGER},
       templateCode = #{templatecode,jdbcType=VARCHAR},
       `name` = #{name,jdbcType=VARCHAR},
-      appearTime = #{appeartime,jdbcType=TIMESTAMP},
-      changeTime = #{changetime,jdbcType=TIMESTAMP},
+      appearDate = #{appeardate,jdbcType=TIMESTAMP},
+      changeDate = #{changedate,jdbcType=TIMESTAMP},
       `status` = #{status,jdbcType=CHAR},
       reserve1 = #{reserve1,jdbcType=VARCHAR},
       reserve2 = #{reserve2,jdbcType=VARCHAR},

@@ -28,9 +28,9 @@ public class Checktemplate implements Serializable {
      */
     private String name;
 
-    private Date appeartime;
+    private Date appeardate;
 
-    private Date changetime;
+    private Date changedate;
 
     /**
      * 状态
@@ -86,20 +86,20 @@ public class Checktemplate implements Serializable {
         this.name = name;
     }
 
-    public Date getAppeartime() {
-        return appeartime;
+    public Date getAppeardate() {
+        return appeardate;
     }
 
-    public void setAppeartime(Date appeartime) {
-        this.appeartime = appeartime;
+    public void setAppeardate(Date appeardate) {
+        this.appeardate = appeardate;
     }
 
-    public Date getChangetime() {
-        return changetime;
+    public Date getChangedate() {
+        return changedate;
     }
 
-    public void setChangetime(Date changetime) {
-        this.changetime = changetime;
+    public void setChangedate(Date changedate) {
+        this.changedate = changedate;
     }
 
     public String getStatus() {
@@ -150,8 +150,8 @@ public class Checktemplate implements Serializable {
             && (this.getDoctorid() == null ? other.getDoctorid() == null : this.getDoctorid().equals(other.getDoctorid()))
             && (this.getTemplatecode() == null ? other.getTemplatecode() == null : this.getTemplatecode().equals(other.getTemplatecode()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getAppeartime() == null ? other.getAppeartime() == null : this.getAppeartime().equals(other.getAppeartime()))
-            && (this.getChangetime() == null ? other.getChangetime() == null : this.getChangetime().equals(other.getChangetime()))
+            && (this.getAppeardate() == null ? other.getAppeardate() == null : this.getAppeardate().equals(other.getAppeardate()))
+            && (this.getChangedate() == null ? other.getChangedate() == null : this.getChangedate().equals(other.getChangedate()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
             && (this.getReserve2() == null ? other.getReserve2() == null : this.getReserve2().equals(other.getReserve2()))
@@ -166,8 +166,8 @@ public class Checktemplate implements Serializable {
         result = prime * result + ((getDoctorid() == null) ? 0 : getDoctorid().hashCode());
         result = prime * result + ((getTemplatecode() == null) ? 0 : getTemplatecode().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getAppeartime() == null) ? 0 : getAppeartime().hashCode());
-        result = prime * result + ((getChangetime() == null) ? 0 : getChangetime().hashCode());
+        result = prime * result + ((getAppeardate() == null) ? 0 : getAppeardate().hashCode());
+        result = prime * result + ((getChangedate() == null) ? 0 : getChangedate().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getReserve1() == null) ? 0 : getReserve1().hashCode());
         result = prime * result + ((getReserve2() == null) ? 0 : getReserve2().hashCode());
@@ -185,8 +185,8 @@ public class Checktemplate implements Serializable {
         sb.append(", doctorid=").append(doctorid);
         sb.append(", templatecode=").append(templatecode);
         sb.append(", name=").append(name);
-        sb.append(", appeartime=").append(appeartime);
-        sb.append(", changetime=").append(changetime);
+        sb.append(", appeardate=").append(appeardate);
+        sb.append(", changedate=").append(changedate);
         sb.append(", status=").append(status);
         sb.append(", reserve1=").append(reserve1);
         sb.append(", reserve2=").append(reserve2);

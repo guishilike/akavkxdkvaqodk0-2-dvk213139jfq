@@ -1,7 +1,7 @@
 package edu.neu.hospital.dao;
 
 import edu.neu.hospital.bean.Inspectionresultimage;
-import edu.neu.hospital.example.InspectionresultimageExample;
+import edu.neu.hospital.bean.InspectionresultimageExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

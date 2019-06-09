@@ -436,66 +436,6 @@ public class CommonmedicinesmaterialslistExample {
             return (Criteria) this;
         }
 
-        public Criteria andAppeardateIsNull() {
-            addCriterion("appearDate is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppeardateIsNotNull() {
-            addCriterion("appearDate is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppeardateEqualTo(Date value) {
-            addCriterion("appearDate =", value, "appeardate");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppeardateNotEqualTo(Date value) {
-            addCriterion("appearDate <>", value, "appeardate");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppeardateGreaterThan(Date value) {
-            addCriterion("appearDate >", value, "appeardate");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppeardateGreaterThanOrEqualTo(Date value) {
-            addCriterion("appearDate >=", value, "appeardate");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppeardateLessThan(Date value) {
-            addCriterion("appearDate <", value, "appeardate");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppeardateLessThanOrEqualTo(Date value) {
-            addCriterion("appearDate <=", value, "appeardate");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppeardateIn(List<Date> values) {
-            addCriterion("appearDate in", values, "appeardate");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppeardateNotIn(List<Date> values) {
-            addCriterion("appearDate not in", values, "appeardate");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppeardateBetween(Date value1, Date value2) {
-            addCriterion("appearDate between", value1, value2, "appeardate");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppeardateNotBetween(Date value1, Date value2) {
-            addCriterion("appearDate not between", value1, value2, "appeardate");
-            return (Criteria) this;
-        }
-
         public Criteria andChangeuseridIsNull() {
             addCriterion("changeUserID is null");
             return (Criteria) this;
@@ -563,6 +503,66 @@ public class CommonmedicinesmaterialslistExample {
 
         public Criteria andChangeuseridNotBetween(String value1, String value2) {
             addCriterion("changeUserID not between", value1, value2, "changeuserid");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppeardateIsNull() {
+            addCriterion("appearDate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppeardateIsNotNull() {
+            addCriterion("appearDate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppeardateEqualTo(Date value) {
+            addCriterion("appearDate =", value, "appeardate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppeardateNotEqualTo(Date value) {
+            addCriterion("appearDate <>", value, "appeardate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppeardateGreaterThan(Date value) {
+            addCriterion("appearDate >", value, "appeardate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppeardateGreaterThanOrEqualTo(Date value) {
+            addCriterion("appearDate >=", value, "appeardate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppeardateLessThan(Date value) {
+            addCriterion("appearDate <", value, "appeardate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppeardateLessThanOrEqualTo(Date value) {
+            addCriterion("appearDate <=", value, "appeardate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppeardateIn(List<Date> values) {
+            addCriterion("appearDate in", values, "appeardate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppeardateNotIn(List<Date> values) {
+            addCriterion("appearDate not in", values, "appeardate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppeardateBetween(Date value1, Date value2) {
+            addCriterion("appearDate between", value1, value2, "appeardate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppeardateNotBetween(Date value1, Date value2) {
+            addCriterion("appearDate not between", value1, value2, "appeardate");
             return (Criteria) this;
         }
 

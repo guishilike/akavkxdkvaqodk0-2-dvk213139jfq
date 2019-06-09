@@ -7,8 +7,8 @@
     <result column="medicinesMaterialsID" jdbcType="INTEGER" property="medicinesmaterialsid" />
     <result column="dosage" jdbcType="DECIMAL" property="dosage" />
     <result column="appearUserID" jdbcType="VARCHAR" property="appearuserid" />
-    <result column="appearDate" jdbcType="TIMESTAMP" property="appeardate" />
     <result column="changeUserID" jdbcType="VARCHAR" property="changeuserid" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appeardate" />
     <result column="changeDate" jdbcType="TIMESTAMP" property="changedate" />
     <result column="status" jdbcType="CHAR" property="status" />
     <result column="reserve1" jdbcType="VARCHAR" property="reserve1" />
@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, fMedItemId, medicinesMaterialsID, dosage, appearUserID, appearDate, changeUserID, 
+    id, fMedItemId, medicinesMaterialsID, dosage, appearUserID, changeUserID, appearDate, 
     changeDate, `status`, reserve1, reserve2
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.CommonmedicinesmaterialslistExample" resultMap="BaseResultMap">
@@ -116,12 +116,12 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Commonmedicinesmaterialslist" useGeneratedKeys="true">
     insert into commonmedicinesmaterialslist (fMedItemId, medicinesMaterialsID, 
-      dosage, appearUserID, appearDate, 
-      changeUserID, changeDate, `status`, 
+      dosage, appearUserID, changeUserID, 
+      appearDate, changeDate, `status`, 
       reserve1, reserve2)
     values (#{fmeditemid,jdbcType=INTEGER}, #{medicinesmaterialsid,jdbcType=INTEGER}, 
-      #{dosage,jdbcType=DECIMAL}, #{appearuserid,jdbcType=VARCHAR}, #{appeardate,jdbcType=TIMESTAMP}, 
-      #{changeuserid,jdbcType=VARCHAR}, #{changedate,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
+      #{dosage,jdbcType=DECIMAL}, #{appearuserid,jdbcType=VARCHAR}, #{changeuserid,jdbcType=VARCHAR}, 
+      #{appeardate,jdbcType=TIMESTAMP}, #{changedate,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
       #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Commonmedicinesmaterialslist" useGeneratedKeys="true">
@@ -139,11 +139,11 @@
       <if test="appearuserid != null">
         appearUserID,
       </if>
-      <if test="appeardate != null">
-        appearDate,
-      </if>
       <if test="changeuserid != null">
         changeUserID,
+      </if>
+      <if test="appeardate != null">
+        appearDate,
       </if>
       <if test="changedate != null">
         changeDate,
@@ -171,11 +171,11 @@
       <if test="appearuserid != null">
         #{appearuserid,jdbcType=VARCHAR},
       </if>
-      <if test="appeardate != null">
-        #{appeardate,jdbcType=TIMESTAMP},
-      </if>
       <if test="changeuserid != null">
         #{changeuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="appeardate != null">
+        #{appeardate,jdbcType=TIMESTAMP},
       </if>
       <if test="changedate != null">
         #{changedate,jdbcType=TIMESTAMP},
@@ -215,11 +215,11 @@
       <if test="record.appearuserid != null">
         appearUserID = #{record.appearuserid,jdbcType=VARCHAR},
       </if>
-      <if test="record.appeardate != null">
-        appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
-      </if>
       <if test="record.changeuserid != null">
         changeUserID = #{record.changeuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appeardate != null">
+        appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.changedate != null">
         changeDate = #{record.changedate,jdbcType=TIMESTAMP},
@@ -245,8 +245,8 @@
       medicinesMaterialsID = #{record.medicinesmaterialsid,jdbcType=INTEGER},
       dosage = #{record.dosage,jdbcType=DECIMAL},
       appearUserID = #{record.appearuserid,jdbcType=VARCHAR},
-      appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
       changeUserID = #{record.changeuserid,jdbcType=VARCHAR},
+      appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
       changeDate = #{record.changedate,jdbcType=TIMESTAMP},
       `status` = #{record.status,jdbcType=CHAR},
       reserve1 = #{record.reserve1,jdbcType=VARCHAR},
@@ -270,11 +270,11 @@
       <if test="appearuserid != null">
         appearUserID = #{appearuserid,jdbcType=VARCHAR},
       </if>
-      <if test="appeardate != null">
-        appearDate = #{appeardate,jdbcType=TIMESTAMP},
-      </if>
       <if test="changeuserid != null">
         changeUserID = #{changeuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="appeardate != null">
+        appearDate = #{appeardate,jdbcType=TIMESTAMP},
       </if>
       <if test="changedate != null">
         changeDate = #{changedate,jdbcType=TIMESTAMP},
@@ -297,8 +297,8 @@
       medicinesMaterialsID = #{medicinesmaterialsid,jdbcType=INTEGER},
       dosage = #{dosage,jdbcType=DECIMAL},
       appearUserID = #{appearuserid,jdbcType=VARCHAR},
-      appearDate = #{appeardate,jdbcType=TIMESTAMP},
       changeUserID = #{changeuserid,jdbcType=VARCHAR},
+      appearDate = #{appeardate,jdbcType=TIMESTAMP},
       changeDate = #{changedate,jdbcType=TIMESTAMP},
       `status` = #{status,jdbcType=CHAR},
       reserve1 = #{reserve1,jdbcType=VARCHAR},

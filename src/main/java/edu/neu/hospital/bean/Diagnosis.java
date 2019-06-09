@@ -44,9 +44,9 @@ public class Diagnosis implements Serializable {
 
     private Integer changeuserid;
 
-    private Integer appeardate;
+    private Date appeardate;
 
-    private Integer changedate;
+    private Date changedate;
 
     private String status;
 
@@ -128,19 +128,19 @@ public class Diagnosis implements Serializable {
         this.changeuserid = changeuserid;
     }
 
-    public Integer getAppeardate() {
+    public Date getAppeardate() {
         return appeardate;
     }
 
-    public void setAppeardate(Integer appeardate) {
+    public void setAppeardate(Date appeardate) {
         this.appeardate = appeardate;
     }
 
-    public Integer getChangedate() {
+    public Date getChangedate() {
         return changedate;
     }
 
-    public void setChangedate(Integer changedate) {
+    public void setChangedate(Date changedate) {
         this.changedate = changedate;
     }
 

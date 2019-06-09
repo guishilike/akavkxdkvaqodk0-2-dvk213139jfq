@@ -385,123 +385,123 @@ public class ChecktemplateExample {
             return (Criteria) this;
         }
 
-        public Criteria andAppeartimeIsNull() {
-            addCriterion("appearTime is null");
+        public Criteria andAppeardateIsNull() {
+            addCriterion("appearDate is null");
             return (Criteria) this;
         }
 
-        public Criteria andAppeartimeIsNotNull() {
-            addCriterion("appearTime is not null");
+        public Criteria andAppeardateIsNotNull() {
+            addCriterion("appearDate is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAppeartimeEqualTo(Date value) {
-            addCriterion("appearTime =", value, "appeartime");
+        public Criteria andAppeardateEqualTo(Date value) {
+            addCriterion("appearDate =", value, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeartimeNotEqualTo(Date value) {
-            addCriterion("appearTime <>", value, "appeartime");
+        public Criteria andAppeardateNotEqualTo(Date value) {
+            addCriterion("appearDate <>", value, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeartimeGreaterThan(Date value) {
-            addCriterion("appearTime >", value, "appeartime");
+        public Criteria andAppeardateGreaterThan(Date value) {
+            addCriterion("appearDate >", value, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeartimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("appearTime >=", value, "appeartime");
+        public Criteria andAppeardateGreaterThanOrEqualTo(Date value) {
+            addCriterion("appearDate >=", value, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeartimeLessThan(Date value) {
-            addCriterion("appearTime <", value, "appeartime");
+        public Criteria andAppeardateLessThan(Date value) {
+            addCriterion("appearDate <", value, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeartimeLessThanOrEqualTo(Date value) {
-            addCriterion("appearTime <=", value, "appeartime");
+        public Criteria andAppeardateLessThanOrEqualTo(Date value) {
+            addCriterion("appearDate <=", value, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeartimeIn(List<Date> values) {
-            addCriterion("appearTime in", values, "appeartime");
+        public Criteria andAppeardateIn(List<Date> values) {
+            addCriterion("appearDate in", values, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeartimeNotIn(List<Date> values) {
-            addCriterion("appearTime not in", values, "appeartime");
+        public Criteria andAppeardateNotIn(List<Date> values) {
+            addCriterion("appearDate not in", values, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeartimeBetween(Date value1, Date value2) {
-            addCriterion("appearTime between", value1, value2, "appeartime");
+        public Criteria andAppeardateBetween(Date value1, Date value2) {
+            addCriterion("appearDate between", value1, value2, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeartimeNotBetween(Date value1, Date value2) {
-            addCriterion("appearTime not between", value1, value2, "appeartime");
+        public Criteria andAppeardateNotBetween(Date value1, Date value2) {
+            addCriterion("appearDate not between", value1, value2, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andChangetimeIsNull() {
-            addCriterion("changeTime is null");
+        public Criteria andChangedateIsNull() {
+            addCriterion("changeDate is null");
             return (Criteria) this;
         }
 
-        public Criteria andChangetimeIsNotNull() {
-            addCriterion("changeTime is not null");
+        public Criteria andChangedateIsNotNull() {
+            addCriterion("changeDate is not null");
             return (Criteria) this;
         }
 
-        public Criteria andChangetimeEqualTo(Date value) {
-            addCriterion("changeTime =", value, "changetime");
+        public Criteria andChangedateEqualTo(Date value) {
+            addCriterion("changeDate =", value, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangetimeNotEqualTo(Date value) {
-            addCriterion("changeTime <>", value, "changetime");
+        public Criteria andChangedateNotEqualTo(Date value) {
+            addCriterion("changeDate <>", value, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangetimeGreaterThan(Date value) {
-            addCriterion("changeTime >", value, "changetime");
+        public Criteria andChangedateGreaterThan(Date value) {
+            addCriterion("changeDate >", value, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangetimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("changeTime >=", value, "changetime");
+        public Criteria andChangedateGreaterThanOrEqualTo(Date value) {
+            addCriterion("changeDate >=", value, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangetimeLessThan(Date value) {
-            addCriterion("changeTime <", value, "changetime");
+        public Criteria andChangedateLessThan(Date value) {
+            addCriterion("changeDate <", value, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangetimeLessThanOrEqualTo(Date value) {
-            addCriterion("changeTime <=", value, "changetime");
+        public Criteria andChangedateLessThanOrEqualTo(Date value) {
+            addCriterion("changeDate <=", value, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangetimeIn(List<Date> values) {
-            addCriterion("changeTime in", values, "changetime");
+        public Criteria andChangedateIn(List<Date> values) {
+            addCriterion("changeDate in", values, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangetimeNotIn(List<Date> values) {
-            addCriterion("changeTime not in", values, "changetime");
+        public Criteria andChangedateNotIn(List<Date> values) {
+            addCriterion("changeDate not in", values, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangetimeBetween(Date value1, Date value2) {
-            addCriterion("changeTime between", value1, value2, "changetime");
+        public Criteria andChangedateBetween(Date value1, Date value2) {
+            addCriterion("changeDate between", value1, value2, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangetimeNotBetween(Date value1, Date value2) {
-            addCriterion("changeTime not between", value1, value2, "changetime");
+        public Criteria andChangedateNotBetween(Date value1, Date value2) {
+            addCriterion("changeDate not between", value1, value2, "changedate");
             return (Criteria) this;
         }
 

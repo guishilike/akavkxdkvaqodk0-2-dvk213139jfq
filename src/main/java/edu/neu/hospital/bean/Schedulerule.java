@@ -30,11 +30,6 @@ public class Schedulerule implements Serializable {
     private Integer levelname;
 
     /**
-     * 状态：1有效，2无效
-     */
-    private String status;
-
-    /**
      * 午别
      */
     private Integer ondutytime;
@@ -43,6 +38,11 @@ public class Schedulerule implements Serializable {
      * 排班限额
      */
     private Integer limitnumber;
+
+    /**
+     * 状态：1有效，2无效
+     */
+    private String status;
 
     private String reserve1;
 
@@ -90,14 +90,6 @@ public class Schedulerule implements Serializable {
         this.levelname = levelname;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Integer getOndutytime() {
         return ondutytime;
     }
@@ -112,6 +104,14 @@ public class Schedulerule implements Serializable {
 
     public void setLimitnumber(Integer limitnumber) {
         this.limitnumber = limitnumber;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getReserve1() {
@@ -147,9 +147,9 @@ public class Schedulerule implements Serializable {
             && (this.getDeptname() == null ? other.getDeptname() == null : this.getDeptname().equals(other.getDeptname()))
             && (this.getOndutydoctorid() == null ? other.getOndutydoctorid() == null : this.getOndutydoctorid().equals(other.getOndutydoctorid()))
             && (this.getLevelname() == null ? other.getLevelname() == null : this.getLevelname().equals(other.getLevelname()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getOndutytime() == null ? other.getOndutytime() == null : this.getOndutytime().equals(other.getOndutytime()))
             && (this.getLimitnumber() == null ? other.getLimitnumber() == null : this.getLimitnumber().equals(other.getLimitnumber()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
             && (this.getReserve2() == null ? other.getReserve2() == null : this.getReserve2().equals(other.getReserve2()));
     }
@@ -163,9 +163,9 @@ public class Schedulerule implements Serializable {
         result = prime * result + ((getDeptname() == null) ? 0 : getDeptname().hashCode());
         result = prime * result + ((getOndutydoctorid() == null) ? 0 : getOndutydoctorid().hashCode());
         result = prime * result + ((getLevelname() == null) ? 0 : getLevelname().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getOndutytime() == null) ? 0 : getOndutytime().hashCode());
         result = prime * result + ((getLimitnumber() == null) ? 0 : getLimitnumber().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getReserve1() == null) ? 0 : getReserve1().hashCode());
         result = prime * result + ((getReserve2() == null) ? 0 : getReserve2().hashCode());
         return result;
@@ -182,9 +182,9 @@ public class Schedulerule implements Serializable {
         sb.append(", deptname=").append(deptname);
         sb.append(", ondutydoctorid=").append(ondutydoctorid);
         sb.append(", levelname=").append(levelname);
-        sb.append(", status=").append(status);
         sb.append(", ondutytime=").append(ondutytime);
         sb.append(", limitnumber=").append(limitnumber);
+        sb.append(", status=").append(status);
         sb.append(", reserve1=").append(reserve1);
         sb.append(", reserve2=").append(reserve2);
         sb.append(", serialVersionUID=").append(serialVersionUID);

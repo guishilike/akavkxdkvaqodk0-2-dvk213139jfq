@@ -23,6 +23,8 @@ public class Prescription implements Serializable {
      */
     private Integer doctorid;
 
+    private Integer mark;
+
     private Date appeardate;
 
     /**
@@ -65,6 +67,14 @@ public class Prescription implements Serializable {
 
     public void setDoctorid(Integer doctorid) {
         this.doctorid = doctorid;
+    }
+
+    public Integer getMark() {
+        return mark;
+    }
+
+    public void setMark(Integer mark) {
+        this.mark = mark;
     }
 
     public Date getAppeardate() {
@@ -130,6 +140,7 @@ public class Prescription implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getMedicalrecordid() == null ? other.getMedicalrecordid() == null : this.getMedicalrecordid().equals(other.getMedicalrecordid()))
             && (this.getDoctorid() == null ? other.getDoctorid() == null : this.getDoctorid().equals(other.getDoctorid()))
+            && (this.getMark() == null ? other.getMark() == null : this.getMark().equals(other.getMark()))
             && (this.getAppeardate() == null ? other.getAppeardate() == null : this.getAppeardate().equals(other.getAppeardate()))
             && (this.getTakemedicinesign() == null ? other.getTakemedicinesign() == null : this.getTakemedicinesign().equals(other.getTakemedicinesign()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
@@ -145,6 +156,7 @@ public class Prescription implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getMedicalrecordid() == null) ? 0 : getMedicalrecordid().hashCode());
         result = prime * result + ((getDoctorid() == null) ? 0 : getDoctorid().hashCode());
+        result = prime * result + ((getMark() == null) ? 0 : getMark().hashCode());
         result = prime * result + ((getAppeardate() == null) ? 0 : getAppeardate().hashCode());
         result = prime * result + ((getTakemedicinesign() == null) ? 0 : getTakemedicinesign().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
@@ -163,6 +175,7 @@ public class Prescription implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", medicalrecordid=").append(medicalrecordid);
         sb.append(", doctorid=").append(doctorid);
+        sb.append(", mark=").append(mark);
         sb.append(", appeardate=").append(appeardate);
         sb.append(", takemedicinesign=").append(takemedicinesign);
         sb.append(", status=").append(status);

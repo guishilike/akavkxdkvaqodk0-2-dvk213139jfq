@@ -305,6 +305,66 @@ public class PrescriptionExample {
             return (Criteria) this;
         }
 
+        public Criteria andMarkIsNull() {
+            addCriterion("mark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkIsNotNull() {
+            addCriterion("mark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkEqualTo(Integer value) {
+            addCriterion("mark =", value, "mark");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkNotEqualTo(Integer value) {
+            addCriterion("mark <>", value, "mark");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkGreaterThan(Integer value) {
+            addCriterion("mark >", value, "mark");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkGreaterThanOrEqualTo(Integer value) {
+            addCriterion("mark >=", value, "mark");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkLessThan(Integer value) {
+            addCriterion("mark <", value, "mark");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkLessThanOrEqualTo(Integer value) {
+            addCriterion("mark <=", value, "mark");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkIn(List<Integer> values) {
+            addCriterion("mark in", values, "mark");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkNotIn(List<Integer> values) {
+            addCriterion("mark not in", values, "mark");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkBetween(Integer value1, Integer value2) {
+            addCriterion("mark between", value1, value2, "mark");
+            return (Criteria) this;
+        }
+
+        public Criteria andMarkNotBetween(Integer value1, Integer value2) {
+            addCriterion("mark not between", value1, value2, "mark");
+            return (Criteria) this;
+        }
+
         public Criteria andAppeardateIsNull() {
             addCriterion("appearDate is null");
             return (Criteria) this;

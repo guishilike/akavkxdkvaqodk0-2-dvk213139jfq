@@ -3,14 +3,14 @@
 <mapper namespace="edu.neu.hospital.dao.ScheduleDao">
   <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.Schedule">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="onDutyDate" jdbcType="TIMESTAMP" property="ondutydate" />
+    <result column="onDutyDate" jdbcType="DATE" property="ondutydate" />
     <result column="deptName" jdbcType="VARCHAR" property="deptname" />
     <result column="onDutyDoctorID" jdbcType="INTEGER" property="ondutydoctorid" />
     <result column="levelName" jdbcType="INTEGER" property="levelname" />
-    <result column="status" jdbcType="CHAR" property="status" />
     <result column="onDutyTime" jdbcType="INTEGER" property="ondutytime" />
     <result column="limitNumber" jdbcType="INTEGER" property="limitnumber" />
     <result column="remainingAmount" jdbcType="INTEGER" property="remainingamount" />
+    <result column="status" jdbcType="CHAR" property="status" />
     <result column="reserve1" jdbcType="VARCHAR" property="reserve1" />
     <result column="reserve2" jdbcType="VARCHAR" property="reserve2" />
   </resultMap>
@@ -73,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, onDutyDate, deptName, onDutyDoctorID, levelName, `status`, onDutyTime, limitNumber, 
-    remainingAmount, reserve1, reserve2
+    id, onDutyDate, deptName, onDutyDoctorID, levelName, onDutyTime, limitNumber, remainingAmount, 
+    `status`, reserve1, reserve2
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.ScheduleExample" resultMap="BaseResultMap">
     select
@@ -116,12 +116,12 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Schedule" useGeneratedKeys="true">
     insert into schedule (onDutyDate, deptName, onDutyDoctorID, 
-      levelName, `status`, onDutyTime, 
-      limitNumber, remainingAmount, reserve1, 
+      levelName, onDutyTime, limitNumber, 
+      remainingAmount, `status`, reserve1, 
       reserve2)
-    values (#{ondutydate,jdbcType=TIMESTAMP}, #{deptname,jdbcType=VARCHAR}, #{ondutydoctorid,jdbcType=INTEGER}, 
-      #{levelname,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{ondutytime,jdbcType=INTEGER}, 
-      #{limitnumber,jdbcType=INTEGER}, #{remainingamount,jdbcType=INTEGER}, #{reserve1,jdbcType=VARCHAR}, 
+    values (#{ondutydate,jdbcType=DATE}, #{deptname,jdbcType=VARCHAR}, #{ondutydoctorid,jdbcType=INTEGER}, 
+      #{levelname,jdbcType=INTEGER}, #{ondutytime,jdbcType=INTEGER}, #{limitnumber,jdbcType=INTEGER}, 
+      #{remainingamount,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{reserve1,jdbcType=VARCHAR}, 
       #{reserve2,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Schedule" useGeneratedKeys="true">
@@ -139,9 +139,6 @@
       <if test="levelname != null">
         levelName,
       </if>
-      <if test="status != null">
-        `status`,
-      </if>
       <if test="ondutytime != null">
         onDutyTime,
       </if>
@@ -150,6 +147,9 @@
       </if>
       <if test="remainingamount != null">
         remainingAmount,
+      </if>
+      <if test="status != null">
+        `status`,
       </if>
       <if test="reserve1 != null">
         reserve1,
@@ -160,7 +160,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="ondutydate != null">
-        #{ondutydate,jdbcType=TIMESTAMP},
+        #{ondutydate,jdbcType=DATE},
       </if>
       <if test="deptname != null">
         #{deptname,jdbcType=VARCHAR},
@@ -171,9 +171,6 @@
       <if test="levelname != null">
         #{levelname,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=CHAR},
-      </if>
       <if test="ondutytime != null">
         #{ondutytime,jdbcType=INTEGER},
       </if>
@@ -182,6 +179,9 @@
       </if>
       <if test="remainingamount != null">
         #{remainingamount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
       </if>
       <if test="reserve1 != null">
         #{reserve1,jdbcType=VARCHAR},
@@ -204,7 +204,7 @@
         id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.ondutydate != null">
-        onDutyDate = #{record.ondutydate,jdbcType=TIMESTAMP},
+        onDutyDate = #{record.ondutydate,jdbcType=DATE},
       </if>
       <if test="record.deptname != null">
         deptName = #{record.deptname,jdbcType=VARCHAR},
@@ -215,9 +215,6 @@
       <if test="record.levelname != null">
         levelName = #{record.levelname,jdbcType=INTEGER},
       </if>
-      <if test="record.status != null">
-        `status` = #{record.status,jdbcType=CHAR},
-      </if>
       <if test="record.ondutytime != null">
         onDutyTime = #{record.ondutytime,jdbcType=INTEGER},
       </if>
@@ -226,6 +223,9 @@
       </if>
       <if test="record.remainingamount != null">
         remainingAmount = #{record.remainingamount,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=CHAR},
       </if>
       <if test="record.reserve1 != null">
         reserve1 = #{record.reserve1,jdbcType=VARCHAR},
@@ -241,14 +241,14 @@
   <update id="updateByExample" parameterType="map">
     update schedule
     set id = #{record.id,jdbcType=INTEGER},
-      onDutyDate = #{record.ondutydate,jdbcType=TIMESTAMP},
+      onDutyDate = #{record.ondutydate,jdbcType=DATE},
       deptName = #{record.deptname,jdbcType=VARCHAR},
       onDutyDoctorID = #{record.ondutydoctorid,jdbcType=INTEGER},
       levelName = #{record.levelname,jdbcType=INTEGER},
-      `status` = #{record.status,jdbcType=CHAR},
       onDutyTime = #{record.ondutytime,jdbcType=INTEGER},
       limitNumber = #{record.limitnumber,jdbcType=INTEGER},
       remainingAmount = #{record.remainingamount,jdbcType=INTEGER},
+      `status` = #{record.status,jdbcType=CHAR},
       reserve1 = #{record.reserve1,jdbcType=VARCHAR},
       reserve2 = #{record.reserve2,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -259,7 +259,7 @@
     update schedule
     <set>
       <if test="ondutydate != null">
-        onDutyDate = #{ondutydate,jdbcType=TIMESTAMP},
+        onDutyDate = #{ondutydate,jdbcType=DATE},
       </if>
       <if test="deptname != null">
         deptName = #{deptname,jdbcType=VARCHAR},
@@ -270,9 +270,6 @@
       <if test="levelname != null">
         levelName = #{levelname,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=CHAR},
-      </if>
       <if test="ondutytime != null">
         onDutyTime = #{ondutytime,jdbcType=INTEGER},
       </if>
@@ -281,6 +278,9 @@
       </if>
       <if test="remainingamount != null">
         remainingAmount = #{remainingamount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
       </if>
       <if test="reserve1 != null">
         reserve1 = #{reserve1,jdbcType=VARCHAR},
@@ -293,14 +293,14 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="edu.neu.hospital.bean.Schedule">
     update schedule
-    set onDutyDate = #{ondutydate,jdbcType=TIMESTAMP},
+    set onDutyDate = #{ondutydate,jdbcType=DATE},
       deptName = #{deptname,jdbcType=VARCHAR},
       onDutyDoctorID = #{ondutydoctorid,jdbcType=INTEGER},
       levelName = #{levelname,jdbcType=INTEGER},
-      `status` = #{status,jdbcType=CHAR},
       onDutyTime = #{ondutytime,jdbcType=INTEGER},
       limitNumber = #{limitnumber,jdbcType=INTEGER},
       remainingAmount = #{remainingamount,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=CHAR},
       reserve1 = #{reserve1,jdbcType=VARCHAR},
       reserve2 = #{reserve2,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

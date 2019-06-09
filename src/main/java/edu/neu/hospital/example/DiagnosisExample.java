@@ -742,52 +742,52 @@ public class DiagnosisExample {
             return (Criteria) this;
         }
 
-        public Criteria andAppeardateEqualTo(Integer value) {
+        public Criteria andAppeardateEqualTo(Date value) {
             addCriterion("appearDate =", value, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeardateNotEqualTo(Integer value) {
+        public Criteria andAppeardateNotEqualTo(Date value) {
             addCriterion("appearDate <>", value, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeardateGreaterThan(Integer value) {
+        public Criteria andAppeardateGreaterThan(Date value) {
             addCriterion("appearDate >", value, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeardateGreaterThanOrEqualTo(Integer value) {
+        public Criteria andAppeardateGreaterThanOrEqualTo(Date value) {
             addCriterion("appearDate >=", value, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeardateLessThan(Integer value) {
+        public Criteria andAppeardateLessThan(Date value) {
             addCriterion("appearDate <", value, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeardateLessThanOrEqualTo(Integer value) {
+        public Criteria andAppeardateLessThanOrEqualTo(Date value) {
             addCriterion("appearDate <=", value, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeardateIn(List<Integer> values) {
+        public Criteria andAppeardateIn(List<Date> values) {
             addCriterion("appearDate in", values, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeardateNotIn(List<Integer> values) {
+        public Criteria andAppeardateNotIn(List<Date> values) {
             addCriterion("appearDate not in", values, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeardateBetween(Integer value1, Integer value2) {
+        public Criteria andAppeardateBetween(Date value1, Date value2) {
             addCriterion("appearDate between", value1, value2, "appeardate");
             return (Criteria) this;
         }
 
-        public Criteria andAppeardateNotBetween(Integer value1, Integer value2) {
+        public Criteria andAppeardateNotBetween(Date value1, Date value2) {
             addCriterion("appearDate not between", value1, value2, "appeardate");
             return (Criteria) this;
         }
@@ -802,52 +802,52 @@ public class DiagnosisExample {
             return (Criteria) this;
         }
 
-        public Criteria andChangedateEqualTo(Integer value) {
+        public Criteria andChangedateEqualTo(Date value) {
             addCriterion("changeDate =", value, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangedateNotEqualTo(Integer value) {
+        public Criteria andChangedateNotEqualTo(Date value) {
             addCriterion("changeDate <>", value, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangedateGreaterThan(Integer value) {
+        public Criteria andChangedateGreaterThan(Date value) {
             addCriterion("changeDate >", value, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangedateGreaterThanOrEqualTo(Integer value) {
+        public Criteria andChangedateGreaterThanOrEqualTo(Date value) {
             addCriterion("changeDate >=", value, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangedateLessThan(Integer value) {
+        public Criteria andChangedateLessThan(Date value) {
             addCriterion("changeDate <", value, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangedateLessThanOrEqualTo(Integer value) {
+        public Criteria andChangedateLessThanOrEqualTo(Date value) {
             addCriterion("changeDate <=", value, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangedateIn(List<Integer> values) {
+        public Criteria andChangedateIn(List<Date> values) {
             addCriterion("changeDate in", values, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangedateNotIn(List<Integer> values) {
+        public Criteria andChangedateNotIn(List<Date> values) {
             addCriterion("changeDate not in", values, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangedateBetween(Integer value1, Integer value2) {
+        public Criteria andChangedateBetween(Date value1, Date value2) {
             addCriterion("changeDate between", value1, value2, "changedate");
             return (Criteria) this;
         }
 
-        public Criteria andChangedateNotBetween(Integer value1, Integer value2) {
+        public Criteria andChangedateNotBetween(Date value1, Date value2) {
             addCriterion("changeDate not between", value1, value2, "changedate");
             return (Criteria) this;
         }

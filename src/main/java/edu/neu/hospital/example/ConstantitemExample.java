@@ -315,143 +315,73 @@ public class ConstantitemExample {
             return (Criteria) this;
         }
 
-        public Criteria andConstantIsNull() {
-            addCriterion("constant is null");
+        public Criteria andConstantnameIsNull() {
+            addCriterion("constantName is null");
             return (Criteria) this;
         }
 
-        public Criteria andConstantIsNotNull() {
-            addCriterion("constant is not null");
+        public Criteria andConstantnameIsNotNull() {
+            addCriterion("constantName is not null");
             return (Criteria) this;
         }
 
-        public Criteria andConstantEqualTo(String value) {
-            addCriterion("constant =", value, "constant");
+        public Criteria andConstantnameEqualTo(String value) {
+            addCriterion("constantName =", value, "constantname");
             return (Criteria) this;
         }
 
-        public Criteria andConstantNotEqualTo(String value) {
-            addCriterion("constant <>", value, "constant");
+        public Criteria andConstantnameNotEqualTo(String value) {
+            addCriterion("constantName <>", value, "constantname");
             return (Criteria) this;
         }
 
-        public Criteria andConstantGreaterThan(String value) {
-            addCriterion("constant >", value, "constant");
+        public Criteria andConstantnameGreaterThan(String value) {
+            addCriterion("constantName >", value, "constantname");
             return (Criteria) this;
         }
 
-        public Criteria andConstantGreaterThanOrEqualTo(String value) {
-            addCriterion("constant >=", value, "constant");
+        public Criteria andConstantnameGreaterThanOrEqualTo(String value) {
+            addCriterion("constantName >=", value, "constantname");
             return (Criteria) this;
         }
 
-        public Criteria andConstantLessThan(String value) {
-            addCriterion("constant <", value, "constant");
+        public Criteria andConstantnameLessThan(String value) {
+            addCriterion("constantName <", value, "constantname");
             return (Criteria) this;
         }
 
-        public Criteria andConstantLessThanOrEqualTo(String value) {
-            addCriterion("constant <=", value, "constant");
+        public Criteria andConstantnameLessThanOrEqualTo(String value) {
+            addCriterion("constantName <=", value, "constantname");
             return (Criteria) this;
         }
 
-        public Criteria andConstantLike(String value) {
-            addCriterion("constant like", value, "constant");
+        public Criteria andConstantnameLike(String value) {
+            addCriterion("constantName like", value, "constantname");
             return (Criteria) this;
         }
 
-        public Criteria andConstantNotLike(String value) {
-            addCriterion("constant not like", value, "constant");
+        public Criteria andConstantnameNotLike(String value) {
+            addCriterion("constantName not like", value, "constantname");
             return (Criteria) this;
         }
 
-        public Criteria andConstantIn(List<String> values) {
-            addCriterion("constant in", values, "constant");
+        public Criteria andConstantnameIn(List<String> values) {
+            addCriterion("constantName in", values, "constantname");
             return (Criteria) this;
         }
 
-        public Criteria andConstantNotIn(List<String> values) {
-            addCriterion("constant not in", values, "constant");
+        public Criteria andConstantnameNotIn(List<String> values) {
+            addCriterion("constantName not in", values, "constantname");
             return (Criteria) this;
         }
 
-        public Criteria andConstantBetween(String value1, String value2) {
-            addCriterion("constant between", value1, value2, "constant");
+        public Criteria andConstantnameBetween(String value1, String value2) {
+            addCriterion("constantName between", value1, value2, "constantname");
             return (Criteria) this;
         }
 
-        public Criteria andConstantNotBetween(String value1, String value2) {
-            addCriterion("constant not between", value1, value2, "constant");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIsNull() {
-            addCriterion("`status` is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIsNotNull() {
-            addCriterion("`status` is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusEqualTo(String value) {
-            addCriterion("`status` =", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotEqualTo(String value) {
-            addCriterion("`status` <>", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusGreaterThan(String value) {
-            addCriterion("`status` >", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusGreaterThanOrEqualTo(String value) {
-            addCriterion("`status` >=", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLessThan(String value) {
-            addCriterion("`status` <", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLessThanOrEqualTo(String value) {
-            addCriterion("`status` <=", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLike(String value) {
-            addCriterion("`status` like", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotLike(String value) {
-            addCriterion("`status` not like", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIn(List<String> values) {
-            addCriterion("`status` in", values, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotIn(List<String> values) {
-            addCriterion("`status` not in", values, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusBetween(String value1, String value2) {
-            addCriterion("`status` between", value1, value2, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotBetween(String value1, String value2) {
-            addCriterion("`status` not between", value1, value2, "status");
+        public Criteria andConstantnameNotBetween(String value1, String value2) {
+            addCriterion("constantName not between", value1, value2, "constantname");
             return (Criteria) this;
         }
 
@@ -692,6 +622,76 @@ public class ConstantitemExample {
 
         public Criteria andChangeuseridNotBetween(Integer value1, Integer value2) {
             addCriterion("changeUserID not between", value1, value2, "changeuserid");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNull() {
+            addCriterion("`status` is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNotNull() {
+            addCriterion("`status` is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusEqualTo(String value) {
+            addCriterion("`status` =", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotEqualTo(String value) {
+            addCriterion("`status` <>", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThan(String value) {
+            addCriterion("`status` >", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("`status` >=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThan(String value) {
+            addCriterion("`status` <", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThanOrEqualTo(String value) {
+            addCriterion("`status` <=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLike(String value) {
+            addCriterion("`status` like", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotLike(String value) {
+            addCriterion("`status` not like", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIn(List<String> values) {
+            addCriterion("`status` in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotIn(List<String> values) {
+            addCriterion("`status` not in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusBetween(String value1, String value2) {
+            addCriterion("`status` between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotBetween(String value1, String value2) {
+            addCriterion("`status` not between", value1, value2, "status");
             return (Criteria) this;
         }
     }

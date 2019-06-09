@@ -83,7 +83,7 @@
   <sql id="Blob_Column_List">
     `view`, diagnosis
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="edu.neu.hospital.example.InspectionresultExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="edu.neu.hospital.bean.InspectionresultExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -107,7 +107,7 @@
       </if>
     </if>
   </select>
-  <select id="selectByExample" parameterType="edu.neu.hospital.example.InspectionresultExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="edu.neu.hospital.bean.InspectionresultExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -141,7 +141,7 @@
     delete from inspectionresult
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.InspectionresultExample">
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.bean.InspectionresultExample">
     delete from inspectionresult
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -238,7 +238,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="edu.neu.hospital.example.InspectionresultExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="edu.neu.hospital.bean.InspectionresultExample" resultType="java.lang.Long">
     select count(*) from inspectionresult
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
