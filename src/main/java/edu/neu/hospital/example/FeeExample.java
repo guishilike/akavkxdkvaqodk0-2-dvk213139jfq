@@ -366,6 +366,66 @@ public class FeeExample {
             return (Criteria) this;
         }
 
+        public Criteria andItemtypeIsNull() {
+            addCriterion("itemType is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemtypeIsNotNull() {
+            addCriterion("itemType is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemtypeEqualTo(Integer value) {
+            addCriterion("itemType =", value, "itemtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemtypeNotEqualTo(Integer value) {
+            addCriterion("itemType <>", value, "itemtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemtypeGreaterThan(Integer value) {
+            addCriterion("itemType >", value, "itemtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemtypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("itemType >=", value, "itemtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemtypeLessThan(Integer value) {
+            addCriterion("itemType <", value, "itemtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemtypeLessThanOrEqualTo(Integer value) {
+            addCriterion("itemType <=", value, "itemtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemtypeIn(List<Integer> values) {
+            addCriterion("itemType in", values, "itemtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemtypeNotIn(List<Integer> values) {
+            addCriterion("itemType not in", values, "itemtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemtypeBetween(Integer value1, Integer value2) {
+            addCriterion("itemType between", value1, value2, "itemtype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemtypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("itemType not between", value1, value2, "itemtype");
+            return (Criteria) this;
+        }
+
         public Criteria andFeeIsNull() {
             addCriterion("fee is null");
             return (Criteria) this;

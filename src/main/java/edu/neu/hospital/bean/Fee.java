@@ -30,6 +30,11 @@ public class Fee implements Serializable {
     private Integer chargeitemid;
 
     /**
+     * 收费项目类型
+     */
+    private Integer itemtype;
+
+    /**
      * 金额
      */
     private BigDecimal fee;
@@ -109,6 +114,14 @@ public class Fee implements Serializable {
 
     public void setChargeitemid(Integer chargeitemid) {
         this.chargeitemid = chargeitemid;
+    }
+
+    public Integer getItemtype() {
+        return itemtype;
+    }
+
+    public void setItemtype(Integer itemtype) {
+        this.itemtype = itemtype;
     }
 
     public BigDecimal getFee() {
@@ -223,6 +236,7 @@ public class Fee implements Serializable {
             && (this.getMedicalrecordid() == null ? other.getMedicalrecordid() == null : this.getMedicalrecordid().equals(other.getMedicalrecordid()))
             && (this.getFeecategoryid() == null ? other.getFeecategoryid() == null : this.getFeecategoryid().equals(other.getFeecategoryid()))
             && (this.getChargeitemid() == null ? other.getChargeitemid() == null : this.getChargeitemid().equals(other.getChargeitemid()))
+            && (this.getItemtype() == null ? other.getItemtype() == null : this.getItemtype().equals(other.getItemtype()))
             && (this.getFee() == null ? other.getFee() == null : this.getFee().equals(other.getFee()))
             && (this.getPaymentmethodid() == null ? other.getPaymentmethodid() == null : this.getPaymentmethodid().equals(other.getPaymentmethodid()))
             && (this.getAppearuserid() == null ? other.getAppearuserid() == null : this.getAppearuserid().equals(other.getAppearuserid()))
@@ -245,6 +259,7 @@ public class Fee implements Serializable {
         result = prime * result + ((getMedicalrecordid() == null) ? 0 : getMedicalrecordid().hashCode());
         result = prime * result + ((getFeecategoryid() == null) ? 0 : getFeecategoryid().hashCode());
         result = prime * result + ((getChargeitemid() == null) ? 0 : getChargeitemid().hashCode());
+        result = prime * result + ((getItemtype() == null) ? 0 : getItemtype().hashCode());
         result = prime * result + ((getFee() == null) ? 0 : getFee().hashCode());
         result = prime * result + ((getPaymentmethodid() == null) ? 0 : getPaymentmethodid().hashCode());
         result = prime * result + ((getAppearuserid() == null) ? 0 : getAppearuserid().hashCode());
@@ -270,6 +285,7 @@ public class Fee implements Serializable {
         sb.append(", medicalrecordid=").append(medicalrecordid);
         sb.append(", feecategoryid=").append(feecategoryid);
         sb.append(", chargeitemid=").append(chargeitemid);
+        sb.append(", itemtype=").append(itemtype);
         sb.append(", fee=").append(fee);
         sb.append(", paymentmethodid=").append(paymentmethodid);
         sb.append(", appearuserid=").append(appearuserid);

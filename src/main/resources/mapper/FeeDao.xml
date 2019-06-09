@@ -6,6 +6,7 @@
     <result column="medicalRecordID" jdbcType="INTEGER" property="medicalrecordid" />
     <result column="feeCategoryID" jdbcType="INTEGER" property="feecategoryid" />
     <result column="chargeItemID" jdbcType="INTEGER" property="chargeitemid" />
+    <result column="itemType" jdbcType="INTEGER" property="itemtype" />
     <result column="fee" jdbcType="DECIMAL" property="fee" />
     <result column="paymentMethodID" jdbcType="INTEGER" property="paymentmethodid" />
     <result column="appearUserID" jdbcType="INTEGER" property="appearuserid" />
@@ -78,9 +79,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, medicalRecordID, feeCategoryID, chargeItemID, fee, paymentMethodID, appearUserID, 
-    changeUserID, feeAppearDate, feeChangeDate, payStatus, dateStatus, `status`, reserve1, 
-    reserve2, reserver3
+    id, medicalRecordID, feeCategoryID, chargeItemID, itemType, fee, paymentMethodID, 
+    appearUserID, changeUserID, feeAppearDate, feeChangeDate, payStatus, dateStatus, 
+    `status`, reserve1, reserve2, reserver3
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.FeeExample" resultMap="BaseResultMap">
     select
@@ -122,17 +123,17 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Fee" useGeneratedKeys="true">
     insert into fee (medicalRecordID, feeCategoryID, chargeItemID, 
-      fee, paymentMethodID, appearUserID, 
-      changeUserID, feeAppearDate, feeChangeDate, 
-      payStatus, dateStatus, `status`, 
-      reserve1, reserve2, reserver3
-      )
+      itemType, fee, paymentMethodID, 
+      appearUserID, changeUserID, feeAppearDate, 
+      feeChangeDate, payStatus, dateStatus, 
+      `status`, reserve1, reserve2, 
+      reserver3)
     values (#{medicalrecordid,jdbcType=INTEGER}, #{feecategoryid,jdbcType=INTEGER}, #{chargeitemid,jdbcType=INTEGER}, 
-      #{fee,jdbcType=DECIMAL}, #{paymentmethodid,jdbcType=INTEGER}, #{appearuserid,jdbcType=INTEGER}, 
-      #{changeuserid,jdbcType=INTEGER}, #{feeappeardate,jdbcType=TIMESTAMP}, #{feechangedate,jdbcType=TIMESTAMP}, 
-      #{paystatus,jdbcType=CHAR}, #{datestatus,jdbcType=CHAR}, #{status,jdbcType=CHAR}, 
-      #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR}, #{reserver3,jdbcType=VARCHAR}
-      )
+      #{itemtype,jdbcType=INTEGER}, #{fee,jdbcType=DECIMAL}, #{paymentmethodid,jdbcType=INTEGER}, 
+      #{appearuserid,jdbcType=INTEGER}, #{changeuserid,jdbcType=INTEGER}, #{feeappeardate,jdbcType=TIMESTAMP}, 
+      #{feechangedate,jdbcType=TIMESTAMP}, #{paystatus,jdbcType=CHAR}, #{datestatus,jdbcType=CHAR}, 
+      #{status,jdbcType=CHAR}, #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR}, 
+      #{reserver3,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Fee" useGeneratedKeys="true">
     insert into fee
@@ -145,6 +146,9 @@
       </if>
       <if test="chargeitemid != null">
         chargeItemID,
+      </if>
+      <if test="itemtype != null">
+        itemType,
       </if>
       <if test="fee != null">
         fee,
@@ -192,6 +196,9 @@
       </if>
       <if test="chargeitemid != null">
         #{chargeitemid,jdbcType=INTEGER},
+      </if>
+      <if test="itemtype != null">
+        #{itemtype,jdbcType=INTEGER},
       </if>
       <if test="fee != null">
         #{fee,jdbcType=DECIMAL},
@@ -252,6 +259,9 @@
       <if test="record.chargeitemid != null">
         chargeItemID = #{record.chargeitemid,jdbcType=INTEGER},
       </if>
+      <if test="record.itemtype != null">
+        itemType = #{record.itemtype,jdbcType=INTEGER},
+      </if>
       <if test="record.fee != null">
         fee = #{record.fee,jdbcType=DECIMAL},
       </if>
@@ -299,6 +309,7 @@
       medicalRecordID = #{record.medicalrecordid,jdbcType=INTEGER},
       feeCategoryID = #{record.feecategoryid,jdbcType=INTEGER},
       chargeItemID = #{record.chargeitemid,jdbcType=INTEGER},
+      itemType = #{record.itemtype,jdbcType=INTEGER},
       fee = #{record.fee,jdbcType=DECIMAL},
       paymentMethodID = #{record.paymentmethodid,jdbcType=INTEGER},
       appearUserID = #{record.appearuserid,jdbcType=INTEGER},
@@ -326,6 +337,9 @@
       </if>
       <if test="chargeitemid != null">
         chargeItemID = #{chargeitemid,jdbcType=INTEGER},
+      </if>
+      <if test="itemtype != null">
+        itemType = #{itemtype,jdbcType=INTEGER},
       </if>
       <if test="fee != null">
         fee = #{fee,jdbcType=DECIMAL},
@@ -371,6 +385,7 @@
     set medicalRecordID = #{medicalrecordid,jdbcType=INTEGER},
       feeCategoryID = #{feecategoryid,jdbcType=INTEGER},
       chargeItemID = #{chargeitemid,jdbcType=INTEGER},
+      itemType = #{itemtype,jdbcType=INTEGER},
       fee = #{fee,jdbcType=DECIMAL},
       paymentMethodID = #{paymentmethodid,jdbcType=INTEGER},
       appearUserID = #{appearuserid,jdbcType=INTEGER},
