@@ -33,6 +33,8 @@ spring:
     port: 6379
 #配置Mybatis
 mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
   type-aliases-package: edu.neu.hospital.bean
   mapper-locations: classpath:mapper/*.xml
 logging:
