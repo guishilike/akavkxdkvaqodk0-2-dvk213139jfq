@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.CheckDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.Check">
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="realName" jdbcType="VARCHAR" property="realname" />
+    <result column="deptName" jdbcType="VARCHAR" property="deptname" />
+    <result column="medicalRecordID" jdbcType="INTEGER" property="medicalrecordid" />
+    <result column="patientName" jdbcType="VARCHAR" property="patientname" />
+    <result column="feeCategory" jdbcType="VARCHAR" property="feecategory" />
+    <result column="fee1" jdbcType="DECIMAL" property="fee1" />
+    <result column="fee2" jdbcType="DECIMAL" property="fee2" />
+    <result column="feeAppearDate" jdbcType="TIMESTAMP" property="feeappeardate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    userId, realName, deptName, medicalRecordID, patientName, feeCategory, fee1, fee2, 
+    feeAppearDate
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.CheckExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from check
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.CheckExample">
+    delete from check
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.neu.hospital.bean.Check">
+    insert into check (userId, realName, deptName, 
+      medicalRecordID, patientName, feeCategory, 
+      fee1, fee2, feeAppearDate
+      )
+    values (#{userid,jdbcType=INTEGER}, #{realname,jdbcType=VARCHAR}, #{deptname,jdbcType=VARCHAR}, 
+      #{medicalrecordid,jdbcType=INTEGER}, #{patientname,jdbcType=VARCHAR}, #{feecategory,jdbcType=VARCHAR}, 
+      #{fee1,jdbcType=DECIMAL}, #{fee2,jdbcType=DECIMAL}, #{feeappeardate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.neu.hospital.bean.Check">
+    insert into check
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="realname != null">
+        realName,
+      </if>
+      <if test="deptname != null">
+        deptName,
+      </if>
+      <if test="medicalrecordid != null">
+        medicalRecordID,
+      </if>
+      <if test="patientname != null">
+        patientName,
+      </if>
+      <if test="feecategory != null">
+        feeCategory,
+      </if>
+      <if test="fee1 != null">
+        fee1,
+      </if>
+      <if test="fee2 != null">
+        fee2,
+      </if>
+      <if test="feeappeardate != null">
+        feeAppearDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="deptname != null">
+        #{deptname,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalrecordid != null">
+        #{medicalrecordid,jdbcType=INTEGER},
+      </if>
+      <if test="patientname != null">
+        #{patientname,jdbcType=VARCHAR},
+      </if>
+      <if test="feecategory != null">
+        #{feecategory,jdbcType=VARCHAR},
+      </if>
+      <if test="fee1 != null">
+        #{fee1,jdbcType=DECIMAL},
+      </if>
+      <if test="fee2 != null">
+        #{fee2,jdbcType=DECIMAL},
+      </if>
+      <if test="feeappeardate != null">
+        #{feeappeardate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.CheckExample" resultType="java.lang.Long">
+    select count(*) from check
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update check
+    <set>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.realname != null">
+        realName = #{record.realname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptname != null">
+        deptName = #{record.deptname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medicalrecordid != null">
+        medicalRecordID = #{record.medicalrecordid,jdbcType=INTEGER},
+      </if>
+      <if test="record.patientname != null">
+        patientName = #{record.patientname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feecategory != null">
+        feeCategory = #{record.feecategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fee1 != null">
+        fee1 = #{record.fee1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fee2 != null">
+        fee2 = #{record.fee2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feeappeardate != null">
+        feeAppearDate = #{record.feeappeardate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update check
+    set userId = #{record.userid,jdbcType=INTEGER},
+      realName = #{record.realname,jdbcType=VARCHAR},
+      deptName = #{record.deptname,jdbcType=VARCHAR},
+      medicalRecordID = #{record.medicalrecordid,jdbcType=INTEGER},
+      patientName = #{record.patientname,jdbcType=VARCHAR},
+      feeCategory = #{record.feecategory,jdbcType=VARCHAR},
+      fee1 = #{record.fee1,jdbcType=DECIMAL},
+      fee2 = #{record.fee2,jdbcType=DECIMAL},
+      feeAppearDate = #{record.feeappeardate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

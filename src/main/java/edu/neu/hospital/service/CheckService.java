@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface CheckService {
     List<Check> findByInfo(String userName, String departmentName, Date dateStart, Date dateEnd);
-
 }

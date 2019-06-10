@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface WorkloadStatisticsService {
     List<Workloadstatistics> findByInfo(String userName, String departmentName, Date dateStart, Date dateEnd);
-
 }

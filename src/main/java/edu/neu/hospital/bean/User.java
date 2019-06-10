@@ -16,12 +16,12 @@ public class User implements Serializable {
     /**
      * 登录名
      */
-    private String username;
+    private String userName;
 
     /**
      * 真名
      */
-    private String realname;
+    private String realName;
 
     /**
      * 密码
@@ -31,39 +31,39 @@ public class User implements Serializable {
     /**
      * 科室ID
      */
-    private Integer departmentid;
+    private Integer departmentID;
 
     /**
      * 用户类别
      */
-    private Integer usertypeid;
+    private Integer typeID;
 
     /**
      * 职称，查常数项表
      */
-    private Integer rank;
+    private Integer rankID;
 
     /**
      * 是否排班
      */
-    private String isschedule;
-
-    private Integer appearuserid;
-
-    private Integer changeuserid;
-
-    private Date appeardate;
-
-    private Date changedate;
-
-    private String photolocation;
-
-    private Integer contact;
+    private String isSchedule;
 
     /**
      * 是否有效
      */
     private String status;
+
+    private Integer appearUserID;
+
+    private Integer changeUserID;
+
+    private Date appearDate;
+
+    private Date changeDate;
+
+    private String photoLocation;
+
+    private Integer contact;
 
     private String reserve1;
 
@@ -81,20 +81,20 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getRealname() {
-        return realname;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setRealname(String realname) {
-        this.realname = realname;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public String getPasswd() {
@@ -105,84 +105,36 @@ public class User implements Serializable {
         this.passwd = passwd;
     }
 
-    public Integer getDepartmentid() {
-        return departmentid;
+    public Integer getDepartmentID() {
+        return departmentID;
     }
 
-    public void setDepartmentid(Integer departmentid) {
-        this.departmentid = departmentid;
+    public void setDepartmentID(Integer departmentID) {
+        this.departmentID = departmentID;
     }
 
-    public Integer getUsertypeid() {
-        return usertypeid;
+    public Integer getTypeID() {
+        return typeID;
     }
 
-    public void setUsertypeid(Integer usertypeid) {
-        this.usertypeid = usertypeid;
+    public void setTypeID(Integer typeID) {
+        this.typeID = typeID;
     }
 
-    public Integer getRank() {
-        return rank;
+    public Integer getRankID() {
+        return rankID;
     }
 
-    public void setRank(Integer rank) {
-        this.rank = rank;
+    public void setRankID(Integer rankID) {
+        this.rankID = rankID;
     }
 
-    public String getIsschedule() {
-        return isschedule;
+    public String getIsSchedule() {
+        return isSchedule;
     }
 
-    public void setIsschedule(String isschedule) {
-        this.isschedule = isschedule;
-    }
-
-    public Integer getAppearuserid() {
-        return appearuserid;
-    }
-
-    public void setAppearuserid(Integer appearuserid) {
-        this.appearuserid = appearuserid;
-    }
-
-    public Integer getChangeuserid() {
-        return changeuserid;
-    }
-
-    public void setChangeuserid(Integer changeuserid) {
-        this.changeuserid = changeuserid;
-    }
-
-    public Date getAppeardate() {
-        return appeardate;
-    }
-
-    public void setAppeardate(Date appeardate) {
-        this.appeardate = appeardate;
-    }
-
-    public Date getChangedate() {
-        return changedate;
-    }
-
-    public void setChangedate(Date changedate) {
-        this.changedate = changedate;
-    }
-
-    public String getPhotolocation() {
-        return photolocation;
-    }
-
-    public void setPhotolocation(String photolocation) {
-        this.photolocation = photolocation;
-    }
-
-    public Integer getContact() {
-        return contact;
-    }
-
-    public void setContact(Integer contact) {
-        this.contact = contact;
+    public void setIsSchedule(String isSchedule) {
+        this.isSchedule = isSchedule;
     }
 
     public String getStatus() {
@@ -191,6 +143,54 @@ public class User implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getAppearUserID() {
+        return appearUserID;
+    }
+
+    public void setAppearUserID(Integer appearUserID) {
+        this.appearUserID = appearUserID;
+    }
+
+    public Integer getChangeUserID() {
+        return changeUserID;
+    }
+
+    public void setChangeUserID(Integer changeUserID) {
+        this.changeUserID = changeUserID;
+    }
+
+    public Date getAppearDate() {
+        return appearDate;
+    }
+
+    public void setAppearDate(Date appearDate) {
+        this.appearDate = appearDate;
+    }
+
+    public Date getChangeDate() {
+        return changeDate;
+    }
+
+    public void setChangeDate(Date changeDate) {
+        this.changeDate = changeDate;
+    }
+
+    public String getPhotoLocation() {
+        return photoLocation;
+    }
+
+    public void setPhotoLocation(String photoLocation) {
+        this.photoLocation = photoLocation;
+    }
+
+    public Integer getContact() {
+        return contact;
+    }
+
+    public void setContact(Integer contact) {
+        this.contact = contact;
     }
 
     public String getReserve1() {
@@ -230,20 +230,20 @@ public class User implements Serializable {
         }
         User other = (User) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
-            && (this.getRealname() == null ? other.getRealname() == null : this.getRealname().equals(other.getRealname()))
+            && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
+            && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
             && (this.getPasswd() == null ? other.getPasswd() == null : this.getPasswd().equals(other.getPasswd()))
-            && (this.getDepartmentid() == null ? other.getDepartmentid() == null : this.getDepartmentid().equals(other.getDepartmentid()))
-            && (this.getUsertypeid() == null ? other.getUsertypeid() == null : this.getUsertypeid().equals(other.getUsertypeid()))
-            && (this.getRank() == null ? other.getRank() == null : this.getRank().equals(other.getRank()))
-            && (this.getIsschedule() == null ? other.getIsschedule() == null : this.getIsschedule().equals(other.getIsschedule()))
-            && (this.getAppearuserid() == null ? other.getAppearuserid() == null : this.getAppearuserid().equals(other.getAppearuserid()))
-            && (this.getChangeuserid() == null ? other.getChangeuserid() == null : this.getChangeuserid().equals(other.getChangeuserid()))
-            && (this.getAppeardate() == null ? other.getAppeardate() == null : this.getAppeardate().equals(other.getAppeardate()))
-            && (this.getChangedate() == null ? other.getChangedate() == null : this.getChangedate().equals(other.getChangedate()))
-            && (this.getPhotolocation() == null ? other.getPhotolocation() == null : this.getPhotolocation().equals(other.getPhotolocation()))
-            && (this.getContact() == null ? other.getContact() == null : this.getContact().equals(other.getContact()))
+            && (this.getDepartmentID() == null ? other.getDepartmentID() == null : this.getDepartmentID().equals(other.getDepartmentID()))
+            && (this.getTypeID() == null ? other.getTypeID() == null : this.getTypeID().equals(other.getTypeID()))
+            && (this.getRankID() == null ? other.getRankID() == null : this.getRankID().equals(other.getRankID()))
+            && (this.getIsSchedule() == null ? other.getIsSchedule() == null : this.getIsSchedule().equals(other.getIsSchedule()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
+            && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
+            && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
+            && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
+            && (this.getPhotoLocation() == null ? other.getPhotoLocation() == null : this.getPhotoLocation().equals(other.getPhotoLocation()))
+            && (this.getContact() == null ? other.getContact() == null : this.getContact().equals(other.getContact()))
             && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
             && (this.getReserve2() == null ? other.getReserve2() == null : this.getReserve2().equals(other.getReserve2()))
             && (this.getReserve3() == null ? other.getReserve3() == null : this.getReserve3().equals(other.getReserve3()));
@@ -254,20 +254,20 @@ public class User implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
-        result = prime * result + ((getRealname() == null) ? 0 : getRealname().hashCode());
+        result = prime * result + ((getUserName() == null) ? 0 : getUserName().hashCode());
+        result = prime * result + ((getRealName() == null) ? 0 : getRealName().hashCode());
         result = prime * result + ((getPasswd() == null) ? 0 : getPasswd().hashCode());
-        result = prime * result + ((getDepartmentid() == null) ? 0 : getDepartmentid().hashCode());
-        result = prime * result + ((getUsertypeid() == null) ? 0 : getUsertypeid().hashCode());
-        result = prime * result + ((getRank() == null) ? 0 : getRank().hashCode());
-        result = prime * result + ((getIsschedule() == null) ? 0 : getIsschedule().hashCode());
-        result = prime * result + ((getAppearuserid() == null) ? 0 : getAppearuserid().hashCode());
-        result = prime * result + ((getChangeuserid() == null) ? 0 : getChangeuserid().hashCode());
-        result = prime * result + ((getAppeardate() == null) ? 0 : getAppeardate().hashCode());
-        result = prime * result + ((getChangedate() == null) ? 0 : getChangedate().hashCode());
-        result = prime * result + ((getPhotolocation() == null) ? 0 : getPhotolocation().hashCode());
-        result = prime * result + ((getContact() == null) ? 0 : getContact().hashCode());
+        result = prime * result + ((getDepartmentID() == null) ? 0 : getDepartmentID().hashCode());
+        result = prime * result + ((getTypeID() == null) ? 0 : getTypeID().hashCode());
+        result = prime * result + ((getRankID() == null) ? 0 : getRankID().hashCode());
+        result = prime * result + ((getIsSchedule() == null) ? 0 : getIsSchedule().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getAppearUserID() == null) ? 0 : getAppearUserID().hashCode());
+        result = prime * result + ((getChangeUserID() == null) ? 0 : getChangeUserID().hashCode());
+        result = prime * result + ((getAppearDate() == null) ? 0 : getAppearDate().hashCode());
+        result = prime * result + ((getChangeDate() == null) ? 0 : getChangeDate().hashCode());
+        result = prime * result + ((getPhotoLocation() == null) ? 0 : getPhotoLocation().hashCode());
+        result = prime * result + ((getContact() == null) ? 0 : getContact().hashCode());
         result = prime * result + ((getReserve1() == null) ? 0 : getReserve1().hashCode());
         result = prime * result + ((getReserve2() == null) ? 0 : getReserve2().hashCode());
         result = prime * result + ((getReserve3() == null) ? 0 : getReserve3().hashCode());
@@ -281,20 +281,20 @@ public class User implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", username=").append(username);
-        sb.append(", realname=").append(realname);
+        sb.append(", userName=").append(userName);
+        sb.append(", realName=").append(realName);
         sb.append(", passwd=").append(passwd);
-        sb.append(", departmentid=").append(departmentid);
-        sb.append(", usertypeid=").append(usertypeid);
-        sb.append(", rank=").append(rank);
-        sb.append(", isschedule=").append(isschedule);
-        sb.append(", appearuserid=").append(appearuserid);
-        sb.append(", changeuserid=").append(changeuserid);
-        sb.append(", appeardate=").append(appeardate);
-        sb.append(", changedate=").append(changedate);
-        sb.append(", photolocation=").append(photolocation);
-        sb.append(", contact=").append(contact);
+        sb.append(", departmentID=").append(departmentID);
+        sb.append(", typeID=").append(typeID);
+        sb.append(", rankID=").append(rankID);
+        sb.append(", isSchedule=").append(isSchedule);
         sb.append(", status=").append(status);
+        sb.append(", appearUserID=").append(appearUserID);
+        sb.append(", changeUserID=").append(changeUserID);
+        sb.append(", appearDate=").append(appearDate);
+        sb.append(", changeDate=").append(changeDate);
+        sb.append(", photoLocation=").append(photoLocation);
+        sb.append(", contact=").append(contact);
         sb.append(", reserve1=").append(reserve1);
         sb.append(", reserve2=").append(reserve2);
         sb.append(", reserve3=").append(reserve3);

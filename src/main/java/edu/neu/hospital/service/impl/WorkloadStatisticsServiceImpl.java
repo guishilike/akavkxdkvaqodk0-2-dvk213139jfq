@@ -16,22 +16,23 @@ public class WorkloadStatisticsServiceImpl implements WorkloadStatisticsService 
     WorkloadstatisticsDao workloadstatisticsDao;
 
     @Override
-    public List<Workloadstatistics> findByInfo(String userName, String departmentName, Date dateStart, Date dateEnd) {
-        WorkloadstatisticsExample workstatisticsExample = new WorkloadstatisticsExample();
-        WorkloadstatisticsExample.Criteria criteria = workstatisticsExample.createCriteria();
-        if(userName != null){
-            criteria.andRealnameEqualTo(userName);
+    public List<Workloadstatistics> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd) {
+        WorkloadstatisticsExample workloadstatisticsExample = new WorkloadstatisticsExample();
+        workloadstatisticsExample.clear();
+        WorkloadstatisticsExample.Criteria criteria = workloadstatisticsExample.createCriteria();
+        if(realName != null){
+            criteria.andRealNameEqualTo(realName);
         }
         if(departmentName != null){
-            criteria.andDeptnameEqualTo(departmentName);
+            criteria.andDeptNameEqualTo(departmentName);
         }
         if(dateStart != null){
-            criteria.andFeeappeardateGreaterThan(dateStart);
+            criteria.andFeeAppearDateGreaterThan(dateStart);
         }
         if(dateEnd != null){
-            criteria.andFeeappeardateLessThan(dateEnd);
+            criteria.andFeeAppearDateLessThan(dateEnd);
         }
-        List<Workloadstatistics> list = workloadstatisticsDao.selectByExample(workstatisticsExample);
+        List<Workloadstatistics> list = workloadstatisticsDao.selectByExample(workloadstatisticsExample);
         return list;
     }
 

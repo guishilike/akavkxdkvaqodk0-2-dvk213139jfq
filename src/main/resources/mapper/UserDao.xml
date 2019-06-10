@@ -3,20 +3,20 @@
 <mapper namespace="edu.neu.hospital.dao.UserDao">
   <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.User">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="userName" jdbcType="VARCHAR" property="username" />
-    <result column="realName" jdbcType="VARCHAR" property="realname" />
+    <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="realName" jdbcType="VARCHAR" property="realName" />
     <result column="passwd" jdbcType="VARCHAR" property="passwd" />
-    <result column="departmentID" jdbcType="INTEGER" property="departmentid" />
-    <result column="userTypeID" jdbcType="INTEGER" property="usertypeid" />
-    <result column="rank" jdbcType="INTEGER" property="rank" />
-    <result column="isSchedule" jdbcType="CHAR" property="isschedule" />
-    <result column="appearUserID" jdbcType="INTEGER" property="appearuserid" />
-    <result column="changeUserID" jdbcType="INTEGER" property="changeuserid" />
-    <result column="appearDate" jdbcType="TIMESTAMP" property="appeardate" />
-    <result column="changeDate" jdbcType="TIMESTAMP" property="changedate" />
-    <result column="photoLocation" jdbcType="VARCHAR" property="photolocation" />
-    <result column="contact" jdbcType="INTEGER" property="contact" />
+    <result column="departmentID" jdbcType="INTEGER" property="departmentID" />
+    <result column="typeID" jdbcType="INTEGER" property="typeID" />
+    <result column="rankID" jdbcType="INTEGER" property="rankID" />
+    <result column="isSchedule" jdbcType="CHAR" property="isSchedule" />
     <result column="status" jdbcType="CHAR" property="status" />
+    <result column="appearUserID" jdbcType="INTEGER" property="appearUserID" />
+    <result column="changeUserID" jdbcType="INTEGER" property="changeUserID" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
+    <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
+    <result column="photoLocation" jdbcType="VARCHAR" property="photoLocation" />
+    <result column="contact" jdbcType="INTEGER" property="contact" />
     <result column="reserve1" jdbcType="VARCHAR" property="reserve1" />
     <result column="reserve2" jdbcType="VARCHAR" property="reserve2" />
     <result column="reserve3" jdbcType="VARCHAR" property="reserve3" />
@@ -80,8 +80,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, userName, realName, passwd, departmentID, userTypeID, `rank`, isSchedule, appearUserID, 
-    changeUserID, appearDate, changeDate, photoLocation, contact, `status`, reserve1, 
+    id, userName, realName, passwd, departmentID, typeID, rankID, isSchedule, `status`, 
+    appearUserID, changeUserID, appearDate, changeDate, photoLocation, contact, reserve1, 
     reserve2, reserve3
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.UserExample" resultMap="BaseResultMap">
@@ -124,62 +124,62 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.User" useGeneratedKeys="true">
     insert into user (userName, realName, passwd, 
-      departmentID, userTypeID, `rank`, 
-      isSchedule, appearUserID, changeUserID, 
-      appearDate, changeDate, photoLocation, 
-      contact, `status`, reserve1, 
+      departmentID, typeID, rankID, 
+      isSchedule, `status`, appearUserID, 
+      changeUserID, appearDate, changeDate, 
+      photoLocation, contact, reserve1, 
       reserve2, reserve3)
-    values (#{username,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, 
-      #{departmentid,jdbcType=INTEGER}, #{usertypeid,jdbcType=INTEGER}, #{rank,jdbcType=INTEGER}, 
-      #{isschedule,jdbcType=CHAR}, #{appearuserid,jdbcType=INTEGER}, #{changeuserid,jdbcType=INTEGER}, 
-      #{appeardate,jdbcType=TIMESTAMP}, #{changedate,jdbcType=TIMESTAMP}, #{photolocation,jdbcType=VARCHAR}, 
-      #{contact,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{reserve1,jdbcType=VARCHAR}, 
+    values (#{userName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, 
+      #{departmentID,jdbcType=INTEGER}, #{typeID,jdbcType=INTEGER}, #{rankID,jdbcType=INTEGER}, 
+      #{isSchedule,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{appearUserID,jdbcType=INTEGER}, 
+      #{changeUserID,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, #{changeDate,jdbcType=TIMESTAMP}, 
+      #{photoLocation,jdbcType=VARCHAR}, #{contact,jdbcType=INTEGER}, #{reserve1,jdbcType=VARCHAR}, 
       #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.User" useGeneratedKeys="true">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="username != null">
+      <if test="userName != null">
         userName,
       </if>
-      <if test="realname != null">
+      <if test="realName != null">
         realName,
       </if>
       <if test="passwd != null">
         passwd,
       </if>
-      <if test="departmentid != null">
+      <if test="departmentID != null">
         departmentID,
       </if>
-      <if test="usertypeid != null">
-        userTypeID,
+      <if test="typeID != null">
+        typeID,
       </if>
-      <if test="rank != null">
-        `rank`,
+      <if test="rankID != null">
+        rankID,
       </if>
-      <if test="isschedule != null">
+      <if test="isSchedule != null">
         isSchedule,
       </if>
-      <if test="appearuserid != null">
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="appearUserID != null">
         appearUserID,
       </if>
-      <if test="changeuserid != null">
+      <if test="changeUserID != null">
         changeUserID,
       </if>
-      <if test="appeardate != null">
+      <if test="appearDate != null">
         appearDate,
       </if>
-      <if test="changedate != null">
+      <if test="changeDate != null">
         changeDate,
       </if>
-      <if test="photolocation != null">
+      <if test="photoLocation != null">
         photoLocation,
       </if>
       <if test="contact != null">
         contact,
-      </if>
-      <if test="status != null">
-        `status`,
       </if>
       <if test="reserve1 != null">
         reserve1,
@@ -192,47 +192,47 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="realname != null">
-        #{realname,jdbcType=VARCHAR},
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
       </if>
       <if test="passwd != null">
         #{passwd,jdbcType=VARCHAR},
       </if>
-      <if test="departmentid != null">
-        #{departmentid,jdbcType=INTEGER},
+      <if test="departmentID != null">
+        #{departmentID,jdbcType=INTEGER},
       </if>
-      <if test="usertypeid != null">
-        #{usertypeid,jdbcType=INTEGER},
+      <if test="typeID != null">
+        #{typeID,jdbcType=INTEGER},
       </if>
-      <if test="rank != null">
-        #{rank,jdbcType=INTEGER},
+      <if test="rankID != null">
+        #{rankID,jdbcType=INTEGER},
       </if>
-      <if test="isschedule != null">
-        #{isschedule,jdbcType=CHAR},
-      </if>
-      <if test="appearuserid != null">
-        #{appearuserid,jdbcType=INTEGER},
-      </if>
-      <if test="changeuserid != null">
-        #{changeuserid,jdbcType=INTEGER},
-      </if>
-      <if test="appeardate != null">
-        #{appeardate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="changedate != null">
-        #{changedate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="photolocation != null">
-        #{photolocation,jdbcType=VARCHAR},
-      </if>
-      <if test="contact != null">
-        #{contact,jdbcType=INTEGER},
+      <if test="isSchedule != null">
+        #{isSchedule,jdbcType=CHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=CHAR},
+      </if>
+      <if test="appearUserID != null">
+        #{appearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="changeUserID != null">
+        #{changeUserID,jdbcType=INTEGER},
+      </if>
+      <if test="appearDate != null">
+        #{appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photoLocation != null">
+        #{photoLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=INTEGER},
       </if>
       <if test="reserve1 != null">
         #{reserve1,jdbcType=VARCHAR},
@@ -257,47 +257,47 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.username != null">
-        userName = #{record.username,jdbcType=VARCHAR},
+      <if test="record.userName != null">
+        userName = #{record.userName,jdbcType=VARCHAR},
       </if>
-      <if test="record.realname != null">
-        realName = #{record.realname,jdbcType=VARCHAR},
+      <if test="record.realName != null">
+        realName = #{record.realName,jdbcType=VARCHAR},
       </if>
       <if test="record.passwd != null">
         passwd = #{record.passwd,jdbcType=VARCHAR},
       </if>
-      <if test="record.departmentid != null">
-        departmentID = #{record.departmentid,jdbcType=INTEGER},
+      <if test="record.departmentID != null">
+        departmentID = #{record.departmentID,jdbcType=INTEGER},
       </if>
-      <if test="record.usertypeid != null">
-        userTypeID = #{record.usertypeid,jdbcType=INTEGER},
+      <if test="record.typeID != null">
+        typeID = #{record.typeID,jdbcType=INTEGER},
       </if>
-      <if test="record.rank != null">
-        `rank` = #{record.rank,jdbcType=INTEGER},
+      <if test="record.rankID != null">
+        rankID = #{record.rankID,jdbcType=INTEGER},
       </if>
-      <if test="record.isschedule != null">
-        isSchedule = #{record.isschedule,jdbcType=CHAR},
-      </if>
-      <if test="record.appearuserid != null">
-        appearUserID = #{record.appearuserid,jdbcType=INTEGER},
-      </if>
-      <if test="record.changeuserid != null">
-        changeUserID = #{record.changeuserid,jdbcType=INTEGER},
-      </if>
-      <if test="record.appeardate != null">
-        appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.changedate != null">
-        changeDate = #{record.changedate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.photolocation != null">
-        photoLocation = #{record.photolocation,jdbcType=VARCHAR},
-      </if>
-      <if test="record.contact != null">
-        contact = #{record.contact,jdbcType=INTEGER},
+      <if test="record.isSchedule != null">
+        isSchedule = #{record.isSchedule,jdbcType=CHAR},
       </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.appearUserID != null">
+        appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeUserID != null">
+        changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+      </if>
+      <if test="record.appearDate != null">
+        appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeDate != null">
+        changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.photoLocation != null">
+        photoLocation = #{record.photoLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact != null">
+        contact = #{record.contact,jdbcType=INTEGER},
       </if>
       <if test="record.reserve1 != null">
         reserve1 = #{record.reserve1,jdbcType=VARCHAR},
@@ -316,20 +316,20 @@
   <update id="updateByExample" parameterType="map">
     update user
     set id = #{record.id,jdbcType=INTEGER},
-      userName = #{record.username,jdbcType=VARCHAR},
-      realName = #{record.realname,jdbcType=VARCHAR},
+      userName = #{record.userName,jdbcType=VARCHAR},
+      realName = #{record.realName,jdbcType=VARCHAR},
       passwd = #{record.passwd,jdbcType=VARCHAR},
-      departmentID = #{record.departmentid,jdbcType=INTEGER},
-      userTypeID = #{record.usertypeid,jdbcType=INTEGER},
-      `rank` = #{record.rank,jdbcType=INTEGER},
-      isSchedule = #{record.isschedule,jdbcType=CHAR},
-      appearUserID = #{record.appearuserid,jdbcType=INTEGER},
-      changeUserID = #{record.changeuserid,jdbcType=INTEGER},
-      appearDate = #{record.appeardate,jdbcType=TIMESTAMP},
-      changeDate = #{record.changedate,jdbcType=TIMESTAMP},
-      photoLocation = #{record.photolocation,jdbcType=VARCHAR},
-      contact = #{record.contact,jdbcType=INTEGER},
+      departmentID = #{record.departmentID,jdbcType=INTEGER},
+      typeID = #{record.typeID,jdbcType=INTEGER},
+      rankID = #{record.rankID,jdbcType=INTEGER},
+      isSchedule = #{record.isSchedule,jdbcType=CHAR},
       `status` = #{record.status,jdbcType=CHAR},
+      appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+      changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+      appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+      photoLocation = #{record.photoLocation,jdbcType=VARCHAR},
+      contact = #{record.contact,jdbcType=INTEGER},
       reserve1 = #{record.reserve1,jdbcType=VARCHAR},
       reserve2 = #{record.reserve2,jdbcType=VARCHAR},
       reserve3 = #{record.reserve3,jdbcType=VARCHAR}
@@ -340,47 +340,47 @@
   <update id="updateByPrimaryKeySelective" parameterType="edu.neu.hospital.bean.User">
     update user
     <set>
-      <if test="username != null">
-        userName = #{username,jdbcType=VARCHAR},
+      <if test="userName != null">
+        userName = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="realname != null">
-        realName = #{realname,jdbcType=VARCHAR},
+      <if test="realName != null">
+        realName = #{realName,jdbcType=VARCHAR},
       </if>
       <if test="passwd != null">
         passwd = #{passwd,jdbcType=VARCHAR},
       </if>
-      <if test="departmentid != null">
-        departmentID = #{departmentid,jdbcType=INTEGER},
+      <if test="departmentID != null">
+        departmentID = #{departmentID,jdbcType=INTEGER},
       </if>
-      <if test="usertypeid != null">
-        userTypeID = #{usertypeid,jdbcType=INTEGER},
+      <if test="typeID != null">
+        typeID = #{typeID,jdbcType=INTEGER},
       </if>
-      <if test="rank != null">
-        `rank` = #{rank,jdbcType=INTEGER},
+      <if test="rankID != null">
+        rankID = #{rankID,jdbcType=INTEGER},
       </if>
-      <if test="isschedule != null">
-        isSchedule = #{isschedule,jdbcType=CHAR},
-      </if>
-      <if test="appearuserid != null">
-        appearUserID = #{appearuserid,jdbcType=INTEGER},
-      </if>
-      <if test="changeuserid != null">
-        changeUserID = #{changeuserid,jdbcType=INTEGER},
-      </if>
-      <if test="appeardate != null">
-        appearDate = #{appeardate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="changedate != null">
-        changeDate = #{changedate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="photolocation != null">
-        photoLocation = #{photolocation,jdbcType=VARCHAR},
-      </if>
-      <if test="contact != null">
-        contact = #{contact,jdbcType=INTEGER},
+      <if test="isSchedule != null">
+        isSchedule = #{isSchedule,jdbcType=CHAR},
       </if>
       <if test="status != null">
         `status` = #{status,jdbcType=CHAR},
+      </if>
+      <if test="appearUserID != null">
+        appearUserID = #{appearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="changeUserID != null">
+        changeUserID = #{changeUserID,jdbcType=INTEGER},
+      </if>
+      <if test="appearDate != null">
+        appearDate = #{appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeDate != null">
+        changeDate = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photoLocation != null">
+        photoLocation = #{photoLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=INTEGER},
       </if>
       <if test="reserve1 != null">
         reserve1 = #{reserve1,jdbcType=VARCHAR},
@@ -396,20 +396,20 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="edu.neu.hospital.bean.User">
     update user
-    set userName = #{username,jdbcType=VARCHAR},
-      realName = #{realname,jdbcType=VARCHAR},
+    set userName = #{userName,jdbcType=VARCHAR},
+      realName = #{realName,jdbcType=VARCHAR},
       passwd = #{passwd,jdbcType=VARCHAR},
-      departmentID = #{departmentid,jdbcType=INTEGER},
-      userTypeID = #{usertypeid,jdbcType=INTEGER},
-      `rank` = #{rank,jdbcType=INTEGER},
-      isSchedule = #{isschedule,jdbcType=CHAR},
-      appearUserID = #{appearuserid,jdbcType=INTEGER},
-      changeUserID = #{changeuserid,jdbcType=INTEGER},
-      appearDate = #{appeardate,jdbcType=TIMESTAMP},
-      changeDate = #{changedate,jdbcType=TIMESTAMP},
-      photoLocation = #{photolocation,jdbcType=VARCHAR},
-      contact = #{contact,jdbcType=INTEGER},
+      departmentID = #{departmentID,jdbcType=INTEGER},
+      typeID = #{typeID,jdbcType=INTEGER},
+      rankID = #{rankID,jdbcType=INTEGER},
+      isSchedule = #{isSchedule,jdbcType=CHAR},
       `status` = #{status,jdbcType=CHAR},
+      appearUserID = #{appearUserID,jdbcType=INTEGER},
+      changeUserID = #{changeUserID,jdbcType=INTEGER},
+      appearDate = #{appearDate,jdbcType=TIMESTAMP},
+      changeDate = #{changeDate,jdbcType=TIMESTAMP},
+      photoLocation = #{photoLocation,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=INTEGER},
       reserve1 = #{reserve1,jdbcType=VARCHAR},
       reserve2 = #{reserve2,jdbcType=VARCHAR},
       reserve3 = #{reserve3,jdbcType=VARCHAR}

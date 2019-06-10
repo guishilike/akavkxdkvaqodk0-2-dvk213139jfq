@@ -17,20 +17,23 @@ public class CheckServiceImpl implements CheckService {
 
 
     @Override
-    public List<Check> findByInfo(String userName, String departmentName, Date dateStart, Date dateEnd) {
+    public List<Check> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd) {
+
         CheckExample checkExample = new CheckExample();
+        checkExample.clear();
         CheckExample.Criteria criteria = checkExample.createCriteria();
-        if(userName != null){
-            criteria.andRealnameEqualTo(userName);
+
+        if(realName != null){
+            criteria.andRealNameEqualTo(realName);
         }
         if(departmentName != null){
-            criteria.andDeptnameEqualTo(departmentName);
+            criteria.andDeptNameEqualTo(departmentName);
         }
         if(dateStart != null){
-            criteria.andFeeappeardateGreaterThan(dateStart);
+            criteria.andFeeAppearDateGreaterThan(dateStart);
         }
         if(dateEnd != null){
-            criteria.andFeeappeardateLessThan(dateEnd);
+            criteria.andFeeAppearDateLessThan(dateEnd);
         }
         List<Check> list = checkDao.selectByExample(checkExample);
         return list;

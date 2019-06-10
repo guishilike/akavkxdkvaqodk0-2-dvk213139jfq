@@ -6,7 +6,9 @@ import edu.neu.hospital.bean.Workloadstatistics;
 import java.util.List;
 
 public interface UserInfoService {
+
     User findUserInfo(int userID);
-    User upDateUserInfo(User user);
+    User updateUserInfo(User user);
+//    User updateUserInfo(int id,String userName,String realName,String passwd);
     List<Workloadstatistics> showMyWorkloadstatistics(String userName);
 }

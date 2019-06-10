@@ -1,9 +1,12 @@
 package edu.neu.hospital.dao;
 
+import edu.neu.hospital.bean.Check;
 import edu.neu.hospital.example.CheckExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface CheckDao {
     long countByExample(CheckExample example);
 

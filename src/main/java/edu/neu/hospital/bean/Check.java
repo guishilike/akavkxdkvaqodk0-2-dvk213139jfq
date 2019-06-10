@@ -12,29 +12,29 @@ public class Check implements Serializable {
     /**
      * 用户ID
      */
-    private Integer userid;
+    private Integer userId;
 
     /**
      * 真名
      */
-    private String realname;
+    private String realName;
 
     /**
      * 科室名称
      */
-    private String deptname;
+    private String deptName;
 
     /**
      * 病历ID
      */
-    private Integer medicalrecordid;
+    private Integer medicalRecordID;
 
     /**
      * 患者姓名
      */
-    private String patientname;
+    private String patientName;
 
-    private String feecategory;
+    private String feeCategory;
 
     /**
      * 金额
@@ -49,56 +49,71 @@ public class Check implements Serializable {
     /**
      * 费用产生日期
      */
-    private Date feeappeardate;
+    private Date feeAppearDate;
+
+    /**
+     * 患者费用编号
+     */
+    private Integer feeID;
+
+    /**
+     * 缴费状态：1.已缴费2.未交费3.已退费
+     */
+    private String payStatus;
+
+    /**
+     * 日结状态：1.已日结2.未日结
+     */
+    private String dateStatus;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getRealname() {
-        return realname;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setRealname(String realname) {
-        this.realname = realname;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
-    public String getDeptname() {
-        return deptname;
+    public String getDeptName() {
+        return deptName;
     }
 
-    public void setDeptname(String deptname) {
-        this.deptname = deptname;
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 
-    public Integer getMedicalrecordid() {
-        return medicalrecordid;
+    public Integer getMedicalRecordID() {
+        return medicalRecordID;
     }
 
-    public void setMedicalrecordid(Integer medicalrecordid) {
-        this.medicalrecordid = medicalrecordid;
+    public void setMedicalRecordID(Integer medicalRecordID) {
+        this.medicalRecordID = medicalRecordID;
     }
 
-    public String getPatientname() {
-        return patientname;
+    public String getPatientName() {
+        return patientName;
     }
 
-    public void setPatientname(String patientname) {
-        this.patientname = patientname;
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 
-    public String getFeecategory() {
-        return feecategory;
+    public String getFeeCategory() {
+        return feeCategory;
     }
 
-    public void setFeecategory(String feecategory) {
-        this.feecategory = feecategory;
+    public void setFeeCategory(String feeCategory) {
+        this.feeCategory = feeCategory;
     }
 
     public BigDecimal getFee1() {
@@ -117,12 +132,36 @@ public class Check implements Serializable {
         this.fee2 = fee2;
     }
 
-    public Date getFeeappeardate() {
-        return feeappeardate;
+    public Date getFeeAppearDate() {
+        return feeAppearDate;
     }
 
-    public void setFeeappeardate(Date feeappeardate) {
-        this.feeappeardate = feeappeardate;
+    public void setFeeAppearDate(Date feeAppearDate) {
+        this.feeAppearDate = feeAppearDate;
+    }
+
+    public Integer getFeeID() {
+        return feeID;
+    }
+
+    public void setFeeID(Integer feeID) {
+        this.feeID = feeID;
+    }
+
+    public String getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(String payStatus) {
+        this.payStatus = payStatus;
+    }
+
+    public String getDateStatus() {
+        return dateStatus;
+    }
+
+    public void setDateStatus(String dateStatus) {
+        this.dateStatus = dateStatus;
     }
 
     @Override
@@ -137,30 +176,36 @@ public class Check implements Serializable {
             return false;
         }
         Check other = (Check) that;
-        return (this.getUserid() == null ? other.getUserid() == null : this.getUserid().equals(other.getUserid()))
-            && (this.getRealname() == null ? other.getRealname() == null : this.getRealname().equals(other.getRealname()))
-            && (this.getDeptname() == null ? other.getDeptname() == null : this.getDeptname().equals(other.getDeptname()))
-            && (this.getMedicalrecordid() == null ? other.getMedicalrecordid() == null : this.getMedicalrecordid().equals(other.getMedicalrecordid()))
-            && (this.getPatientname() == null ? other.getPatientname() == null : this.getPatientname().equals(other.getPatientname()))
-            && (this.getFeecategory() == null ? other.getFeecategory() == null : this.getFeecategory().equals(other.getFeecategory()))
+        return (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
+            && (this.getDeptName() == null ? other.getDeptName() == null : this.getDeptName().equals(other.getDeptName()))
+            && (this.getMedicalRecordID() == null ? other.getMedicalRecordID() == null : this.getMedicalRecordID().equals(other.getMedicalRecordID()))
+            && (this.getPatientName() == null ? other.getPatientName() == null : this.getPatientName().equals(other.getPatientName()))
+            && (this.getFeeCategory() == null ? other.getFeeCategory() == null : this.getFeeCategory().equals(other.getFeeCategory()))
             && (this.getFee1() == null ? other.getFee1() == null : this.getFee1().equals(other.getFee1()))
             && (this.getFee2() == null ? other.getFee2() == null : this.getFee2().equals(other.getFee2()))
-            && (this.getFeeappeardate() == null ? other.getFeeappeardate() == null : this.getFeeappeardate().equals(other.getFeeappeardate()));
+            && (this.getFeeAppearDate() == null ? other.getFeeAppearDate() == null : this.getFeeAppearDate().equals(other.getFeeAppearDate()))
+            && (this.getFeeID() == null ? other.getFeeID() == null : this.getFeeID().equals(other.getFeeID()))
+            && (this.getPayStatus() == null ? other.getPayStatus() == null : this.getPayStatus().equals(other.getPayStatus()))
+            && (this.getDateStatus() == null ? other.getDateStatus() == null : this.getDateStatus().equals(other.getDateStatus()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getUserid() == null) ? 0 : getUserid().hashCode());
-        result = prime * result + ((getRealname() == null) ? 0 : getRealname().hashCode());
-        result = prime * result + ((getDeptname() == null) ? 0 : getDeptname().hashCode());
-        result = prime * result + ((getMedicalrecordid() == null) ? 0 : getMedicalrecordid().hashCode());
-        result = prime * result + ((getPatientname() == null) ? 0 : getPatientname().hashCode());
-        result = prime * result + ((getFeecategory() == null) ? 0 : getFeecategory().hashCode());
+        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getRealName() == null) ? 0 : getRealName().hashCode());
+        result = prime * result + ((getDeptName() == null) ? 0 : getDeptName().hashCode());
+        result = prime * result + ((getMedicalRecordID() == null) ? 0 : getMedicalRecordID().hashCode());
+        result = prime * result + ((getPatientName() == null) ? 0 : getPatientName().hashCode());
+        result = prime * result + ((getFeeCategory() == null) ? 0 : getFeeCategory().hashCode());
         result = prime * result + ((getFee1() == null) ? 0 : getFee1().hashCode());
         result = prime * result + ((getFee2() == null) ? 0 : getFee2().hashCode());
-        result = prime * result + ((getFeeappeardate() == null) ? 0 : getFeeappeardate().hashCode());
+        result = prime * result + ((getFeeAppearDate() == null) ? 0 : getFeeAppearDate().hashCode());
+        result = prime * result + ((getFeeID() == null) ? 0 : getFeeID().hashCode());
+        result = prime * result + ((getPayStatus() == null) ? 0 : getPayStatus().hashCode());
+        result = prime * result + ((getDateStatus() == null) ? 0 : getDateStatus().hashCode());
         return result;
     }
 
@@ -170,15 +215,18 @@ public class Check implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", userid=").append(userid);
-        sb.append(", realname=").append(realname);
-        sb.append(", deptname=").append(deptname);
-        sb.append(", medicalrecordid=").append(medicalrecordid);
-        sb.append(", patientname=").append(patientname);
-        sb.append(", feecategory=").append(feecategory);
+        sb.append(", userId=").append(userId);
+        sb.append(", realName=").append(realName);
+        sb.append(", deptName=").append(deptName);
+        sb.append(", medicalRecordID=").append(medicalRecordID);
+        sb.append(", patientName=").append(patientName);
+        sb.append(", feeCategory=").append(feeCategory);
         sb.append(", fee1=").append(fee1);
         sb.append(", fee2=").append(fee2);
-        sb.append(", feeappeardate=").append(feeappeardate);
+        sb.append(", feeAppearDate=").append(feeAppearDate);
+        sb.append(", feeID=").append(feeID);
+        sb.append(", payStatus=").append(payStatus);
+        sb.append(", dateStatus=").append(dateStatus);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

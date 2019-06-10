@@ -3,17 +3,16 @@ package edu.neu.hospital.controller;
 import edu.neu.hospital.bean.User;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.annotation.Resource;
 
 @Controller
 @RequestMapping("login")
 public class LoginController {
 
-    @Resource
+    @Autowired
     LoginService loginService;
 
     @RequestMapping("/check")

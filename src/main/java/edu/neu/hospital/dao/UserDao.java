@@ -3,8 +3,10 @@ package edu.neu.hospital.dao;
 import edu.neu.hospital.bean.User;
 import edu.neu.hospital.example.UserExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface UserDao {
     long countByExample(UserExample example);
 

@@ -17,8 +17,9 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public int check(User user) {
         UserExample userExample =new UserExample();
+        userExample.clear();
         UserExample.Criteria criteria =userExample.createCriteria();
-        criteria.andUsernameEqualTo(user.getUsername());
+        criteria.andUserNameEqualTo(user.getUserName());
         criteria.andPasswdEqualTo(user.getPasswd());
         List<User> list = userDao.selectByExample(userExample);
         if(list.isEmpty()){

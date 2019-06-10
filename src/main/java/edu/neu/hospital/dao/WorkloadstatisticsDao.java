@@ -3,8 +3,10 @@ package edu.neu.hospital.dao;
 import edu.neu.hospital.bean.Workloadstatistics;
 import edu.neu.hospital.example.WorkloadstatisticsExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface WorkloadstatisticsDao {
     long countByExample(WorkloadstatisticsExample example);
 
