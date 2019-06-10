@@ -3,8 +3,10 @@ package edu.neu.hospital.dao;
 import edu.neu.hospital.bean.Checkwork;
 import edu.neu.hospital.example.CheckworkExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface CheckworkDao {
     long countByExample(CheckworkExample example);
 
