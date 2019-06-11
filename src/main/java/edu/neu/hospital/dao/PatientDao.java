@@ -3,9 +3,11 @@ package edu.neu.hospital.dao;
 import edu.neu.hospital.bean.Patient;
 import edu.neu.hospital.example.PatientExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface PatientDao {
     long countByExample(PatientExample example);
 
@@ -20,6 +22,8 @@ public interface PatientDao {
     List<Patient> selectByExample(PatientExample example);
 
     Patient selectByPrimaryKey(Integer id);
+
+    Patient selectByIdCardNo(String identityCardNo);
 
     int updateByExampleSelective(@Param("record") Patient record, @Param("example") PatientExample example);
 

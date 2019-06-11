@@ -3,9 +3,11 @@ package edu.neu.hospital.dao;
 import edu.neu.hospital.bean.Department;
 import edu.neu.hospital.example.DepartmentExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface DepartmentDao {
     long countByExample(DepartmentExample example);
 

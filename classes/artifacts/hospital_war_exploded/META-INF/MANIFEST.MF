@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: hospital
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: MrOne
+Implementation-Vendor-Id: edu.neu
+Created-By: IntelliJ IDEA
+Build-Jdk: 1.8.0_201
+Main-Class: ${start-class}
+

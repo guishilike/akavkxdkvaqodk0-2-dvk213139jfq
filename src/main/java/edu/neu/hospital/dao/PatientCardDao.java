@@ -2,9 +2,12 @@ package edu.neu.hospital.dao;
 
 import edu.neu.hospital.bean.PatientCard;
 import edu.neu.hospital.example.PatientCardExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface PatientCardDao {
     long countByExample(PatientCardExample example);
 
