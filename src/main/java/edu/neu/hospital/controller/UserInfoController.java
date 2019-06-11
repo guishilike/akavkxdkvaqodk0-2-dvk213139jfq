@@ -1,4 +1,4 @@
-/*
+/**
 *用户信息的Controller
 *
 * show方法根据userID查询医生信息
@@ -8,12 +8,21 @@
 * http://localhost:8081/hospital/UserInfo/show?userID=2
 * 测试成功
 *
+* update方法根据userID更新医生信息
+* 需要有参数的传入，至少是一个id
+* id为user表的id
+* 其余参数可以选择传入，参数为user的属性
+* 传参格式
+* http://localhost:8081/hospital/UserInfo/update?id=1&userName=likeee&realName=lik&passwd=456789
+*测试成功
+*
 * showMyWorkload方法显示当前医生的工作量
 * 需要有参数的传入
 * realName医生的真实姓名
 * 传参格式
-* http://localhost:8081/hospital/UserInfo/showMyWorkload?realName="like"
+* http://localhost:8081/hospital/UserInfo/showMyWorkload?realName=like
 * 测试成功
+ *
  */
 package edu.neu.hospital.controller;
 

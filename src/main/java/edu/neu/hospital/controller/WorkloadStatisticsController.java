@@ -1,5 +1,6 @@
-/*
+/**
 *工作量统计的Controller
+*
 * 根据findByInfo传入的参数查找工作量信息
 * realName医生姓名,departmentName部门名称,dateStart开始日期,dateEnd结束日期
 * 传参查询格式
@@ -8,7 +9,8 @@
 * 不传参查询格式
 * http://localhost:8081/hospital/WorkloadStatistics/findByInfo
 * return的是含有json格式的DTO
-* 已经测试过
+* 测试成功
+*
 */
 package edu.neu.hospital.controller;
 

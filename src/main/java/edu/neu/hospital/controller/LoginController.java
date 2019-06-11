@@ -1,3 +1,13 @@
+/**
+ * 登录检查用户名和密码的Controller
+ *
+ * 需要传入用户名和密码
+ * userName用户名passwd密码
+ * 传参格式
+ * http://localhost:8081/hospital/login/check?userName=likeee&passwd=456789
+ * 测试成功
+ *
+ */
 package edu.neu.hospital.controller;
 
 import edu.neu.hospital.bean.User;
