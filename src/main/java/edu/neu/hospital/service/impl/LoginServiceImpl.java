@@ -14,6 +14,11 @@ public class LoginServiceImpl implements LoginService {
     @Resource
     UserDao userDao;
 
+    /**
+     *
+     * @param user 用户类型的User需要取到用户名和密码检查是否能登录
+     * @return int类型的用户ID不能登录返回-1
+     */
     @Override
     public int check(User user) {
         UserExample userExample =new UserExample();
@@ -31,5 +36,13 @@ public class LoginServiceImpl implements LoginService {
             }
             return i;
         }
+    }
+
+    @Override
+    public User findByID(int id) {
+        UserExample userExample =new UserExample();
+        userExample.clear();
+        UserExample.Criteria criteria =userExample.createCriteria();
+        return userDao.selectByPrimaryKey(id);
     }
 }

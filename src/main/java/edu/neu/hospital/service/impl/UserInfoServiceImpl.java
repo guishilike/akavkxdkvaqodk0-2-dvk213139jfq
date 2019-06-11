@@ -20,6 +20,11 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Resource
     WorkloadstatisticsDao workloadstatisticsDao;
 
+    /**
+     *
+     * @param userID 传入一个int类型的userID
+     * @return 返回根据用户ID查找到的user对象找不到为null
+     */
     @Override
     public User findUserInfo(int userID) {
         UserExample userExample = new UserExample();
@@ -30,52 +35,31 @@ public class UserInfoServiceImpl implements UserInfoService {
         return user;
     }
 
+    /**
+     *
+     * @param user2 User类型的user，根据这个user的属性更新数据库送对应的user
+     * @return 返回更新后的user对象
+     */
     @Override
     public User updateUserInfo(User user2) {
+//        userDao.updateByPrimaryKeySelective(user2);
         Date date = new Date();
         Boolean b = true;
         UserExample userExample = new UserExample();
-        User user = new User();
-        UserExample userExample2 = new UserExample();
         userExample.clear();
-        userExample2.clear();
         UserExample.Criteria criteria = userExample.createCriteria();
-        UserExample.Criteria criteria2 = userExample2.createCriteria();
         criteria.andStatusEqualTo("1");
-        criteria2.andStatusEqualTo("1");
-        criteria2.andUserNameEqualTo(user2.getUserName());
-        List<User> list2 = userDao.selectByExample(userExample2);
-        for(User user1:list2){
-            if(user1.getId() == user2.getId())
-                b = false;
+        criteria.andUserNameEqualTo(user2.getUserName());
+        criteria.andIdNotEqualTo(user2.getId());
+        List<User> list2 = userDao.selectByExample(userExample);
+        if(userDao.countByExample(userExample) != 0){
+            b=false;
         }
-        criteria.andIdEqualTo(user2.getId());
-        user.setId(user2.getId());
-        if(user2.getUserName() != null)
-            user.setUserName(user2.getUserName());
-        if(user2.getRealName() != null)
-            user.setRealName(user2.getRealName());
-        if(user2.getPasswd() != null)
-            user.setPasswd(user2.getPasswd());
-        if(user2.getDepartmentID() != null)
-            user.setDepartmentID(user2.getDepartmentID());
-        if(user2.getTypeID() != null)
-            user.setTypeID(user2.getTypeID());
-        if(user2.getRankID() != null)
-            user.setRankID(user2.getRankID());
-        if(user2.getIsSchedule() != null)
-            user.setIsSchedule(user2.getIsSchedule());
-        if(user2.getAppearUserID() != null)
-            user.setAppearUserID(user2.getAppearUserID());
-        if(user2.getAppearDate() != null)
-            user.setAppearDate(user2.getAppearDate());
-        if(user2.getPhotoLocation() != null)
-            user.setPhotoLocation(user2.getPhotoLocation());
-        user.setStatus("1");
-        user.setChangeUserID(user2.getId());
-        user.setChangeDate(date);
+        user2.setStatus("1");
+        user2.setChangeUserID(user2.getId());
+        user2.setChangeDate(date);
         if(b){
-            int id1 = userDao.updateByExample(user,userExample);
+            int id1 = userDao.updateByPrimaryKeySelective(user2);
             return userDao.selectByPrimaryKey(user2.getId());
         }else{
             return null;
@@ -123,7 +107,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 //        criteria.andUserNameEqualTo(user.getUserName());
 //        criteria.andIdNotEqualTo(user.getId());
 //        List<User> list = userDao.selectByExample(userExample);
-//        if(list == null){
+//        if(userDao.)
+//
+//
+//
+//    }
 //            int id = userDao.updateByPrimaryKey(user);
 //            return userDao.selectByPrimaryKey(id);
 //        }else{
@@ -132,7 +120,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 //    }
 
 
-
+    /**
+     *
+     * @param realName 用户的真实姓名
+     * @return 根据用户姓名查找到的用户工作量统计的list
+     */
     @Override
     public List<Workloadstatistics> showMyWorkloadstatistics(String realName) {
         WorkloadstatisticsExample workloadstatisticsExample = new WorkloadstatisticsExample();

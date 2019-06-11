@@ -11,12 +11,16 @@
 package edu.neu.hospital.controller;
 
 import edu.neu.hospital.bean.User;
+import edu.neu.hospital.dao.UserDao;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("login")
@@ -27,7 +31,8 @@ public class LoginController {
 
     @RequestMapping("/check")
     public @ResponseBody
-    ResultDTO<Integer> check(User user){
+    ResultDTO<Integer> check(HttpServletRequest request, User user){
+        HttpSession session = request.getSession(true);
         ResultDTO<Integer> resultDTO = new ResultDTO();
         try{
             int i = loginService.check(user);
@@ -35,6 +40,8 @@ public class LoginController {
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("用户检查成功！可以登录");
                 resultDTO.setData(i);
+                user = loginService.findByID(i);
+                session.setAttribute("user",user);
             }else {
                 resultDTO.setStatus("NG");
                 resultDTO.setMsg("用户检查失败！");

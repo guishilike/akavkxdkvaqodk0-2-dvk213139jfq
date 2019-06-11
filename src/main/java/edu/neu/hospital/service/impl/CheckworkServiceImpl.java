@@ -15,6 +15,14 @@ public class CheckworkServiceImpl implements CheckworkService {
     @Resource
     CheckworkDao checkworkDao;
 
+    /**
+     *
+     * @param realName 用户真实姓名
+     * @param departmentName 部门名称
+     * @param dateStart 开始日期
+     * @param dateEnd 结束日期
+     * @return Checkwork核对类型的list
+     */
     @Override
     public List<Checkwork> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd) {
         CheckworkExample checkworkExample = new CheckworkExample();

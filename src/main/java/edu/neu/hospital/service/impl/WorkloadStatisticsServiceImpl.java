@@ -15,6 +15,14 @@ public class WorkloadStatisticsServiceImpl implements WorkloadStatisticsService 
     @Resource
     WorkloadstatisticsDao workloadstatisticsDao;
 
+    /**
+     *
+     * @param realName 用户真实姓名
+     * @param departmentName 部门名称
+     * @param dateStart 开始日期
+     * @param dateEnd 结束日期
+     * @return Workloadstatistics类型的工作量统计list
+     */
     @Override
     public List<Workloadstatistics> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd) {
         WorkloadstatisticsExample workloadstatisticsExample = new WorkloadstatisticsExample();

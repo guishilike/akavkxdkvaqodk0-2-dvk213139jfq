@@ -32,10 +32,17 @@ import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("UserInfo")
@@ -45,7 +52,11 @@ public class UserInfoController {
 
     @RequestMapping("/show")
     public @ResponseBody
-    ResultDTO<User> show(int userID){
+//    ResultDTO<User> show(int userID){
+    ResultDTO<User> show(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        User user1 = (User)session.getAttribute("user");
+        int userID = user1.getId();
         ResultDTO<User> resultDTO = new ResultDTO();
         try {
             User user = userInfoService.findUserInfo(userID);
@@ -69,9 +80,37 @@ public class UserInfoController {
     @RequestMapping("/update")
     public @ResponseBody
 //    ResultDTO<User> update(int id, String userName, String realName, String passwd){
-    ResultDTO<User> update(User user){
+    ResultDTO<User> update(User user, HttpServletRequest request, MultipartFile pic){
+        HttpSession session = request.getSession();
+        User user2 = (User)session.getAttribute("user");
+        //只能更新自己的用户信息
+        user.setId(user2.getId());
         ResultDTO<User> resultDTO = new ResultDTO();
+        //将本地图片上传并导入静态资源路径
+
+        try {
+            if (!pic.isEmpty() && !pic.getOriginalFilename().isEmpty() && pic.getOriginalFilename() != "") {
+                String uuid = UUID.randomUUID().toString();
+                String fileName = pic.getOriginalFilename();
+                String suffixName = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+                String newFileName = uuid + "." + suffixName;
+                File file = new File(ResourceUtils.getURL("classpath:").getPath() + "static/images/" + newFileName);
+                pic.transferTo(file);
+                user.setPhotoLocation(newFileName);
+            }
+//            else{
+//                resultDTO.setStatus("NG");
+//                resultDTO.setMsg("图片为空！");
+//                resultDTO.setData(null);
+//            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus("NG");
+            resultDTO.setMsg("操作失败！");
+        }
         try{
+
             User user1 = userInfoService.updateUserInfo(user);
 //            User user1 = userInfoService.updateUserInfo(id,userName,realName,passwd);
             if (user1 != null){
@@ -94,8 +133,12 @@ public class UserInfoController {
 
     @RequestMapping("/showMyWorkload")
     public @ResponseBody
-    ResultDTO<List<Workloadstatistics>> showMyWorkload(String realName) {
+//    ResultDTO<List<Workloadstatistics>> showMyWorkload(String realName) {
+    ResultDTO<List<Workloadstatistics>> showMyWorkload(HttpServletRequest request) {
         ResultDTO<List<Workloadstatistics>> resultDTO = new ResultDTO();
+        HttpSession session = request.getSession();
+        User user1 = (User)session.getAttribute("user");
+        String realName = user1.getRealName();
         try {
             List<Workloadstatistics> list = userInfoService.showMyWorkloadstatistics(realName);
             if (list != null) {
