@@ -1,7 +1,8 @@
 package edu.neu.hospital.service;
 
+import edu.neu.hospital.bean.Patient;
+
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * 就诊卡服务，包括申请就诊卡，修改密码和费用管理
@@ -11,19 +12,14 @@ import java.util.Date;
  */
 public interface PatientCardService {
 
-
     /**
      * 申请就诊卡
      *
-     * @param patientName    患者名字
-     * @param identityCardNo 身份证号
-     * @param gender         性别
-     * @param birthday       出生日期
-     * @param familyAddress  家庭住址
-     * @param passwd         就诊卡密码
+     * @param patient 患者信息
+     * @param passwd  就诊卡密码
+     * @return int: 1表示申请成功; 0表示申请失败
      */
-    void applyCard(String patientName, String identityCardNo, String gender,
-                   Date birthday, String familyAddress, String passwd);
+    int applyCard(Patient patient, String passwd);
 
 
     /**
@@ -31,8 +27,9 @@ public interface PatientCardService {
      *
      * @param id        就诊卡
      * @param newPasswd 新密码
+     * @return int: 1表示修改成功; 0表示修改失败
      */
-    void changePasswd(Integer id, String newPasswd);
+    int changePasswd(Integer id, String newPasswd);
 
     /**
      * 查询就诊卡余额
@@ -47,6 +44,7 @@ public interface PatientCardService {
      *
      * @param id    就诊卡id
      * @param money 充值金额
+     * @return int: 1表示充值成功; 0表示充值失败
      */
-    void recharge(Integer id, BigDecimal money);
+    int recharge(Integer id, BigDecimal money);
 }

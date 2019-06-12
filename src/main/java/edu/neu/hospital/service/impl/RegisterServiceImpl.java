@@ -12,7 +12,6 @@ import edu.neu.hospital.service.RegisterService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -35,41 +34,30 @@ public class RegisterServiceImpl implements RegisterService {
     @Resource
     RegistrationInfoDao regInfoDao;
 
-
     @Override
-    public int addRegisteredInfo(String isHaveCard, String patientName, String identityCardNo,
-                                              String gender, Date birthday, String familyAddress, String passwd,
-                                              Integer registeredLevelID, Integer departmentID,
-                                              Integer doctorID, Date seeDoctorDate, Integer regSourceID,
-                                              Integer payID, BigDecimal expense) {
+    public int addRegisteredInfo(String isHaveCard, Patient patient, String passwd, RegistrationInfo regInfo) {
 
         if (isHaveCard.equals("0")) { //若无就诊卡
 
             //根据身份证号查找数据库中的患者信息
-            Patient patient = patientDao.selectByIdCardNo(identityCardNo);
-            if (patient == null) { //若数据库中没有同身份证号的患者信息
+            if (null == patientDao.selectByIdCardNo(patient.getIdentityCardNo())) {//若数据库中没有同身份证号的患者信息
                 //插入一条患者信息
-                patient = new Patient();
-                patient.setPatientName(patientName);
-                patient.setIdentityCardNo(identityCardNo);
-                patient.setGender(gender);
-                patient.setBirthday(birthday);
-                patient.setFamilyAddress(familyAddress);
                 patientDao.insert(patient);
             }
-
+            //插入就诊卡信息
             PatientCard patientCard = new PatientCard();
-            patientCard.setPatientName(patientName);
-            patientCard.setPatientID(patientDao.selectByIdCardNo(identityCardNo).getId());
+            patientCard.setPatientName(patient.getPatientName());
+            patientCard.setPatientID(patientDao.selectByIdCardNo(patient.getIdentityCardNo()).getId());
             patientCard.setPasswd(passwd);
 
+            patientCardDao.insert(patientCard);
         }
 
         //按照当前系统时间生成17位病历号
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         String medRecNo = sdf.format(new Date());
         //查表，根据身份证号获取patientID
-        Integer patientID = patientDao.selectByIdCardNo(identityCardNo).getId();
+        Integer patientID = patientDao.selectByIdCardNo(patient.getIdentityCardNo()).getId();
         //插入一条病历记录
         MedicalRecord medRec = new MedicalRecord();
         medRec.setMedicalRecordNo(medRecNo);
@@ -77,23 +65,13 @@ public class RegisterServiceImpl implements RegisterService {
         medRecDao.insert(medRec);
 
         //插入一条挂号信息
-        RegistrationInfo regInfo = new RegistrationInfo();
         //查表，根据病历号获取病例ID
         Integer medRecID = medRecDao.selectByMedRecNo(medRecNo).getId();
+
         regInfo.setMedicalRecordID(medRecID);
         regInfo.setPatientID(patientID);
-        regInfo.setRegistrationLevelID(registeredLevelID);
         regInfo.setRegistrationDate(new Date());
-        regInfo.setSeeDoctorDate(seeDoctorDate);
-        regInfo.setDepartmentID(departmentID);
-        regInfo.setDoctorID(doctorID);
-        regInfo.setRegistrationSourceID(regSourceID);
-        regInfo.setPaymentCategoryID(payID);
-        regInfo.setIsSeenDocator("0");//0表示未看诊，1表示已看诊，默认为0
-        regInfo.setExpense(expense);
-        regInfo.setRegistrationStatus("1");//“1”表示挂号，“2”表示退号，默认为1
 
-        System.out.println(regInfoDao.insert(regInfo));
-        return regInfoDao.insert(regInfo);
+        return 0;
     }
 }

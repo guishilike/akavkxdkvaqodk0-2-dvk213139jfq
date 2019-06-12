@@ -1,9 +1,11 @@
 package edu.neu.hospital.service;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import edu.neu.hospital.bean.Patient;
+import edu.neu.hospital.bean.RegistrationInfo;
 
 /**
+ * 挂号服务
+ *
  * @author LiJie
  * @date 2019/6/10 10:40
  */
@@ -12,26 +14,24 @@ public interface RegisterService {
     /**
      * 挂号
      *
-     * @param isHaveCard        是否有就诊卡，1表示有，0表示无
-     * @param patientName       患者名字
-     * @param identityCardNo    身份证号
-     * @param gender            性别
-     * @param birthday          出生日期
-     * @param familyAddress     家庭住址
-     * @param passwd            就诊卡密码
-     * @param registeredLevelID 挂号级别ID
-     * @param departmentID      科室ID
-     * @param doctorID          医生ID
-     * @param seeDoctorDate     看诊时间
-     * @param regSourceID       挂号来源ID
-     * @param payID             收费类别ID
-     * @param expense           费用
-     * @return 1
+     * @param isHaveCard 是否有就诊卡，1表示有，0表示无
+     * @param patient    患者信息。包含：
+     *                   * patientName       患者名字
+     *                   * identityCardNo    身份证号
+     *                   * gender            性别
+     *                   * birthday          出生日期
+     *                   * familyAddress     家庭住址
+     * @param passwd     就诊卡密码
+     * @param regInfo    挂号信息。包含：
+     *                   * registeredLevelID 挂号级别ID
+     *                   * departmentID      科室ID
+     *                   * doctorID          医生ID
+     *                   * seeDoctorDate     看诊时间
+     *                   * regSourceID       挂号来源ID
+     *                   * payID             收费类别ID
+     *                   * expense           费用
+     * @return int: 1表示挂号成功; 0表示挂号失败
      */
-    int addRegisteredInfo(String isHaveCard, String patientName, String identityCardNo,
-                          String gender, Date birthday, String familyAddress, String passwd,
-                          Integer registeredLevelID, Integer departmentID,
-                          Integer doctorID, Date seeDoctorDate, Integer regSourceID,
-                          Integer payID, BigDecimal expense);
+    int addRegisteredInfo(String isHaveCard, Patient patient, String passwd, RegistrationInfo regInfo);
 
 }

@@ -1,5 +1,7 @@
 package edu.neu.hospital.controller;
 
+import edu.neu.hospital.bean.Patient;
+import edu.neu.hospital.bean.RegistrationInfo;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.PatientCardService;
 import edu.neu.hospital.service.RegisterService;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * @author LiJie
@@ -25,41 +26,65 @@ public class RegisterController {
     @Resource
     RegisterService regService;
 
+    /**
+     * 申请就诊卡
+     */
+    @RequestMapping("/applyCard")
+    public @ResponseBody
+    ResultDTO applyCard(Patient patient, String passwd) {
+
+        int result = patientCardService.applyCard(patient, passwd);
+
+        if (0 == result) {
+            return new ResultDTO<>("NG", "申请失败", result);
+        }
+
+        return new ResultDTO<>("OK", "申请成功", result);
+    }
+
+    /**
+     * 修改就诊卡密码
+     */
     @RequestMapping("/changepwd")
     public @ResponseBody
     ResultDTO changePasswd(Integer id, String passwd) {
 
-        patientCardService.changePasswd(id, passwd);
-        System.out.println("id: " + id + " passwd: " + passwd);
+        int result = patientCardService.changePasswd(id, passwd);
 
-        ResultDTO<String> result = new ResultDTO<>();
-        result.setStatus("OK");
-        result.setMsg("修改成功");
-        result.setData("Change OK");
+        if (0 == result) {
+            return new ResultDTO<>("NG", "修改失败", result);
+        }
 
-        return result;
+        return new ResultDTO<>("OK", "修改成功", result);
     }
 
+    @RequestMapping("/balance")
+    public @ResponseBody
+    ResultDTO searchBalance(Integer id) {
+
+        BigDecimal balance = patientCardService.searchBalance(id);
+
+        if (balance == null) {
+            return new ResultDTO<>("NG", "查询失败", null);
+        }
+
+        return new ResultDTO<>("OK", "查询成功", balance);
+
+    }
+
+    /**
+     * 挂号
+     */
     @RequestMapping("/reg")
     public @ResponseBody
-    ResultDTO register(String isHaveCard, String patientName, String identityCardNo,
-                       String gender, Date birthday, String familyAddress, String passwd,
-                       Integer registeredLevelID, Integer departmentID,
-                       Integer doctorID, Date seeDoctorDate, Integer regSourceID,
-                       Integer payID, BigDecimal expense) {
+    ResultDTO register(String isHaveCard, Patient patient, String passwd, RegistrationInfo regInfo) {
 
-        int data = regService.addRegisteredInfo(isHaveCard, patientName, identityCardNo,
-                gender, birthday, familyAddress, passwd,
-                registeredLevelID, departmentID,
-                doctorID, seeDoctorDate, regSourceID,
-                payID, expense);
+        int result = regService.addRegisteredInfo(isHaveCard, patient, passwd, regInfo);
 
-        ResultDTO<Integer> result = new ResultDTO<>();
-        result.setStatus("OK");
-        result.setMsg("修改成功");
-        result.setData(data);
+        if (0 == result) {
+            return new ResultDTO<>("NG", "挂号失败", result);
+        }
 
-        return result;
+        return new ResultDTO<>("OK", "挂号成功", result);
     }
-
 }

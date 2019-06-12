@@ -4,7 +4,7 @@ server:
   servlet:
     context-path: /hospital
     session:
-      timeout: 5m
+      timeout: 60m
 spring:
   mvc:
     view:

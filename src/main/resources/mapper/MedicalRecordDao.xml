@@ -79,7 +79,7 @@
         id, medicalRecordNo, patientID, diagnosisStatus, appearUserID, changeUserID, appearDate,
         changeDate, `status`, reserve1, reserve2, reserve3
     </sql>
-    <select id = "selectByExample" parameterType = "edu.neu.hospital.example.MedicalrecordExample"
+    <select id = "selectByExample" parameterType = "edu.neu.hospital.example.MedicalRecordExample"
             resultMap = "BaseResultMap">
         select
         <if test = "distinct">
@@ -119,7 +119,7 @@
         from medicalrecord
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <delete id = "deleteByExample" parameterType = "edu.neu.hospital.example.MedicalrecordExample">
+    <delete id = "deleteByExample" parameterType = "edu.neu.hospital.example.MedicalRecordExample">
         delete from medicalrecord
         <if test = "_parameter != null">
             <include refid = "Example_Where_Clause"/>
@@ -210,7 +210,7 @@
             </if>
         </trim>
     </insert>
-    <select id = "countByExample" parameterType = "edu.neu.hospital.example.MedicalrecordExample"
+    <select id = "countByExample" parameterType = "edu.neu.hospital.example.MedicalRecordExample"
             resultType = "java.lang.Long">
         select count(*) from medicalrecord
         <if test = "_parameter != null">
