@@ -7,7 +7,7 @@
     <result column="deptName" jdbcType="VARCHAR" property="deptName" />
     <result column="medicalRecordID" jdbcType="INTEGER" property="medicalRecordID" />
     <result column="patientName" jdbcType="VARCHAR" property="patientName" />
-    <result column="feeCategory" jdbcType="VARCHAR" property="feeCategory" />
+    <result column="feeTypeName" jdbcType="VARCHAR" property="feeTypeName" />
     <result column="fee" jdbcType="DECIMAL" property="fee" />
     <result column="feeAppearDate" jdbcType="TIMESTAMP" property="feeAppearDate" />
     <result column="feeID" jdbcType="INTEGER" property="feeID" />
@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    userId, realName, deptName, medicalRecordID, patientName, feeCategory, fee, feeAppearDate, 
+    userId, realName, deptName, medicalRecordID, patientName, feeTypeName, fee, feeAppearDate, 
     feeID, payStatus, dateStatus
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.WorkloadstatisticsExample" resultMap="BaseResultMap">
@@ -106,11 +106,11 @@
   </delete>
   <insert id="insert" parameterType="edu.neu.hospital.bean.Workloadstatistics">
     insert into workloadstatistics (userId, realName, deptName, 
-      medicalRecordID, patientName, feeCategory, 
+      medicalRecordID, patientName, feeTypeName, 
       fee, feeAppearDate, feeID, 
       payStatus, dateStatus)
     values (#{userId,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
-      #{medicalRecordID,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, #{feeCategory,jdbcType=VARCHAR}, 
+      #{medicalRecordID,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, #{feeTypeName,jdbcType=VARCHAR}, 
       #{fee,jdbcType=DECIMAL}, #{feeAppearDate,jdbcType=TIMESTAMP}, #{feeID,jdbcType=INTEGER}, 
       #{payStatus,jdbcType=CHAR}, #{dateStatus,jdbcType=CHAR})
   </insert>
@@ -132,8 +132,8 @@
       <if test="patientName != null">
         patientName,
       </if>
-      <if test="feeCategory != null">
-        feeCategory,
+      <if test="feeTypeName != null">
+        feeTypeName,
       </if>
       <if test="fee != null">
         fee,
@@ -167,8 +167,8 @@
       <if test="patientName != null">
         #{patientName,jdbcType=VARCHAR},
       </if>
-      <if test="feeCategory != null">
-        #{feeCategory,jdbcType=VARCHAR},
+      <if test="feeTypeName != null">
+        #{feeTypeName,jdbcType=VARCHAR},
       </if>
       <if test="fee != null">
         #{fee,jdbcType=DECIMAL},
@@ -211,8 +211,8 @@
       <if test="record.patientName != null">
         patientName = #{record.patientName,jdbcType=VARCHAR},
       </if>
-      <if test="record.feeCategory != null">
-        feeCategory = #{record.feeCategory,jdbcType=VARCHAR},
+      <if test="record.feeTypeName != null">
+        feeTypeName = #{record.feeTypeName,jdbcType=VARCHAR},
       </if>
       <if test="record.fee != null">
         fee = #{record.fee,jdbcType=DECIMAL},
@@ -241,7 +241,7 @@
       deptName = #{record.deptName,jdbcType=VARCHAR},
       medicalRecordID = #{record.medicalRecordID,jdbcType=INTEGER},
       patientName = #{record.patientName,jdbcType=VARCHAR},
-      feeCategory = #{record.feeCategory,jdbcType=VARCHAR},
+      feeTypeName = #{record.feeTypeName,jdbcType=VARCHAR},
       fee = #{record.fee,jdbcType=DECIMAL},
       feeAppearDate = #{record.feeAppearDate,jdbcType=TIMESTAMP},
       feeID = #{record.feeID,jdbcType=INTEGER},

@@ -40,7 +40,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -81,6 +80,7 @@ public class UserInfoController {
     public @ResponseBody
 //    ResultDTO<User> update(int id, String userName, String realName, String passwd){
     ResultDTO<User> update(User user, HttpServletRequest request, MultipartFile pic){
+//        MultipartFile pic = pic1;
         HttpSession session = request.getSession();
         User user2 = (User)session.getAttribute("user");
         //只能更新自己的用户信息

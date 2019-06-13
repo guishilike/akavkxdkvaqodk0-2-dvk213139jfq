@@ -47,9 +47,9 @@ public interface FmeditemService {
 
     /**
      * 根据传参查找
-     * @param deptName 使用科室名称
+     * @param deptID 使用科室ID
      * @param type 类型
      * @return
      */
-    public List<Fmeditemview> find(String deptName, String type);
+    public List<Fmeditemview> find(Integer deptID, Integer type);
 }

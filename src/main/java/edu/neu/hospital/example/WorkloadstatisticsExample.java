@@ -456,73 +456,73 @@ public class WorkloadstatisticsExample {
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryIsNull() {
-            addCriterion("feeCategory is null");
+        public Criteria andFeeTypeNameIsNull() {
+            addCriterion("feeTypeName is null");
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryIsNotNull() {
-            addCriterion("feeCategory is not null");
+        public Criteria andFeeTypeNameIsNotNull() {
+            addCriterion("feeTypeName is not null");
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryEqualTo(String value) {
-            addCriterion("feeCategory =", value, "feeCategory");
+        public Criteria andFeeTypeNameEqualTo(String value) {
+            addCriterion("feeTypeName =", value, "feeTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryNotEqualTo(String value) {
-            addCriterion("feeCategory <>", value, "feeCategory");
+        public Criteria andFeeTypeNameNotEqualTo(String value) {
+            addCriterion("feeTypeName <>", value, "feeTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryGreaterThan(String value) {
-            addCriterion("feeCategory >", value, "feeCategory");
+        public Criteria andFeeTypeNameGreaterThan(String value) {
+            addCriterion("feeTypeName >", value, "feeTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryGreaterThanOrEqualTo(String value) {
-            addCriterion("feeCategory >=", value, "feeCategory");
+        public Criteria andFeeTypeNameGreaterThanOrEqualTo(String value) {
+            addCriterion("feeTypeName >=", value, "feeTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryLessThan(String value) {
-            addCriterion("feeCategory <", value, "feeCategory");
+        public Criteria andFeeTypeNameLessThan(String value) {
+            addCriterion("feeTypeName <", value, "feeTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryLessThanOrEqualTo(String value) {
-            addCriterion("feeCategory <=", value, "feeCategory");
+        public Criteria andFeeTypeNameLessThanOrEqualTo(String value) {
+            addCriterion("feeTypeName <=", value, "feeTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryLike(String value) {
-            addCriterion("feeCategory like", value, "feeCategory");
+        public Criteria andFeeTypeNameLike(String value) {
+            addCriterion("feeTypeName like", value, "feeTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryNotLike(String value) {
-            addCriterion("feeCategory not like", value, "feeCategory");
+        public Criteria andFeeTypeNameNotLike(String value) {
+            addCriterion("feeTypeName not like", value, "feeTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryIn(List<String> values) {
-            addCriterion("feeCategory in", values, "feeCategory");
+        public Criteria andFeeTypeNameIn(List<String> values) {
+            addCriterion("feeTypeName in", values, "feeTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryNotIn(List<String> values) {
-            addCriterion("feeCategory not in", values, "feeCategory");
+        public Criteria andFeeTypeNameNotIn(List<String> values) {
+            addCriterion("feeTypeName not in", values, "feeTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryBetween(String value1, String value2) {
-            addCriterion("feeCategory between", value1, value2, "feeCategory");
+        public Criteria andFeeTypeNameBetween(String value1, String value2) {
+            addCriterion("feeTypeName between", value1, value2, "feeTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andFeeCategoryNotBetween(String value1, String value2) {
-            addCriterion("feeCategory not between", value1, value2, "feeCategory");
+        public Criteria andFeeTypeNameNotBetween(String value1, String value2) {
+            addCriterion("feeTypeName not between", value1, value2, "feeTypeName");
             return (Criteria) this;
         }
 

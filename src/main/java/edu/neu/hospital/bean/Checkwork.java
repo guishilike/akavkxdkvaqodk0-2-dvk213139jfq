@@ -34,7 +34,10 @@ public class Checkwork implements Serializable {
      */
     private String patientName;
 
-    private String feeCategory;
+    /**
+     * 费用科目名字
+     */
+    private String feeCategoryName;
 
     /**
      * 金额
@@ -108,12 +111,12 @@ public class Checkwork implements Serializable {
         this.patientName = patientName;
     }
 
-    public String getFeeCategory() {
-        return feeCategory;
+    public String getFeeCategoryName() {
+        return feeCategoryName;
     }
 
-    public void setFeeCategory(String feeCategory) {
-        this.feeCategory = feeCategory;
+    public void setFeeCategoryName(String feeCategoryName) {
+        this.feeCategoryName = feeCategoryName;
     }
 
     public BigDecimal getFee1() {
@@ -181,7 +184,7 @@ public class Checkwork implements Serializable {
             && (this.getDeptName() == null ? other.getDeptName() == null : this.getDeptName().equals(other.getDeptName()))
             && (this.getMedicalRecordID() == null ? other.getMedicalRecordID() == null : this.getMedicalRecordID().equals(other.getMedicalRecordID()))
             && (this.getPatientName() == null ? other.getPatientName() == null : this.getPatientName().equals(other.getPatientName()))
-            && (this.getFeeCategory() == null ? other.getFeeCategory() == null : this.getFeeCategory().equals(other.getFeeCategory()))
+            && (this.getFeeCategoryName() == null ? other.getFeeCategoryName() == null : this.getFeeCategoryName().equals(other.getFeeCategoryName()))
             && (this.getFee1() == null ? other.getFee1() == null : this.getFee1().equals(other.getFee1()))
             && (this.getFee2() == null ? other.getFee2() == null : this.getFee2().equals(other.getFee2()))
             && (this.getFeeAppearDate() == null ? other.getFeeAppearDate() == null : this.getFeeAppearDate().equals(other.getFeeAppearDate()))
@@ -199,7 +202,7 @@ public class Checkwork implements Serializable {
         result = prime * result + ((getDeptName() == null) ? 0 : getDeptName().hashCode());
         result = prime * result + ((getMedicalRecordID() == null) ? 0 : getMedicalRecordID().hashCode());
         result = prime * result + ((getPatientName() == null) ? 0 : getPatientName().hashCode());
-        result = prime * result + ((getFeeCategory() == null) ? 0 : getFeeCategory().hashCode());
+        result = prime * result + ((getFeeCategoryName() == null) ? 0 : getFeeCategoryName().hashCode());
         result = prime * result + ((getFee1() == null) ? 0 : getFee1().hashCode());
         result = prime * result + ((getFee2() == null) ? 0 : getFee2().hashCode());
         result = prime * result + ((getFeeAppearDate() == null) ? 0 : getFeeAppearDate().hashCode());
@@ -220,7 +223,7 @@ public class Checkwork implements Serializable {
         sb.append(", deptName=").append(deptName);
         sb.append(", medicalRecordID=").append(medicalRecordID);
         sb.append(", patientName=").append(patientName);
-        sb.append(", feeCategory=").append(feeCategory);
+        sb.append(", feeCategoryName=").append(feeCategoryName);
         sb.append(", fee1=").append(fee1);
         sb.append(", fee2=").append(fee2);
         sb.append(", feeAppearDate=").append(feeAppearDate);

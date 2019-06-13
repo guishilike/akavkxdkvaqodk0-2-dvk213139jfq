@@ -7,7 +7,7 @@
     <result column="deptName" jdbcType="VARCHAR" property="deptName" />
     <result column="medicalRecordID" jdbcType="INTEGER" property="medicalRecordID" />
     <result column="patientName" jdbcType="VARCHAR" property="patientName" />
-    <result column="feeCategory" jdbcType="VARCHAR" property="feeCategory" />
+    <result column="feeCategoryName" jdbcType="VARCHAR" property="feeCategoryName" />
     <result column="fee1" jdbcType="DECIMAL" property="fee1" />
     <result column="fee2" jdbcType="DECIMAL" property="fee2" />
     <result column="feeAppearDate" jdbcType="TIMESTAMP" property="feeAppearDate" />
@@ -74,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    userId, realName, deptName, medicalRecordID, patientName, feeCategory, fee1, fee2, 
-    feeAppearDate, feeID, payStatus, dateStatus
+    userId, realName, deptName, medicalRecordID, patientName, feeCategoryName, fee1, 
+    fee2, feeAppearDate, feeID, payStatus, dateStatus
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.CheckworkExample" resultMap="BaseResultMap">
     select
@@ -107,12 +107,12 @@
   </delete>
   <insert id="insert" parameterType="edu.neu.hospital.bean.Checkwork">
     insert into checkwork (userId, realName, deptName, 
-      medicalRecordID, patientName, feeCategory, 
+      medicalRecordID, patientName, feeCategoryName, 
       fee1, fee2, feeAppearDate, 
       feeID, payStatus, dateStatus
       )
     values (#{userId,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
-      #{medicalRecordID,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, #{feeCategory,jdbcType=VARCHAR}, 
+      #{medicalRecordID,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, #{feeCategoryName,jdbcType=VARCHAR}, 
       #{fee1,jdbcType=DECIMAL}, #{fee2,jdbcType=DECIMAL}, #{feeAppearDate,jdbcType=TIMESTAMP}, 
       #{feeID,jdbcType=INTEGER}, #{payStatus,jdbcType=CHAR}, #{dateStatus,jdbcType=CHAR}
       )
@@ -135,8 +135,8 @@
       <if test="patientName != null">
         patientName,
       </if>
-      <if test="feeCategory != null">
-        feeCategory,
+      <if test="feeCategoryName != null">
+        feeCategoryName,
       </if>
       <if test="fee1 != null">
         fee1,
@@ -173,8 +173,8 @@
       <if test="patientName != null">
         #{patientName,jdbcType=VARCHAR},
       </if>
-      <if test="feeCategory != null">
-        #{feeCategory,jdbcType=VARCHAR},
+      <if test="feeCategoryName != null">
+        #{feeCategoryName,jdbcType=VARCHAR},
       </if>
       <if test="fee1 != null">
         #{fee1,jdbcType=DECIMAL},
@@ -220,8 +220,8 @@
       <if test="record.patientName != null">
         patientName = #{record.patientName,jdbcType=VARCHAR},
       </if>
-      <if test="record.feeCategory != null">
-        feeCategory = #{record.feeCategory,jdbcType=VARCHAR},
+      <if test="record.feeCategoryName != null">
+        feeCategoryName = #{record.feeCategoryName,jdbcType=VARCHAR},
       </if>
       <if test="record.fee1 != null">
         fee1 = #{record.fee1,jdbcType=DECIMAL},
@@ -253,7 +253,7 @@
       deptName = #{record.deptName,jdbcType=VARCHAR},
       medicalRecordID = #{record.medicalRecordID,jdbcType=INTEGER},
       patientName = #{record.patientName,jdbcType=VARCHAR},
-      feeCategory = #{record.feeCategory,jdbcType=VARCHAR},
+      feeCategoryName = #{record.feeCategoryName,jdbcType=VARCHAR},
       fee1 = #{record.fee1,jdbcType=DECIMAL},
       fee2 = #{record.fee2,jdbcType=DECIMAL},
       feeAppearDate = #{record.feeAppearDate,jdbcType=TIMESTAMP},

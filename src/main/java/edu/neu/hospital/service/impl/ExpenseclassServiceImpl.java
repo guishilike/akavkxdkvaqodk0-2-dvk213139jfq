@@ -1,15 +1,16 @@
 package edu.neu.hospital.service.impl;
 
-import edu.neu.hospital.bean.Fmeditem;
-import edu.neu.hospital.bean.Fmeditemview;
-import edu.neu.hospital.dao.FmeditemDao;
-import edu.neu.hospital.dao.FmeditemviewDao;
+import edu.neu.hospital.bean.Expenseclass;
+import edu.neu.hospital.bean.Expenseclassview;
+import edu.neu.hospital.dao.ExpenseclassDao;
+import edu.neu.hospital.dao.ExpenseclassviewDao;
 import edu.neu.hospital.dto.IdDTO;
-import edu.neu.hospital.example.FmeditemExample;
-import edu.neu.hospital.example.FmeditemviewExample;
+import edu.neu.hospital.example.ExpenseclassExample;
+import edu.neu.hospital.example.ExpenseclassviewExample;
 import edu.neu.hospital.exception.FileTypeException;
 import edu.neu.hospital.exception.GettingTypeException;
-import edu.neu.hospital.service.FmeditemService;
+import edu.neu.hospital.service.ExpenseclassService;
+import edu.neu.hospital.utils.RegexProcess;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -28,43 +29,32 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
-public class FmeditemServiceImpl implements FmeditemService {
+public class ExpenseclassServiceImpl implements ExpenseclassService {
 
     Date date = new Date();
 
     @Resource
-    FmeditemDao fmeditemDao;
+    ExpenseclassDao expenseclassDao;
     @Resource
-    FmeditemviewDao fmeditemviewDao;
+    ExpenseclassviewDao expenseclassviewDao;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-
-
-
-    /**
-     * excle导入数据库
-     * @param file Excle文件
-     * @return 成功失败
-     * @throws IOException
-     */
     @Override
     public int uploadXls(MultipartFile file) throws IOException {
         if (!validateType(file)) {
 
             return -1;
         }
-        List<Fmeditem> fmeditemList = new ArrayList<Fmeditem>();
-        Fmeditem fmeditem = null;
+        List<Expenseclass> expenseclassList = new ArrayList<Expenseclass>();
+        Expenseclass expenseclass = null;
         Workbook book = null;
         try {
             book = new XSSFWorkbook(file.getInputStream());
@@ -75,30 +65,18 @@ public class FmeditemServiceImpl implements FmeditemService {
         //for debug: show the name of sheet that we get
 //		logger.debug("sheet name = " + book.getSheetAt(0));
         for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getLastRowNum(); i++) {
-            fmeditem = new Fmeditem();
-            fmeditemList.add(fmeditem);
+            expenseclass = new Expenseclass();
+            expenseclassList.add(expenseclass);
             Row row = sheet.getRow(i);
-            fmeditem.setId(Integer.valueOf(getStringValueFromCell((XSSFCell)row.getCell(0))) );
-            fmeditem.setCode( getStringValueFromCell((XSSFCell)row.getCell(1)));
-            fmeditem.setName( getStringValueFromCell((XSSFCell)row.getCell(2)));
+            expenseclass.setId(Integer.valueOf(getStringValueFromCell((XSSFCell)row.getCell(0))) );
+            expenseclass.setCode( getStringValueFromCell((XSSFCell)row.getCell(1)));
+            expenseclass.setName( getStringValueFromCell((XSSFCell)row.getCell(2)));
 //            XSSFCell cell3= (XSSFCell) row.getCell(3);
 //            cell3.setCellType(CellType.STRING);
 //            fmeditem.setFormat(cell3.getStringCellValue());
 //            XSSFCell cell4= (XSSFCell) row.getCell(4);
 //            cell4.setCellType(CellType.STRING);
 //            fmeditem.setPrice(cell4.getStringCellValue());
-            fmeditem.setFormat(getStringValueFromCell((XSSFCell)row.getCell(3)));
-            fmeditem.setPrice(BigDecimal.valueOf(Double.valueOf(getStringValueFromCell((XSSFCell)row.getCell(4)))));
-            fmeditem.setExpClassID(Integer.valueOf(getStringValueFromCell((XSSFCell)row.getCell(5))));
-            fmeditem.setDeptID(Integer.valueOf(getStringValueFromCell((XSSFCell)row.getCell(6))));
-            fmeditem.setMnemonicCode(getStringValueFromCell((XSSFCell)row.getCell(7)));
-            fmeditem.setRecordType(Integer.valueOf(getStringValueFromCell((XSSFCell)row.getCell(8))));
-            try {
-                fmeditem.setCreationDate(simpleDateFormat.parse(getStringValueFromCell((XSSFCell)row.getCell(9))));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
 
 //			Iterator<Cell> cells = row.cellIterator();
 //			while(cells.hasNext()){
@@ -112,23 +90,19 @@ public class FmeditemServiceImpl implements FmeditemService {
 //				}
 //			}
         }
-        if (!fmeditemList.isEmpty()) {
-            return fmeditemDao.uploadFmeditemInfo(fmeditemList);
+        if (!expenseclassList.isEmpty()) {
+            return expenseclassDao.uploadExpenseclassInfo(expenseclassList);
         }
 //		logger.debug("last row = " + sheet.getLastRowNum());
         return 0;
     }
 
-
-    /**
-     * 数据库导出Excle
-     */
     @Override
     public void createExcle() {
-        FmeditemExample fmeditemExample = new FmeditemExample();
-        fmeditemExample.clear();
-        FmeditemExample.Criteria criteria = fmeditemExample.createCriteria();
-        List<Fmeditem> listresult = fmeditemDao.selectByExample(fmeditemExample);
+        ExpenseclassExample expenseclassExample = new ExpenseclassExample();
+        expenseclassExample.clear();
+        ExpenseclassExample.Criteria criteria = expenseclassExample.createCriteria();
+        List<Expenseclass> listresult = expenseclassDao.selectByExample(expenseclassExample);
         // 1.创建HSSFWorkbook，一个HSSFWorkbook对应一个Excel文件
         XSSFWorkbook wb = new XSSFWorkbook();
         // 2.在workbook中添加一个sheet,对应Excel文件中的sheet
@@ -150,13 +124,6 @@ public class FmeditemServiceImpl implements FmeditemService {
             row.createCell(0).setCellValue(listresult.get(i).getId().toString());
             row.createCell(1).setCellValue(listresult.get(i).getCode());
             row.createCell(2).setCellValue(listresult.get(i).getName());
-            row.createCell(3).setCellValue(listresult.get(i).getFormat());
-            row.createCell(4).setCellValue(listresult.get(i).getPrice().toString());
-            row.createCell(5).setCellValue(listresult.get(i).getExpClassID().toString());
-            row.createCell(6).setCellValue(listresult.get(i).getDeptID().toString());
-            row.createCell(7).setCellValue(listresult.get(i).getMnemonicCode());
-            row.createCell(8).setCellValue(listresult.get(i).getRecordType());
-            row.createCell(9).setCellValue(simpleDateFormat.format(listresult.get(i).getCreationDate()));
 
             // 医院名称
 //            row.createCell(1).setCellValue(listresult.get(i).get("rowKey1").toString());
@@ -198,26 +165,25 @@ public class FmeditemServiceImpl implements FmeditemService {
     }
 
     @Override
-    public void add(Fmeditem fmeditem) {
-        fmeditemDao.insert(fmeditem);
+    public void add(Expenseclass expenseclass) {
+        expenseclassDao.insert(expenseclass);
     }
 
     @Override
-    public void change(Fmeditem fmeditem) {
-
-        fmeditemDao.updateByPrimaryKeySelective(fmeditem);
+    public void change(Expenseclass expenseclass) {
+        expenseclassDao.updateByPrimaryKeySelective(expenseclass);
     }
 
     @Override
     public void deleteById(Integer id) {
-        FmeditemExample fmeditemExample = new FmeditemExample();
-        fmeditemExample.clear();
-        FmeditemExample.Criteria criteria = fmeditemExample.createCriteria();
+        ExpenseclassExample expenseclassExample = new ExpenseclassExample();
+        expenseclassExample.clear();
+        ExpenseclassExample.Criteria criteria = expenseclassExample.createCriteria();
         if(id != null){
-            Fmeditem fmeditem = fmeditemDao.selectByPrimaryKey(id);
-            if(fmeditem != null){
-                fmeditem.setStatus("0");
-                fmeditemDao.updateByPrimaryKeySelective(fmeditem);
+            Expenseclass expenseclass = expenseclassDao.selectByPrimaryKey(id);
+            if(expenseclass != null){
+                expenseclass.setStatus("0");
+                expenseclassDao.updateByPrimaryKeySelective(expenseclass);
             }
         }
     }
@@ -225,29 +191,32 @@ public class FmeditemServiceImpl implements FmeditemService {
     @Override
     public void deleteByChoose(IdDTO ids) {
         for(int i=0;i<ids.getId().size();i++){
-            Fmeditem fmeditem = fmeditemDao.selectByPrimaryKey(ids.getId().get(i));
-            if(fmeditem != null){
-                fmeditem.setStatus("0");
-                fmeditemDao.updateByPrimaryKeySelective(fmeditem);
+            Expenseclass expenseclass = expenseclassDao.selectByPrimaryKey(ids.getId().get(i));
+            if(expenseclass != null){
+                expenseclass.setStatus("0");
+                expenseclassDao.updateByPrimaryKeySelective(expenseclass);
             }
         }
     }
 
     @Override
-    public List<Fmeditemview> find(Integer deptID, Integer type) {
-        FmeditemviewExample fmeditemviewExample = new FmeditemviewExample();
-        fmeditemviewExample.clear();
-        FmeditemviewExample.Criteria criteria = fmeditemviewExample.createCriteria();
-        if(deptID != null){
-            criteria.andDeptIDEqualTo(deptID);
+    public List<Expenseclassview> find(String code,String name) {
+        ExpenseclassviewExample expenseclassviewExample = new ExpenseclassviewExample();
+        expenseclassviewExample.clear();
+        ExpenseclassviewExample.Criteria criteria = expenseclassviewExample.createCriteria();
+        if(code != null){
+            RegexProcess regexProcess = new RegexProcess();
+            code = regexProcess.regexProcess02(code);
+            criteria.andCodeLike("%" + code + "%");
         }
-        if(type != null){
-            criteria.andRecordTypeEqualTo(type);
+        if(name != null){
+            RegexProcess regexProcess = new RegexProcess();
+            name = regexProcess.regexProcess02(name);
+            criteria.andNameLike("%"+name+"%");
         }
-        List<Fmeditemview> list = fmeditemviewDao.selectByExample(fmeditemviewExample);
-        return list;
+        List<Expenseclassview> list = expenseclassviewDao.selectByExample(expenseclassviewExample);
+        return null;
     }
-
 
     //检查是不是xls文件
     private boolean validateType(MultipartFile file) {
@@ -279,4 +248,5 @@ public class FmeditemServiceImpl implements FmeditemService {
         }
         return cellValue;
     }
+
 }

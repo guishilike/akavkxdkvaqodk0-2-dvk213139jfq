@@ -2,7 +2,6 @@ package edu.neu.hospital.service;
 
 import edu.neu.hospital.bean.User;
 import edu.neu.hospital.bean.Workloadstatistics;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

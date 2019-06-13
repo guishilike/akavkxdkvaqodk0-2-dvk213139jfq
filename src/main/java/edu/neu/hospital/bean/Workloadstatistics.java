@@ -34,7 +34,10 @@ public class Workloadstatistics implements Serializable {
      */
     private String patientName;
 
-    private String feeCategory;
+    /**
+     * 费用科目名字
+     */
+    private String feeTypeName;
 
     /**
      * 金额
@@ -103,12 +106,12 @@ public class Workloadstatistics implements Serializable {
         this.patientName = patientName;
     }
 
-    public String getFeeCategory() {
-        return feeCategory;
+    public String getFeeTypeName() {
+        return feeTypeName;
     }
 
-    public void setFeeCategory(String feeCategory) {
-        this.feeCategory = feeCategory;
+    public void setFeeTypeName(String feeTypeName) {
+        this.feeTypeName = feeTypeName;
     }
 
     public BigDecimal getFee() {
@@ -168,7 +171,7 @@ public class Workloadstatistics implements Serializable {
             && (this.getDeptName() == null ? other.getDeptName() == null : this.getDeptName().equals(other.getDeptName()))
             && (this.getMedicalRecordID() == null ? other.getMedicalRecordID() == null : this.getMedicalRecordID().equals(other.getMedicalRecordID()))
             && (this.getPatientName() == null ? other.getPatientName() == null : this.getPatientName().equals(other.getPatientName()))
-            && (this.getFeeCategory() == null ? other.getFeeCategory() == null : this.getFeeCategory().equals(other.getFeeCategory()))
+            && (this.getFeeTypeName() == null ? other.getFeeTypeName() == null : this.getFeeTypeName().equals(other.getFeeTypeName()))
             && (this.getFee() == null ? other.getFee() == null : this.getFee().equals(other.getFee()))
             && (this.getFeeAppearDate() == null ? other.getFeeAppearDate() == null : this.getFeeAppearDate().equals(other.getFeeAppearDate()))
             && (this.getFeeID() == null ? other.getFeeID() == null : this.getFeeID().equals(other.getFeeID()))
@@ -185,7 +188,7 @@ public class Workloadstatistics implements Serializable {
         result = prime * result + ((getDeptName() == null) ? 0 : getDeptName().hashCode());
         result = prime * result + ((getMedicalRecordID() == null) ? 0 : getMedicalRecordID().hashCode());
         result = prime * result + ((getPatientName() == null) ? 0 : getPatientName().hashCode());
-        result = prime * result + ((getFeeCategory() == null) ? 0 : getFeeCategory().hashCode());
+        result = prime * result + ((getFeeTypeName() == null) ? 0 : getFeeTypeName().hashCode());
         result = prime * result + ((getFee() == null) ? 0 : getFee().hashCode());
         result = prime * result + ((getFeeAppearDate() == null) ? 0 : getFeeAppearDate().hashCode());
         result = prime * result + ((getFeeID() == null) ? 0 : getFeeID().hashCode());
@@ -205,7 +208,7 @@ public class Workloadstatistics implements Serializable {
         sb.append(", deptName=").append(deptName);
         sb.append(", medicalRecordID=").append(medicalRecordID);
         sb.append(", patientName=").append(patientName);
-        sb.append(", feeCategory=").append(feeCategory);
+        sb.append(", feeTypeName=").append(feeTypeName);
         sb.append(", fee=").append(fee);
         sb.append(", feeAppearDate=").append(feeAppearDate);
         sb.append(", feeID=").append(feeID);
