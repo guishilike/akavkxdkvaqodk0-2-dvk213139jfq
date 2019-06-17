@@ -57,7 +57,9 @@ public class Fmeditem implements Serializable {
     /**
      * 创建时间
      */
-    private Date creationDate;
+    private Date appearDate;
+
+    private Date changeDate;
 
     /**
      * 创建人
@@ -148,12 +150,20 @@ public class Fmeditem implements Serializable {
         this.recordType = recordType;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public Date getAppearDate() {
+        return appearDate;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setAppearDate(Date appearDate) {
+        this.appearDate = appearDate;
+    }
+
+    public Date getChangeDate() {
+        return changeDate;
+    }
+
+    public void setChangeDate(Date changeDate) {
+        this.changeDate = changeDate;
     }
 
     public Integer getAppearUserId() {
@@ -201,7 +211,8 @@ public class Fmeditem implements Serializable {
             && (this.getDeptID() == null ? other.getDeptID() == null : this.getDeptID().equals(other.getDeptID()))
             && (this.getMnemonicCode() == null ? other.getMnemonicCode() == null : this.getMnemonicCode().equals(other.getMnemonicCode()))
             && (this.getRecordType() == null ? other.getRecordType() == null : this.getRecordType().equals(other.getRecordType()))
-            && (this.getCreationDate() == null ? other.getCreationDate() == null : this.getCreationDate().equals(other.getCreationDate()))
+            && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
+            && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
             && (this.getAppearUserId() == null ? other.getAppearUserId() == null : this.getAppearUserId().equals(other.getAppearUserId()))
             && (this.getChangeUserId() == null ? other.getChangeUserId() == null : this.getChangeUserId().equals(other.getChangeUserId()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
@@ -220,7 +231,8 @@ public class Fmeditem implements Serializable {
         result = prime * result + ((getDeptID() == null) ? 0 : getDeptID().hashCode());
         result = prime * result + ((getMnemonicCode() == null) ? 0 : getMnemonicCode().hashCode());
         result = prime * result + ((getRecordType() == null) ? 0 : getRecordType().hashCode());
-        result = prime * result + ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
+        result = prime * result + ((getAppearDate() == null) ? 0 : getAppearDate().hashCode());
+        result = prime * result + ((getChangeDate() == null) ? 0 : getChangeDate().hashCode());
         result = prime * result + ((getAppearUserId() == null) ? 0 : getAppearUserId().hashCode());
         result = prime * result + ((getChangeUserId() == null) ? 0 : getChangeUserId().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
@@ -242,7 +254,8 @@ public class Fmeditem implements Serializable {
         sb.append(", deptID=").append(deptID);
         sb.append(", mnemonicCode=").append(mnemonicCode);
         sb.append(", recordType=").append(recordType);
-        sb.append(", creationDate=").append(creationDate);
+        sb.append(", appearDate=").append(appearDate);
+        sb.append(", changeDate=").append(changeDate);
         sb.append(", appearUserId=").append(appearUserId);
         sb.append(", changeUserId=").append(changeUserId);
         sb.append(", status=").append(status);

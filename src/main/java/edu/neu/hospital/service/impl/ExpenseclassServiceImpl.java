@@ -98,7 +98,7 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
     }
 
     @Override
-    public void createExcle() {
+    public File createExcle() {
         ExpenseclassExample expenseclassExample = new ExpenseclassExample();
         expenseclassExample.clear();
         ExpenseclassExample.Criteria criteria = expenseclassExample.createCriteria();
@@ -138,12 +138,15 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
 
 
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(new File("t.xlsx"));
+            File file=new File("Expenseclass.xlsx");
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
             wb.write(fileOutputStream);
             fileOutputStream.close();
+            return file;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
 //        /**
 //         * 上面的操作已经是生成一个完整的文件了，只需要将生成的流转换成文件即可；
 //         * 下面的设置宽度可有可无，对整体影响不大
@@ -165,17 +168,22 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
     }
 
     @Override
-    public void add(Expenseclass expenseclass) {
+    public void add(Expenseclass expenseclass,Integer userID) {
+        expenseclass.setStatus("1");
+        expenseclass.setAppearDate(new Date());
+        expenseclass.setAppearUserID(userID);
         expenseclassDao.insert(expenseclass);
     }
 
     @Override
-    public void change(Expenseclass expenseclass) {
+    public void change(Expenseclass expenseclass,Integer userID) {
+        expenseclass.setChangeDate(new Date());
+        expenseclass.setChangerUserID(userID);
         expenseclassDao.updateByPrimaryKeySelective(expenseclass);
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Integer id,Integer userID) {
         ExpenseclassExample expenseclassExample = new ExpenseclassExample();
         expenseclassExample.clear();
         ExpenseclassExample.Criteria criteria = expenseclassExample.createCriteria();
@@ -183,24 +191,28 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
             Expenseclass expenseclass = expenseclassDao.selectByPrimaryKey(id);
             if(expenseclass != null){
                 expenseclass.setStatus("0");
+                expenseclass.setChangeDate(new Date());
+                expenseclass.setChangerUserID(userID);
                 expenseclassDao.updateByPrimaryKeySelective(expenseclass);
             }
         }
     }
 
     @Override
-    public void deleteByChoose(IdDTO ids) {
+    public void deleteByChoose(IdDTO ids,Integer userID) {
         for(int i=0;i<ids.getId().size();i++){
             Expenseclass expenseclass = expenseclassDao.selectByPrimaryKey(ids.getId().get(i));
             if(expenseclass != null){
                 expenseclass.setStatus("0");
+                expenseclass.setChangeDate(new Date());
+                expenseclass.setChangerUserID(userID);
                 expenseclassDao.updateByPrimaryKeySelective(expenseclass);
             }
         }
     }
 
     @Override
-    public List<Expenseclassview> find(String code,String name) {
+    public List<Expenseclassview> find(String code, String name) {
         ExpenseclassviewExample expenseclassviewExample = new ExpenseclassviewExample();
         expenseclassviewExample.clear();
         ExpenseclassviewExample.Criteria criteria = expenseclassviewExample.createCriteria();
@@ -216,6 +228,20 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
         }
         List<Expenseclassview> list = expenseclassviewDao.selectByExample(expenseclassviewExample);
         return null;
+    }
+
+    @Override
+    public boolean checkContent(Expenseclass expenseclass, int state) {
+        ExpenseclassviewExample expenseclassviewExample = new ExpenseclassviewExample();
+        expenseclassviewExample.clear();
+        ExpenseclassviewExample.Criteria criteria = expenseclassviewExample.createCriteria();
+        criteria.andCodeEqualTo(expenseclass.getCode());
+        if(state==1)
+            criteria.andIdNotEqualTo(expenseclass.getId());
+        if(expenseclassviewDao.countByExample(expenseclassviewExample) > 0)
+            return false;
+        else
+            return true;
     }
 
     //检查是不是xls文件

@@ -13,7 +13,11 @@
  */
 package edu.neu.hospital.controller;
 
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.Checkwork;
+import edu.neu.hospital.bean.Expenseclassview;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.CheckworkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,23 +36,25 @@ public class CheckworkController {
 
     @RequestMapping("/findByInfo")
     public @ResponseBody
-    ResultDTO<List<Checkwork>> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd){
-        ResultDTO<List<Checkwork>> resultDTO = new ResultDTO();
+    ResultDTO<PageInfo> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd,Integer pageNum,Integer pageSize){
+        ResultDTO<PageInfo> resultDTO = new ResultDTO();
         try{
-            List<Checkwork> list = checkworkService.findByInfo(realName,departmentName,dateStart,dateEnd);
+            PageHelper.startPage(pageNum,pageSize);
+            List<Checkwork> checkworks = checkworkService.findByInfo(realName,departmentName,dateStart,dateEnd);
+            PageInfo<Checkwork> list=new PageInfo<>(checkworks);
             if (list != null){
                 resultDTO.setStatus("OK");
-                resultDTO.setMsg("核对检查成功！可以显示");
+                resultDTO.setMsg("核对检查成功！");
                 resultDTO.setData(list);
             }else {
-                resultDTO.setStatus("NG");
+                resultDTO.setStatus("FALSE");
                 resultDTO.setMsg("核对检查失败！");
                 resultDTO.setData(list);
             }
         }catch (Exception e){
             e.printStackTrace();
-            resultDTO.setStatus("NG");
-            resultDTO.setMsg("核对检查失败！");
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("核对检查出现错误！");
         }
         return resultDTO;
     }

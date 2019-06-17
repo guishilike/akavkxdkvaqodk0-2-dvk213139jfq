@@ -11,7 +11,8 @@
     <result column="deptID" jdbcType="INTEGER" property="deptID" />
     <result column="mnemonicCode" jdbcType="VARCHAR" property="mnemonicCode" />
     <result column="recordType" jdbcType="INTEGER" property="recordType" />
-    <result column="creationDate" jdbcType="DATE" property="creationDate" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
+    <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
     <result column="appearUserId" jdbcType="INTEGER" property="appearUserId" />
     <result column="changeUserId" jdbcType="INTEGER" property="changeUserId" />
     <result column="status" jdbcType="CHAR" property="status" />
@@ -75,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, code, `name`, format, price, expClassID, deptID, mnemonicCode, recordType, creationDate, 
-    appearUserId, changeUserId, `status`
+    id, code, `name`, format, price, expClassID, deptID, mnemonicCode, recordType, appearDate, 
+    changeDate, appearUserId, changeUserId, `status`
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.FmeditemExample" resultMap="BaseResultMap">
     select
@@ -119,14 +120,14 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Fmeditem" useGeneratedKeys="true">
     insert into fmeditem (code, `name`, format, 
       price, expClassID, deptID, 
-      mnemonicCode, recordType, creationDate, 
-      appearUserId, changeUserId, `status`
-      )
+      mnemonicCode, recordType, appearDate, 
+      changeDate, appearUserId, changeUserId, 
+      `status`)
     values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{format,jdbcType=VARCHAR}, 
       #{price,jdbcType=DECIMAL}, #{expClassID,jdbcType=INTEGER}, #{deptID,jdbcType=INTEGER}, 
-      #{mnemonicCode,jdbcType=VARCHAR}, #{recordType,jdbcType=INTEGER}, #{creationDate,jdbcType=DATE}, 
-      #{appearUserId,jdbcType=INTEGER}, #{changeUserId,jdbcType=INTEGER}, #{status,jdbcType=CHAR}
-      )
+      #{mnemonicCode,jdbcType=VARCHAR}, #{recordType,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, 
+      #{changeDate,jdbcType=TIMESTAMP}, #{appearUserId,jdbcType=INTEGER}, #{changeUserId,jdbcType=INTEGER}, 
+      #{status,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.Fmeditem" useGeneratedKeys="true">
     insert into fmeditem
@@ -155,8 +156,11 @@
       <if test="recordType != null">
         recordType,
       </if>
-      <if test="creationDate != null">
-        creationDate,
+      <if test="appearDate != null">
+        appearDate,
+      </if>
+      <if test="changeDate != null">
+        changeDate,
       </if>
       <if test="appearUserId != null">
         appearUserId,
@@ -193,8 +197,11 @@
       <if test="recordType != null">
         #{recordType,jdbcType=INTEGER},
       </if>
-      <if test="creationDate != null">
-        #{creationDate,jdbcType=DATE},
+      <if test="appearDate != null">
+        #{appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
       </if>
       <if test="appearUserId != null">
         #{appearUserId,jdbcType=INTEGER},
@@ -243,8 +250,11 @@
       <if test="record.recordType != null">
         recordType = #{record.recordType,jdbcType=INTEGER},
       </if>
-      <if test="record.creationDate != null">
-        creationDate = #{record.creationDate,jdbcType=DATE},
+      <if test="record.appearDate != null">
+        appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeDate != null">
+        changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.appearUserId != null">
         appearUserId = #{record.appearUserId,jdbcType=INTEGER},
@@ -271,7 +281,8 @@
       deptID = #{record.deptID,jdbcType=INTEGER},
       mnemonicCode = #{record.mnemonicCode,jdbcType=VARCHAR},
       recordType = #{record.recordType,jdbcType=INTEGER},
-      creationDate = #{record.creationDate,jdbcType=DATE},
+      appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
       appearUserId = #{record.appearUserId,jdbcType=INTEGER},
       changeUserId = #{record.changeUserId,jdbcType=INTEGER},
       `status` = #{record.status,jdbcType=CHAR}
@@ -306,8 +317,11 @@
       <if test="recordType != null">
         recordType = #{recordType,jdbcType=INTEGER},
       </if>
-      <if test="creationDate != null">
-        creationDate = #{creationDate,jdbcType=DATE},
+      <if test="appearDate != null">
+        appearDate = #{appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeDate != null">
+        changeDate = #{changeDate,jdbcType=TIMESTAMP},
       </if>
       <if test="appearUserId != null">
         appearUserId = #{appearUserId,jdbcType=INTEGER},
@@ -331,16 +345,17 @@
       deptID = #{deptID,jdbcType=INTEGER},
       mnemonicCode = #{mnemonicCode,jdbcType=VARCHAR},
       recordType = #{recordType,jdbcType=INTEGER},
-      creationDate = #{creationDate,jdbcType=DATE},
+      appearDate = #{appearDate,jdbcType=TIMESTAMP},
+      changeDate = #{changeDate,jdbcType=TIMESTAMP},
       appearUserId = #{appearUserId,jdbcType=INTEGER},
       changeUserId = #{changeUserId,jdbcType=INTEGER},
       `status` = #{status,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <insert id="uploadFmeditemInfo" parameterType="edu.neu.hospital.bean.Fmeditem">
-    INSERT INTO fmeditem VALUES
-    <foreach collection="list" item="item" separator=",">
-      (#{item.id},#{item.code},#{item.name},#{item.format},#{item.price},#{item.expClassID},#{item.deptID},#{item.mnemonicCode},#{item.recordType},#{item.creationDate})
-    </foreach>
-  </insert>
+    <insert id="uploadFmeditemInfo" parameterType="edu.neu.hospital.bean.Fmeditem">
+        INSERT INTO fmeditem VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.code},#{item.name},#{item.format},#{item.price},#{item.expClassID},#{item.deptID},#{item.mnemonicCode},#{item.recordType},#{item.creationDate})
+        </foreach>
+    </insert>
 </mapper>

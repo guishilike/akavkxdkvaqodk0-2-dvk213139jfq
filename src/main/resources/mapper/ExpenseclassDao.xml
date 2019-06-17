@@ -257,7 +257,7 @@
       `status` = #{status,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <insert id="uploadExpenseclassInfo" parameterType="eddu.neu.hospital.bean.Expenseclass">
+  <insert id="uploadExpenseclassInfo" parameterType="edu.neu.hospital.bean.Expenseclass">
     INSERT INTO fmeditem VALUES
     <foreach collection="list" item="item" separator=",">
       (#{item.id},#{item.code},#{item.name})

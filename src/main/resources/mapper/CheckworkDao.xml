@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.neu.hospital.dao.CheckworkDao">
   <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.Checkwork">
-    <result column="userId" jdbcType="INTEGER" property="userId" />
+    <result column="doctorID" jdbcType="INTEGER" property="doctorID" />
     <result column="realName" jdbcType="VARCHAR" property="realName" />
     <result column="deptName" jdbcType="VARCHAR" property="deptName" />
     <result column="medicalRecordID" jdbcType="INTEGER" property="medicalRecordID" />
@@ -12,8 +12,11 @@
     <result column="fee2" jdbcType="DECIMAL" property="fee2" />
     <result column="feeAppearDate" jdbcType="TIMESTAMP" property="feeAppearDate" />
     <result column="feeID" jdbcType="INTEGER" property="feeID" />
-    <result column="payStatus" jdbcType="CHAR" property="payStatus" />
-    <result column="dateStatus" jdbcType="CHAR" property="dateStatus" />
+    <result column="tollManID" jdbcType="INTEGER" property="tollManID" />
+    <result column="tollmanName" jdbcType="VARCHAR" property="tollmanName" />
+    <result column="tollDate" jdbcType="TIMESTAMP" property="tollDate" />
+    <result column="payStatus" jdbcType="INTEGER" property="payStatus" />
+    <result column="dateStatus" jdbcType="INTEGER" property="dateStatus" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,8 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    userId, realName, deptName, medicalRecordID, patientName, feeCategoryName, fee1, 
-    fee2, feeAppearDate, feeID, payStatus, dateStatus
+    doctorID, realName, deptName, medicalRecordID, patientName, feeCategoryName, fee1, 
+    fee2, feeAppearDate, feeID, tollManID, tollmanName, tollDate, payStatus, dateStatus
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.CheckworkExample" resultMap="BaseResultMap">
     select
@@ -106,22 +109,24 @@
     </if>
   </delete>
   <insert id="insert" parameterType="edu.neu.hospital.bean.Checkwork">
-    insert into checkwork (userId, realName, deptName, 
+    insert into checkwork (doctorID, realName, deptName, 
       medicalRecordID, patientName, feeCategoryName, 
       fee1, fee2, feeAppearDate, 
-      feeID, payStatus, dateStatus
+      feeID, tollManID, tollmanName, 
+      tollDate, payStatus, dateStatus
       )
-    values (#{userId,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
+    values (#{doctorID,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
       #{medicalRecordID,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, #{feeCategoryName,jdbcType=VARCHAR}, 
       #{fee1,jdbcType=DECIMAL}, #{fee2,jdbcType=DECIMAL}, #{feeAppearDate,jdbcType=TIMESTAMP}, 
-      #{feeID,jdbcType=INTEGER}, #{payStatus,jdbcType=CHAR}, #{dateStatus,jdbcType=CHAR}
+      #{feeID,jdbcType=INTEGER}, #{tollManID,jdbcType=INTEGER}, #{tollmanName,jdbcType=VARCHAR}, 
+      #{tollDate,jdbcType=TIMESTAMP}, #{payStatus,jdbcType=INTEGER}, #{dateStatus,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="edu.neu.hospital.bean.Checkwork">
     insert into checkwork
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        userId,
+      <if test="doctorID != null">
+        doctorID,
       </if>
       <if test="realName != null">
         realName,
@@ -150,6 +155,15 @@
       <if test="feeID != null">
         feeID,
       </if>
+      <if test="tollManID != null">
+        tollManID,
+      </if>
+      <if test="tollmanName != null">
+        tollmanName,
+      </if>
+      <if test="tollDate != null">
+        tollDate,
+      </if>
       <if test="payStatus != null">
         payStatus,
       </if>
@@ -158,8 +172,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+      <if test="doctorID != null">
+        #{doctorID,jdbcType=INTEGER},
       </if>
       <if test="realName != null">
         #{realName,jdbcType=VARCHAR},
@@ -188,11 +202,20 @@
       <if test="feeID != null">
         #{feeID,jdbcType=INTEGER},
       </if>
+      <if test="tollManID != null">
+        #{tollManID,jdbcType=INTEGER},
+      </if>
+      <if test="tollmanName != null">
+        #{tollmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="tollDate != null">
+        #{tollDate,jdbcType=TIMESTAMP},
+      </if>
       <if test="payStatus != null">
-        #{payStatus,jdbcType=CHAR},
+        #{payStatus,jdbcType=INTEGER},
       </if>
       <if test="dateStatus != null">
-        #{dateStatus,jdbcType=CHAR},
+        #{dateStatus,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -205,8 +228,8 @@
   <update id="updateByExampleSelective" parameterType="map">
     update checkwork
     <set>
-      <if test="record.userId != null">
-        userId = #{record.userId,jdbcType=INTEGER},
+      <if test="record.doctorID != null">
+        doctorID = #{record.doctorID,jdbcType=INTEGER},
       </if>
       <if test="record.realName != null">
         realName = #{record.realName,jdbcType=VARCHAR},
@@ -235,11 +258,20 @@
       <if test="record.feeID != null">
         feeID = #{record.feeID,jdbcType=INTEGER},
       </if>
+      <if test="record.tollManID != null">
+        tollManID = #{record.tollManID,jdbcType=INTEGER},
+      </if>
+      <if test="record.tollmanName != null">
+        tollmanName = #{record.tollmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tollDate != null">
+        tollDate = #{record.tollDate,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.payStatus != null">
-        payStatus = #{record.payStatus,jdbcType=CHAR},
+        payStatus = #{record.payStatus,jdbcType=INTEGER},
       </if>
       <if test="record.dateStatus != null">
-        dateStatus = #{record.dateStatus,jdbcType=CHAR},
+        dateStatus = #{record.dateStatus,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -248,7 +280,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update checkwork
-    set userId = #{record.userId,jdbcType=INTEGER},
+    set doctorID = #{record.doctorID,jdbcType=INTEGER},
       realName = #{record.realName,jdbcType=VARCHAR},
       deptName = #{record.deptName,jdbcType=VARCHAR},
       medicalRecordID = #{record.medicalRecordID,jdbcType=INTEGER},
@@ -258,8 +290,11 @@
       fee2 = #{record.fee2,jdbcType=DECIMAL},
       feeAppearDate = #{record.feeAppearDate,jdbcType=TIMESTAMP},
       feeID = #{record.feeID,jdbcType=INTEGER},
-      payStatus = #{record.payStatus,jdbcType=CHAR},
-      dateStatus = #{record.dateStatus,jdbcType=CHAR}
+      tollManID = #{record.tollManID,jdbcType=INTEGER},
+      tollmanName = #{record.tollmanName,jdbcType=VARCHAR},
+      tollDate = #{record.tollDate,jdbcType=TIMESTAMP},
+      payStatus = #{record.payStatus,jdbcType=INTEGER},
+      dateStatus = #{record.dateStatus,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

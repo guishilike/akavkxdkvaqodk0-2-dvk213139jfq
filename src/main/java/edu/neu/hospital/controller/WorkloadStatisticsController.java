@@ -14,6 +14,8 @@
 */
 package edu.neu.hospital.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.Workloadstatistics;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.WorkloadStatisticsService;
@@ -33,10 +35,12 @@ public class WorkloadStatisticsController {
 
     @RequestMapping("/findByInfo")
     public @ResponseBody
-    ResultDTO<List<Workloadstatistics>> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd){
-        ResultDTO<List<Workloadstatistics>> resultDTO = new ResultDTO();
+    ResultDTO<PageInfo> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd,Integer pageNum,Integer pageSize){
+        ResultDTO<PageInfo> resultDTO = new ResultDTO();
         try{
-            List<Workloadstatistics> list = workloadStatisticsService.findByInfo(realName,departmentName,dateStart,dateEnd);
+            PageHelper.startPage(pageNum,pageSize);
+            List<Workloadstatistics> workloadstatistics = workloadStatisticsService.findByInfo(realName,departmentName,dateStart,dateEnd);
+            PageInfo<Workloadstatistics> list = new PageInfo<>(workloadstatistics);
             if (list != null){
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("工作量检查成功！可以显示");

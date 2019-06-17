@@ -130,7 +130,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         WorkloadstatisticsExample workloadstatisticsExample = new WorkloadstatisticsExample();
         workloadstatisticsExample.clear();
         WorkloadstatisticsExample.Criteria criteria = workloadstatisticsExample.createCriteria();
-        criteria.andPayStatusEqualTo("1");
+        criteria.andPayStatusEqualTo(1);
         criteria.andRealNameEqualTo(realName);
         List<Workloadstatistics> list = workloadstatisticsDao.selectByExample(workloadstatisticsExample);
         return list;

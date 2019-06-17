@@ -26,6 +26,8 @@
  */
 package edu.neu.hospital.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.User;
 import edu.neu.hospital.bean.Workloadstatistics;
 import edu.neu.hospital.dto.ResultDTO;
@@ -106,8 +108,8 @@ public class UserInfoController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            resultDTO.setStatus("NG");
-            resultDTO.setMsg("操作失败！");
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("更新图片操作失败！");
         }
         try{
 
@@ -116,16 +118,16 @@ public class UserInfoController {
             if (user1 != null){
 
                 resultDTO.setStatus("OK");
-                resultDTO.setMsg("用户更新成功！可以更新");
+                resultDTO.setMsg("用户更新成功！");
                 resultDTO.setData(user1);
             }else {
-                resultDTO.setStatus("NG");
+                resultDTO.setStatus("FALSE");
                 resultDTO.setMsg("用户更新失败！");
                 resultDTO.setData(user1);
             }
         }catch (Exception e){
             e.printStackTrace();
-            resultDTO.setStatus("NG");
+            resultDTO.setStatus("FALSE");
             resultDTO.setMsg("用户更新出现错误！");
         }
         return resultDTO;
@@ -134,16 +136,18 @@ public class UserInfoController {
     @RequestMapping("/showMyWorkload")
     public @ResponseBody
 //    ResultDTO<List<Workloadstatistics>> showMyWorkload(String realName) {
-    ResultDTO<List<Workloadstatistics>> showMyWorkload(HttpServletRequest request) {
-        ResultDTO<List<Workloadstatistics>> resultDTO = new ResultDTO();
+    ResultDTO<PageInfo> showMyWorkload(HttpServletRequest request,Integer pageNum,Integer pageSize) {
+        ResultDTO<PageInfo> resultDTO = new ResultDTO();
         HttpSession session = request.getSession();
         User user1 = (User)session.getAttribute("user");
         String realName = user1.getRealName();
         try {
-            List<Workloadstatistics> list = userInfoService.showMyWorkloadstatistics(realName);
+            PageHelper.startPage(pageNum,pageSize);
+            List<Workloadstatistics> workloadstatistics = userInfoService.showMyWorkloadstatistics(realName);
+            PageInfo<Workloadstatistics> list = new PageInfo<>(workloadstatistics);
             if (list != null) {
                 resultDTO.setStatus("OK");
-                resultDTO.setMsg("工作量检查成功！可以显示");
+                resultDTO.setMsg("工作量检查成功!");
                 resultDTO.setData(list);
             } else {
 //                System.out.println("list为空？？？");

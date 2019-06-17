@@ -12,7 +12,7 @@ public class Workloadstatistics implements Serializable {
     /**
      * 用户ID
      */
-    private Integer userId;
+    private Integer doctorID;
 
     /**
      * 真名
@@ -50,28 +50,23 @@ public class Workloadstatistics implements Serializable {
     private Date feeAppearDate;
 
     /**
-     * 患者费用编号
-     */
-    private Integer feeID;
-
-    /**
      * 缴费状态：1.已缴费2.未交费3.已退费
      */
-    private String payStatus;
+    private Integer payStatus;
 
     /**
      * 日结状态：1.已日结2.未日结
      */
-    private String dateStatus;
+    private Integer dateStatus;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getDoctorID() {
+        return doctorID;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setDoctorID(Integer doctorID) {
+        this.doctorID = doctorID;
     }
 
     public String getRealName() {
@@ -130,27 +125,19 @@ public class Workloadstatistics implements Serializable {
         this.feeAppearDate = feeAppearDate;
     }
 
-    public Integer getFeeID() {
-        return feeID;
-    }
-
-    public void setFeeID(Integer feeID) {
-        this.feeID = feeID;
-    }
-
-    public String getPayStatus() {
+    public Integer getPayStatus() {
         return payStatus;
     }
 
-    public void setPayStatus(String payStatus) {
+    public void setPayStatus(Integer payStatus) {
         this.payStatus = payStatus;
     }
 
-    public String getDateStatus() {
+    public Integer getDateStatus() {
         return dateStatus;
     }
 
-    public void setDateStatus(String dateStatus) {
+    public void setDateStatus(Integer dateStatus) {
         this.dateStatus = dateStatus;
     }
 
@@ -166,7 +153,7 @@ public class Workloadstatistics implements Serializable {
             return false;
         }
         Workloadstatistics other = (Workloadstatistics) that;
-        return (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+        return (this.getDoctorID() == null ? other.getDoctorID() == null : this.getDoctorID().equals(other.getDoctorID()))
             && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
             && (this.getDeptName() == null ? other.getDeptName() == null : this.getDeptName().equals(other.getDeptName()))
             && (this.getMedicalRecordID() == null ? other.getMedicalRecordID() == null : this.getMedicalRecordID().equals(other.getMedicalRecordID()))
@@ -174,7 +161,6 @@ public class Workloadstatistics implements Serializable {
             && (this.getFeeTypeName() == null ? other.getFeeTypeName() == null : this.getFeeTypeName().equals(other.getFeeTypeName()))
             && (this.getFee() == null ? other.getFee() == null : this.getFee().equals(other.getFee()))
             && (this.getFeeAppearDate() == null ? other.getFeeAppearDate() == null : this.getFeeAppearDate().equals(other.getFeeAppearDate()))
-            && (this.getFeeID() == null ? other.getFeeID() == null : this.getFeeID().equals(other.getFeeID()))
             && (this.getPayStatus() == null ? other.getPayStatus() == null : this.getPayStatus().equals(other.getPayStatus()))
             && (this.getDateStatus() == null ? other.getDateStatus() == null : this.getDateStatus().equals(other.getDateStatus()));
     }
@@ -183,7 +169,7 @@ public class Workloadstatistics implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getDoctorID() == null) ? 0 : getDoctorID().hashCode());
         result = prime * result + ((getRealName() == null) ? 0 : getRealName().hashCode());
         result = prime * result + ((getDeptName() == null) ? 0 : getDeptName().hashCode());
         result = prime * result + ((getMedicalRecordID() == null) ? 0 : getMedicalRecordID().hashCode());
@@ -191,7 +177,6 @@ public class Workloadstatistics implements Serializable {
         result = prime * result + ((getFeeTypeName() == null) ? 0 : getFeeTypeName().hashCode());
         result = prime * result + ((getFee() == null) ? 0 : getFee().hashCode());
         result = prime * result + ((getFeeAppearDate() == null) ? 0 : getFeeAppearDate().hashCode());
-        result = prime * result + ((getFeeID() == null) ? 0 : getFeeID().hashCode());
         result = prime * result + ((getPayStatus() == null) ? 0 : getPayStatus().hashCode());
         result = prime * result + ((getDateStatus() == null) ? 0 : getDateStatus().hashCode());
         return result;
@@ -203,7 +188,7 @@ public class Workloadstatistics implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", userId=").append(userId);
+        sb.append(", doctorID=").append(doctorID);
         sb.append(", realName=").append(realName);
         sb.append(", deptName=").append(deptName);
         sb.append(", medicalRecordID=").append(medicalRecordID);
@@ -211,7 +196,6 @@ public class Workloadstatistics implements Serializable {
         sb.append(", feeTypeName=").append(feeTypeName);
         sb.append(", fee=").append(fee);
         sb.append(", feeAppearDate=").append(feeAppearDate);
-        sb.append(", feeID=").append(feeID);
         sb.append(", payStatus=").append(payStatus);
         sb.append(", dateStatus=").append(dateStatus);
         sb.append(", serialVersionUID=").append(serialVersionUID);

@@ -1,7 +1,7 @@
 package edu.neu.hospital.service;
 
-import edu.neu.hospital.bean.User;
 
+import edu.neu.hospital.bean.User;
 
 public interface LoginService {
     /**

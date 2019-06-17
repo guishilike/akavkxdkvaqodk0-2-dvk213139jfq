@@ -3,7 +3,6 @@ package edu.neu.hospital.example;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class FmeditemviewExample {
@@ -125,32 +124,6 @@ public class FmeditemviewExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andIdIsNull() {
@@ -943,63 +916,63 @@ public class FmeditemviewExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreationDateIsNull() {
-            addCriterion("creationDate is null");
+        public Criteria andAppearDateIsNull() {
+            addCriterion("appearDate is null");
             return (Criteria) this;
         }
 
-        public Criteria andCreationDateIsNotNull() {
-            addCriterion("creationDate is not null");
+        public Criteria andAppearDateIsNotNull() {
+            addCriterion("appearDate is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCreationDateEqualTo(Date value) {
-            addCriterionForJDBCDate("creationDate =", value, "creationDate");
+        public Criteria andAppearDateEqualTo(Date value) {
+            addCriterion("appearDate =", value, "appearDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreationDateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("creationDate <>", value, "creationDate");
+        public Criteria andAppearDateNotEqualTo(Date value) {
+            addCriterion("appearDate <>", value, "appearDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreationDateGreaterThan(Date value) {
-            addCriterionForJDBCDate("creationDate >", value, "creationDate");
+        public Criteria andAppearDateGreaterThan(Date value) {
+            addCriterion("appearDate >", value, "appearDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreationDateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("creationDate >=", value, "creationDate");
+        public Criteria andAppearDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("appearDate >=", value, "appearDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreationDateLessThan(Date value) {
-            addCriterionForJDBCDate("creationDate <", value, "creationDate");
+        public Criteria andAppearDateLessThan(Date value) {
+            addCriterion("appearDate <", value, "appearDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreationDateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("creationDate <=", value, "creationDate");
+        public Criteria andAppearDateLessThanOrEqualTo(Date value) {
+            addCriterion("appearDate <=", value, "appearDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreationDateIn(List<Date> values) {
-            addCriterionForJDBCDate("creationDate in", values, "creationDate");
+        public Criteria andAppearDateIn(List<Date> values) {
+            addCriterion("appearDate in", values, "appearDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreationDateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("creationDate not in", values, "creationDate");
+        public Criteria andAppearDateNotIn(List<Date> values) {
+            addCriterion("appearDate not in", values, "appearDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreationDateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("creationDate between", value1, value2, "creationDate");
+        public Criteria andAppearDateBetween(Date value1, Date value2) {
+            addCriterion("appearDate between", value1, value2, "appearDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreationDateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("creationDate not between", value1, value2, "creationDate");
+        public Criteria andAppearDateNotBetween(Date value1, Date value2) {
+            addCriterion("appearDate not between", value1, value2, "appearDate");
             return (Criteria) this;
         }
 

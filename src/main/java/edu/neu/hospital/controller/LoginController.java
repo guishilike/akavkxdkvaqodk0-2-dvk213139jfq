@@ -11,7 +11,6 @@
 package edu.neu.hospital.controller;
 
 import edu.neu.hospital.bean.User;
-import edu.neu.hospital.dao.UserDao;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;

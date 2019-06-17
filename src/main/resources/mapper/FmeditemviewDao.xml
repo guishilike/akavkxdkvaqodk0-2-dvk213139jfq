@@ -14,7 +14,7 @@
     <result column="mnemonicCode" jdbcType="VARCHAR" property="mnemonicCode" />
     <result column="recordType" jdbcType="INTEGER" property="recordType" />
     <result column="typeName" jdbcType="VARCHAR" property="typeName" />
-    <result column="creationDate" jdbcType="DATE" property="creationDate" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
     <result column="appearUserId" jdbcType="INTEGER" property="appearUserId" />
     <result column="appearUserName" jdbcType="VARCHAR" property="appearUserName" />
     <result column="changeUserId" jdbcType="INTEGER" property="changeUserId" />
@@ -81,7 +81,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, code, `name`, format, price, expClassID, expClassName, deptID, deptName, mnemonicCode, 
-    recordType, typeName, creationDate, appearUserId, appearUserName, changeUserId, changeUserName, 
+    recordType, typeName, appearDate, appearUserId, appearUserName, changeUserId, changeUserName, 
     `status`
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.FmeditemviewExample" resultMap="BaseResultMap">
@@ -117,14 +117,14 @@
       format, price, expClassID, 
       expClassName, deptID, deptName, 
       mnemonicCode, recordType, typeName, 
-      creationDate, appearUserId, appearUserName, 
+      appearDate, appearUserId, appearUserName, 
       changeUserId, changeUserName, `status`
       )
     values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{format,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{expClassID,jdbcType=INTEGER}, 
       #{expClassName,jdbcType=VARCHAR}, #{deptID,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
       #{mnemonicCode,jdbcType=VARCHAR}, #{recordType,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, 
-      #{creationDate,jdbcType=DATE}, #{appearUserId,jdbcType=INTEGER}, #{appearUserName,jdbcType=VARCHAR}, 
+      #{appearDate,jdbcType=TIMESTAMP}, #{appearUserId,jdbcType=INTEGER}, #{appearUserName,jdbcType=VARCHAR}, 
       #{changeUserId,jdbcType=INTEGER}, #{changeUserName,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}
       )
   </insert>
@@ -167,8 +167,8 @@
       <if test="typeName != null">
         typeName,
       </if>
-      <if test="creationDate != null">
-        creationDate,
+      <if test="appearDate != null">
+        appearDate,
       </if>
       <if test="appearUserId != null">
         appearUserId,
@@ -223,8 +223,8 @@
       <if test="typeName != null">
         #{typeName,jdbcType=VARCHAR},
       </if>
-      <if test="creationDate != null">
-        #{creationDate,jdbcType=DATE},
+      <if test="appearDate != null">
+        #{appearDate,jdbcType=TIMESTAMP},
       </if>
       <if test="appearUserId != null">
         #{appearUserId,jdbcType=INTEGER},
@@ -288,8 +288,8 @@
       <if test="record.typeName != null">
         typeName = #{record.typeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.creationDate != null">
-        creationDate = #{record.creationDate,jdbcType=DATE},
+      <if test="record.appearDate != null">
+        appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.appearUserId != null">
         appearUserId = #{record.appearUserId,jdbcType=INTEGER},
@@ -325,7 +325,7 @@
       mnemonicCode = #{record.mnemonicCode,jdbcType=VARCHAR},
       recordType = #{record.recordType,jdbcType=INTEGER},
       typeName = #{record.typeName,jdbcType=VARCHAR},
-      creationDate = #{record.creationDate,jdbcType=DATE},
+      appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
       appearUserId = #{record.appearUserId,jdbcType=INTEGER},
       appearUserName = #{record.appearUserName,jdbcType=VARCHAR},
       changeUserId = #{record.changeUserId,jdbcType=INTEGER},

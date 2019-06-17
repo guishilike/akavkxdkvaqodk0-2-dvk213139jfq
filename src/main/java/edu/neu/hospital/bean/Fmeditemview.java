@@ -66,7 +66,7 @@ public class Fmeditemview implements Serializable {
     /**
      * 创建时间
      */
-    private Date creationDate;
+    private Date appearDate;
 
     /**
      * 创建人
@@ -191,12 +191,12 @@ public class Fmeditemview implements Serializable {
         this.typeName = typeName;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public Date getAppearDate() {
+        return appearDate;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setAppearDate(Date appearDate) {
+        this.appearDate = appearDate;
     }
 
     public Integer getAppearUserId() {
@@ -263,7 +263,7 @@ public class Fmeditemview implements Serializable {
             && (this.getMnemonicCode() == null ? other.getMnemonicCode() == null : this.getMnemonicCode().equals(other.getMnemonicCode()))
             && (this.getRecordType() == null ? other.getRecordType() == null : this.getRecordType().equals(other.getRecordType()))
             && (this.getTypeName() == null ? other.getTypeName() == null : this.getTypeName().equals(other.getTypeName()))
-            && (this.getCreationDate() == null ? other.getCreationDate() == null : this.getCreationDate().equals(other.getCreationDate()))
+            && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
             && (this.getAppearUserId() == null ? other.getAppearUserId() == null : this.getAppearUserId().equals(other.getAppearUserId()))
             && (this.getAppearUserName() == null ? other.getAppearUserName() == null : this.getAppearUserName().equals(other.getAppearUserName()))
             && (this.getChangeUserId() == null ? other.getChangeUserId() == null : this.getChangeUserId().equals(other.getChangeUserId()))
@@ -287,7 +287,7 @@ public class Fmeditemview implements Serializable {
         result = prime * result + ((getMnemonicCode() == null) ? 0 : getMnemonicCode().hashCode());
         result = prime * result + ((getRecordType() == null) ? 0 : getRecordType().hashCode());
         result = prime * result + ((getTypeName() == null) ? 0 : getTypeName().hashCode());
-        result = prime * result + ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
+        result = prime * result + ((getAppearDate() == null) ? 0 : getAppearDate().hashCode());
         result = prime * result + ((getAppearUserId() == null) ? 0 : getAppearUserId().hashCode());
         result = prime * result + ((getAppearUserName() == null) ? 0 : getAppearUserName().hashCode());
         result = prime * result + ((getChangeUserId() == null) ? 0 : getChangeUserId().hashCode());
@@ -314,7 +314,7 @@ public class Fmeditemview implements Serializable {
         sb.append(", mnemonicCode=").append(mnemonicCode);
         sb.append(", recordType=").append(recordType);
         sb.append(", typeName=").append(typeName);
-        sb.append(", creationDate=").append(creationDate);
+        sb.append(", appearDate=").append(appearDate);
         sb.append(", appearUserId=").append(appearUserId);
         sb.append(", appearUserName=").append(appearUserName);
         sb.append(", changeUserId=").append(changeUserId);

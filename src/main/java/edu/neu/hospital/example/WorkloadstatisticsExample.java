@@ -126,63 +126,63 @@ public class WorkloadstatisticsExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andUserIdIsNull() {
-            addCriterion("userId is null");
+        public Criteria andDoctorIDIsNull() {
+            addCriterion("doctorID is null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNotNull() {
-            addCriterion("userId is not null");
+        public Criteria andDoctorIDIsNotNull() {
+            addCriterion("doctorID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(Integer value) {
-            addCriterion("userId =", value, "userId");
+        public Criteria andDoctorIDEqualTo(Integer value) {
+            addCriterion("doctorID =", value, "doctorID");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(Integer value) {
-            addCriterion("userId <>", value, "userId");
+        public Criteria andDoctorIDNotEqualTo(Integer value) {
+            addCriterion("doctorID <>", value, "doctorID");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(Integer value) {
-            addCriterion("userId >", value, "userId");
+        public Criteria andDoctorIDGreaterThan(Integer value) {
+            addCriterion("doctorID >", value, "doctorID");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("userId >=", value, "userId");
+        public Criteria andDoctorIDGreaterThanOrEqualTo(Integer value) {
+            addCriterion("doctorID >=", value, "doctorID");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(Integer value) {
-            addCriterion("userId <", value, "userId");
+        public Criteria andDoctorIDLessThan(Integer value) {
+            addCriterion("doctorID <", value, "doctorID");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(Integer value) {
-            addCriterion("userId <=", value, "userId");
+        public Criteria andDoctorIDLessThanOrEqualTo(Integer value) {
+            addCriterion("doctorID <=", value, "doctorID");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<Integer> values) {
-            addCriterion("userId in", values, "userId");
+        public Criteria andDoctorIDIn(List<Integer> values) {
+            addCriterion("doctorID in", values, "doctorID");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<Integer> values) {
-            addCriterion("userId not in", values, "userId");
+        public Criteria andDoctorIDNotIn(List<Integer> values) {
+            addCriterion("doctorID not in", values, "doctorID");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(Integer value1, Integer value2) {
-            addCriterion("userId between", value1, value2, "userId");
+        public Criteria andDoctorIDBetween(Integer value1, Integer value2) {
+            addCriterion("doctorID between", value1, value2, "doctorID");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("userId not between", value1, value2, "userId");
+        public Criteria andDoctorIDNotBetween(Integer value1, Integer value2) {
+            addCriterion("doctorID not between", value1, value2, "doctorID");
             return (Criteria) this;
         }
 
@@ -646,66 +646,6 @@ public class WorkloadstatisticsExample {
             return (Criteria) this;
         }
 
-        public Criteria andFeeIDIsNull() {
-            addCriterion("feeID is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFeeIDIsNotNull() {
-            addCriterion("feeID is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFeeIDEqualTo(Integer value) {
-            addCriterion("feeID =", value, "feeID");
-            return (Criteria) this;
-        }
-
-        public Criteria andFeeIDNotEqualTo(Integer value) {
-            addCriterion("feeID <>", value, "feeID");
-            return (Criteria) this;
-        }
-
-        public Criteria andFeeIDGreaterThan(Integer value) {
-            addCriterion("feeID >", value, "feeID");
-            return (Criteria) this;
-        }
-
-        public Criteria andFeeIDGreaterThanOrEqualTo(Integer value) {
-            addCriterion("feeID >=", value, "feeID");
-            return (Criteria) this;
-        }
-
-        public Criteria andFeeIDLessThan(Integer value) {
-            addCriterion("feeID <", value, "feeID");
-            return (Criteria) this;
-        }
-
-        public Criteria andFeeIDLessThanOrEqualTo(Integer value) {
-            addCriterion("feeID <=", value, "feeID");
-            return (Criteria) this;
-        }
-
-        public Criteria andFeeIDIn(List<Integer> values) {
-            addCriterion("feeID in", values, "feeID");
-            return (Criteria) this;
-        }
-
-        public Criteria andFeeIDNotIn(List<Integer> values) {
-            addCriterion("feeID not in", values, "feeID");
-            return (Criteria) this;
-        }
-
-        public Criteria andFeeIDBetween(Integer value1, Integer value2) {
-            addCriterion("feeID between", value1, value2, "feeID");
-            return (Criteria) this;
-        }
-
-        public Criteria andFeeIDNotBetween(Integer value1, Integer value2) {
-            addCriterion("feeID not between", value1, value2, "feeID");
-            return (Criteria) this;
-        }
-
         public Criteria andPayStatusIsNull() {
             addCriterion("payStatus is null");
             return (Criteria) this;
@@ -716,62 +656,52 @@ public class WorkloadstatisticsExample {
             return (Criteria) this;
         }
 
-        public Criteria andPayStatusEqualTo(String value) {
+        public Criteria andPayStatusEqualTo(Integer value) {
             addCriterion("payStatus =", value, "payStatus");
             return (Criteria) this;
         }
 
-        public Criteria andPayStatusNotEqualTo(String value) {
+        public Criteria andPayStatusNotEqualTo(Integer value) {
             addCriterion("payStatus <>", value, "payStatus");
             return (Criteria) this;
         }
 
-        public Criteria andPayStatusGreaterThan(String value) {
+        public Criteria andPayStatusGreaterThan(Integer value) {
             addCriterion("payStatus >", value, "payStatus");
             return (Criteria) this;
         }
 
-        public Criteria andPayStatusGreaterThanOrEqualTo(String value) {
+        public Criteria andPayStatusGreaterThanOrEqualTo(Integer value) {
             addCriterion("payStatus >=", value, "payStatus");
             return (Criteria) this;
         }
 
-        public Criteria andPayStatusLessThan(String value) {
+        public Criteria andPayStatusLessThan(Integer value) {
             addCriterion("payStatus <", value, "payStatus");
             return (Criteria) this;
         }
 
-        public Criteria andPayStatusLessThanOrEqualTo(String value) {
+        public Criteria andPayStatusLessThanOrEqualTo(Integer value) {
             addCriterion("payStatus <=", value, "payStatus");
             return (Criteria) this;
         }
 
-        public Criteria andPayStatusLike(String value) {
-            addCriterion("payStatus like", value, "payStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayStatusNotLike(String value) {
-            addCriterion("payStatus not like", value, "payStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayStatusIn(List<String> values) {
+        public Criteria andPayStatusIn(List<Integer> values) {
             addCriterion("payStatus in", values, "payStatus");
             return (Criteria) this;
         }
 
-        public Criteria andPayStatusNotIn(List<String> values) {
+        public Criteria andPayStatusNotIn(List<Integer> values) {
             addCriterion("payStatus not in", values, "payStatus");
             return (Criteria) this;
         }
 
-        public Criteria andPayStatusBetween(String value1, String value2) {
+        public Criteria andPayStatusBetween(Integer value1, Integer value2) {
             addCriterion("payStatus between", value1, value2, "payStatus");
             return (Criteria) this;
         }
 
-        public Criteria andPayStatusNotBetween(String value1, String value2) {
+        public Criteria andPayStatusNotBetween(Integer value1, Integer value2) {
             addCriterion("payStatus not between", value1, value2, "payStatus");
             return (Criteria) this;
         }
@@ -786,62 +716,52 @@ public class WorkloadstatisticsExample {
             return (Criteria) this;
         }
 
-        public Criteria andDateStatusEqualTo(String value) {
+        public Criteria andDateStatusEqualTo(Integer value) {
             addCriterion("dateStatus =", value, "dateStatus");
             return (Criteria) this;
         }
 
-        public Criteria andDateStatusNotEqualTo(String value) {
+        public Criteria andDateStatusNotEqualTo(Integer value) {
             addCriterion("dateStatus <>", value, "dateStatus");
             return (Criteria) this;
         }
 
-        public Criteria andDateStatusGreaterThan(String value) {
+        public Criteria andDateStatusGreaterThan(Integer value) {
             addCriterion("dateStatus >", value, "dateStatus");
             return (Criteria) this;
         }
 
-        public Criteria andDateStatusGreaterThanOrEqualTo(String value) {
+        public Criteria andDateStatusGreaterThanOrEqualTo(Integer value) {
             addCriterion("dateStatus >=", value, "dateStatus");
             return (Criteria) this;
         }
 
-        public Criteria andDateStatusLessThan(String value) {
+        public Criteria andDateStatusLessThan(Integer value) {
             addCriterion("dateStatus <", value, "dateStatus");
             return (Criteria) this;
         }
 
-        public Criteria andDateStatusLessThanOrEqualTo(String value) {
+        public Criteria andDateStatusLessThanOrEqualTo(Integer value) {
             addCriterion("dateStatus <=", value, "dateStatus");
             return (Criteria) this;
         }
 
-        public Criteria andDateStatusLike(String value) {
-            addCriterion("dateStatus like", value, "dateStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andDateStatusNotLike(String value) {
-            addCriterion("dateStatus not like", value, "dateStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andDateStatusIn(List<String> values) {
+        public Criteria andDateStatusIn(List<Integer> values) {
             addCriterion("dateStatus in", values, "dateStatus");
             return (Criteria) this;
         }
 
-        public Criteria andDateStatusNotIn(List<String> values) {
+        public Criteria andDateStatusNotIn(List<Integer> values) {
             addCriterion("dateStatus not in", values, "dateStatus");
             return (Criteria) this;
         }
 
-        public Criteria andDateStatusBetween(String value1, String value2) {
+        public Criteria andDateStatusBetween(Integer value1, Integer value2) {
             addCriterion("dateStatus between", value1, value2, "dateStatus");
             return (Criteria) this;
         }
 
-        public Criteria andDateStatusNotBetween(String value1, String value2) {
+        public Criteria andDateStatusNotBetween(Integer value1, Integer value2) {
             addCriterion("dateStatus not between", value1, value2, "dateStatus");
             return (Criteria) this;
         }

@@ -38,18 +38,93 @@ import java.util.List;
 @Service
 public class FmeditemServiceImpl implements FmeditemService {
 
-    Date date = new Date();
-
     @Resource
     FmeditemDao fmeditemDao;
     @Resource
     FmeditemviewDao fmeditemviewDao;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
 
+    @Override
+    public void add(Fmeditem fmeditem, Integer userID) {
+        fmeditem.setStatus("1");
+        fmeditem.setAppearUserId(userID);
+        fmeditem.setAppearDate(new Date());
+        fmeditemDao.insert(fmeditem);
+    }
+
+    @Override
+    public void change(Fmeditem fmeditem,Integer userID) {
+        fmeditem.setChangeUserId(userID);
+        fmeditem.setAppearDate(new Date());
+        fmeditemDao.updateByPrimaryKeySelective(fmeditem);
+    }
+
+    @Override
+    public void deleteById(Integer id,Integer userID) {
+        Fmeditem fmeditem = fmeditemDao.selectByPrimaryKey(id);
+        if(fmeditem!=null) {
+            fmeditem.setStatus("0");
+            fmeditem.setChangeUserId(userID);
+            fmeditem.setChangeDate(new Date());
+            fmeditemDao.updateByPrimaryKeySelective(fmeditem);
+        }
+    }
+
+    @Override
+    public void deleteByChoose(IdDTO ids,Integer userID) {
+        for(int i=0;i<ids.getId().size();i++){
+            Fmeditem fmeditem = fmeditemDao.selectByPrimaryKey(ids.getId().get(i));
+            if(fmeditem != null){
+                fmeditem.setStatus("0");
+                fmeditem.setChangeUserId(userID);
+                fmeditem.setChangeDate(new Date());
+                fmeditemDao.updateByPrimaryKeySelective(fmeditem);
+            }
+        }
+    }
+
+    @Override
+    public List<Fmeditemview> find(Integer deptID, Integer recordType) {
+        FmeditemviewExample fmeditemviewExample = new FmeditemviewExample();
+        fmeditemviewExample.clear();
+        FmeditemviewExample.Criteria criteria = fmeditemviewExample.createCriteria();
+        if(deptID != null){
+            criteria.andDeptIDEqualTo(deptID);
+        }
+        if(recordType != null){
+            criteria.andRecordTypeEqualTo(recordType);
+        }
+        List<Fmeditemview> list = fmeditemviewDao.selectByExample(fmeditemviewExample);
+        return list;
+    }
+
+    @Override
+    public List<Fmeditemview> findByNameOrCode(String nameOrCode) {
+        FmeditemviewExample example=new FmeditemviewExample();
+        FmeditemviewExample.Criteria criteria1=example.createCriteria();
+        FmeditemviewExample.Criteria criteria2=example.createCriteria();
+        criteria1.andNameEqualTo(nameOrCode);
+        criteria2.andMnemonicCodeEqualTo(nameOrCode);
+        example.or(criteria2);
+        return fmeditemviewDao.selectByExample(example);
+    }
+
+    @Override
+    public boolean checkContent(Fmeditem fmeditem, int state) {
+        FmeditemviewExample example=new FmeditemviewExample();
+        FmeditemviewExample.Criteria criteria=example.createCriteria();
+        criteria.andCodeEqualTo(fmeditem.getCode());
+        if(state==1)
+            criteria.andIdNotEqualTo(fmeditem.getId());
+        if(fmeditemviewDao.countByExample(example)>0)
+            return false;
+        else
+            return true;
+    }
 
     /**
      * excle导入数据库
@@ -94,7 +169,7 @@ public class FmeditemServiceImpl implements FmeditemService {
             fmeditem.setMnemonicCode(getStringValueFromCell((XSSFCell)row.getCell(7)));
             fmeditem.setRecordType(Integer.valueOf(getStringValueFromCell((XSSFCell)row.getCell(8))));
             try {
-                fmeditem.setCreationDate(simpleDateFormat.parse(getStringValueFromCell((XSSFCell)row.getCell(9))));
+                fmeditem.setAppearDate(simpleDateFormat.parse(getStringValueFromCell((XSSFCell)row.getCell(9))));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -124,7 +199,7 @@ public class FmeditemServiceImpl implements FmeditemService {
      * 数据库导出Excle
      */
     @Override
-    public void createExcle() {
+    public File createExcle() {
         FmeditemExample fmeditemExample = new FmeditemExample();
         fmeditemExample.clear();
         FmeditemExample.Criteria criteria = fmeditemExample.createCriteria();
@@ -156,7 +231,7 @@ public class FmeditemServiceImpl implements FmeditemService {
             row.createCell(6).setCellValue(listresult.get(i).getDeptID().toString());
             row.createCell(7).setCellValue(listresult.get(i).getMnemonicCode());
             row.createCell(8).setCellValue(listresult.get(i).getRecordType());
-            row.createCell(9).setCellValue(simpleDateFormat.format(listresult.get(i).getCreationDate()));
+            row.createCell(9).setCellValue(simpleDateFormat.format(listresult.get(i).getAppearDate()));
 
             // 医院名称
 //            row.createCell(1).setCellValue(listresult.get(i).get("rowKey1").toString());
@@ -171,12 +246,15 @@ public class FmeditemServiceImpl implements FmeditemService {
 
 
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(new File("t.xlsx"));
+            File file=new File("fmeditem.xlsx");
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
             wb.write(fileOutputStream);
             fileOutputStream.close();
+            return  file;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
 //        /**
 //         * 上面的操作已经是生成一个完整的文件了，只需要将生成的流转换成文件即可；
 //         * 下面的设置宽度可有可无，对整体影响不大
@@ -195,57 +273,6 @@ public class FmeditemServiceImpl implements FmeditemService {
 //            sheet.setColumnWidth(3, 8000);
 //        }
 //        return wb;
-    }
-
-    @Override
-    public void add(Fmeditem fmeditem) {
-        fmeditemDao.insert(fmeditem);
-    }
-
-    @Override
-    public void change(Fmeditem fmeditem) {
-
-        fmeditemDao.updateByPrimaryKeySelective(fmeditem);
-    }
-
-    @Override
-    public void deleteById(Integer id) {
-        FmeditemExample fmeditemExample = new FmeditemExample();
-        fmeditemExample.clear();
-        FmeditemExample.Criteria criteria = fmeditemExample.createCriteria();
-        if(id != null){
-            Fmeditem fmeditem = fmeditemDao.selectByPrimaryKey(id);
-            if(fmeditem != null){
-                fmeditem.setStatus("0");
-                fmeditemDao.updateByPrimaryKeySelective(fmeditem);
-            }
-        }
-    }
-
-    @Override
-    public void deleteByChoose(IdDTO ids) {
-        for(int i=0;i<ids.getId().size();i++){
-            Fmeditem fmeditem = fmeditemDao.selectByPrimaryKey(ids.getId().get(i));
-            if(fmeditem != null){
-                fmeditem.setStatus("0");
-                fmeditemDao.updateByPrimaryKeySelective(fmeditem);
-            }
-        }
-    }
-
-    @Override
-    public List<Fmeditemview> find(Integer deptID, Integer type) {
-        FmeditemviewExample fmeditemviewExample = new FmeditemviewExample();
-        fmeditemviewExample.clear();
-        FmeditemviewExample.Criteria criteria = fmeditemviewExample.createCriteria();
-        if(deptID != null){
-            criteria.andDeptIDEqualTo(deptID);
-        }
-        if(type != null){
-            criteria.andRecordTypeEqualTo(type);
-        }
-        List<Fmeditemview> list = fmeditemviewDao.selectByExample(fmeditemviewExample);
-        return list;
     }
 
 

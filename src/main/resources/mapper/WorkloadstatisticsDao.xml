@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.neu.hospital.dao.WorkloadstatisticsDao">
   <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.Workloadstatistics">
-    <result column="userId" jdbcType="INTEGER" property="userId" />
+    <result column="doctorID" jdbcType="INTEGER" property="doctorID" />
     <result column="realName" jdbcType="VARCHAR" property="realName" />
     <result column="deptName" jdbcType="VARCHAR" property="deptName" />
     <result column="medicalRecordID" jdbcType="INTEGER" property="medicalRecordID" />
@@ -10,9 +10,8 @@
     <result column="feeTypeName" jdbcType="VARCHAR" property="feeTypeName" />
     <result column="fee" jdbcType="DECIMAL" property="fee" />
     <result column="feeAppearDate" jdbcType="TIMESTAMP" property="feeAppearDate" />
-    <result column="feeID" jdbcType="INTEGER" property="feeID" />
-    <result column="payStatus" jdbcType="CHAR" property="payStatus" />
-    <result column="dateStatus" jdbcType="CHAR" property="dateStatus" />
+    <result column="payStatus" jdbcType="INTEGER" property="payStatus" />
+    <result column="dateStatus" jdbcType="INTEGER" property="dateStatus" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,8 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    userId, realName, deptName, medicalRecordID, patientName, feeTypeName, fee, feeAppearDate, 
-    feeID, payStatus, dateStatus
+    doctorID, realName, deptName, medicalRecordID, patientName, feeTypeName, fee, feeAppearDate, 
+    payStatus, dateStatus
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.WorkloadstatisticsExample" resultMap="BaseResultMap">
     select
@@ -105,20 +104,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="edu.neu.hospital.bean.Workloadstatistics">
-    insert into workloadstatistics (userId, realName, deptName, 
+    insert into workloadstatistics (doctorID, realName, deptName, 
       medicalRecordID, patientName, feeTypeName, 
-      fee, feeAppearDate, feeID, 
-      payStatus, dateStatus)
-    values (#{userId,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
+      fee, feeAppearDate, payStatus, 
+      dateStatus)
+    values (#{doctorID,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
       #{medicalRecordID,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, #{feeTypeName,jdbcType=VARCHAR}, 
-      #{fee,jdbcType=DECIMAL}, #{feeAppearDate,jdbcType=TIMESTAMP}, #{feeID,jdbcType=INTEGER}, 
-      #{payStatus,jdbcType=CHAR}, #{dateStatus,jdbcType=CHAR})
+      #{fee,jdbcType=DECIMAL}, #{feeAppearDate,jdbcType=TIMESTAMP}, #{payStatus,jdbcType=INTEGER}, 
+      #{dateStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="edu.neu.hospital.bean.Workloadstatistics">
     insert into workloadstatistics
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        userId,
+      <if test="doctorID != null">
+        doctorID,
       </if>
       <if test="realName != null">
         realName,
@@ -141,9 +140,6 @@
       <if test="feeAppearDate != null">
         feeAppearDate,
       </if>
-      <if test="feeID != null">
-        feeID,
-      </if>
       <if test="payStatus != null">
         payStatus,
       </if>
@@ -152,8 +148,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+      <if test="doctorID != null">
+        #{doctorID,jdbcType=INTEGER},
       </if>
       <if test="realName != null">
         #{realName,jdbcType=VARCHAR},
@@ -176,14 +172,11 @@
       <if test="feeAppearDate != null">
         #{feeAppearDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="feeID != null">
-        #{feeID,jdbcType=INTEGER},
-      </if>
       <if test="payStatus != null">
-        #{payStatus,jdbcType=CHAR},
+        #{payStatus,jdbcType=INTEGER},
       </if>
       <if test="dateStatus != null">
-        #{dateStatus,jdbcType=CHAR},
+        #{dateStatus,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -196,8 +189,8 @@
   <update id="updateByExampleSelective" parameterType="map">
     update workloadstatistics
     <set>
-      <if test="record.userId != null">
-        userId = #{record.userId,jdbcType=INTEGER},
+      <if test="record.doctorID != null">
+        doctorID = #{record.doctorID,jdbcType=INTEGER},
       </if>
       <if test="record.realName != null">
         realName = #{record.realName,jdbcType=VARCHAR},
@@ -220,14 +213,11 @@
       <if test="record.feeAppearDate != null">
         feeAppearDate = #{record.feeAppearDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.feeID != null">
-        feeID = #{record.feeID,jdbcType=INTEGER},
-      </if>
       <if test="record.payStatus != null">
-        payStatus = #{record.payStatus,jdbcType=CHAR},
+        payStatus = #{record.payStatus,jdbcType=INTEGER},
       </if>
       <if test="record.dateStatus != null">
-        dateStatus = #{record.dateStatus,jdbcType=CHAR},
+        dateStatus = #{record.dateStatus,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -236,7 +226,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update workloadstatistics
-    set userId = #{record.userId,jdbcType=INTEGER},
+    set doctorID = #{record.doctorID,jdbcType=INTEGER},
       realName = #{record.realName,jdbcType=VARCHAR},
       deptName = #{record.deptName,jdbcType=VARCHAR},
       medicalRecordID = #{record.medicalRecordID,jdbcType=INTEGER},
@@ -244,9 +234,8 @@
       feeTypeName = #{record.feeTypeName,jdbcType=VARCHAR},
       fee = #{record.fee,jdbcType=DECIMAL},
       feeAppearDate = #{record.feeAppearDate,jdbcType=TIMESTAMP},
-      feeID = #{record.feeID,jdbcType=INTEGER},
-      payStatus = #{record.payStatus,jdbcType=CHAR},
-      dateStatus = #{record.dateStatus,jdbcType=CHAR}
+      payStatus = #{record.payStatus,jdbcType=INTEGER},
+      dateStatus = #{record.dateStatus,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
