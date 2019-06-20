@@ -23,6 +23,8 @@ public interface ScheduleDao {
 
     Schedule selectByPrimaryKey(Integer id);
 
+    List<Schedule> selectByDoctorID(Integer doctorID);
+
     int updateByExampleSelective(@Param("record") Schedule record, @Param("example") ScheduleExample example);
 
     int updateByExample(@Param("record") Schedule record, @Param("example") ScheduleExample example);

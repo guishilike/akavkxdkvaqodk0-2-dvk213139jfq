@@ -2,6 +2,7 @@ package edu.neu.hospital.example;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PatientCardExample {
@@ -445,126 +446,6 @@ public class PatientCardExample {
             return (Criteria) this;
         }
 
-        public Criteria andAppearUserIdIsNull() {
-            addCriterion("appearUserId is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppearUserIdIsNotNull() {
-            addCriterion("appearUserId is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppearUserIdEqualTo(Integer value) {
-            addCriterion("appearUserId =", value, "appearUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppearUserIdNotEqualTo(Integer value) {
-            addCriterion("appearUserId <>", value, "appearUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppearUserIdGreaterThan(Integer value) {
-            addCriterion("appearUserId >", value, "appearUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppearUserIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("appearUserId >=", value, "appearUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppearUserIdLessThan(Integer value) {
-            addCriterion("appearUserId <", value, "appearUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppearUserIdLessThanOrEqualTo(Integer value) {
-            addCriterion("appearUserId <=", value, "appearUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppearUserIdIn(List<Integer> values) {
-            addCriterion("appearUserId in", values, "appearUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppearUserIdNotIn(List<Integer> values) {
-            addCriterion("appearUserId not in", values, "appearUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppearUserIdBetween(Integer value1, Integer value2) {
-            addCriterion("appearUserId between", value1, value2, "appearUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppearUserIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("appearUserId not between", value1, value2, "appearUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andChangeUserIdIsNull() {
-            addCriterion("changeUserId is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andChangeUserIdIsNotNull() {
-            addCriterion("changeUserId is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andChangeUserIdEqualTo(Integer value) {
-            addCriterion("changeUserId =", value, "changeUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andChangeUserIdNotEqualTo(Integer value) {
-            addCriterion("changeUserId <>", value, "changeUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andChangeUserIdGreaterThan(Integer value) {
-            addCriterion("changeUserId >", value, "changeUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andChangeUserIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("changeUserId >=", value, "changeUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andChangeUserIdLessThan(Integer value) {
-            addCriterion("changeUserId <", value, "changeUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andChangeUserIdLessThanOrEqualTo(Integer value) {
-            addCriterion("changeUserId <=", value, "changeUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andChangeUserIdIn(List<Integer> values) {
-            addCriterion("changeUserId in", values, "changeUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andChangeUserIdNotIn(List<Integer> values) {
-            addCriterion("changeUserId not in", values, "changeUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andChangeUserIdBetween(Integer value1, Integer value2) {
-            addCriterion("changeUserId between", value1, value2, "changeUserId");
-            return (Criteria) this;
-        }
-
-        public Criteria andChangeUserIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("changeUserId not between", value1, value2, "changeUserId");
-            return (Criteria) this;
-        }
-
         public Criteria andStatusIsNull() {
             addCriterion("`status` is null");
             return (Criteria) this;
@@ -632,6 +513,246 @@ public class PatientCardExample {
 
         public Criteria andStatusNotBetween(String value1, String value2) {
             addCriterion("`status` not between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserIDIsNull() {
+            addCriterion("appearUserID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserIDIsNotNull() {
+            addCriterion("appearUserID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserIDEqualTo(Integer value) {
+            addCriterion("appearUserID =", value, "appearUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserIDNotEqualTo(Integer value) {
+            addCriterion("appearUserID <>", value, "appearUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserIDGreaterThan(Integer value) {
+            addCriterion("appearUserID >", value, "appearUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserIDGreaterThanOrEqualTo(Integer value) {
+            addCriterion("appearUserID >=", value, "appearUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserIDLessThan(Integer value) {
+            addCriterion("appearUserID <", value, "appearUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserIDLessThanOrEqualTo(Integer value) {
+            addCriterion("appearUserID <=", value, "appearUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserIDIn(List<Integer> values) {
+            addCriterion("appearUserID in", values, "appearUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserIDNotIn(List<Integer> values) {
+            addCriterion("appearUserID not in", values, "appearUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserIDBetween(Integer value1, Integer value2) {
+            addCriterion("appearUserID between", value1, value2, "appearUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserIDNotBetween(Integer value1, Integer value2) {
+            addCriterion("appearUserID not between", value1, value2, "appearUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearDateIsNull() {
+            addCriterion("appearDate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearDateIsNotNull() {
+            addCriterion("appearDate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearDateEqualTo(Date value) {
+            addCriterion("appearDate =", value, "appearDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearDateNotEqualTo(Date value) {
+            addCriterion("appearDate <>", value, "appearDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearDateGreaterThan(Date value) {
+            addCriterion("appearDate >", value, "appearDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("appearDate >=", value, "appearDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearDateLessThan(Date value) {
+            addCriterion("appearDate <", value, "appearDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearDateLessThanOrEqualTo(Date value) {
+            addCriterion("appearDate <=", value, "appearDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearDateIn(List<Date> values) {
+            addCriterion("appearDate in", values, "appearDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearDateNotIn(List<Date> values) {
+            addCriterion("appearDate not in", values, "appearDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearDateBetween(Date value1, Date value2) {
+            addCriterion("appearDate between", value1, value2, "appearDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearDateNotBetween(Date value1, Date value2) {
+            addCriterion("appearDate not between", value1, value2, "appearDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserIDIsNull() {
+            addCriterion("changeUserID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserIDIsNotNull() {
+            addCriterion("changeUserID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserIDEqualTo(Integer value) {
+            addCriterion("changeUserID =", value, "changeUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserIDNotEqualTo(Integer value) {
+            addCriterion("changeUserID <>", value, "changeUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserIDGreaterThan(Integer value) {
+            addCriterion("changeUserID >", value, "changeUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserIDGreaterThanOrEqualTo(Integer value) {
+            addCriterion("changeUserID >=", value, "changeUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserIDLessThan(Integer value) {
+            addCriterion("changeUserID <", value, "changeUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserIDLessThanOrEqualTo(Integer value) {
+            addCriterion("changeUserID <=", value, "changeUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserIDIn(List<Integer> values) {
+            addCriterion("changeUserID in", values, "changeUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserIDNotIn(List<Integer> values) {
+            addCriterion("changeUserID not in", values, "changeUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserIDBetween(Integer value1, Integer value2) {
+            addCriterion("changeUserID between", value1, value2, "changeUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserIDNotBetween(Integer value1, Integer value2) {
+            addCriterion("changeUserID not between", value1, value2, "changeUserID");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeDateIsNull() {
+            addCriterion("changeDate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeDateIsNotNull() {
+            addCriterion("changeDate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeDateEqualTo(Date value) {
+            addCriterion("changeDate =", value, "changeDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeDateNotEqualTo(Date value) {
+            addCriterion("changeDate <>", value, "changeDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeDateGreaterThan(Date value) {
+            addCriterion("changeDate >", value, "changeDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("changeDate >=", value, "changeDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeDateLessThan(Date value) {
+            addCriterion("changeDate <", value, "changeDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeDateLessThanOrEqualTo(Date value) {
+            addCriterion("changeDate <=", value, "changeDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeDateIn(List<Date> values) {
+            addCriterion("changeDate in", values, "changeDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeDateNotIn(List<Date> values) {
+            addCriterion("changeDate not in", values, "changeDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeDateBetween(Date value1, Date value2) {
+            addCriterion("changeDate between", value1, value2, "changeDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeDateNotBetween(Date value1, Date value2) {
+            addCriterion("changeDate not between", value1, value2, "changeDate");
             return (Criteria) this;
         }
     }

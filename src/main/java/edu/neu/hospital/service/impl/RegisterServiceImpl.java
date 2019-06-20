@@ -1,19 +1,15 @@
 package edu.neu.hospital.service.impl;
 
-import edu.neu.hospital.bean.MedicalRecord;
-import edu.neu.hospital.bean.Patient;
-import edu.neu.hospital.bean.PatientCard;
-import edu.neu.hospital.bean.RegistrationInfo;
-import edu.neu.hospital.dao.MedicalRecordDao;
-import edu.neu.hospital.dao.PatientCardDao;
-import edu.neu.hospital.dao.PatientDao;
-import edu.neu.hospital.dao.RegistrationInfoDao;
+import edu.neu.hospital.bean.*;
+import edu.neu.hospital.dao.*;
 import edu.neu.hospital.service.RegisterService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author LiJie
@@ -29,28 +25,39 @@ public class RegisterServiceImpl implements RegisterService {
     PatientCardDao patientCardDao;
 
     @Resource
+    ScheduleDao scheduleDao;
+
+    @Resource
     MedicalRecordDao medRecDao;
 
     @Resource
     RegistrationInfoDao regInfoDao;
 
     @Override
-    public int addRegisteredInfo(String isHaveCard, Patient patient, String passwd, RegistrationInfo regInfo) {
+    public int addRegisteredInfo(String isHaveCard, Patient patient, String passwd,
+                                 RegistrationInfo regInfo, Integer appearUserID) {
 
         if (isHaveCard.equals("0")) { //若无就诊卡
+
+            System.out.println(patient.toString());
 
             //根据身份证号查找数据库中的患者信息
             if (null == patientDao.selectByIdCardNo(patient.getIdentityCardNo())) {//若数据库中没有同身份证号的患者信息
                 //插入一条患者信息
-                patientDao.insert(patient);
+                patient.setAppearUserID(appearUserID);
+                patient.setAppearDate(new Date());
+                patientDao.insertSelective(patient);
             }
             //插入就诊卡信息
             PatientCard patientCard = new PatientCard();
             patientCard.setPatientName(patient.getPatientName());
             patientCard.setPatientID(patientDao.selectByIdCardNo(patient.getIdentityCardNo()).getId());
             patientCard.setPasswd(passwd);
+            patientCard.setMoney(BigDecimal.ZERO);
+            patientCard.setAppearUserID(appearUserID);
+            patientCard.setAppearDate(new Date());
 
-            patientCardDao.insert(patientCard);
+            patientCardDao.insertSelective(patientCard);
         }
 
         //按照当前系统时间生成17位病历号
@@ -62,16 +69,32 @@ public class RegisterServiceImpl implements RegisterService {
         MedicalRecord medRec = new MedicalRecord();
         medRec.setMedicalRecordNo(medRecNo);
         medRec.setPatientID(patientID);
-        medRecDao.insert(medRec);
+        medRec.setAppearUserID(appearUserID);
+        medRec.setAppearDate(new Date());
+
+        medRecDao.insertSelective(medRec);
+
+        //排班计划中，同一个医生可能多天有排班
+        List<Schedule> schedules = scheduleDao.selectByDoctorID(regInfo.getDoctorID());
+        Schedule schedule = new Schedule();
+        //查找挂号信息中 看诊日期 和 医生排版日期 相同的记录
+        for (Schedule value : schedules) {
+            schedule = value;
+            if (0 == regInfo.getSeeDoctorDate().compareTo(schedule.getOnDutyDate())) {
+                break;
+            }
+        }
+        //对该医生的该条记录的排版限额减1
+        schedule.setLimitNumber(schedule.getLimitNumber() - 1);
+        scheduleDao.updateByPrimaryKeySelective(schedule);
 
         //插入一条挂号信息
-        //查表，根据病历号获取病例ID
-        Integer medRecID = medRecDao.selectByMedRecNo(medRecNo).getId();
-
-        regInfo.setMedicalRecordID(medRecID);
+        regInfo.setMedicalRecordID(medRec.getId());
         regInfo.setPatientID(patientID);
         regInfo.setRegistrationDate(new Date());
+        regInfo.setAppearUserID(appearUserID);
+        regInfo.setAppearDate(new Date());
 
-        return 0;
+        return regInfoDao.insertSelective(regInfo);
     }
 }

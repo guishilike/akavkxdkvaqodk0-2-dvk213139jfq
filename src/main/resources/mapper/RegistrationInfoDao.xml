@@ -7,7 +7,7 @@
         <result column = "patientID" jdbcType = "INTEGER" property = "patientID"/>
         <result column = "registrationLevelID" jdbcType = "INTEGER" property = "registrationLevelID"/>
         <result column = "registrationDate" jdbcType = "TIMESTAMP" property = "registrationDate"/>
-        <result column = "seeDoctorDate" jdbcType = "TIMESTAMP" property = "seeDoctorDate"/>
+        <result column = "seeDoctorDate" jdbcType = "DATE" property = "seeDoctorDate"/>
         <result column = "departmentID" jdbcType = "INTEGER" property = "departmentID"/>
         <result column = "doctorID" jdbcType = "INTEGER" property = "doctorID"/>
         <result column = "registrationSourceID" jdbcType = "INTEGER" property = "registrationSourceID"/>
@@ -86,8 +86,8 @@
     </sql>
     <sql id = "Base_Column_List">
         id, medicalRecordID, patientID, registrationLevelID, registrationDate, seeDoctorDate,
-        departmentIDdoctorID, registrationSourceID, paymentCategoryID, isSeenDoctor, expense,
-        registrationStat, us, appearUserID, appearDate, changeUserID, changeDate, `status`,
+        departmentID, doctorID, registrationSourceID, paymentCategoryID, isSeenDoctor, expense,
+        registrationStatus, appearUserID, appearDate, changeUserID, changeDate, `status`,
         reserve1, reserve2, reserve3
     </sql>
     <select id = "selectByExample" parameterType = "edu.neu.hospital.example.RegistrationInfoExample"
@@ -141,11 +141,11 @@
                                       reserve2, reserve3)
         values (#{medicalRecordID,jdbcType=INTEGER}, #{patientID,jdbcType=INTEGER},
                 #{registrationLevelID,jdbcType=INTEGER},
-                #{registrationDate,jdbcType=TIMESTAMP}, #{seeDoctorDate,jdbcType=TIMESTAMP},
+                #{registrationDate,jdbcType=TIMESTAMP}, #{seeDoctorDate,jdbcType=DATE},
                 #{departmentID,jdbcType=INTEGER},
                 #{doctorID,jdbcType=INTEGER}, #{registrationSourceID,jdbcType=INTEGER},
                 #{paymentCategoryID,jdbcType=INTEGER},
-                #{isSeenDocator,jdbcType=CHAR}, #{expense,jdbcType=DECIMAL}, #{registrationStatus,jdbcType=CHAR},
+                #{isSeenDoctor,jdbcType=CHAR}, #{expense,jdbcType=DECIMAL}, #{registrationStatus,jdbcType=CHAR},
                 #{appearUserID,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, #{changeUserID,jdbcType=INTEGER},
                 #{changeDate,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{reserve1,jdbcType=VARCHAR},
                 #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR})
@@ -181,8 +181,8 @@
             <if test = "paymentCategoryID != null">
                 paymentCategoryID,
             </if>
-            <if test = "isSeenDocator != null">
-                isSeenDocator,
+            <if test = "isSeenDoctor != null">
+                isSeenDoctor,
             </if>
             <if test = "expense != null">
                 expense,
@@ -229,7 +229,7 @@
                 #{registrationDate,jdbcType=TIMESTAMP},
             </if>
             <if test = "seeDoctorDate != null">
-                #{seeDoctorDate,jdbcType=TIMESTAMP},
+                #{seeDoctorDate,jdbcType=DATE},
             </if>
             <if test = "departmentID != null">
                 #{departmentID,jdbcType=INTEGER},
@@ -243,8 +243,8 @@
             <if test = "paymentCategoryID != null">
                 #{paymentCategoryID,jdbcType=INTEGER},
             </if>
-            <if test = "isSeenDocator != null">
-                #{isSeenDocator,jdbcType=CHAR},
+            <if test = "isSeenDoctor != null">
+                #{isSeenDoctor,jdbcType=CHAR},
             </if>
             <if test = "expense != null">
                 #{expense,jdbcType=DECIMAL},
@@ -318,8 +318,8 @@
             <if test = "record.paymentCategoryID != null">
                 paymentCategoryID = #{record.paymentCategoryID,jdbcType=INTEGER},
             </if>
-            <if test = "record.isSeenDocator != null">
-                isSeenDocator = #{record.isSeenDocator,jdbcType=CHAR},
+            <if test = "record.isSeenDoctor != null">
+                isSeenDoctor = #{record.isSeenDoctor,jdbcType=CHAR},
             </if>
             <if test = "record.expense != null">
                 expense = #{record.expense,jdbcType=DECIMAL},
@@ -363,7 +363,7 @@
         patientID = #{record.patientID,jdbcType=INTEGER},
         registrationLevelID = #{record.registrationLevelID,jdbcType=INTEGER},
         registrationDate = #{record.registrationDate,jdbcType=TIMESTAMP},
-        seeDoctorDate = #{record.seeDoctorDate,jdbcType=TIMESTAMP},
+        seeDoctorDate = #{record.seeDoctorDate,jdbcType=DATE},
         departmentID = #{record.departmentID,jdbcType=INTEGER},
         doctorID = #{record.doctorID,jdbcType=INTEGER},
         registrationSourceID = #{record.registrationSourceID,jdbcType=INTEGER},
@@ -399,7 +399,7 @@
                 registrationDate = #{registrationDate,jdbcType=TIMESTAMP},
             </if>
             <if test = "seeDoctorDate != null">
-                seeDoctorDate = #{seeDoctorDate,jdbcType=TIMESTAMP},
+                seeDoctorDate = #{seeDoctorDate,jdbcType=DATE},
             </if>
             <if test = "departmentID != null">
                 departmentID = #{departmentID,jdbcType=INTEGER},
@@ -413,8 +413,8 @@
             <if test = "paymentCategoryID != null">
                 paymentCategoryID = #{paymentCategoryID,jdbcType=INTEGER},
             </if>
-            <if test = "isSeenDocator != null">
-                isSeenDocator = #{isSeenDocator,jdbcType=CHAR},
+            <if test = "isSeenDoctor != null">
+                isSeenDoctor = #{isSeenDoctor,jdbcType=CHAR},
             </if>
             <if test = "expense != null">
                 expense = #{expense,jdbcType=DECIMAL},
@@ -455,7 +455,7 @@
             patientID            = #{patientID,jdbcType=INTEGER},
             registrationLevelID  = #{registrationLevelID,jdbcType=INTEGER},
             registrationDate     = #{registrationDate,jdbcType=TIMESTAMP},
-            seeDoctorDate        = #{seeDoctorDate,jdbcType=TIMESTAMP},
+            seeDoctorDate        = #{seeDoctorDate,jdbcType=DATE},
             departmentID         = #{departmentID,jdbcType=INTEGER},
             doctorID             = #{doctorID,jdbcType=INTEGER},
             registrationSourceID = #{registrationSourceID,jdbcType=INTEGER},

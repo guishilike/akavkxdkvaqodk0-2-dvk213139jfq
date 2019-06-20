@@ -30,6 +30,4 @@ public interface PatientCardDao {
     int updateByPrimaryKeySelective(PatientCard record);
 
     int updateByPrimaryKey(PatientCard record);
-
-    int updatePasswdByPK(Integer id);
 }

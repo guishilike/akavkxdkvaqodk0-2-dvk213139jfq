@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace = "edu.neu.hospital.bean.PatientcardDao">
-    <resultMap id = "BaseResultMap" type = "edu.neu.hospital.bean.Patientcard">
+<mapper namespace = "edu.neu.hospital.dao.PatientCardDao">
+    <resultMap id = "BaseResultMap" type = "edu.neu.hospital.bean.PatientCard">
         <id column = "id" jdbcType = "INTEGER" property = "id"/>
         <result column = "patientID" jdbcType = "INTEGER" property = "patientID"/>
         <result column = "patientName" jdbcType = "VARCHAR" property = "patientName"/>
         <result column = "passwd" jdbcType = "VARCHAR" property = "passwd"/>
         <result column = "money" jdbcType = "DECIMAL" property = "money"/>
-        <result column = "appearUserId" jdbcType = "INTEGER" property = "appearUserId"/>
-        <result column = "changeUserId" jdbcType = "INTEGER" property = "changeUserId"/>
         <result column = "status" jdbcType = "CHAR" property = "status"/>
+        <result column = "appearUserID" jdbcType = "INTEGER" property = "appearUserID"/>
+        <result column = "appearDate" jdbcType = "TIMESTAMP" property = "appearDate"/>
+        <result column = "changeUserID" jdbcType = "INTEGER" property = "changeUserID"/>
+        <result column = "changeDate" jdbcType = "TIMESTAMP" property = "changeDate"/>
     </resultMap>
     <sql id = "Example_Where_Clause">
         <where>
@@ -72,9 +74,10 @@
         </where>
     </sql>
     <sql id = "Base_Column_List">
-        id, patientID, patientName, passwd, money, appearUserId, changeUserId, `status`
+        id, patientID, patientName, passwd, money, `status`, appearUserID, appearDate, changeUserID,
+        changeDate
     </sql>
-    <select id = "selectByExample" parameterType = "edu.neu.hospital.bean.PatientcardExample"
+    <select id = "selectByExample" parameterType = "edu.neu.hospital.example.PatientCardExample"
             resultMap = "BaseResultMap">
         select
         <if test = "distinct">
@@ -96,9 +99,6 @@
                 limit ${limit}
             </if>
         </if>
-        <if test = "forUpdate != null and forUpdate == true">
-            for update
-        </if>
     </select>
     <select id = "selectByPrimaryKey" parameterType = "java.lang.Integer" resultMap = "BaseResultMap">
         select
@@ -111,23 +111,23 @@
         from patientcard
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <delete id = "deleteByExample" parameterType = "edu.neu.hospital.bean.PatientcardExample">
+    <delete id = "deleteByExample" parameterType = "edu.neu.hospital.example.PatientCardExample">
         delete from patientcard
         <if test = "_parameter != null">
             <include refid = "Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id = "insert" keyColumn = "id" keyProperty = "id" parameterType = "edu.neu.hospital.bean.Patientcard"
+    <insert id = "insert" keyColumn = "id" keyProperty = "id" parameterType = "edu.neu.hospital.bean.PatientCard"
             useGeneratedKeys = "true">
         insert into patientcard (patientID, patientName, passwd,
-                                 money, appearUserId, changeUserId,
-                                 `status`)
+                                 money, `status`, appearUserID,
+                                 appearDate, changeUserID, changeDate)
         values (#{patientID,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR},
-                #{money,jdbcType=DECIMAL}, #{appearUserId,jdbcType=INTEGER}, #{changeUserId,jdbcType=INTEGER},
-                #{status,jdbcType=CHAR})
+                #{money,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}, #{appearUserID,jdbcType=INTEGER},
+                #{appearDate,jdbcType=TIMESTAMP}, #{changeUserID,jdbcType=INTEGER}, #{changeDate,jdbcType=TIMESTAMP})
     </insert>
     <insert id = "insertSelective" keyColumn = "id" keyProperty = "id"
-            parameterType = "edu.neu.hospital.bean.Patientcard"
+            parameterType = "edu.neu.hospital.bean.PatientCard"
             useGeneratedKeys = "true">
         insert into patientcard
         <trim prefix = "(" suffix = ")" suffixOverrides = ",">
@@ -143,14 +143,20 @@
             <if test = "money != null">
                 money,
             </if>
-            <if test = "appearUserId != null">
-                appearUserId,
-            </if>
-            <if test = "changeUserId != null">
-                changeUserId,
-            </if>
             <if test = "status != null">
                 `status`,
+            </if>
+            <if test = "appearUserID != null">
+                appearUserID,
+            </if>
+            <if test = "appearDate != null">
+                appearDate,
+            </if>
+            <if test = "changeUserID != null">
+                changeUserID,
+            </if>
+            <if test = "changeDate != null">
+                changeDate,
             </if>
         </trim>
         <trim prefix = "values (" suffix = ")" suffixOverrides = ",">
@@ -166,18 +172,24 @@
             <if test = "money != null">
                 #{money,jdbcType=DECIMAL},
             </if>
-            <if test = "appearUserId != null">
-                #{appearUserId,jdbcType=INTEGER},
-            </if>
-            <if test = "changeUserId != null">
-                #{changeUserId,jdbcType=INTEGER},
-            </if>
             <if test = "status != null">
                 #{status,jdbcType=CHAR},
             </if>
+            <if test = "appearUserID != null">
+                #{appearUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "appearDate != null">
+                #{appearDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "changeUserID != null">
+                #{changeUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "changeDate != null">
+                #{changeDate,jdbcType=TIMESTAMP},
+            </if>
         </trim>
     </insert>
-    <select id = "countByExample" parameterType = "edu.neu.hospital.bean.PatientcardExample"
+    <select id = "countByExample" parameterType = "edu.neu.hospital.example.PatientCardExample"
             resultType = "java.lang.Long">
         select count(*) from patientcard
         <if test = "_parameter != null">
@@ -202,14 +214,20 @@
             <if test = "record.money != null">
                 money = #{record.money,jdbcType=DECIMAL},
             </if>
-            <if test = "record.appearUserId != null">
-                appearUserId = #{record.appearUserId,jdbcType=INTEGER},
-            </if>
-            <if test = "record.changeUserId != null">
-                changeUserId = #{record.changeUserId,jdbcType=INTEGER},
-            </if>
             <if test = "record.status != null">
                 `status` = #{record.status,jdbcType=CHAR},
+            </if>
+            <if test = "record.appearUserID != null">
+                appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "record.appearDate != null">
+                appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "record.changeUserID != null">
+                changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "record.changeDate != null">
+                changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
             </if>
         </set>
         <if test = "_parameter != null">
@@ -223,14 +241,16 @@
         patientName = #{record.patientName,jdbcType=VARCHAR},
         passwd = #{record.passwd,jdbcType=VARCHAR},
         money = #{record.money,jdbcType=DECIMAL},
-        appearUserId = #{record.appearUserId,jdbcType=INTEGER},
-        changeUserId = #{record.changeUserId,jdbcType=INTEGER},
-        `status` = #{record.status,jdbcType=CHAR}
+        `status` = #{record.status,jdbcType=CHAR},
+        appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+        appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+        changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+        changeDate = #{record.changeDate,jdbcType=TIMESTAMP}
         <if test = "_parameter != null">
             <include refid = "Update_By_Example_Where_Clause"/>
         </if>
     </update>
-    <update id = "updateByPrimaryKeySelective" parameterType = "edu.neu.hospital.bean.Patientcard">
+    <update id = "updateByPrimaryKeySelective" parameterType = "edu.neu.hospital.bean.PatientCard">
         update patientcard
         <set>
             <if test = "patientID != null">
@@ -245,32 +265,35 @@
             <if test = "money != null">
                 money = #{money,jdbcType=DECIMAL},
             </if>
-            <if test = "appearUserId != null">
-                appearUserId = #{appearUserId,jdbcType=INTEGER},
-            </if>
-            <if test = "changeUserId != null">
-                changeUserId = #{changeUserId,jdbcType=INTEGER},
-            </if>
             <if test = "status != null">
                 `status` = #{status,jdbcType=CHAR},
+            </if>
+            <if test = "appearUserID != null">
+                appearUserID = #{appearUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "appearDate != null">
+                appearDate = #{appearDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "changeUserID != null">
+                changeUserID = #{changeUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "changeDate != null">
+                changeDate = #{changeDate,jdbcType=TIMESTAMP},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id = "updateByPrimaryKey" parameterType = "edu.neu.hospital.bean.Patientcard">
+    <update id = "updateByPrimaryKey" parameterType = "edu.neu.hospital.bean.PatientCard">
         update patientcard
         set patientID    = #{patientID,jdbcType=INTEGER},
             patientName  = #{patientName,jdbcType=VARCHAR},
             passwd       = #{passwd,jdbcType=VARCHAR},
             money        = #{money,jdbcType=DECIMAL},
-            appearUserId = #{appearUserId,jdbcType=INTEGER},
-            changeUserId = #{changeUserId,jdbcType=INTEGER},
-            `status`     = #{status,jdbcType=CHAR}
+            `status`     = #{status,jdbcType=CHAR},
+            appearUserID = #{appearUserID,jdbcType=INTEGER},
+            appearDate   = #{appearDate,jdbcType=TIMESTAMP},
+            changeUserID = #{changeUserID,jdbcType=INTEGER},
+            changeDate   = #{changeDate,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id = "updatePasswdByPK" parameterType = "java.lang.Integer">
-        update patientcard
-        set passwd = #{passwd,jdbcType=VARCHAR}
-        where id = #{id,jdbcType=VARCHAR}
     </update>
 </mapper>

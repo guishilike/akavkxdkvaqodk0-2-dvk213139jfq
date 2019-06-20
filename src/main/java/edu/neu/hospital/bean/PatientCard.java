@@ -2,6 +2,7 @@ package edu.neu.hospital.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * patientcard
@@ -21,9 +22,11 @@ public class PatientCard implements Serializable {
      * 余额
      */
     private BigDecimal money;
-    private Integer appearUserId;
-    private Integer changeUserId;
     private String status;
+    private Integer appearUserID;
+    private Date appearDate;
+    private Integer changeUserID;
+    private Date changeDate;
 
     public Integer getId() {
         return id;
@@ -65,28 +68,44 @@ public class PatientCard implements Serializable {
         this.money = money;
     }
 
-    public Integer getAppearUserId() {
-        return appearUserId;
-    }
-
-    public void setAppearUserId(Integer appearUserId) {
-        this.appearUserId = appearUserId;
-    }
-
-    public Integer getChangeUserId() {
-        return changeUserId;
-    }
-
-    public void setChangeUserId(Integer changeUserId) {
-        this.changeUserId = changeUserId;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getAppearUserID() {
+        return appearUserID;
+    }
+
+    public void setAppearUserID(Integer appearUserID) {
+        this.appearUserID = appearUserID;
+    }
+
+    public Date getAppearDate() {
+        return appearDate;
+    }
+
+    public void setAppearDate(Date appearDate) {
+        this.appearDate = appearDate;
+    }
+
+    public Integer getChangeUserID() {
+        return changeUserID;
+    }
+
+    public void setChangeUserID(Integer changeUserID) {
+        this.changeUserID = changeUserID;
+    }
+
+    public Date getChangeDate() {
+        return changeDate;
+    }
+
+    public void setChangeDate(Date changeDate) {
+        this.changeDate = changeDate;
     }
 
     @Override
@@ -106,9 +125,11 @@ public class PatientCard implements Serializable {
                 && (this.getPatientName() == null ? other.getPatientName() == null : this.getPatientName().equals(other.getPatientName()))
                 && (this.getPasswd() == null ? other.getPasswd() == null : this.getPasswd().equals(other.getPasswd()))
                 && (this.getMoney() == null ? other.getMoney() == null : this.getMoney().equals(other.getMoney()))
-                && (this.getAppearUserId() == null ? other.getAppearUserId() == null : this.getAppearUserId().equals(other.getAppearUserId()))
-                && (this.getChangeUserId() == null ? other.getChangeUserId() == null : this.getChangeUserId().equals(other.getChangeUserId()))
-                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+                && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
+                && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
+                && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
+                && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()));
     }
 
     @Override
@@ -120,9 +141,11 @@ public class PatientCard implements Serializable {
         result = prime * result + ((getPatientName() == null) ? 0 : getPatientName().hashCode());
         result = prime * result + ((getPasswd() == null) ? 0 : getPasswd().hashCode());
         result = prime * result + ((getMoney() == null) ? 0 : getMoney().hashCode());
-        result = prime * result + ((getAppearUserId() == null) ? 0 : getAppearUserId().hashCode());
-        result = prime * result + ((getChangeUserId() == null) ? 0 : getChangeUserId().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getAppearUserID() == null) ? 0 : getAppearUserID().hashCode());
+        result = prime * result + ((getAppearDate() == null) ? 0 : getAppearDate().hashCode());
+        result = prime * result + ((getChangeUserID() == null) ? 0 : getChangeUserID().hashCode());
+        result = prime * result + ((getChangeDate() == null) ? 0 : getChangeDate().hashCode());
         return result;
     }
 
@@ -137,9 +160,11 @@ public class PatientCard implements Serializable {
         sb.append(", patientName=").append(patientName);
         sb.append(", passwd=").append(passwd);
         sb.append(", money=").append(money);
-        sb.append(", appearUserId=").append(appearUserId);
-        sb.append(", changeUserId=").append(changeUserId);
         sb.append(", status=").append(status);
+        sb.append(", appearUserID=").append(appearUserID);
+        sb.append(", appearDate=").append(appearDate);
+        sb.append(", changeUserID=").append(changeUserID);
+        sb.append(", changeDate=").append(changeDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
