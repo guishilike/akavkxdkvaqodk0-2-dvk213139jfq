@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.baseDao.ScheduleViewDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.baseBean.ScheduleView">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="onDutyDate" jdbcType="DATE" property="onDutyDate" />
+    <result column="deptID" jdbcType="INTEGER" property="deptID" />
+    <result column="deptCode" jdbcType="VARCHAR" property="deptCode" />
+    <result column="deptName" jdbcType="VARCHAR" property="deptName" />
+    <result column="onDutyDoctorID" jdbcType="INTEGER" property="onDutyDoctorID" />
+    <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="levelNameID" jdbcType="INTEGER" property="levelNameID" />
+    <result column="levelCode" jdbcType="VARCHAR" property="levelCode" />
+    <result column="levelName" jdbcType="VARCHAR" property="levelName" />
+    <result column="onDutyTimeID" jdbcType="INTEGER" property="onDutyTimeID" />
+    <result column="onDutyTimeCode" jdbcType="VARCHAR" property="onDutyTimeCode" />
+    <result column="onDutyTimeName" jdbcType="VARCHAR" property="onDutyTimeName" />
+    <result column="limitNumber" jdbcType="INTEGER" property="limitNumber" />
+    <result column="remainingAmount" jdbcType="INTEGER" property="remainingAmount" />
+    <result column="ruleID" jdbcType="INTEGER" property="ruleID" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="appearUserID" jdbcType="INTEGER" property="appearUserID" />
+    <result column="changeUserID" jdbcType="INTEGER" property="changeUserID" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
+    <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
+    <result column="deptCategoryID" jdbcType="INTEGER" property="deptCategoryID" />
+    <result column="deptTypeID" jdbcType="INTEGER" property="deptTypeID" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, onDutyDate, deptID, deptCode, deptName, onDutyDoctorID, userName, levelNameID, 
+    levelCode, levelName, onDutyTimeID, onDutyTimeCode, onDutyTimeName, limitNumber, 
+    remainingAmount, ruleID, `status`, appearUserID, changeUserID, appearDate, changeDate, 
+    deptCategoryID, deptTypeID
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.baseExample.ScheduleViewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scheduleview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.baseExample.ScheduleViewExample">
+    delete from scheduleview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.neu.hospital.bean.baseBean.ScheduleView">
+    insert into scheduleview (id, onDutyDate, deptID, 
+      deptCode, deptName, onDutyDoctorID, 
+      userName, levelNameID, levelCode, 
+      levelName, onDutyTimeID, onDutyTimeCode, 
+      onDutyTimeName, limitNumber, remainingAmount, 
+      ruleID, `status`, appearUserID, 
+      changeUserID, appearDate, changeDate, 
+      deptCategoryID, deptTypeID)
+    values (#{id,jdbcType=INTEGER}, #{onDutyDate,jdbcType=DATE}, #{deptID,jdbcType=INTEGER}, 
+      #{deptCode,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, #{onDutyDoctorID,jdbcType=INTEGER}, 
+      #{userName,jdbcType=VARCHAR}, #{levelNameID,jdbcType=INTEGER}, #{levelCode,jdbcType=VARCHAR}, 
+      #{levelName,jdbcType=VARCHAR}, #{onDutyTimeID,jdbcType=INTEGER}, #{onDutyTimeCode,jdbcType=VARCHAR}, 
+      #{onDutyTimeName,jdbcType=VARCHAR}, #{limitNumber,jdbcType=INTEGER}, #{remainingAmount,jdbcType=INTEGER}, 
+      #{ruleID,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{appearUserID,jdbcType=INTEGER}, 
+      #{changeUserID,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, #{changeDate,jdbcType=TIMESTAMP}, 
+      #{deptCategoryID,jdbcType=INTEGER}, #{deptTypeID,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.neu.hospital.bean.baseBean.ScheduleView">
+    insert into scheduleview
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="onDutyDate != null">
+        onDutyDate,
+      </if>
+      <if test="deptID != null">
+        deptID,
+      </if>
+      <if test="deptCode != null">
+        deptCode,
+      </if>
+      <if test="deptName != null">
+        deptName,
+      </if>
+      <if test="onDutyDoctorID != null">
+        onDutyDoctorID,
+      </if>
+      <if test="userName != null">
+        userName,
+      </if>
+      <if test="levelNameID != null">
+        levelNameID,
+      </if>
+      <if test="levelCode != null">
+        levelCode,
+      </if>
+      <if test="levelName != null">
+        levelName,
+      </if>
+      <if test="onDutyTimeID != null">
+        onDutyTimeID,
+      </if>
+      <if test="onDutyTimeCode != null">
+        onDutyTimeCode,
+      </if>
+      <if test="onDutyTimeName != null">
+        onDutyTimeName,
+      </if>
+      <if test="limitNumber != null">
+        limitNumber,
+      </if>
+      <if test="remainingAmount != null">
+        remainingAmount,
+      </if>
+      <if test="ruleID != null">
+        ruleID,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="appearUserID != null">
+        appearUserID,
+      </if>
+      <if test="changeUserID != null">
+        changeUserID,
+      </if>
+      <if test="appearDate != null">
+        appearDate,
+      </if>
+      <if test="changeDate != null">
+        changeDate,
+      </if>
+      <if test="deptCategoryID != null">
+        deptCategoryID,
+      </if>
+      <if test="deptTypeID != null">
+        deptTypeID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="onDutyDate != null">
+        #{onDutyDate,jdbcType=DATE},
+      </if>
+      <if test="deptID != null">
+        #{deptID,jdbcType=INTEGER},
+      </if>
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="onDutyDoctorID != null">
+        #{onDutyDoctorID,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelNameID != null">
+        #{levelNameID,jdbcType=INTEGER},
+      </if>
+      <if test="levelCode != null">
+        #{levelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="levelName != null">
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="onDutyTimeID != null">
+        #{onDutyTimeID,jdbcType=INTEGER},
+      </if>
+      <if test="onDutyTimeCode != null">
+        #{onDutyTimeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="onDutyTimeName != null">
+        #{onDutyTimeName,jdbcType=VARCHAR},
+      </if>
+      <if test="limitNumber != null">
+        #{limitNumber,jdbcType=INTEGER},
+      </if>
+      <if test="remainingAmount != null">
+        #{remainingAmount,jdbcType=INTEGER},
+      </if>
+      <if test="ruleID != null">
+        #{ruleID,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="appearUserID != null">
+        #{appearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="changeUserID != null">
+        #{changeUserID,jdbcType=INTEGER},
+      </if>
+      <if test="appearDate != null">
+        #{appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deptCategoryID != null">
+        #{deptCategoryID,jdbcType=INTEGER},
+      </if>
+      <if test="deptTypeID != null">
+        #{deptTypeID,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.baseExample.ScheduleViewExample" resultType="java.lang.Long">
+    select count(*) from scheduleview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update scheduleview
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.onDutyDate != null">
+        onDutyDate = #{record.onDutyDate,jdbcType=DATE},
+      </if>
+      <if test="record.deptID != null">
+        deptID = #{record.deptID,jdbcType=INTEGER},
+      </if>
+      <if test="record.deptCode != null">
+        deptCode = #{record.deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptName != null">
+        deptName = #{record.deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onDutyDoctorID != null">
+        onDutyDoctorID = #{record.onDutyDoctorID,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        userName = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.levelNameID != null">
+        levelNameID = #{record.levelNameID,jdbcType=INTEGER},
+      </if>
+      <if test="record.levelCode != null">
+        levelCode = #{record.levelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.levelName != null">
+        levelName = #{record.levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onDutyTimeID != null">
+        onDutyTimeID = #{record.onDutyTimeID,jdbcType=INTEGER},
+      </if>
+      <if test="record.onDutyTimeCode != null">
+        onDutyTimeCode = #{record.onDutyTimeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onDutyTimeName != null">
+        onDutyTimeName = #{record.onDutyTimeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.limitNumber != null">
+        limitNumber = #{record.limitNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.remainingAmount != null">
+        remainingAmount = #{record.remainingAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.ruleID != null">
+        ruleID = #{record.ruleID,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.appearUserID != null">
+        appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeUserID != null">
+        changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+      </if>
+      <if test="record.appearDate != null">
+        appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeDate != null">
+        changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deptCategoryID != null">
+        deptCategoryID = #{record.deptCategoryID,jdbcType=INTEGER},
+      </if>
+      <if test="record.deptTypeID != null">
+        deptTypeID = #{record.deptTypeID,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update scheduleview
+    set id = #{record.id,jdbcType=INTEGER},
+      onDutyDate = #{record.onDutyDate,jdbcType=DATE},
+      deptID = #{record.deptID,jdbcType=INTEGER},
+      deptCode = #{record.deptCode,jdbcType=VARCHAR},
+      deptName = #{record.deptName,jdbcType=VARCHAR},
+      onDutyDoctorID = #{record.onDutyDoctorID,jdbcType=INTEGER},
+      userName = #{record.userName,jdbcType=VARCHAR},
+      levelNameID = #{record.levelNameID,jdbcType=INTEGER},
+      levelCode = #{record.levelCode,jdbcType=VARCHAR},
+      levelName = #{record.levelName,jdbcType=VARCHAR},
+      onDutyTimeID = #{record.onDutyTimeID,jdbcType=INTEGER},
+      onDutyTimeCode = #{record.onDutyTimeCode,jdbcType=VARCHAR},
+      onDutyTimeName = #{record.onDutyTimeName,jdbcType=VARCHAR},
+      limitNumber = #{record.limitNumber,jdbcType=INTEGER},
+      remainingAmount = #{record.remainingAmount,jdbcType=INTEGER},
+      ruleID = #{record.ruleID,jdbcType=INTEGER},
+      `status` = #{record.status,jdbcType=CHAR},
+      appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+      changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+      appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+      deptCategoryID = #{record.deptCategoryID,jdbcType=INTEGER},
+      deptTypeID = #{record.deptTypeID,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

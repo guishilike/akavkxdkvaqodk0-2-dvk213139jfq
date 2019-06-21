@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.basicTableDao.DisposalDetailsDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.basicTableBean.DisposalDetails">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="disposalID" jdbcType="INTEGER" property="disposalID" />
+    <result column="fMedItemID" jdbcType="INTEGER" property="fMedItemID" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="appearUserID" jdbcType="INTEGER" property="appearUserID" />
+    <result column="changeUserID" jdbcType="INTEGER" property="changeUserID" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
+    <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="isDrawn" jdbcType="INTEGER" property="isDrawn" />
+    <result column="isPaid" jdbcType="INTEGER" property="isPaid" />
+    <result column="isChecked" jdbcType="INTEGER" property="isChecked" />
+    <result column="isAbolished" jdbcType="INTEGER" property="isAbolished" />
+    <result column="isRegistered" jdbcType="INTEGER" property="isRegistered" />
+    <result column="isExecuted" jdbcType="INTEGER" property="isExecuted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, disposalID, fMedItemID, `number`, appearUserID, changeUserID, appearDate, changeDate, 
+    `status`, isDrawn, isPaid, isChecked, isAbolished, isRegistered, isExecuted
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.basicTableExample.DisposalDetailsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from disposaldetails
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from disposaldetails
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from disposaldetails
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.basicTableExample.DisposalDetailsExample">
+    delete from disposaldetails
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.basicTableBean.DisposalDetails" useGeneratedKeys="true">
+    insert into disposaldetails (disposalID, fMedItemID, `number`, 
+      appearUserID, changeUserID, appearDate, 
+      changeDate, `status`, isDrawn, 
+      isPaid, isChecked, isAbolished, 
+      isRegistered, isExecuted)
+    values (#{disposalID,jdbcType=INTEGER}, #{fMedItemID,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, 
+      #{appearUserID,jdbcType=INTEGER}, #{changeUserID,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, 
+      #{changeDate,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{isDrawn,jdbcType=INTEGER}, 
+      #{isPaid,jdbcType=INTEGER}, #{isChecked,jdbcType=INTEGER}, #{isAbolished,jdbcType=INTEGER}, 
+      #{isRegistered,jdbcType=INTEGER}, #{isExecuted,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.basicTableBean.DisposalDetails" useGeneratedKeys="true">
+    insert into disposaldetails
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="disposalID != null">
+        disposalID,
+      </if>
+      <if test="fMedItemID != null">
+        fMedItemID,
+      </if>
+      <if test="number != null">
+        `number`,
+      </if>
+      <if test="appearUserID != null">
+        appearUserID,
+      </if>
+      <if test="changeUserID != null">
+        changeUserID,
+      </if>
+      <if test="appearDate != null">
+        appearDate,
+      </if>
+      <if test="changeDate != null">
+        changeDate,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="isDrawn != null">
+        isDrawn,
+      </if>
+      <if test="isPaid != null">
+        isPaid,
+      </if>
+      <if test="isChecked != null">
+        isChecked,
+      </if>
+      <if test="isAbolished != null">
+        isAbolished,
+      </if>
+      <if test="isRegistered != null">
+        isRegistered,
+      </if>
+      <if test="isExecuted != null">
+        isExecuted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="disposalID != null">
+        #{disposalID,jdbcType=INTEGER},
+      </if>
+      <if test="fMedItemID != null">
+        #{fMedItemID,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="appearUserID != null">
+        #{appearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="changeUserID != null">
+        #{changeUserID,jdbcType=INTEGER},
+      </if>
+      <if test="appearDate != null">
+        #{appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="isDrawn != null">
+        #{isDrawn,jdbcType=INTEGER},
+      </if>
+      <if test="isPaid != null">
+        #{isPaid,jdbcType=INTEGER},
+      </if>
+      <if test="isChecked != null">
+        #{isChecked,jdbcType=INTEGER},
+      </if>
+      <if test="isAbolished != null">
+        #{isAbolished,jdbcType=INTEGER},
+      </if>
+      <if test="isRegistered != null">
+        #{isRegistered,jdbcType=INTEGER},
+      </if>
+      <if test="isExecuted != null">
+        #{isExecuted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.basicTableExample.DisposalDetailsExample" resultType="java.lang.Long">
+    select count(*) from disposaldetails
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update disposaldetails
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.disposalID != null">
+        disposalID = #{record.disposalID,jdbcType=INTEGER},
+      </if>
+      <if test="record.fMedItemID != null">
+        fMedItemID = #{record.fMedItemID,jdbcType=INTEGER},
+      </if>
+      <if test="record.number != null">
+        `number` = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.appearUserID != null">
+        appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeUserID != null">
+        changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+      </if>
+      <if test="record.appearDate != null">
+        appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeDate != null">
+        changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.isDrawn != null">
+        isDrawn = #{record.isDrawn,jdbcType=INTEGER},
+      </if>
+      <if test="record.isPaid != null">
+        isPaid = #{record.isPaid,jdbcType=INTEGER},
+      </if>
+      <if test="record.isChecked != null">
+        isChecked = #{record.isChecked,jdbcType=INTEGER},
+      </if>
+      <if test="record.isAbolished != null">
+        isAbolished = #{record.isAbolished,jdbcType=INTEGER},
+      </if>
+      <if test="record.isRegistered != null">
+        isRegistered = #{record.isRegistered,jdbcType=INTEGER},
+      </if>
+      <if test="record.isExecuted != null">
+        isExecuted = #{record.isExecuted,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update disposaldetails
+    set id = #{record.id,jdbcType=INTEGER},
+      disposalID = #{record.disposalID,jdbcType=INTEGER},
+      fMedItemID = #{record.fMedItemID,jdbcType=INTEGER},
+      `number` = #{record.number,jdbcType=INTEGER},
+      appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+      changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+      appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+      `status` = #{record.status,jdbcType=CHAR},
+      isDrawn = #{record.isDrawn,jdbcType=INTEGER},
+      isPaid = #{record.isPaid,jdbcType=INTEGER},
+      isChecked = #{record.isChecked,jdbcType=INTEGER},
+      isAbolished = #{record.isAbolished,jdbcType=INTEGER},
+      isRegistered = #{record.isRegistered,jdbcType=INTEGER},
+      isExecuted = #{record.isExecuted,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.neu.hospital.bean.basicTableBean.DisposalDetails">
+    update disposaldetails
+    <set>
+      <if test="disposalID != null">
+        disposalID = #{disposalID,jdbcType=INTEGER},
+      </if>
+      <if test="fMedItemID != null">
+        fMedItemID = #{fMedItemID,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        `number` = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="appearUserID != null">
+        appearUserID = #{appearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="changeUserID != null">
+        changeUserID = #{changeUserID,jdbcType=INTEGER},
+      </if>
+      <if test="appearDate != null">
+        appearDate = #{appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeDate != null">
+        changeDate = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
+      <if test="isDrawn != null">
+        isDrawn = #{isDrawn,jdbcType=INTEGER},
+      </if>
+      <if test="isPaid != null">
+        isPaid = #{isPaid,jdbcType=INTEGER},
+      </if>
+      <if test="isChecked != null">
+        isChecked = #{isChecked,jdbcType=INTEGER},
+      </if>
+      <if test="isAbolished != null">
+        isAbolished = #{isAbolished,jdbcType=INTEGER},
+      </if>
+      <if test="isRegistered != null">
+        isRegistered = #{isRegistered,jdbcType=INTEGER},
+      </if>
+      <if test="isExecuted != null">
+        isExecuted = #{isExecuted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.neu.hospital.bean.basicTableBean.DisposalDetails">
+    update disposaldetails
+    set disposalID = #{disposalID,jdbcType=INTEGER},
+      fMedItemID = #{fMedItemID,jdbcType=INTEGER},
+      `number` = #{number,jdbcType=INTEGER},
+      appearUserID = #{appearUserID,jdbcType=INTEGER},
+      changeUserID = #{changeUserID,jdbcType=INTEGER},
+      appearDate = #{appearDate,jdbcType=TIMESTAMP},
+      changeDate = #{changeDate,jdbcType=TIMESTAMP},
+      `status` = #{status,jdbcType=CHAR},
+      isDrawn = #{isDrawn,jdbcType=INTEGER},
+      isPaid = #{isPaid,jdbcType=INTEGER},
+      isChecked = #{isChecked,jdbcType=INTEGER},
+      isAbolished = #{isAbolished,jdbcType=INTEGER},
+      isRegistered = #{isRegistered,jdbcType=INTEGER},
+      isExecuted = #{isExecuted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

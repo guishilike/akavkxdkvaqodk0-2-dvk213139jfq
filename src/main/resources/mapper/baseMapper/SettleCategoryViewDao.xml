@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.baseDao.SettleCategoryViewDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.baseBean.SettleCategoryView">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="settleCategoryCode" jdbcType="VARCHAR" property="settleCategoryCode" />
+    <result column="settleCategoryName" jdbcType="VARCHAR" property="settleCategoryName" />
+    <result column="sequenceID" jdbcType="INTEGER" property="sequenceID" />
+    <result column="thresnold1" jdbcType="DECIMAL" property="thresnold1" />
+    <result column="thresnold2" jdbcType="DECIMAL" property="thresnold2" />
+    <result column="thresnold3" jdbcType="DECIMAL" property="thresnold3" />
+    <result column="proportion1" jdbcType="DECIMAL" property="proportion1" />
+    <result column="proportion2" jdbcType="DECIMAL" property="proportion2" />
+    <result column="proportion3" jdbcType="DECIMAL" property="proportion3" />
+    <result column="proportion4" jdbcType="DECIMAL" property="proportion4" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
+    <result column="apearUserID" jdbcType="INTEGER" property="apearUserID" />
+    <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
+    <result column="changeUserID" jdbcType="INTEGER" property="changeUserID" />
+    <result column="appearUserName" jdbcType="VARCHAR" property="appearUserName" />
+    <result column="changeUserName" jdbcType="VARCHAR" property="changeUserName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, settleCategoryCode, settleCategoryName, sequenceID, thresnold1, thresnold2, thresnold3, 
+    proportion1, proportion2, proportion3, proportion4, appearDate, apearUserID, changeDate, 
+    changeUserID, appearUserName, changeUserName
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.baseExample.SettleCategoryViewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from settlecategoryview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.baseExample.SettleCategoryViewExample">
+    delete from settlecategoryview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.neu.hospital.bean.baseBean.SettleCategoryView">
+    insert into settlecategoryview (id, settleCategoryCode, settleCategoryName, 
+      sequenceID, thresnold1, thresnold2, 
+      thresnold3, proportion1, proportion2, 
+      proportion3, proportion4, appearDate, 
+      apearUserID, changeDate, changeUserID, 
+      appearUserName, changeUserName)
+    values (#{id,jdbcType=INTEGER}, #{settleCategoryCode,jdbcType=VARCHAR}, #{settleCategoryName,jdbcType=VARCHAR}, 
+      #{sequenceID,jdbcType=INTEGER}, #{thresnold1,jdbcType=DECIMAL}, #{thresnold2,jdbcType=DECIMAL}, 
+      #{thresnold3,jdbcType=DECIMAL}, #{proportion1,jdbcType=DECIMAL}, #{proportion2,jdbcType=DECIMAL}, 
+      #{proportion3,jdbcType=DECIMAL}, #{proportion4,jdbcType=DECIMAL}, #{appearDate,jdbcType=TIMESTAMP}, 
+      #{apearUserID,jdbcType=INTEGER}, #{changeDate,jdbcType=TIMESTAMP}, #{changeUserID,jdbcType=INTEGER}, 
+      #{appearUserName,jdbcType=VARCHAR}, #{changeUserName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.neu.hospital.bean.baseBean.SettleCategoryView">
+    insert into settlecategoryview
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="settleCategoryCode != null">
+        settleCategoryCode,
+      </if>
+      <if test="settleCategoryName != null">
+        settleCategoryName,
+      </if>
+      <if test="sequenceID != null">
+        sequenceID,
+      </if>
+      <if test="thresnold1 != null">
+        thresnold1,
+      </if>
+      <if test="thresnold2 != null">
+        thresnold2,
+      </if>
+      <if test="thresnold3 != null">
+        thresnold3,
+      </if>
+      <if test="proportion1 != null">
+        proportion1,
+      </if>
+      <if test="proportion2 != null">
+        proportion2,
+      </if>
+      <if test="proportion3 != null">
+        proportion3,
+      </if>
+      <if test="proportion4 != null">
+        proportion4,
+      </if>
+      <if test="appearDate != null">
+        appearDate,
+      </if>
+      <if test="apearUserID != null">
+        apearUserID,
+      </if>
+      <if test="changeDate != null">
+        changeDate,
+      </if>
+      <if test="changeUserID != null">
+        changeUserID,
+      </if>
+      <if test="appearUserName != null">
+        appearUserName,
+      </if>
+      <if test="changeUserName != null">
+        changeUserName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="settleCategoryCode != null">
+        #{settleCategoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="settleCategoryName != null">
+        #{settleCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="sequenceID != null">
+        #{sequenceID,jdbcType=INTEGER},
+      </if>
+      <if test="thresnold1 != null">
+        #{thresnold1,jdbcType=DECIMAL},
+      </if>
+      <if test="thresnold2 != null">
+        #{thresnold2,jdbcType=DECIMAL},
+      </if>
+      <if test="thresnold3 != null">
+        #{thresnold3,jdbcType=DECIMAL},
+      </if>
+      <if test="proportion1 != null">
+        #{proportion1,jdbcType=DECIMAL},
+      </if>
+      <if test="proportion2 != null">
+        #{proportion2,jdbcType=DECIMAL},
+      </if>
+      <if test="proportion3 != null">
+        #{proportion3,jdbcType=DECIMAL},
+      </if>
+      <if test="proportion4 != null">
+        #{proportion4,jdbcType=DECIMAL},
+      </if>
+      <if test="appearDate != null">
+        #{appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="apearUserID != null">
+        #{apearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeUserID != null">
+        #{changeUserID,jdbcType=INTEGER},
+      </if>
+      <if test="appearUserName != null">
+        #{appearUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="changeUserName != null">
+        #{changeUserName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.baseExample.SettleCategoryViewExample" resultType="java.lang.Long">
+    select count(*) from settlecategoryview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update settlecategoryview
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.settleCategoryCode != null">
+        settleCategoryCode = #{record.settleCategoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleCategoryName != null">
+        settleCategoryName = #{record.settleCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sequenceID != null">
+        sequenceID = #{record.sequenceID,jdbcType=INTEGER},
+      </if>
+      <if test="record.thresnold1 != null">
+        thresnold1 = #{record.thresnold1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thresnold2 != null">
+        thresnold2 = #{record.thresnold2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thresnold3 != null">
+        thresnold3 = #{record.thresnold3,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proportion1 != null">
+        proportion1 = #{record.proportion1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proportion2 != null">
+        proportion2 = #{record.proportion2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proportion3 != null">
+        proportion3 = #{record.proportion3,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proportion4 != null">
+        proportion4 = #{record.proportion4,jdbcType=DECIMAL},
+      </if>
+      <if test="record.appearDate != null">
+        appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.apearUserID != null">
+        apearUserID = #{record.apearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeDate != null">
+        changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeUserID != null">
+        changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+      </if>
+      <if test="record.appearUserName != null">
+        appearUserName = #{record.appearUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changeUserName != null">
+        changeUserName = #{record.changeUserName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update settlecategoryview
+    set id = #{record.id,jdbcType=INTEGER},
+      settleCategoryCode = #{record.settleCategoryCode,jdbcType=VARCHAR},
+      settleCategoryName = #{record.settleCategoryName,jdbcType=VARCHAR},
+      sequenceID = #{record.sequenceID,jdbcType=INTEGER},
+      thresnold1 = #{record.thresnold1,jdbcType=DECIMAL},
+      thresnold2 = #{record.thresnold2,jdbcType=DECIMAL},
+      thresnold3 = #{record.thresnold3,jdbcType=DECIMAL},
+      proportion1 = #{record.proportion1,jdbcType=DECIMAL},
+      proportion2 = #{record.proportion2,jdbcType=DECIMAL},
+      proportion3 = #{record.proportion3,jdbcType=DECIMAL},
+      proportion4 = #{record.proportion4,jdbcType=DECIMAL},
+      appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      apearUserID = #{record.apearUserID,jdbcType=INTEGER},
+      changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+      changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+      appearUserName = #{record.appearUserName,jdbcType=VARCHAR},
+      changeUserName = #{record.changeUserName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

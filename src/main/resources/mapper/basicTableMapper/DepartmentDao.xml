@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "edu.neu.hospital.dao.basicTableDao.DepartmentDao">
+    <resultMap id = "BaseResultMap" type = "edu.neu.hospital.bean.basicTableBean.Department">
+        <id column = "id" jdbcType = "INTEGER" property = "id"/>
+        <result column = "deptCode" jdbcType = "VARCHAR" property = "deptCode"/>
+        <result column = "deptName" jdbcType = "VARCHAR" property = "deptName"/>
+        <result column = "deptCategoryID" jdbcType = "INTEGER" property = "deptCategoryID"/>
+        <result column = "deptTypeID" jdbcType = "INTEGER" property = "deptTypeID"/>
+        <result column = "appearDate" jdbcType = "TIMESTAMP" property = "appearDate"/>
+        <result column = "appearUserID" jdbcType = "INTEGER" property = "appearUserID"/>
+        <result column = "changeDate" jdbcType = "TIMESTAMP" property = "changeDate"/>
+        <result column = "changeUserID" jdbcType = "INTEGER" property = "changeUserID"/>
+        <result column = "status" jdbcType = "CHAR" property = "status"/>
+    </resultMap>
+    <sql id = "Example_Where_Clause">
+        <where>
+            <foreach collection = "oredCriteria" item = "criteria" separator = "or">
+                <if test = "criteria.valid">
+                    <trim prefix = "(" prefixOverrides = "and" suffix = ")">
+                        <foreach collection = "criteria.criteria" item = "criterion">
+                            <choose>
+                                <when test = "criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test = "criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test = "criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test = "criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close = ")" collection = "criterion.value" item = "listItem" open = "("
+                                             separator = ",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id = "Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection = "example.oredCriteria" item = "criteria" separator = "or">
+                <if test = "criteria.valid">
+                    <trim prefix = "(" prefixOverrides = "and" suffix = ")">
+                        <foreach collection = "criteria.criteria" item = "criterion">
+                            <choose>
+                                <when test = "criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test = "criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test = "criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test = "criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close = ")" collection = "criterion.value" item = "listItem" open = "("
+                                             separator = ",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id = "Base_Column_List">
+        id, deptCode, deptName, deptCategoryID, deptTypeID, appearDate, appearUserID, changeDate,
+        changeUserID, `status`
+    </sql>
+    <select id = "selectByExample" parameterType = "edu.neu.hospital.example.basicTableExample.DepartmentExample"
+            resultMap = "BaseResultMap">
+        select
+        <if test = "distinct">
+            distinct
+        </if>
+        <include refid = "Base_Column_List"/>
+        from department
+        <if test = "_parameter != null">
+            <include refid = "Example_Where_Clause"/>
+        </if>
+        <if test = "orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test = "limit != null">
+            <if test = "offset != null">
+                limit ${offset}, ${limit}
+            </if>
+            <if test = "offset == null">
+                limit ${limit}
+            </if>
+        </if>
+    </select>
+    <select id = "selectByPrimaryKey" parameterType = "java.lang.Integer" resultMap = "BaseResultMap">
+        select
+        <include refid = "Base_Column_List"/>
+        from department
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id = "deleteByPrimaryKey" parameterType = "java.lang.Integer">
+        delete
+        from department
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id = "deleteByExample" parameterType = "edu.neu.hospital.example.basicTableExample.DepartmentExample">
+        delete from department
+        <if test = "_parameter != null">
+            <include refid = "Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id = "insert" keyColumn = "id" keyProperty = "id" parameterType = "edu.neu.hospital.bean.basicTableBean.Department"
+            useGeneratedKeys = "true">
+        insert into department (deptCode, deptName, deptCategoryID,
+                                deptTypeID, appearDate, appearUserID,
+                                changeDate, changeUserID, `status`)
+        values (#{deptCode,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, #{deptCategoryID,jdbcType=INTEGER},
+                #{deptTypeID,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, #{appearUserID,jdbcType=INTEGER},
+                #{changeDate,jdbcType=TIMESTAMP}, #{changeUserID,jdbcType=INTEGER}, #{status,jdbcType=CHAR})
+    </insert>
+    <insert id = "insertSelective" keyColumn = "id" keyProperty = "id"
+            parameterType = "edu.neu.hospital.bean.basicTableBean.Department" useGeneratedKeys = "true">
+        insert into department
+        <trim prefix = "(" suffix = ")" suffixOverrides = ",">
+            <if test = "deptCode != null">
+                deptCode,
+            </if>
+            <if test = "deptName != null">
+                deptName,
+            </if>
+            <if test = "deptCategoryID != null">
+                deptCategoryID,
+            </if>
+            <if test = "deptTypeID != null">
+                deptTypeID,
+            </if>
+            <if test = "appearDate != null">
+                appearDate,
+            </if>
+            <if test = "appearUserID != null">
+                appearUserID,
+            </if>
+            <if test = "changeDate != null">
+                changeDate,
+            </if>
+            <if test = "changeUserID != null">
+                changeUserID,
+            </if>
+            <if test = "status != null">
+                `status`,
+            </if>
+        </trim>
+        <trim prefix = "values (" suffix = ")" suffixOverrides = ",">
+            <if test = "deptCode != null">
+                #{deptCode,jdbcType=VARCHAR},
+            </if>
+            <if test = "deptName != null">
+                #{deptName,jdbcType=VARCHAR},
+            </if>
+            <if test = "deptCategoryID != null">
+                #{deptCategoryID,jdbcType=INTEGER},
+            </if>
+            <if test = "deptTypeID != null">
+                #{deptTypeID,jdbcType=INTEGER},
+            </if>
+            <if test = "appearDate != null">
+                #{appearDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "appearUserID != null">
+                #{appearUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "changeDate != null">
+                #{changeDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "changeUserID != null">
+                #{changeUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id = "countByExample" parameterType = "edu.neu.hospital.example.basicTableExample.DepartmentExample"
+            resultType = "java.lang.Long">
+        select count(*) from department
+        <if test = "_parameter != null">
+            <include refid = "Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id = "updateByExampleSelective" parameterType = "map">
+        update department
+        <set>
+            <if test = "record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test = "record.deptCode != null">
+                deptCode = #{record.deptCode,jdbcType=VARCHAR},
+            </if>
+            <if test = "record.deptName != null">
+                deptName = #{record.deptName,jdbcType=VARCHAR},
+            </if>
+            <if test = "record.deptCategoryID != null">
+                deptCategoryID = #{record.deptCategoryID,jdbcType=INTEGER},
+            </if>
+            <if test = "record.deptTypeID != null">
+                deptTypeID = #{record.deptTypeID,jdbcType=INTEGER},
+            </if>
+            <if test = "record.appearDate != null">
+                appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "record.appearUserID != null">
+                appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "record.changeDate != null">
+                changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "record.changeUserID != null">
+                changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "record.status != null">
+                `status` = #{record.status,jdbcType=CHAR},
+            </if>
+        </set>
+        <if test = "_parameter != null">
+            <include refid = "Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id = "updateByExample" parameterType = "map">
+        update department
+        set id = #{record.id,jdbcType=INTEGER},
+        deptCode = #{record.deptCode,jdbcType=VARCHAR},
+        deptName = #{record.deptName,jdbcType=VARCHAR},
+        deptCategoryID = #{record.deptCategoryID,jdbcType=INTEGER},
+        deptTypeID = #{record.deptTypeID,jdbcType=INTEGER},
+        appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+        appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+        changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+        changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+        `status` = #{record.status,jdbcType=CHAR}
+        <if test = "_parameter != null">
+            <include refid = "Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id = "updateByPrimaryKeySelective" parameterType = "edu.neu.hospital.bean.basicTableBean.Department">
+        update department
+        <set>
+            <if test = "deptCode != null">
+                deptCode = #{deptCode,jdbcType=VARCHAR},
+            </if>
+            <if test = "deptName != null">
+                deptName = #{deptName,jdbcType=VARCHAR},
+            </if>
+            <if test = "deptCategoryID != null">
+                deptCategoryID = #{deptCategoryID,jdbcType=INTEGER},
+            </if>
+            <if test = "deptTypeID != null">
+                deptTypeID = #{deptTypeID,jdbcType=INTEGER},
+            </if>
+            <if test = "appearDate != null">
+                appearDate = #{appearDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "appearUserID != null">
+                appearUserID = #{appearUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "changeDate != null">
+                changeDate = #{changeDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "changeUserID != null">
+                changeUserID = #{changeUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "status != null">
+                `status` = #{status,jdbcType=CHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id = "updateByPrimaryKey" parameterType = "edu.neu.hospital.bean.basicTableBean.Department">
+        update department
+        set deptCode       = #{deptCode,jdbcType=VARCHAR},
+            deptName       = #{deptName,jdbcType=VARCHAR},
+            deptCategoryID = #{deptCategoryID,jdbcType=INTEGER},
+            deptTypeID     = #{deptTypeID,jdbcType=INTEGER},
+            appearDate     = #{appearDate,jdbcType=TIMESTAMP},
+            appearUserID   = #{appearUserID,jdbcType=INTEGER},
+            changeDate     = #{changeDate,jdbcType=TIMESTAMP},
+            changeUserID   = #{changeUserID,jdbcType=INTEGER},
+            `status`       = #{status,jdbcType=CHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

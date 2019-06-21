@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "edu.neu.hospital.dao.basicTableDao.DiagnosisDao">
+    <resultMap id = "BaseResultMap" type = "edu.neu.hospital.bean.basicTableBean.Diagnosis">
+        <id column = "id" jdbcType = "INTEGER" property = "id"/>
+        <result column = "diseaseID" jdbcType = "INTEGER" property = "diseaseID"/>
+        <result column = "medicalRecordID" jdbcType = "INTEGER" property = "medicalRecordID"/>
+        <result column = "subjectMark" jdbcType = "CHAR" property = "subjectMark"/>
+        <result column = "doubtMark" jdbcType = "CHAR" property = "doubtMark"/>
+        <result column = "defiedMark" jdbcType = "CHAR" property = "defiedMark"/>
+        <result column = "diseaseDate" jdbcType = "DATE" property = "diseaseDate"/>
+        <result column = "diagnosisMark" jdbcType = "INTEGER" property = "diagnosisMark"/>
+        <result column = "appearUserID" jdbcType = "INTEGER" property = "appearUserID"/>
+        <result column = "changeUserID" jdbcType = "INTEGER" property = "changeUserID"/>
+        <result column = "appearDate" jdbcType = "TIMESTAMP" property = "appearDate"/>
+        <result column = "changeDate" jdbcType = "TIMESTAMP" property = "changeDate"/>
+        <result column = "status" jdbcType = "CHAR" property = "status"/>
+        <result column = "reserve2" jdbcType = "VARCHAR" property = "reserve2"/>
+    </resultMap>
+    <sql id = "Example_Where_Clause">
+        <where>
+            <foreach collection = "oredCriteria" item = "criteria" separator = "or">
+                <if test = "criteria.valid">
+                    <trim prefix = "(" prefixOverrides = "and" suffix = ")">
+                        <foreach collection = "criteria.criteria" item = "criterion">
+                            <choose>
+                                <when test = "criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test = "criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test = "criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test = "criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close = ")" collection = "criterion.value" item = "listItem" open = "("
+                                             separator = ",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id = "Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection = "example.oredCriteria" item = "criteria" separator = "or">
+                <if test = "criteria.valid">
+                    <trim prefix = "(" prefixOverrides = "and" suffix = ")">
+                        <foreach collection = "criteria.criteria" item = "criterion">
+                            <choose>
+                                <when test = "criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test = "criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test = "criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test = "criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close = ")" collection = "criterion.value" item = "listItem" open = "("
+                                             separator = ",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id = "Base_Column_List">
+        id, diseaseID, medicalRecordID, subjectMark, doubtMark, defiedMark, diseaseDate,
+        diagnosisMark, appearUserID, changeUserID, appearDate, changeDate, `status`, reserve2
+    </sql>
+    <select id = "selectByExample" parameterType = "edu.neu.hospital.example.basicTableExample.DiagnosisExample"
+            resultMap = "BaseResultMap">
+        select
+        <if test = "distinct">
+            distinct
+        </if>
+        <include refid = "Base_Column_List"/>
+        from diagnosis
+        <if test = "_parameter != null">
+            <include refid = "Example_Where_Clause"/>
+        </if>
+        <if test = "orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test = "limit != null">
+            <if test = "offset != null">
+                limit ${offset}, ${limit}
+            </if>
+            <if test = "offset == null">
+                limit ${limit}
+            </if>
+        </if>
+    </select>
+    <select id = "selectByPrimaryKey" parameterType = "java.lang.Integer" resultMap = "BaseResultMap">
+        select
+        <include refid = "Base_Column_List"/>
+        from diagnosis
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id = "deleteByPrimaryKey" parameterType = "java.lang.Integer">
+        delete
+        from diagnosis
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id = "deleteByExample" parameterType = "edu.neu.hospital.example.basicTableExample.DiagnosisExample">
+        delete from diagnosis
+        <if test = "_parameter != null">
+            <include refid = "Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id = "insert" keyColumn = "id" keyProperty = "id" parameterType = "edu.neu.hospital.bean.basicTableBean.Diagnosis"
+            useGeneratedKeys = "true">
+        insert into diagnosis (diseaseID, medicalRecordID, subjectMark,
+                               doubtMark, defiedMark, diseaseDate,
+                               diagnosisMark, appearUserID, changeUserID,
+                               appearDate, changeDate, `status`,
+                               reserve2)
+        values (#{diseaseID,jdbcType=INTEGER}, #{medicalRecordID,jdbcType=INTEGER}, #{subjectMark,jdbcType=CHAR},
+                #{doubtMark,jdbcType=CHAR}, #{defiedMark,jdbcType=CHAR}, #{diseaseDate,jdbcType=DATE},
+                #{diagnosisMark,jdbcType=INTEGER}, #{appearUserID,jdbcType=INTEGER}, #{changeUserID,jdbcType=INTEGER},
+                #{appearDate,jdbcType=TIMESTAMP}, #{changeDate,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR},
+                #{reserve2,jdbcType=VARCHAR})
+    </insert>
+    <insert id = "insertSelective" keyColumn = "id" keyProperty = "id" parameterType = "edu.neu.hospital.bean.basicTableBean.Diagnosis"
+            useGeneratedKeys = "true">
+        insert into diagnosis
+        <trim prefix = "(" suffix = ")" suffixOverrides = ",">
+            <if test = "diseaseID != null">
+                diseaseID,
+            </if>
+            <if test = "medicalRecordID != null">
+                medicalRecordID,
+            </if>
+            <if test = "subjectMark != null">
+                subjectMark,
+            </if>
+            <if test = "doubtMark != null">
+                doubtMark,
+            </if>
+            <if test = "defiedMark != null">
+                defiedMark,
+            </if>
+            <if test = "diseaseDate != null">
+                diseaseDate,
+            </if>
+            <if test = "diagnosisMark != null">
+                diagnosisMark,
+            </if>
+            <if test = "appearUserID != null">
+                appearUserID,
+            </if>
+            <if test = "changeUserID != null">
+                changeUserID,
+            </if>
+            <if test = "appearDate != null">
+                appearDate,
+            </if>
+            <if test = "changeDate != null">
+                changeDate,
+            </if>
+            <if test = "status != null">
+                `status`,
+            </if>
+            <if test = "reserve2 != null">
+                reserve2,
+            </if>
+        </trim>
+        <trim prefix = "values (" suffix = ")" suffixOverrides = ",">
+            <if test = "diseaseID != null">
+                #{diseaseID,jdbcType=INTEGER},
+            </if>
+            <if test = "medicalRecordID != null">
+                #{medicalRecordID,jdbcType=INTEGER},
+            </if>
+            <if test = "subjectMark != null">
+                #{subjectMark,jdbcType=CHAR},
+            </if>
+            <if test = "doubtMark != null">
+                #{doubtMark,jdbcType=CHAR},
+            </if>
+            <if test = "defiedMark != null">
+                #{defiedMark,jdbcType=CHAR},
+            </if>
+            <if test = "diseaseDate != null">
+                #{diseaseDate,jdbcType=DATE},
+            </if>
+            <if test = "diagnosisMark != null">
+                #{diagnosisMark,jdbcType=INTEGER},
+            </if>
+            <if test = "appearUserID != null">
+                #{appearUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "changeUserID != null">
+                #{changeUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "appearDate != null">
+                #{appearDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "changeDate != null">
+                #{changeDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test = "reserve2 != null">
+                #{reserve2,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id = "countByExample" parameterType = "edu.neu.hospital.example.basicTableExample.DiagnosisExample"
+            resultType = "java.lang.Long">
+        select count(*) from diagnosis
+        <if test = "_parameter != null">
+            <include refid = "Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id = "updateByExampleSelective" parameterType = "map">
+        update diagnosis
+        <set>
+            <if test = "record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test = "record.diseaseID != null">
+                diseaseID = #{record.diseaseID,jdbcType=INTEGER},
+            </if>
+            <if test = "record.medicalRecordID != null">
+                medicalRecordID = #{record.medicalRecordID,jdbcType=INTEGER},
+            </if>
+            <if test = "record.subjectMark != null">
+                subjectMark = #{record.subjectMark,jdbcType=CHAR},
+            </if>
+            <if test = "record.doubtMark != null">
+                doubtMark = #{record.doubtMark,jdbcType=CHAR},
+            </if>
+            <if test = "record.defiedMark != null">
+                defiedMark = #{record.defiedMark,jdbcType=CHAR},
+            </if>
+            <if test = "record.diseaseDate != null">
+                diseaseDate = #{record.diseaseDate,jdbcType=DATE},
+            </if>
+            <if test = "record.diagnosisMark != null">
+                diagnosisMark = #{record.diagnosisMark,jdbcType=INTEGER},
+            </if>
+            <if test = "record.appearUserID != null">
+                appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "record.changeUserID != null">
+                changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "record.appearDate != null">
+                appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "record.changeDate != null">
+                changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "record.status != null">
+                `status` = #{record.status,jdbcType=CHAR},
+            </if>
+            <if test = "record.reserve2 != null">
+                reserve2 = #{record.reserve2,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test = "_parameter != null">
+            <include refid = "Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id = "updateByExample" parameterType = "map">
+        update diagnosis
+        set id = #{record.id,jdbcType=INTEGER},
+        diseaseID = #{record.diseaseID,jdbcType=INTEGER},
+        medicalRecordID = #{record.medicalRecordID,jdbcType=INTEGER},
+        subjectMark = #{record.subjectMark,jdbcType=CHAR},
+        doubtMark = #{record.doubtMark,jdbcType=CHAR},
+        defiedMark = #{record.defiedMark,jdbcType=CHAR},
+        diseaseDate = #{record.diseaseDate,jdbcType=DATE},
+        diagnosisMark = #{record.diagnosisMark,jdbcType=INTEGER},
+        appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+        changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+        appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+        changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+        `status` = #{record.status,jdbcType=CHAR},
+        reserve2 = #{record.reserve2,jdbcType=VARCHAR}
+        <if test = "_parameter != null">
+            <include refid = "Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id = "updateByPrimaryKeySelective" parameterType = "edu.neu.hospital.bean.basicTableBean.Diagnosis">
+        update diagnosis
+        <set>
+            <if test = "diseaseID != null">
+                diseaseID = #{diseaseID,jdbcType=INTEGER},
+            </if>
+            <if test = "medicalRecordID != null">
+                medicalRecordID = #{medicalRecordID,jdbcType=INTEGER},
+            </if>
+            <if test = "subjectMark != null">
+                subjectMark = #{subjectMark,jdbcType=CHAR},
+            </if>
+            <if test = "doubtMark != null">
+                doubtMark = #{doubtMark,jdbcType=CHAR},
+            </if>
+            <if test = "defiedMark != null">
+                defiedMark = #{defiedMark,jdbcType=CHAR},
+            </if>
+            <if test = "diseaseDate != null">
+                diseaseDate = #{diseaseDate,jdbcType=DATE},
+            </if>
+            <if test = "diagnosisMark != null">
+                diagnosisMark = #{diagnosisMark,jdbcType=INTEGER},
+            </if>
+            <if test = "appearUserID != null">
+                appearUserID = #{appearUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "changeUserID != null">
+                changeUserID = #{changeUserID,jdbcType=INTEGER},
+            </if>
+            <if test = "appearDate != null">
+                appearDate = #{appearDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "changeDate != null">
+                changeDate = #{changeDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test = "status != null">
+                `status` = #{status,jdbcType=CHAR},
+            </if>
+            <if test = "reserve2 != null">
+                reserve2 = #{reserve2,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id = "updateByPrimaryKey" parameterType = "edu.neu.hospital.bean.basicTableBean.Diagnosis">
+        update diagnosis
+        set diseaseID       = #{diseaseID,jdbcType=INTEGER},
+            medicalRecordID = #{medicalRecordID,jdbcType=INTEGER},
+            subjectMark     = #{subjectMark,jdbcType=CHAR},
+            doubtMark       = #{doubtMark,jdbcType=CHAR},
+            defiedMark      = #{defiedMark,jdbcType=CHAR},
+            diseaseDate     = #{diseaseDate,jdbcType=DATE},
+            diagnosisMark   = #{diagnosisMark,jdbcType=INTEGER},
+            appearUserID    = #{appearUserID,jdbcType=INTEGER},
+            changeUserID    = #{changeUserID,jdbcType=INTEGER},
+            appearDate      = #{appearDate,jdbcType=TIMESTAMP},
+            changeDate      = #{changeDate,jdbcType=TIMESTAMP},
+            `status`        = #{status,jdbcType=CHAR},
+            reserve2        = #{reserve2,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

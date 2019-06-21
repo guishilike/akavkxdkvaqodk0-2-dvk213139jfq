@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.basicTableDao.SettleCategoryDetailsDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.basicTableBean.SettleCategoryDetails">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="settleCategoryID" jdbcType="INTEGER" property="settleCategoryID" />
+    <result column="thresnold1" jdbcType="DECIMAL" property="thresnold1" />
+    <result column="thresnold2" jdbcType="DECIMAL" property="thresnold2" />
+    <result column="thresnold3" jdbcType="DECIMAL" property="thresnold3" />
+    <result column="proportion1" jdbcType="DECIMAL" property="proportion1" />
+    <result column="proportion2" jdbcType="DECIMAL" property="proportion2" />
+    <result column="proportion3" jdbcType="DECIMAL" property="proportion3" />
+    <result column="proportion4" jdbcType="DECIMAL" property="proportion4" />
+    <result column="status" jdbcType="CHAR" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, settleCategoryID, thresnold1, thresnold2, thresnold3, proportion1, proportion2, 
+    proportion3, proportion4, `status`
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.basicTableExample.SettleCategoryDetailsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from settlecategorydetails
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from settlecategorydetails
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from settlecategorydetails
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.basicTableExample.SettleCategoryDetailsExample">
+    delete from settlecategorydetails
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.basicTableBean.SettleCategoryDetails" useGeneratedKeys="true">
+    insert into settlecategorydetails (settleCategoryID, thresnold1, thresnold2, 
+      thresnold3, proportion1, proportion2, 
+      proportion3, proportion4, `status`
+      )
+    values (#{settleCategoryID,jdbcType=INTEGER}, #{thresnold1,jdbcType=DECIMAL}, #{thresnold2,jdbcType=DECIMAL}, 
+      #{thresnold3,jdbcType=DECIMAL}, #{proportion1,jdbcType=DECIMAL}, #{proportion2,jdbcType=DECIMAL}, 
+      #{proportion3,jdbcType=DECIMAL}, #{proportion4,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.basicTableBean.SettleCategoryDetails" useGeneratedKeys="true">
+    insert into settlecategorydetails
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="settleCategoryID != null">
+        settleCategoryID,
+      </if>
+      <if test="thresnold1 != null">
+        thresnold1,
+      </if>
+      <if test="thresnold2 != null">
+        thresnold2,
+      </if>
+      <if test="thresnold3 != null">
+        thresnold3,
+      </if>
+      <if test="proportion1 != null">
+        proportion1,
+      </if>
+      <if test="proportion2 != null">
+        proportion2,
+      </if>
+      <if test="proportion3 != null">
+        proportion3,
+      </if>
+      <if test="proportion4 != null">
+        proportion4,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="settleCategoryID != null">
+        #{settleCategoryID,jdbcType=INTEGER},
+      </if>
+      <if test="thresnold1 != null">
+        #{thresnold1,jdbcType=DECIMAL},
+      </if>
+      <if test="thresnold2 != null">
+        #{thresnold2,jdbcType=DECIMAL},
+      </if>
+      <if test="thresnold3 != null">
+        #{thresnold3,jdbcType=DECIMAL},
+      </if>
+      <if test="proportion1 != null">
+        #{proportion1,jdbcType=DECIMAL},
+      </if>
+      <if test="proportion2 != null">
+        #{proportion2,jdbcType=DECIMAL},
+      </if>
+      <if test="proportion3 != null">
+        #{proportion3,jdbcType=DECIMAL},
+      </if>
+      <if test="proportion4 != null">
+        #{proportion4,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.basicTableExample.SettleCategoryDetailsExample" resultType="java.lang.Long">
+    select count(*) from settlecategorydetails
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update settlecategorydetails
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.settleCategoryID != null">
+        settleCategoryID = #{record.settleCategoryID,jdbcType=INTEGER},
+      </if>
+      <if test="record.thresnold1 != null">
+        thresnold1 = #{record.thresnold1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thresnold2 != null">
+        thresnold2 = #{record.thresnold2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thresnold3 != null">
+        thresnold3 = #{record.thresnold3,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proportion1 != null">
+        proportion1 = #{record.proportion1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proportion2 != null">
+        proportion2 = #{record.proportion2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proportion3 != null">
+        proportion3 = #{record.proportion3,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proportion4 != null">
+        proportion4 = #{record.proportion4,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update settlecategorydetails
+    set id = #{record.id,jdbcType=INTEGER},
+      settleCategoryID = #{record.settleCategoryID,jdbcType=INTEGER},
+      thresnold1 = #{record.thresnold1,jdbcType=DECIMAL},
+      thresnold2 = #{record.thresnold2,jdbcType=DECIMAL},
+      thresnold3 = #{record.thresnold3,jdbcType=DECIMAL},
+      proportion1 = #{record.proportion1,jdbcType=DECIMAL},
+      proportion2 = #{record.proportion2,jdbcType=DECIMAL},
+      proportion3 = #{record.proportion3,jdbcType=DECIMAL},
+      proportion4 = #{record.proportion4,jdbcType=DECIMAL},
+      `status` = #{record.status,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.neu.hospital.bean.basicTableBean.SettleCategoryDetails">
+    update settlecategorydetails
+    <set>
+      <if test="settleCategoryID != null">
+        settleCategoryID = #{settleCategoryID,jdbcType=INTEGER},
+      </if>
+      <if test="thresnold1 != null">
+        thresnold1 = #{thresnold1,jdbcType=DECIMAL},
+      </if>
+      <if test="thresnold2 != null">
+        thresnold2 = #{thresnold2,jdbcType=DECIMAL},
+      </if>
+      <if test="thresnold3 != null">
+        thresnold3 = #{thresnold3,jdbcType=DECIMAL},
+      </if>
+      <if test="proportion1 != null">
+        proportion1 = #{proportion1,jdbcType=DECIMAL},
+      </if>
+      <if test="proportion2 != null">
+        proportion2 = #{proportion2,jdbcType=DECIMAL},
+      </if>
+      <if test="proportion3 != null">
+        proportion3 = #{proportion3,jdbcType=DECIMAL},
+      </if>
+      <if test="proportion4 != null">
+        proportion4 = #{proportion4,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.neu.hospital.bean.basicTableBean.SettleCategoryDetails">
+    update settlecategorydetails
+    set settleCategoryID = #{settleCategoryID,jdbcType=INTEGER},
+      thresnold1 = #{thresnold1,jdbcType=DECIMAL},
+      thresnold2 = #{thresnold2,jdbcType=DECIMAL},
+      thresnold3 = #{thresnold3,jdbcType=DECIMAL},
+      proportion1 = #{proportion1,jdbcType=DECIMAL},
+      proportion2 = #{proportion2,jdbcType=DECIMAL},
+      proportion3 = #{proportion3,jdbcType=DECIMAL},
+      proportion4 = #{proportion4,jdbcType=DECIMAL},
+      `status` = #{status,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

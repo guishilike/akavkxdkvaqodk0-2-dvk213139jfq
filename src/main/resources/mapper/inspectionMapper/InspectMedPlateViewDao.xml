@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.inspectionDao.InspectMedPlateViewDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.inspectionBean.InspectMedPlateView">
+    <result column="projecttemplateID" jdbcType="INTEGER" property="projecttemplateID" />
+    <result column="doctorId" jdbcType="INTEGER" property="doctorId" />
+    <result column="templateCode" jdbcType="VARCHAR" property="templateCode" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="impression" jdbcType="VARCHAR" property="impression" />
+    <result column="area" jdbcType="INTEGER" property="area" />
+    <result column="diagnosis" jdbcType="VARCHAR" property="diagnosis" />
+    <result column="goal" jdbcType="VARCHAR" property="goal" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="plateDetailID" jdbcType="INTEGER" property="plateDetailID" />
+    <result column="dosage" jdbcType="INTEGER" property="dosage" />
+    <result column="advice" jdbcType="VARCHAR" property="advice" />
+    <result column="drugsID" jdbcType="INTEGER" property="drugsID" />
+    <result column="drugsCode" jdbcType="CHAR" property="drugsCode" />
+    <result column="drugsName" jdbcType="VARCHAR" property="drugsName" />
+    <result column="drugsFormat" jdbcType="VARCHAR" property="drugsFormat" />
+    <result column="drugsUnit" jdbcType="VARCHAR" property="drugsUnit" />
+    <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="drugsDosageID" jdbcType="INTEGER" property="drugsDosageID" />
+    <result column="drugsTypeID" jdbcType="INTEGER" property="drugsTypeID" />
+    <result column="drugsPrice" jdbcType="DECIMAL" property="drugsPrice" />
+    <result column="mnemonicCode" jdbcType="VARCHAR" property="mnemonicCode" />
+    <result column="reimbursement" jdbcType="DECIMAL" property="reimbursement" />
+    <result column="constantName1" jdbcType="VARCHAR" property="constantName1" />
+    <result column="realName" jdbcType="VARCHAR" property="realName" />
+    <result column="constantName2" jdbcType="VARCHAR" property="constantName2" />
+    <result column="constantName3" jdbcType="VARCHAR" property="constantName3" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    projecttemplateID, doctorId, templateCode, `name`, category, impression, area, diagnosis, 
+    goal, `type`, plateDetailID, dosage, advice, drugsID, drugsCode, drugsName, drugsFormat, 
+    drugsUnit, manufacturer, drugsDosageID, drugsTypeID, drugsPrice, mnemonicCode, reimbursement, 
+    constantName1, realName, constantName2, constantName3
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.inspectionExample.InspectMedPlateViewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from inspectmedplateview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.inspectionExample.InspectMedPlateViewExample">
+    delete from inspectmedplateview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.neu.hospital.bean.inspectionBean.InspectMedPlateView">
+    insert into inspectmedplateview (projecttemplateID, doctorId, templateCode, 
+      `name`, category, impression, 
+      area, diagnosis, goal, 
+      `type`, plateDetailID, dosage, 
+      advice, drugsID, drugsCode, 
+      drugsName, drugsFormat, drugsUnit, 
+      manufacturer, drugsDosageID, drugsTypeID, 
+      drugsPrice, mnemonicCode, reimbursement, 
+      constantName1, realName, constantName2, 
+      constantName3)
+    values (#{projecttemplateID,jdbcType=INTEGER}, #{doctorId,jdbcType=INTEGER}, #{templateCode,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{impression,jdbcType=VARCHAR}, 
+      #{area,jdbcType=INTEGER}, #{diagnosis,jdbcType=VARCHAR}, #{goal,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{plateDetailID,jdbcType=INTEGER}, #{dosage,jdbcType=INTEGER}, 
+      #{advice,jdbcType=VARCHAR}, #{drugsID,jdbcType=INTEGER}, #{drugsCode,jdbcType=CHAR}, 
+      #{drugsName,jdbcType=VARCHAR}, #{drugsFormat,jdbcType=VARCHAR}, #{drugsUnit,jdbcType=VARCHAR}, 
+      #{manufacturer,jdbcType=VARCHAR}, #{drugsDosageID,jdbcType=INTEGER}, #{drugsTypeID,jdbcType=INTEGER}, 
+      #{drugsPrice,jdbcType=DECIMAL}, #{mnemonicCode,jdbcType=VARCHAR}, #{reimbursement,jdbcType=DECIMAL}, 
+      #{constantName1,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{constantName2,jdbcType=VARCHAR}, 
+      #{constantName3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.neu.hospital.bean.inspectionBean.InspectMedPlateView">
+    insert into inspectmedplateview
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projecttemplateID != null">
+        projecttemplateID,
+      </if>
+      <if test="doctorId != null">
+        doctorId,
+      </if>
+      <if test="templateCode != null">
+        templateCode,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="impression != null">
+        impression,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="diagnosis != null">
+        diagnosis,
+      </if>
+      <if test="goal != null">
+        goal,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="plateDetailID != null">
+        plateDetailID,
+      </if>
+      <if test="dosage != null">
+        dosage,
+      </if>
+      <if test="advice != null">
+        advice,
+      </if>
+      <if test="drugsID != null">
+        drugsID,
+      </if>
+      <if test="drugsCode != null">
+        drugsCode,
+      </if>
+      <if test="drugsName != null">
+        drugsName,
+      </if>
+      <if test="drugsFormat != null">
+        drugsFormat,
+      </if>
+      <if test="drugsUnit != null">
+        drugsUnit,
+      </if>
+      <if test="manufacturer != null">
+        manufacturer,
+      </if>
+      <if test="drugsDosageID != null">
+        drugsDosageID,
+      </if>
+      <if test="drugsTypeID != null">
+        drugsTypeID,
+      </if>
+      <if test="drugsPrice != null">
+        drugsPrice,
+      </if>
+      <if test="mnemonicCode != null">
+        mnemonicCode,
+      </if>
+      <if test="reimbursement != null">
+        reimbursement,
+      </if>
+      <if test="constantName1 != null">
+        constantName1,
+      </if>
+      <if test="realName != null">
+        realName,
+      </if>
+      <if test="constantName2 != null">
+        constantName2,
+      </if>
+      <if test="constantName3 != null">
+        constantName3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projecttemplateID != null">
+        #{projecttemplateID,jdbcType=INTEGER},
+      </if>
+      <if test="doctorId != null">
+        #{doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="templateCode != null">
+        #{templateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="impression != null">
+        #{impression,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=INTEGER},
+      </if>
+      <if test="diagnosis != null">
+        #{diagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="goal != null">
+        #{goal,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="plateDetailID != null">
+        #{plateDetailID,jdbcType=INTEGER},
+      </if>
+      <if test="dosage != null">
+        #{dosage,jdbcType=INTEGER},
+      </if>
+      <if test="advice != null">
+        #{advice,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsID != null">
+        #{drugsID,jdbcType=INTEGER},
+      </if>
+      <if test="drugsCode != null">
+        #{drugsCode,jdbcType=CHAR},
+      </if>
+      <if test="drugsName != null">
+        #{drugsName,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsFormat != null">
+        #{drugsFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsUnit != null">
+        #{drugsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsDosageID != null">
+        #{drugsDosageID,jdbcType=INTEGER},
+      </if>
+      <if test="drugsTypeID != null">
+        #{drugsTypeID,jdbcType=INTEGER},
+      </if>
+      <if test="drugsPrice != null">
+        #{drugsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="mnemonicCode != null">
+        #{mnemonicCode,jdbcType=VARCHAR},
+      </if>
+      <if test="reimbursement != null">
+        #{reimbursement,jdbcType=DECIMAL},
+      </if>
+      <if test="constantName1 != null">
+        #{constantName1,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="constantName2 != null">
+        #{constantName2,jdbcType=VARCHAR},
+      </if>
+      <if test="constantName3 != null">
+        #{constantName3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.inspectionExample.InspectMedPlateViewExample" resultType="java.lang.Long">
+    select count(*) from inspectmedplateview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update inspectmedplateview
+    <set>
+      <if test="record.projecttemplateID != null">
+        projecttemplateID = #{record.projecttemplateID,jdbcType=INTEGER},
+      </if>
+      <if test="record.doctorId != null">
+        doctorId = #{record.doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.templateCode != null">
+        templateCode = #{record.templateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.impression != null">
+        impression = #{record.impression,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null">
+        area = #{record.area,jdbcType=INTEGER},
+      </if>
+      <if test="record.diagnosis != null">
+        diagnosis = #{record.diagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goal != null">
+        goal = #{record.goal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        `type` = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.plateDetailID != null">
+        plateDetailID = #{record.plateDetailID,jdbcType=INTEGER},
+      </if>
+      <if test="record.dosage != null">
+        dosage = #{record.dosage,jdbcType=INTEGER},
+      </if>
+      <if test="record.advice != null">
+        advice = #{record.advice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugsID != null">
+        drugsID = #{record.drugsID,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugsCode != null">
+        drugsCode = #{record.drugsCode,jdbcType=CHAR},
+      </if>
+      <if test="record.drugsName != null">
+        drugsName = #{record.drugsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugsFormat != null">
+        drugsFormat = #{record.drugsFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugsUnit != null">
+        drugsUnit = #{record.drugsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufacturer != null">
+        manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugsDosageID != null">
+        drugsDosageID = #{record.drugsDosageID,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugsTypeID != null">
+        drugsTypeID = #{record.drugsTypeID,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugsPrice != null">
+        drugsPrice = #{record.drugsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mnemonicCode != null">
+        mnemonicCode = #{record.mnemonicCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reimbursement != null">
+        reimbursement = #{record.reimbursement,jdbcType=DECIMAL},
+      </if>
+      <if test="record.constantName1 != null">
+        constantName1 = #{record.constantName1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realName != null">
+        realName = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.constantName2 != null">
+        constantName2 = #{record.constantName2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.constantName3 != null">
+        constantName3 = #{record.constantName3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update inspectmedplateview
+    set projecttemplateID = #{record.projecttemplateID,jdbcType=INTEGER},
+      doctorId = #{record.doctorId,jdbcType=INTEGER},
+      templateCode = #{record.templateCode,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      impression = #{record.impression,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=INTEGER},
+      diagnosis = #{record.diagnosis,jdbcType=VARCHAR},
+      goal = #{record.goal,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=INTEGER},
+      plateDetailID = #{record.plateDetailID,jdbcType=INTEGER},
+      dosage = #{record.dosage,jdbcType=INTEGER},
+      advice = #{record.advice,jdbcType=VARCHAR},
+      drugsID = #{record.drugsID,jdbcType=INTEGER},
+      drugsCode = #{record.drugsCode,jdbcType=CHAR},
+      drugsName = #{record.drugsName,jdbcType=VARCHAR},
+      drugsFormat = #{record.drugsFormat,jdbcType=VARCHAR},
+      drugsUnit = #{record.drugsUnit,jdbcType=VARCHAR},
+      manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      drugsDosageID = #{record.drugsDosageID,jdbcType=INTEGER},
+      drugsTypeID = #{record.drugsTypeID,jdbcType=INTEGER},
+      drugsPrice = #{record.drugsPrice,jdbcType=DECIMAL},
+      mnemonicCode = #{record.mnemonicCode,jdbcType=VARCHAR},
+      reimbursement = #{record.reimbursement,jdbcType=DECIMAL},
+      constantName1 = #{record.constantName1,jdbcType=VARCHAR},
+      realName = #{record.realName,jdbcType=VARCHAR},
+      constantName2 = #{record.constantName2,jdbcType=VARCHAR},
+      constantName3 = #{record.constantName3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
