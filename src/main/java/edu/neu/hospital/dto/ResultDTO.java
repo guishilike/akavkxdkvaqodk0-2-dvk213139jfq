@@ -5,6 +5,16 @@ public class ResultDTO<T> {
     private String msg;
     private T data;
 
+    public ResultDTO(){
+
+    }
+
+    public ResultDTO(String status, String msg, T data) {
+        this.status = status;
+        this.msg = msg;
+        this.data = data;
+    }
+
     public T getData() {
         return data;
     }

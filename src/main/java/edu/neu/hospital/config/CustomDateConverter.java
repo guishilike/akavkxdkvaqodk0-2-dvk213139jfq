@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -59,5 +60,20 @@ public class CustomDateConverter implements Converter<String,Date>{
  
         }
         return date;
+    }
+
+    /**
+     * 日期加一天
+     * @param date Date 日期
+     * @return Date 日期
+     */
+    public  Date getNextDay(Date date)
+    {
+        if (date == null)
+            return null;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        return calendar.getTime();
     }
 }
