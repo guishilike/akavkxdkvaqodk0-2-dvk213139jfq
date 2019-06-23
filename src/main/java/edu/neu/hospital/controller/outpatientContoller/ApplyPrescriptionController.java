@@ -149,6 +149,28 @@ public class ApplyPrescriptionController {
         }
         return resultDTO;
     }
+    @RequestMapping("/addProjectFee")
+    public @ResponseBody
+    ResultDTO  addProjectFee(  Integer prescriptionDetailID  ,HttpSession session){
+        ResultDTO<Fee> resultDTO = new ResultDTO<>();
+        try {
+
+            //
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            Fee fee = applyPrescriptionService.addProjectFee(prescriptionDetailID , user.getId());
+
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("插入成功");
+            resultDTO.setData(fee);
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发生异常");
+            //resultDTO.setData(page);
+
+        }
+        return resultDTO;
+    }
 
 
     @RequestMapping("/deleteDrugs")

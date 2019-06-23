@@ -35,6 +35,9 @@ public interface ApplyInspectionService {
     public List<InspectionResult>    lookInspectionRes(Integer inspectionDetailsID);
     //9.	常用项目管理（此次为引用
     public CommonInspection useCommonInspection(Integer commonInspectionID);
+    //开立时向fee中插一条未缴费的记录
+    public Fee addProjectFee(  Integer inspectionDetailID  , Integer userID);
+
 
 
 }

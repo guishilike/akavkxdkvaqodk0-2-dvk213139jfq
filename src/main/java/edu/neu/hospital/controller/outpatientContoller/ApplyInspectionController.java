@@ -165,6 +165,32 @@ public class ApplyInspectionController {
     }
 
 
+    //只是为了测一下插入fee数据喔
+    @RequestMapping("/addProjectFee")
+    public @ResponseBody
+    ResultDTO  addProjectFee(  Integer inspectionDetailID  ,HttpSession session){
+        ResultDTO<Fee> resultDTO = new ResultDTO<>();
+        try {
+
+           //
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            Fee fee = applyInspectionService.addProjectFee(inspectionDetailID , user.getId());
+
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("插入成功");
+            resultDTO.setData(fee);
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发生异常");
+            //resultDTO.setData(page);
+
+        }
+        return resultDTO;
+    }
+
+
+
     @RequestMapping("/deleteInspectionDetails")
     public @ResponseBody
     ResultDTO<PageInfo<InspectionDetails>> deleteInspectionDetails(IdDTO inspectionDetailsIdList, HttpSession session, Integer pageNum, Integer pageSize) {

@@ -7,12 +7,14 @@ import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.basicTableExample.FMedItemExample;
 import edu.neu.hospital.example.basicTableExample.InspectionExample;
+import edu.neu.hospital.example.basicTableExample.InspectionFeeExample;
 import edu.neu.hospital.example.basicTableExample.InspectionResultExample;
 import edu.neu.hospital.service.outPatientService.ApplyInspectionService;
 import edu.neu.hospital.utils.RegexProcess;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,6 +48,12 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
     @Resource
     FMedItemDao fMedItemDao;
 
+
+    @Resource
+    InspectionFeeDao inspectionFeeDao;
+
+    @Resource
+    FeeDao feeDao;
 
 
     //根据inspectionID判断，存每个人的list
@@ -181,6 +189,7 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
                 inspectionDetails.setChangeUserID(userID);
                 inspectionDetails.setChangeDate( new Date());
                 inspectionDetailsDao.updateByPrimaryKeySelective(inspectionDetails);
+                this.addProjectFee(inspectionDetailsID , userID);
                 list.add(inspectionDetails);
 
             }
@@ -321,5 +330,33 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
         fMedItemExample.or(criteria2);
         return fMedItemDao.selectByExample(fMedItemExample);
     }
+
+
+    @Override
+    public Fee addProjectFee ( Integer inspectionDetailID , Integer userID) {
+        InspectionFeeExample inspectionFeeExample = new InspectionFeeExample();
+        InspectionFeeExample.Criteria criteria = inspectionFeeExample.createCriteria();
+        criteria.andInspectiondetailsIDEqualTo(inspectionDetailID);
+        //criteria.andInspectionIDEqualTo(inspectionID);
+        InspectionFee inspectionFee = inspectionFeeDao.selectByExample(inspectionFeeExample).get(0);
+        BigDecimal num = new BigDecimal(inspectionFee.getNumber().toString());
+        BigDecimal total = num.multiply(inspectionFee.getPrice());
+        Fee fee = new Fee();
+        fee.setMedicalRecordID(inspectionFee.getMedicalRecordID());
+        fee.setExpID(inspectionFee.getExpClassID());
+        fee.setFee(total);
+        fee.setPayStatus(134);
+        fee.setDateStatus(148);
+        fee.setFeeCategoryID(inspectionFee.getPaymentCategoryID());
+        fee.setAppearUserID(userID);
+        fee.setFeeAppearDate(new Date());
+        feeDao.insert(fee);
+
+
+
+
+        return null;
+    }
+
 
 }

@@ -32,5 +32,7 @@ public interface ApplyPrescriptionService {
 
     //9.	常用药管理
     public CommonDrugs useCommonDrugs(Integer commonDrugsID);
+    //开立时向fee中插一条未缴费的记录
+    public Fee addProjectFee(  Integer prescriptionDetailID  , Integer userID);
 
 }

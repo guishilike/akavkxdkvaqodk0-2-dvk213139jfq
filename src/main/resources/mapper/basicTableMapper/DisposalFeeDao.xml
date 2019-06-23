@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.basicTableDao.DisposalFeeDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.basicTableBean.DisposalFee">
+    <result column="medicalRecordID" jdbcType="INTEGER" property="medicalRecordID" />
+    <result column="doctorID" jdbcType="INTEGER" property="doctorID" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="fMedItemID" jdbcType="INTEGER" property="fMedItemID" />
+    <result column="disposalID" jdbcType="INTEGER" property="disposalID" />
+    <result column="disposalDetailsID" jdbcType="INTEGER" property="disposalDetailsID" />
+    <result column="expClassID" jdbcType="INTEGER" property="expClassID" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="paymentCategoryID" jdbcType="INTEGER" property="paymentCategoryID" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    medicalRecordID, doctorID, `number`, fMedItemID, disposalID, disposalDetailsID, expClassID, 
+    price, paymentCategoryID
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.basicTableExample.DisposalFeeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from disposalfee
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.basicTableExample.DisposalFeeExample">
+    delete from disposalfee
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.neu.hospital.bean.basicTableBean.DisposalFee">
+    insert into disposalfee (medicalRecordID, doctorID, `number`, 
+      fMedItemID, disposalID, disposalDetailsID, 
+      expClassID, price, paymentCategoryID
+      )
+    values (#{medicalRecordID,jdbcType=INTEGER}, #{doctorID,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, 
+      #{fMedItemID,jdbcType=INTEGER}, #{disposalID,jdbcType=INTEGER}, #{disposalDetailsID,jdbcType=INTEGER}, 
+      #{expClassID,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{paymentCategoryID,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.neu.hospital.bean.basicTableBean.DisposalFee">
+    insert into disposalfee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="medicalRecordID != null">
+        medicalRecordID,
+      </if>
+      <if test="doctorID != null">
+        doctorID,
+      </if>
+      <if test="number != null">
+        `number`,
+      </if>
+      <if test="fMedItemID != null">
+        fMedItemID,
+      </if>
+      <if test="disposalID != null">
+        disposalID,
+      </if>
+      <if test="disposalDetailsID != null">
+        disposalDetailsID,
+      </if>
+      <if test="expClassID != null">
+        expClassID,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="paymentCategoryID != null">
+        paymentCategoryID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="medicalRecordID != null">
+        #{medicalRecordID,jdbcType=INTEGER},
+      </if>
+      <if test="doctorID != null">
+        #{doctorID,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="fMedItemID != null">
+        #{fMedItemID,jdbcType=INTEGER},
+      </if>
+      <if test="disposalID != null">
+        #{disposalID,jdbcType=INTEGER},
+      </if>
+      <if test="disposalDetailsID != null">
+        #{disposalDetailsID,jdbcType=INTEGER},
+      </if>
+      <if test="expClassID != null">
+        #{expClassID,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentCategoryID != null">
+        #{paymentCategoryID,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.basicTableExample.DisposalFeeExample" resultType="java.lang.Long">
+    select count(*) from disposalfee
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update disposalfee
+    <set>
+      <if test="record.medicalRecordID != null">
+        medicalRecordID = #{record.medicalRecordID,jdbcType=INTEGER},
+      </if>
+      <if test="record.doctorID != null">
+        doctorID = #{record.doctorID,jdbcType=INTEGER},
+      </if>
+      <if test="record.number != null">
+        `number` = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.fMedItemID != null">
+        fMedItemID = #{record.fMedItemID,jdbcType=INTEGER},
+      </if>
+      <if test="record.disposalID != null">
+        disposalID = #{record.disposalID,jdbcType=INTEGER},
+      </if>
+      <if test="record.disposalDetailsID != null">
+        disposalDetailsID = #{record.disposalDetailsID,jdbcType=INTEGER},
+      </if>
+      <if test="record.expClassID != null">
+        expClassID = #{record.expClassID,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paymentCategoryID != null">
+        paymentCategoryID = #{record.paymentCategoryID,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update disposalfee
+    set medicalRecordID = #{record.medicalRecordID,jdbcType=INTEGER},
+      doctorID = #{record.doctorID,jdbcType=INTEGER},
+      `number` = #{record.number,jdbcType=INTEGER},
+      fMedItemID = #{record.fMedItemID,jdbcType=INTEGER},
+      disposalID = #{record.disposalID,jdbcType=INTEGER},
+      disposalDetailsID = #{record.disposalDetailsID,jdbcType=INTEGER},
+      expClassID = #{record.expClassID,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      paymentCategoryID = #{record.paymentCategoryID,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

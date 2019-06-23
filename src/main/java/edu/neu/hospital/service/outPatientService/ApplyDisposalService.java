@@ -1,9 +1,6 @@
 package edu.neu.hospital.service.outPatientService;
 
-import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
-import edu.neu.hospital.bean.basicTableBean.Disposal;
-import edu.neu.hospital.bean.basicTableBean.DisposalDetails;
-import edu.neu.hospital.bean.basicTableBean.FMedItem;
+import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
 
@@ -33,5 +30,7 @@ public interface ApplyDisposalService {
 
     //9.	常用项目管理（此次为引用
     public CommonDiposals useCommonDisposal(Integer commonDisposalID);
+    //开立时向fee中插一条未缴费的记录
+    public Fee addProjectFee(Integer inspectionDetailID  , Integer userID);
 
 }

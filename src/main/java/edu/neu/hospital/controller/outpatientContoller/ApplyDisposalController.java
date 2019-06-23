@@ -2,10 +2,7 @@ package edu.neu.hospital.controller.outpatientContoller;
 
 
 import com.github.pagehelper.PageInfo;
-import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
-import edu.neu.hospital.bean.basicTableBean.Disposal;
-import edu.neu.hospital.bean.basicTableBean.DisposalDetails;
-import edu.neu.hospital.bean.basicTableBean.FMedItem;
+import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
@@ -27,8 +24,8 @@ public class ApplyDisposalController {
     ApplyDisposalService applyDisposalService;
 
     /*
-        //新建该患者的inspection
-    //首先判断Inspection表里是否已经有该病例的检查了
+        //新建该患者的disposal
+    //首先判断Disposal表里是否已经有该病例的检查了
     public boolean checkIsHaven( Integer medicalRecordID );
     public boolean newDisposal( Disposal disposal , Integer userID);
     */
@@ -159,6 +156,28 @@ public class ApplyDisposalController {
             resultDTO.setStatus("OK");
             resultDTO.setMsg("开立成功");
             resultDTO.setData(list);
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发生异常");
+            //resultDTO.setData(page);
+
+        }
+        return resultDTO;
+    }
+    @RequestMapping("/addProjectFee")
+    public @ResponseBody
+    ResultDTO  addProjectFee(  Integer disposalDetailID  ,HttpSession session){
+        ResultDTO<Fee> resultDTO = new ResultDTO<>();
+        try {
+
+            //
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            Fee fee = applyDisposalService.addProjectFee(disposalDetailID , user.getId());
+
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("插入成功");
+            resultDTO.setData(fee);
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
