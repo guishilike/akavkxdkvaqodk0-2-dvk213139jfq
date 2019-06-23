@@ -10,9 +10,11 @@
  */
 package edu.neu.hospital.controller.loginAndInfoController;
 
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.loginAndInfoService.LoginService;
+import edu.neu.hospital.service.loginAndInfoService.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,22 +32,26 @@ public class LoginController {
 
     @Autowired
     LoginService loginService;
+    @Autowired
+    UserInfoService userInfoService;
 
     @RequestMapping("/check")
     public @ResponseBody
-    ResultDTO<User> check(HttpServletRequest request,  @RequestBody User user){
+    ResultDTO<UserView> check(HttpServletRequest request,  @RequestBody User user){
 //        System.out.println("userName"+user.getUserName());
 ////        System.out.println("passwd"+user.getPasswd());
         HttpSession session = request.getSession(true);
-        ResultDTO<User> resultDTO = new ResultDTO();
+        ResultDTO<UserView> resultDTO = new ResultDTO();
         try{
             int i = loginService.check(user);
             if (i != -1){
-                user = loginService.findByID(i);
+                UserView userView = new UserView();
+                userView = userInfoService.findUserInfo(i);
+//                user = loginService.findByID(i);
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("用户检查成功！可以登录");
-                resultDTO.setData(user);
-                session.setAttribute("user",user);
+                resultDTO.setData(userView);
+                session.setAttribute("user",userView);
             }else {
                 resultDTO.setStatus("NG");
                 resultDTO.setMsg("用户检查失败！");
