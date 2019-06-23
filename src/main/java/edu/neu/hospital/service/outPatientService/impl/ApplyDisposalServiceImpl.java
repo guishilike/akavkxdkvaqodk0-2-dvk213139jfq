@@ -1,23 +1,19 @@
 package edu.neu.hospital.service.outPatientService.impl;
 
-import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
-import edu.neu.hospital.bean.basicTableBean.Disposal;
-import edu.neu.hospital.bean.basicTableBean.DisposalDetails;
-import edu.neu.hospital.bean.basicTableBean.FMedItem;
-import edu.neu.hospital.dao.basicTableDao.CommonDiposalsDao;
-import edu.neu.hospital.dao.basicTableDao.DisposalDao;
-import edu.neu.hospital.dao.basicTableDao.DisposalDetailsDao;
-import edu.neu.hospital.dao.basicTableDao.FMedItemDao;
+import edu.neu.hospital.bean.basicTableBean.*;
+import edu.neu.hospital.dao.basicTableDao.*;
 
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.basicTableExample.DisposalExample;
+import edu.neu.hospital.example.basicTableExample.DisposalFeeExample;
 import edu.neu.hospital.example.basicTableExample.FMedItemExample;
 import edu.neu.hospital.service.outPatientService.ApplyDisposalService;
 import edu.neu.hospital.utils.RegexProcess;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,6 +33,11 @@ public class ApplyDisposalServiceImpl implements ApplyDisposalService {
     CommonDiposalsDao commonDiposalsDao;
     @Resource
     FMedItemDao fMedItemDao;
+
+    @Resource
+    FeeDao feeDao;
+    @Resource
+    DisposalFeeDao disposalFeeDao;
     @Override
     public boolean checkIsHaven(Integer medicalRecordID) {
         DisposalExample disposalExample = new DisposalExample();
@@ -222,5 +223,33 @@ public class ApplyDisposalServiceImpl implements ApplyDisposalService {
     @Override
     public CommonDiposals useCommonDisposal(Integer commonDisposalID) {
         return commonDiposalsDao.selectByPrimaryKey(commonDisposalID);
+    }
+
+
+    @Override
+    public Fee addProjectFee ( Integer disposalDetailID , Integer userID) {
+        DisposalFeeExample disposalFeeExample = new DisposalFeeExample();
+        DisposalFeeExample.Criteria criteria = disposalFeeExample.createCriteria();
+
+        criteria.andDisposalDetailsIDEqualTo(disposalDetailID);
+        //criteria.andDisposalIDEqualTo(disposalID);
+        DisposalFee disposalFee = disposalFeeDao.selectByExample(disposalFeeExample).get(0);
+        BigDecimal num = new BigDecimal(disposalFee.getNumber().toString());
+        BigDecimal total = num.multiply(disposalFee.getPrice());
+        Fee fee = new Fee();
+        fee.setMedicalRecordID(disposalFee.getMedicalRecordID());
+        fee.setExpID(disposalFee.getExpClassID());
+        fee.setFee(total);
+        fee.setPayStatus(134);
+        fee.setDateStatus(148);
+        fee.setFeeCategoryID(disposalFee.getPaymentCategoryID());
+        fee.setAppearUserID(userID);
+        fee.setFeeAppearDate(new Date());
+        feeDao.insert(fee);
+
+
+
+
+        return null;
     }
 }

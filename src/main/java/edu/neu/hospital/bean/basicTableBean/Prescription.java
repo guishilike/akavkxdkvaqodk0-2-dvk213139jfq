@@ -5,35 +5,42 @@ import java.util.Date;
 
 /**
  * prescription
- *
- * @author
+ * @author 
  */
 public class Prescription implements Serializable {
-    private static final long serialVersionUID = 1L;
     /**
      * 处方编号
      */
     private Integer id;
+
     /**
      * 病历号
      */
     private Integer medicalRecordID;
+
     /**
      * 医生编号
      */
     private Integer doctorID;
+
     private Integer mark;
+
     private Date appearDate;
+
     private Date changeDate;
+
     private String reserve1;
+
     /**
      * 状态 1：有效，2无效
      */
     private String status;
+
     private Integer appearUserID;
+
     private Integer changeUserID;
-    private Integer isDrawn;
-    private Integer isAbolished;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
@@ -115,22 +122,6 @@ public class Prescription implements Serializable {
         this.changeUserID = changeUserID;
     }
 
-    public Integer getIsDrawn() {
-        return isDrawn;
-    }
-
-    public void setIsDrawn(Integer isDrawn) {
-        this.isDrawn = isDrawn;
-    }
-
-    public Integer getIsAbolished() {
-        return isAbolished;
-    }
-
-    public void setIsAbolished(Integer isAbolished) {
-        this.isAbolished = isAbolished;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -144,17 +135,15 @@ public class Prescription implements Serializable {
         }
         Prescription other = (Prescription) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-                && (this.getMedicalRecordID() == null ? other.getMedicalRecordID() == null : this.getMedicalRecordID().equals(other.getMedicalRecordID()))
-                && (this.getDoctorID() == null ? other.getDoctorID() == null : this.getDoctorID().equals(other.getDoctorID()))
-                && (this.getMark() == null ? other.getMark() == null : this.getMark().equals(other.getMark()))
-                && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
-                && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
-                && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
-                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-                && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
-                && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
-                && (this.getIsDrawn() == null ? other.getIsDrawn() == null : this.getIsDrawn().equals(other.getIsDrawn()))
-                && (this.getIsAbolished() == null ? other.getIsAbolished() == null : this.getIsAbolished().equals(other.getIsAbolished()));
+            && (this.getMedicalRecordID() == null ? other.getMedicalRecordID() == null : this.getMedicalRecordID().equals(other.getMedicalRecordID()))
+            && (this.getDoctorID() == null ? other.getDoctorID() == null : this.getDoctorID().equals(other.getDoctorID()))
+            && (this.getMark() == null ? other.getMark() == null : this.getMark().equals(other.getMark()))
+            && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
+            && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
+            && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
+            && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()));
     }
 
     @Override
@@ -171,8 +160,6 @@ public class Prescription implements Serializable {
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getAppearUserID() == null) ? 0 : getAppearUserID().hashCode());
         result = prime * result + ((getChangeUserID() == null) ? 0 : getChangeUserID().hashCode());
-        result = prime * result + ((getIsDrawn() == null) ? 0 : getIsDrawn().hashCode());
-        result = prime * result + ((getIsAbolished() == null) ? 0 : getIsAbolished().hashCode());
         return result;
     }
 
@@ -192,8 +179,6 @@ public class Prescription implements Serializable {
         sb.append(", status=").append(status);
         sb.append(", appearUserID=").append(appearUserID);
         sb.append(", changeUserID=").append(changeUserID);
-        sb.append(", isDrawn=").append(isDrawn);
-        sb.append(", isAbolished=").append(isAbolished);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

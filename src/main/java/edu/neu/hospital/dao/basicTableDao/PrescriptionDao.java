@@ -2,11 +2,10 @@ package edu.neu.hospital.dao.basicTableDao;
 
 import edu.neu.hospital.bean.basicTableBean.Prescription;
 import edu.neu.hospital.example.basicTableExample.PrescriptionExample;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface PrescriptionDao {
     long countByExample(PrescriptionExample example);

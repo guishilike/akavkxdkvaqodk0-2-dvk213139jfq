@@ -4,12 +4,14 @@ import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.example.basicTableExample.DrugsExample;
+import edu.neu.hospital.example.basicTableExample.PrescriptionFeeExample;
 import edu.neu.hospital.example.basicTableExample.PrescriptionDetailExample;
 import edu.neu.hospital.service.outPatientService.ApplyPrescriptionService;
 import edu.neu.hospital.utils.RegexProcess;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,6 +40,12 @@ public class ApplyPrescriptionServiceImpl implements ApplyPrescriptionService {
     @Resource
     CommonDrugsDao commonDrugsDao;
 
+    @Resource
+    PrescriptionFeeDao prescriptionFeeDao;
+    
+    @Resource
+    FeeDao feeDao;
+
     @Override
     public boolean addPrescription(Prescription prescription, Integer userID) {
         prescription.setAppearDate(new Date());
@@ -65,7 +73,7 @@ public class ApplyPrescriptionServiceImpl implements ApplyPrescriptionService {
             Prescription prescription = new Prescription();
             prescription.setChangeDate(new Date());
             prescription.setChangeUserID(userID);
-            prescription.setIsDrawn(131);
+            prescription.setMark(131);
             prescription.setId(prescriptionID);
 
             prescriptionDao.updateByPrimaryKeySelective(prescription);
@@ -89,11 +97,36 @@ public class ApplyPrescriptionServiceImpl implements ApplyPrescriptionService {
     }
 
     @Override
+    public Fee addProjectFee ( Integer prescriptionDetailID , Integer userID) {
+        PrescriptionFeeExample prescriptionFeeExample = new PrescriptionFeeExample();
+        PrescriptionFeeExample.Criteria criteria = prescriptionFeeExample.createCriteria();
+        criteria.andPrescriptionDetailIDEqualTo(prescriptionDetailID);
+        //criteria.andPrescriptionIDEqualTo(prescriptionID);
+        PrescriptionFee prescriptionFee = prescriptionFeeDao.selectByExample(prescriptionFeeExample).get(0);
+        BigDecimal num = new BigDecimal(prescriptionFee.getDosage().toString());
+        BigDecimal total = num.multiply(prescriptionFee.getDrugsPrice());
+        Fee fee = new Fee();
+        fee.setMedicalRecordID(prescriptionFee.getMedicalRecordID());
+        fee.setExpID(prescriptionFee.getDrugsTypeID() - 10);
+        fee.setFee(total);
+        fee.setPayStatus(134);
+        fee.setDateStatus(148);
+        fee.setFeeCategoryID(prescriptionFee.getPaymentCategoryID());
+        fee.setAppearUserID(userID);
+        fee.setFeeAppearDate(new Date());
+        feeDao.insert(fee);
+
+
+
+
+        return null;
+    }
+    @Override
     public boolean deletePrescription(Integer prescriptionID, Integer userID) {
 
         if( prescriptionID != null ){
             Prescription prescription = prescriptionDao.selectByPrimaryKey(prescriptionID);
-            if( prescription.getIsDrawn()!= 131){
+            if( prescription.getMark()!= 131){
                 prescription.setChangeDate(new Date());
                 prescription.setChangeUserID(userID);
                 prescription.setStatus("0");
@@ -131,7 +164,7 @@ public class ApplyPrescriptionServiceImpl implements ApplyPrescriptionService {
     public boolean abolishPrescription(Integer prescriptionID, Integer userID) {
         Prescription prescription = prescriptionDao.selectByPrimaryKey(prescriptionID);
         if( prescription.getStatus().equals("0")) return false;
-        prescription.setIsAbolished(149);
+        prescription.setMark(149);
         prescription.setChangeUserID(userID);
         prescription.setChangeDate(new Date());
         return true;
