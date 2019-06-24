@@ -48,10 +48,16 @@ public class LoginController {
                 UserView userView = new UserView();
                 userView = userInfoService.findUserInfo(i);
 //                user = loginService.findByID(i);
-                resultDTO.setStatus("OK");
-                resultDTO.setMsg("用户检查成功！可以登录");
-                resultDTO.setData(userView);
-                session.setAttribute("user",userView);
+                if(userView.getId() != null){
+                    resultDTO.setStatus("OK");
+                    resultDTO.setMsg("用户检查成功！可以登录");
+                    resultDTO.setData(userView);
+                    session.setAttribute("user",userView);
+                }else {
+                    resultDTO.setStatus("NG");
+                    resultDTO.setMsg("用户检查失败！");
+                    resultDTO.setData(null);
+                }
             }else {
                 resultDTO.setStatus("NG");
                 resultDTO.setMsg("用户检查失败！");

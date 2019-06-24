@@ -2,6 +2,7 @@ package edu.neu.hospital.controller.baseController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Schedule;
 import edu.neu.hospital.bean.baseBean.ScheduleView;
 import edu.neu.hospital.bean.basicTableBean.User;
@@ -37,7 +38,7 @@ public class ScheduleController {
         ResultDTO<Schedule> resultDTO=new ResultDTO<>();
         try{
             if(scheduleService.checkContent(schedule,0)){
-                User loginUser=(User)session.getAttribute("user");
+                UserView loginUser=(UserView) session.getAttribute("user");
                 scheduleService.add(schedule,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加排班信息成功");
@@ -64,7 +65,7 @@ public class ScheduleController {
     public @ResponseBody ResultDTO delete(Integer id,HttpSession session){
         ResultDTO<Integer> resultDTO=new ResultDTO<>();
         try{
-            User loginUser=(User)session.getAttribute("user");
+            UserView loginUser=(UserView) session.getAttribute("user");
             scheduleService.delete(id,loginUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除排班信息成功");
@@ -88,7 +89,7 @@ public class ScheduleController {
         ResultDTO<IdDTO> resultDTO=new ResultDTO<>();
         if(ids.getId()!=null) {
             try {
-                User loginUser=(User)session.getAttribute("user");
+                UserView loginUser=(UserView) session.getAttribute("user");
                 scheduleService.deleteByChoose(ids,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除排班信息成功");
@@ -117,7 +118,7 @@ public class ScheduleController {
         ResultDTO<Schedule> resultDTO=new ResultDTO<>();
         try{
             if(scheduleService.checkContent(schedule,1)) {
-                User loginUser = (User) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("user");
                 scheduleService.change(schedule, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改排班信息成功");

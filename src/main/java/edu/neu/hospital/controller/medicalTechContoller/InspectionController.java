@@ -2,6 +2,7 @@ package edu.neu.hospital.controller.medicalTechContoller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.bean.inspectionBean.InspectFormView;
 import edu.neu.hospital.bean.inspectionBean.InspectMatPlateView;
@@ -234,7 +235,7 @@ public class InspectionController{
     ResultDTO insertMedMat(HttpSession session,@RequestBody MedicinesMaterialsList medicinesmaterialslist){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            User user= (User) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("user");
             Integer userID=user.getId();
             inspectionService.insertMedMat(userID,medicinesmaterialslist);
             resultDTO.setStatus("OK");
@@ -259,7 +260,7 @@ public class InspectionController{
     ResultDTO approveMat(IdDTO matListIDs,HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            User user= (User) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("user");
             Integer userID=user.getId();
             inspectionService.approveMat(matListIDs,userID);
             resultDTO.setStatus("OK");
@@ -284,7 +285,7 @@ public class InspectionController{
     ResultDTO approveMed(IdDTO medListIDs, HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            User user= (User) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("user");
             Integer userID=user.getId();
             inspectionService.approveMed(medListIDs,userID);
             resultDTO.setStatus("OK");
@@ -309,7 +310,7 @@ public class InspectionController{
     ResultDTO  importInspectResult(@RequestBody InspectionResultWithBLOBs inspectionresultWithBLOBs, HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            User user= (User) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("user");
             Integer userID=user.getId();
             inspectionService.importInspectResult(inspectionresultWithBLOBs,userID);
             resultDTO.setStatus("OK");
@@ -358,7 +359,7 @@ public class InspectionController{
         ResultDTO<String> resultDTO = new ResultDTO<>();
         try {
             if (!pic.isEmpty() && !Objects.requireNonNull(pic.getOriginalFilename()).isEmpty() && !pic.getOriginalFilename().equals("")) {
-                User user= (User) session.getAttribute("user");
+                UserView user= (UserView) session.getAttribute("user");
                 Integer userID=user.getId();
                 String uuid = UUID.randomUUID().toString();
                 String fileName = pic.getOriginalFilename();

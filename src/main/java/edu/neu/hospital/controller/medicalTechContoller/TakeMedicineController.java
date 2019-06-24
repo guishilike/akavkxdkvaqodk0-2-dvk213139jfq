@@ -2,6 +2,7 @@ package edu.neu.hospital.controller.medicalTechContoller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.bean.takeMedicineBean.TakeMedDetailsView;
 import edu.neu.hospital.bean.takeMedicineBean.TakeMedicineFormView;
@@ -83,7 +84,7 @@ public class TakeMedicineController {
     ResultDTO takeMedicine(IdDTO presdetailsIDs, HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            User user= (User) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("user");
             Integer userID=user.getId();
             takeMedicineService.takeMedicine(presdetailsIDs,userID);
             resultDTO.setStatus("OK");
@@ -107,7 +108,7 @@ public class TakeMedicineController {
     ResultDTO withdrawMedicine(IdDTO presdetailsIDs, HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            User user= (User) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("user");
             Integer userID=user.getId();
             takeMedicineService.withdrawMedicine(presdetailsIDs,userID);
             resultDTO.setStatus("OK");

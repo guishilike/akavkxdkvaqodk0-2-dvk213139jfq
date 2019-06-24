@@ -37,6 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,7 +60,7 @@ public class UserInfoController {
 //    ResultDTO<User> show(int userID){
     ResultDTO<UserView> show(HttpServletRequest request){
         HttpSession session = request.getSession();
-        User user1 = (User)session.getAttribute("user");
+        UserView user1 = (UserView) session.getAttribute("user");
         int userID = user1.getId();
         ResultDTO<UserView> resultDTO = new ResultDTO();
         try {
@@ -71,7 +72,7 @@ public class UserInfoController {
             }else {
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("用户检查失败！");
-                resultDTO.setData(userview);
+                resultDTO.setData(null);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -81,18 +82,10 @@ public class UserInfoController {
         return resultDTO;
     }
 
-    @RequestMapping("/update")
-    public @ResponseBody
-//    ResultDTO<User> update(int id, String userName, String realName, String passwd){
-    ResultDTO<User> update(User user, HttpServletRequest request, MultipartFile pic){
-//        MultipartFile pic = pic1;
-        HttpSession session = request.getSession();
-        User user2 = (User)session.getAttribute("user");
-        //只能更新自己的用户信息
-        user.setId(user2.getId());
-        ResultDTO<User> resultDTO = new ResultDTO();
-        //将本地图片上传并导入静态资源路径
-
+    @RequestMapping("/updatePic")
+    ResultDTO<String> updatePic(MultipartFile pic,HttpSession session){
+        ResultDTO<String> resultDTO = new ResultDTO<>();
+        UserView user = (UserView) session.getAttribute("user");
         try {
             if (!pic.isEmpty() && !pic.getOriginalFilename().isEmpty() && pic.getOriginalFilename() != "") {
                 String uuid = UUID.randomUUID().toString();
@@ -102,31 +95,47 @@ public class UserInfoController {
                 File file = new File(ResourceUtils.getURL("classpath:").getPath() + "static/images/" + newFileName);
                 pic.transferTo(file);
                 user.setPhotoLocation(newFileName);
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("图片更新成功！");
+                resultDTO.setData(newFileName);
             }
-//            else{
-//                resultDTO.setStatus("NG");
-//                resultDTO.setMsg("图片为空！");
-//                resultDTO.setData(null);
-//            }
+            else{
+                resultDTO.setStatus("NG");
+                resultDTO.setMsg("图片为空！");
+                resultDTO.setData(null);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("更新图片操作失败！");
         }
+        return resultDTO;
+    }
+    @RequestMapping("/updateUserInfo")
+    public @ResponseBody
+//    ResultDTO<User> update(int id, String userName, String realName, String passwd){
+    ResultDTO<UserView> update(User user, HttpServletRequest request){
+//        MultipartFile pic = pic1;
+        HttpSession session = request.getSession();
+        UserView userView = (UserView) session.getAttribute("user");
+        //只能更新自己的用户信息
+        user.setId(userView.getId());
+        ResultDTO<UserView> resultDTO = new ResultDTO();
+
         try{
 
             User user1 = userInfoService.updateUserInfo(user);
 //            User user1 = userInfoService.updateUserInfo(id,userName,realName,passwd);
             if (user1 != null){
-
+                UserView userview = userInfoService.findUserInfo(user1.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("用户更新成功！");
-                resultDTO.setData(user1);
+                resultDTO.setData(userview);
             }else {
                 resultDTO.setStatus("FALSE");
                 resultDTO.setMsg("用户更新失败！");
-                resultDTO.setData(user1);
+                resultDTO.setData(null);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -142,7 +151,7 @@ public class UserInfoController {
     ResultDTO<PageInfo> showMyWorkload(HttpServletRequest request,Integer pageNum,Integer pageSize) {
         ResultDTO<PageInfo> resultDTO = new ResultDTO();
         HttpSession session = request.getSession();
-        User user1 = (User)session.getAttribute("user");
+        UserView user1 = (UserView) session.getAttribute("user");
         String realName = user1.getRealName();
         try {
             PageHelper.startPage(pageNum,pageSize);

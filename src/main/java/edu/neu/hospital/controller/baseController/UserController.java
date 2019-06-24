@@ -35,7 +35,7 @@ public class UserController {
         ResultDTO<User> resultDTO=new ResultDTO<>();
         try {
             if (userService.checkContent(user, 0)) {
-                User loginUser = (User) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("user");
                 userService.add(user, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加用户成功");
@@ -122,7 +122,7 @@ public class UserController {
     ResultDTO deleteByID(Integer id,HttpSession session){
         ResultDTO<Integer> resultDTO=new ResultDTO<>();
         try {
-            User loginUser=(User)session.getAttribute("user");
+            UserView loginUser=(UserView) session.getAttribute("user");
             userService.deleteById(id,loginUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除用户成功");
@@ -146,7 +146,7 @@ public class UserController {
         ResultDTO<IdDTO> resultDTO=new ResultDTO<>();
         if(ids.getId()!=null) {
             try {
-                User loginUser = (User) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("user");
                 userService.deleteByChoose(ids, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除用户成功");
@@ -168,7 +168,7 @@ public class UserController {
         ResultDTO<User> resultDTO=new ResultDTO<>();
         try {
             if (userService.checkContent(user, 1)) {
-                User loginUser=(User)session.getAttribute("user");
+                UserView loginUser=(UserView) session.getAttribute("user");
                 userService.change(user,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改用户成功");

@@ -2,6 +2,7 @@ package edu.neu.hospital.controller.baseController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.SettleCategoryDetails;
 import edu.neu.hospital.bean.baseBean.SettleCategoryView;
@@ -95,7 +96,7 @@ public class SettlementCategoryController {
     public @ResponseBody ResultDTO deleteByID(Integer id, HttpSession session){
         ResultDTO<Integer> resultDTO=new ResultDTO<>();
         try {
-            User user = (User) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             settlementCategoryService.deleteByID(id,user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除结算类别成功");
@@ -119,7 +120,7 @@ public class SettlementCategoryController {
         ResultDTO<IdDTO> resultDTO=new ResultDTO<>();
         if(ids.getId()!=null){
             try{
-                User user = (User) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("user");
                 settlementCategoryService.deleteByChoose(ids,user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除结算类别成功");
@@ -148,7 +149,7 @@ public class SettlementCategoryController {
         ResultDTO<ConstantItem> resultDTO=new ResultDTO<>();
         try {
             if (constantService.checkContent(constantitem, 0, 12)) {
-                User user = (User) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("user");
                 settlementCategoryService.add(constantitem,user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加结算类别成功");
@@ -177,7 +178,7 @@ public class SettlementCategoryController {
         ResultDTO<ConstantItem> resultDTO=new ResultDTO<>();
         try {
             if (constantService.checkContent(constantitem, 1, 12)) {
-                User user = (User) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("user");
                 settlementCategoryService.change(constantitem,user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改结算类别成功");
@@ -207,7 +208,7 @@ public class SettlementCategoryController {
     ResultDTO updateDetials(SettleCategoryDetails settlecategorydetails, HttpSession session){
         ResultDTO<SettleCategoryDetails> resultDTO=new ResultDTO<>();
         try {
-            User user = (User) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             settlementCategoryService.changeDetails(settlecategorydetails,user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("修改结算类别详情成功");

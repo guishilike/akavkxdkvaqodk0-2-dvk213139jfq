@@ -3,6 +3,7 @@ package edu.neu.hospital.controller.baseController;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.RegistrationLevelView;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.RegistrationLevelDetails;
 import edu.neu.hospital.bean.basicTableBean.User;
@@ -39,7 +40,7 @@ public class RegistrationLevelController {
         ResultDTO<ConstantItem> resultDTO=new ResultDTO<>();
         try {
             if (constantService.checkContent(constantitem, 0, 13)) {
-                User user = (User) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("user");
                 registrationLevelService.add(constantitem,user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加挂号级别成功");
@@ -67,7 +68,7 @@ public class RegistrationLevelController {
     public @ResponseBody ResultDTO deleteById(Integer id,HttpSession session){
          ResultDTO<Integer> resultDTO=new ResultDTO<>();
          try {
-             User user = (User) session.getAttribute("user");
+             UserView user = (UserView) session.getAttribute("user");
              registrationLevelService.deleteByID(id,user.getId());
              resultDTO.setStatus("OK");
              resultDTO.setMsg("删除挂号级别成功");
@@ -91,7 +92,7 @@ public class RegistrationLevelController {
         ResultDTO<IdDTO> resultDTO=new ResultDTO<>();
         if(ids.getId()!=null){
             try{
-                User user = (User) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("user");
                 registrationLevelService.deleteByChoose(ids,user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除挂号级别成功");
@@ -120,7 +121,7 @@ public class RegistrationLevelController {
         ResultDTO<ConstantItem> resultDTO=new ResultDTO<>();
         try {
             if (constantService.checkContent(constantitem, 1, 13)) {
-                User user = (User) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("user");
                 registrationLevelService.change(constantitem,user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改挂号级别成功");
@@ -150,7 +151,7 @@ public class RegistrationLevelController {
     ResultDTO updateDetails(RegistrationLevelDetails registrationLevelDetails, HttpSession session){
         ResultDTO<RegistrationLevelDetails> resultDTO=new ResultDTO<>();
         try {
-            User user = (User) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             registrationLevelService.changeDetails(registrationLevelDetails,user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("修改挂号级别详情成功");

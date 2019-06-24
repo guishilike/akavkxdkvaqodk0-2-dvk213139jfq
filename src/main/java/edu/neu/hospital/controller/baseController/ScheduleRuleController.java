@@ -2,6 +2,7 @@ package edu.neu.hospital.controller.baseController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Schedulerule;
 import edu.neu.hospital.bean.baseBean.ScheduleRuleView;
 import edu.neu.hospital.bean.basicTableBean.User;
@@ -35,7 +36,7 @@ public class ScheduleRuleController {
         ResultDTO<Schedulerule> resultDTO=new ResultDTO<>();
         try{
             if(scheduleRuleService.checkContent(schedulerule,0)){
-                User loginUser=(User)session.getAttribute("user");
+                UserView loginUser=(UserView) session.getAttribute("user");
                 scheduleRuleService.add(schedulerule,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加排班规则成功");
@@ -64,7 +65,7 @@ public class ScheduleRuleController {
     public @ResponseBody ResultDTO delete(Integer id,HttpSession session){
         ResultDTO<Integer> resultDTO=new ResultDTO();
         try{
-            User loginUser=(User)session.getAttribute("user");
+            UserView loginUser=(UserView) session.getAttribute("user");
             scheduleRuleService.delete(id,loginUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除排班规则成功");
@@ -88,7 +89,7 @@ public class ScheduleRuleController {
         ResultDTO<IdDTO> resultDTO=new ResultDTO<>();
         if(ids.getId()!=null){
             try{
-                User loginUser=(User)session.getAttribute("user");
+                UserView loginUser=(UserView) session.getAttribute("user");
                 scheduleRuleService.deleteByChoose(ids,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除排班规则成功");
@@ -117,7 +118,7 @@ public class ScheduleRuleController {
        ResultDTO<Schedulerule> resultDTO=new ResultDTO<>();
        try{
            if(scheduleRuleService.checkContent(schedulerule,1)) {
-               User loginUser = (User) session.getAttribute("user");
+               UserView loginUser = (UserView) session.getAttribute("user");
                scheduleRuleService.change(schedulerule, loginUser.getId());
                resultDTO.setStatus("OK");
                resultDTO.setMsg("修改排班规则成功");

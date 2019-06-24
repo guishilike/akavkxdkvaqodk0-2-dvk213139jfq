@@ -2,6 +2,7 @@ package edu.neu.hospital.controller.medicalTechContoller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.bean.disposalBean.DisposalFormView;
 import edu.neu.hospital.bean.disposalBean.DisposalMatPlateView;
@@ -238,7 +239,7 @@ public class DisposalController {
         ResultDTO insertMedMat(HttpSession session,@RequestBody MedicinesMaterialsList medicinesmaterialslist) {
             ResultDTO resultDTO = new ResultDTO();
             try {
-                User user = (User) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("user");
                 Integer userID = user.getId();
                 disposalService.insertMedMat(userID, medicinesmaterialslist);
                 resultDTO.setStatus("OK");
@@ -263,7 +264,7 @@ public class DisposalController {
         ResultDTO approveMat(IdDTO matListIDs, HttpSession session) {
             ResultDTO resultDTO = new ResultDTO();
             try {
-                User user = (User) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("user");
                 Integer userID = user.getId();
                 disposalService.approveMat(matListIDs, userID);
                 resultDTO.setStatus("OK");
@@ -288,7 +289,7 @@ public class DisposalController {
         ResultDTO approveMed(IdDTO medListIDs, HttpSession session) {
             ResultDTO resultDTO = new ResultDTO();
             try {
-                User user = (User) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("user");
                 Integer userID = user.getId();
                 disposalService.approveMed(medListIDs, userID);
                 resultDTO.setStatus("OK");

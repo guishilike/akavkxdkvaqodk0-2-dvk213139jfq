@@ -2,6 +2,7 @@ package edu.neu.hospital.controller.baseController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Department;
 import edu.neu.hospital.bean.baseBean.DepartmentView;
 import edu.neu.hospital.bean.basicTableBean.User;
@@ -69,7 +70,7 @@ public class DepartmentController {
     deleteById(Integer id, HttpSession session) {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
         try {
-            User user = (User) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             departmentService.deleteById(id, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除科室成功");
@@ -95,8 +96,7 @@ public class DepartmentController {
         ResultDTO<IdDTO> resultDTO = new ResultDTO<>();
         if(ids.getId()!=null) {
             try {
-                User user = (User) session.getAttribute("user");
-                departmentService.deleteByChoose(ids, user.getId());
+                UserView user = (UserView) session.getAttribute("user");                departmentService.deleteByChoose(ids, user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除科室成功");
                 resultDTO.setData(ids);
@@ -157,8 +157,7 @@ public class DepartmentController {
         ResultDTO<Department> resultDTO = new ResultDTO<>();
         try {
             if (departmentService.checkContent(department, 1)) {
-                User user = (User) session.getAttribute("user");
-                departmentService.change(department, user.getId());
+                UserView user = (UserView) session.getAttribute("user");                departmentService.change(department, user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改科室成功");
                 resultDTO.setData(department);
@@ -182,8 +181,7 @@ public class DepartmentController {
         ResultDTO<Department> resultDTO = new ResultDTO<>();
         try {
             if (departmentService.checkContent(department, 0)) {
-                User user = (User) session.getAttribute("user");
-                department.setStatus("1");
+                UserView user = (UserView) session.getAttribute("user");                department.setStatus("1");
                 department.setAppearDate(new Date());
                 departmentService.add(department,user.getId());
             }else{

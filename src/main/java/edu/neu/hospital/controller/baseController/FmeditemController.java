@@ -2,6 +2,7 @@ package edu.neu.hospital.controller.baseController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.bean.baseBean.FmeditemView;
 import edu.neu.hospital.bean.basicTableBean.User;
@@ -56,7 +57,7 @@ public class FmeditemController {
         ResultDTO<FMedItem> resultDTO=new ResultDTO();
         try{
             if(fmeditemService.checkContent(fmeditem,0)) {
-                User loginUser = (User) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("user");
                 fmeditemService.add(fmeditem, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加非药品项目成功");
@@ -84,7 +85,7 @@ public class FmeditemController {
     public @ResponseBody ResultDTO<Integer> delete(Integer id,HttpSession session){
         ResultDTO<Integer> resultDTO=new ResultDTO();
         try{
-            User loginUser=(User)session.getAttribute("user");
+            UserView loginUser=(UserView) session.getAttribute("user");
             fmeditemService.deleteById(id,loginUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除非药品项目成功");
@@ -109,7 +110,7 @@ public class FmeditemController {
         ResultDTO<IdDTO> resultDTO=new ResultDTO();
         if(ids.getId()!=null) {
             try {
-                User loginUser = (User) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("user");
                 fmeditemService.deleteByChoose(ids, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除非药品项目成功");
@@ -139,7 +140,7 @@ public class FmeditemController {
         ResultDTO<FMedItem> resultDTO=new ResultDTO();
         try{
             if(fmeditemService.checkContent(fmeditem,1)) {
-                User loginUser = (User) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("user");
                 fmeditemService.change(fmeditem, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改非药品项目成功");

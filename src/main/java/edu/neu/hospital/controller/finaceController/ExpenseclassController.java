@@ -3,6 +3,7 @@ package edu.neu.hospital.controller.finaceController;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.ExpenseClass;
 import edu.neu.hospital.bean.finaceBean.ExpenseClassView;
 import edu.neu.hospital.bean.basicTableBean.User;
@@ -82,7 +83,7 @@ public class ExpenseclassController {
         ResultDTO<ExpenseClass> resultDTO = new ResultDTO<>();
         try {
             if(expenseclassService.checkContent(expenseclass,0)){
-                User loginUser = (User) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("user");
                 expenseclassService.add(expenseclass,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加收费类型成功");
@@ -110,7 +111,7 @@ public class ExpenseclassController {
     public @ResponseBody ResultDTO<Integer> delete(Integer id,HttpSession session){
         ResultDTO<Integer> resultDTO=new ResultDTO();
         try{
-            User loginUser=(User)session.getAttribute("user");
+            UserView loginUser=(UserView) session.getAttribute("user");
             expenseclassService.deleteById(id,loginUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除收费类型成功");
@@ -135,7 +136,7 @@ public class ExpenseclassController {
         ResultDTO<IdDTO> resultDTO=new ResultDTO();
         if(ids.getId()!=null) {
             try {
-                User loginUser = (User) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("user");
                 expenseclassService.deleteByChoose(ids, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除收费类型成功");
@@ -165,7 +166,7 @@ public class ExpenseclassController {
         ResultDTO<ExpenseClass> resultDTO = new ResultDTO<>();
         try{
             if(expenseclassService.checkContent(expenseclass,1)) {
-                User loginUser = (User) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("user");
                 expenseclassService.change(expenseclass, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改收费类型成功");
