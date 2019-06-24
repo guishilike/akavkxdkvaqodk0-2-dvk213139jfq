@@ -33,7 +33,7 @@ public interface DepartmentService {
      * @param state state=0表示列出科室类型，state=1表示列出科室分类
      * @return
      */
-    public List<ConstantItem> findALLDeptTypeOrCategoryId(int state);
+    public List<NameCodeDTO> findALLDeptTypeOrCategoryId(int state);
     /**
      * 添加新的科室
      * @param department 要添加的科室

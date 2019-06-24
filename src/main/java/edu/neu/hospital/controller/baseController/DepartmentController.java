@@ -39,8 +39,6 @@ public class DepartmentController {
     public @ResponseBody
     ResultDTO<PageInfo> list(Integer deptCategoryID, Integer typeID,
                                Integer pageNum, Integer pageSize) {
-        System.out.println(pageNum);
-        System.out.println(pageSize);
         ResultDTO<PageInfo> resultDTO = new ResultDTO<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
@@ -52,9 +50,7 @@ public class DepartmentController {
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，操作失败");
-            System.out.println(e);
         }
-        System.out.println(resultDTO.getData().getList());
         return resultDTO;
     }
 
@@ -203,6 +199,10 @@ public class DepartmentController {
         return resultDTO;
     }
 
+    /**
+     * 获得所有科室名称和编码
+     * @return resultDTO
+     */
     @RequestMapping("/findAllDeptNamesAndCodes")
     public @ResponseBody ResultDTO getAllDeptNamesAndCodes(){
         ResultDTO<List<NameCodeDTO>> resultDTO=new ResultDTO<>();
@@ -215,6 +215,48 @@ public class DepartmentController {
         }catch (Exception e){
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("获得搜索列表失败");
+        }
+        return resultDTO;
+
+    }
+
+    /**
+     * 获得所有科室类型名称和编码
+     * @return
+     */
+    @RequestMapping("/findAllDeptTypeNamesAndCodes")
+    public @ResponseBody ResultDTO getAllDeptTypeNamesAndCodes(){
+        ResultDTO<List<NameCodeDTO>> resultDTO=new ResultDTO<>();
+        try{
+            List<NameCodeDTO> list=departmentService.findALLDeptTypeOrCategoryId(0);
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得科室类型搜索列表成功");
+
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得科室类型搜索列表失败");
+        }
+        return resultDTO;
+
+    }
+
+    /**
+     * 获得所有科室分类名称和编码
+     * @return
+     */
+    @RequestMapping("/findAllDeptCategoryNamesAndCodes")
+    public @ResponseBody ResultDTO getAllDeptCategoryNamesAndCodes(){
+        ResultDTO<List<NameCodeDTO>> resultDTO=new ResultDTO<>();
+        try{
+            List<NameCodeDTO> list=departmentService.findALLDeptTypeOrCategoryId(1);
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得科室分类搜索列表成功");
+
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得科室分类搜索列表失败");
         }
         return resultDTO;
 

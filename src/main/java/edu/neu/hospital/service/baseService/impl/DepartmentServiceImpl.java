@@ -67,15 +67,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
     //列出所有科室类型或科室分类的id
     @Override
-    public List<ConstantItem> findALLDeptTypeOrCategoryId(int i) {
-        ConstantItemExample constantitemExample=new ConstantItemExample();
-        ConstantItemExample.Criteria criteria=constantitemExample.createCriteria();
+    public List<NameCodeDTO> findALLDeptTypeOrCategoryId(int i) {
         if(i==0)
-           criteria.andConstantTypeIDEqualTo(21);
+            return constantitemDao.findAllNamesAndCodesByType(21);
         else
-            criteria.andConstantTypeIDEqualTo(1);
-        criteria.andStatusNotEqualTo("0");
-        return constantitemDao.selectByExample(constantitemExample);
+            return constantitemDao.findAllNamesAndCodesByType(1);
+
     }
 
 //添加新科室

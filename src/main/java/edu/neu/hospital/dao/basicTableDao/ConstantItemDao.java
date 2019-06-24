@@ -1,6 +1,7 @@
 package edu.neu.hospital.dao.basicTableDao;
 
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.example.basicTableExample.ConstantItemExample;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -38,4 +39,7 @@ public interface ConstantItemDao {
     //根据typeID查找所有constantitem
     @Select("select * from constantitem where constantTypeID=#{typeID} and status='1'")
     List<ConstantItem> findByTypeID(int typeID);
+    @Select("select id,constantCode as code,constantName as name from constantitem " +
+            "where status='1' and constantTypeID=#{constantTypeID}")
+    List<NameCodeDTO> findAllNamesAndCodesByType(int constantTypeID);
 }

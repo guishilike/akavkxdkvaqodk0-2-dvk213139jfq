@@ -1,8 +1,10 @@
 package edu.neu.hospital.dao.basicTableDao;
 
 import edu.neu.hospital.bean.basicTableBean.Department;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.example.basicTableExample.DepartmentExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,4 +32,6 @@ public interface DepartmentDao {
     int updateByPrimaryKeySelective(Department record);
 
     int updateByPrimaryKey(Department record);
+
+
 }
