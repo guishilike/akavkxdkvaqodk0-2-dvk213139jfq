@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.zip.DeflaterOutputStream;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -74,6 +75,29 @@ public class UserInfoServiceImpl implements UserInfoService {
         }else{
             return null;
         }
+    }
+
+    @Override
+    public int updatePasswd(int userID ,String oldPasswd,String newPasswd) {
+        Date date = new Date();
+        UserExample userExample = new UserExample();
+        userExample.clear();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        User old = userDao.selectByPrimaryKey(userID);
+        if(oldPasswd.equals(old.getPasswd())){
+            User user = new User();
+            user.setId(old.getId());
+            user.setPasswd(newPasswd);
+            user.setChangeUserID(userID);
+            user.setChangeDate(date);
+            int id1 = userDao.updateByPrimaryKeySelective(user);
+            return userID;
+        }else {
+            System.out.println(oldPasswd);
+            System.out.println(old.getPasswd());
+            return -1;
+        }
+
     }
 
 //    @Override

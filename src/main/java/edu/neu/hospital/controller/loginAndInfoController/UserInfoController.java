@@ -85,7 +85,10 @@ public class UserInfoController {
     @RequestMapping("/updatePic")
     ResultDTO<String> updatePic(MultipartFile pic,HttpSession session){
         ResultDTO<String> resultDTO = new ResultDTO<>();
-        UserView user = (UserView) session.getAttribute("user");
+        UserView userView = (UserView) session.getAttribute("user");
+        User user = new User();
+        user.setId(userView.getId());
+        user.setUserName(userView.getUserName());
         try {
             if (!pic.isEmpty() && !pic.getOriginalFilename().isEmpty() && pic.getOriginalFilename() != "") {
                 String uuid = UUID.randomUUID().toString();
@@ -95,9 +98,12 @@ public class UserInfoController {
                 File file = new File(ResourceUtils.getURL("classpath:").getPath() + "static/images/" + newFileName);
                 pic.transferTo(file);
                 user.setPhotoLocation(newFileName);
-                resultDTO.setStatus("OK");
-                resultDTO.setMsg("图片更新成功！");
-                resultDTO.setData(newFileName);
+                User user1 = userInfoService.updateUserInfo(user);
+                if (user1 != null){
+                    resultDTO.setStatus("OK");
+                    resultDTO.setMsg("图片更新成功！");
+                    resultDTO.setData(newFileName);
+                }
             }
             else{
                 resultDTO.setStatus("NG");
@@ -112,15 +118,44 @@ public class UserInfoController {
         }
         return resultDTO;
     }
+    @RequestMapping("/updatePasswd")
+    public @ResponseBody
+    ResultDTO<Integer> updatePasswd(String oldPasswd, String newPasswd,HttpSession session){
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        UserView userView = (UserView) session.getAttribute("user");
+        int userID = userView.getId();
+        try{
+            int i = userInfoService.updatePasswd(userID,oldPasswd,newPasswd);
+//            User user1 = userInfoService.updateUserInfo(id,userName,realName,passwd);
+            if (i != -1){
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("密码更新成功！");
+                resultDTO.setData(userID);
+            }else {
+                resultDTO.setStatus("FALSE");
+                resultDTO.setMsg("密码更新失败！");
+                resultDTO.setData(-1);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("密码更新出现错误！");
+        }
+        return resultDTO;
+    }
     @RequestMapping("/updateUserInfo")
     public @ResponseBody
 //    ResultDTO<User> update(int id, String userName, String realName, String passwd){
-    ResultDTO<UserView> update(User user, HttpServletRequest request){
+    ResultDTO<UserView> update(@RequestBody User user, HttpSession session){
 //        MultipartFile pic = pic1;
-        HttpSession session = request.getSession();
         UserView userView = (UserView) session.getAttribute("user");
         //只能更新自己的用户信息
         user.setId(userView.getId());
+        //更新用户密码时需要验证旧密码，不能直接修改，使用updatePasswd
+        user.setPasswd(null);
+        if(user.getUserName() == null){
+            user.setUserName(userView.getUserName());
+        }
         ResultDTO<UserView> resultDTO = new ResultDTO();
 
         try{

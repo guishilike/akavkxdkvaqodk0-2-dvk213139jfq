@@ -22,6 +22,8 @@ public interface UserInfoService {
      * @return 返回更新后的user对象
      */
     User updateUserInfo(User user);
+
+    int updatePasswd(int userID ,String oldPasswd,String newPasswd);
 //    User updateUserInfo(int id,String userName,String realName,String passwd);
 
     /**
