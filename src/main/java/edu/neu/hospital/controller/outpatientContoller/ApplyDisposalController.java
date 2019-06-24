@@ -34,10 +34,9 @@ public class ApplyDisposalController {
     ResultDTO newDisposal(Disposal disposal, HttpSession session) {
         ResultDTO<Disposal> resultDTO = new ResultDTO<>();
         try {
-
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            applyDisposalService.newDisposal(disposal, doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            applyDisposalService.newDisposal(disposal, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加处置成功");
             resultDTO.setData(disposal);
@@ -57,9 +56,9 @@ public class ApplyDisposalController {
         ResultDTO<Disposal> resultDTO = new ResultDTO<>();
 
 
-        System.out.println(session.getAttribute("userID"));
-        Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-        applyDisposalService.addDisposalDetailsList(disposal, disposalDetialsList, doctorID);
+        User user = (User)session.getAttribute("user");
+        System.out.println(user.getId());
+        applyDisposalService.addDisposalDetailsList(disposal, disposalDetialsList, user.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处置详细成功");
         resultDTO.setData(disposal);
@@ -74,9 +73,9 @@ public class ApplyDisposalController {
         ResultDTO<Disposal> resultDTO = new ResultDTO<>();
 
 
-        System.out.println(session.getAttribute("userID"));
-        Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-        applyDisposalService.addDisposalDetails(disposal, disposalDetails, doctorID);
+        User user = (User)session.getAttribute("user");
+        System.out.println(user.getId());
+        applyDisposalService.addDisposalDetails(disposal, disposalDetails, user.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处置详细成功");
         resultDTO.setData(disposal);
@@ -113,15 +112,15 @@ public class ApplyDisposalController {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
             List<DisposalDetails> list = dataListDTO.getData();
             List<DisposalDetails> res = new LinkedList<>();
 
             for (int i = 0; i < list.size(); i++) {
                 DisposalDetails disposalDetails = list.get(i);
                 disposalDetails.setAppearDate(new Date());
-                disposalDetails.setAppearUserID(doctorID);
+                disposalDetails.setAppearUserID(user.getId());
                 res.add(disposalDetails);
 
             }
@@ -149,9 +148,9 @@ public class ApplyDisposalController {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            List<DisposalDetails> disposalDetailsList = applyDisposalService.drawDisposalDetails(disposalDetailsIdList, doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            List<DisposalDetails> disposalDetailsList = applyDisposalService.drawDisposalDetails(disposalDetailsIdList, user.getId());
             PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("开立成功");
@@ -194,9 +193,9 @@ public class ApplyDisposalController {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            List<DisposalDetails> disposalDetailsList = applyDisposalService.deleteDisposalDetails(disposalDetailsIdList, doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            List<DisposalDetails> disposalDetailsList = applyDisposalService.deleteDisposalDetails(disposalDetailsIdList, user.getId());
             PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
@@ -215,9 +214,9 @@ public class ApplyDisposalController {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            List<DisposalDetails> disposalDetailsList = applyDisposalService.abolishDisposalDetails(disposalDetailsIdList, doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            List<DisposalDetails> disposalDetailsList = applyDisposalService.abolishDisposalDetails(disposalDetailsIdList, user.getId());
             PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("废除成功");

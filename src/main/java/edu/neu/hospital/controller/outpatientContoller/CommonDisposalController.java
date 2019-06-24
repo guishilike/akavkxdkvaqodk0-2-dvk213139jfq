@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.bean.basicTableBean.Inspection;
+import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.CommonDisposalService;
@@ -24,12 +25,12 @@ public class CommonDisposalController {
         //常用诊断管理
     //列出
     //根据医生ID列出他的常用诊断
-    public List<CommonDisposal> listCommonDisposal(Integer doctorID );
+    public List<CommonDisposal> listCommonDisposal(Integer user.getId() );
 
     //增
-    public Integer addCommonDisposal( Integer doctorID , Integer disposalID);
+    public Integer addCommonDisposal( Integer user.getId() , Integer disposalID);
     //批量增
-    public boolean addCommonDisposalList( Integer doctorID , IdDTO IdDTO);
+    public boolean addCommonDisposalList( Integer user.getId() , IdDTO IdDTO);
     public List<Disease> searchDisease(String str);
     //删
     public Integer deleteCommonDisposal ( Integer commonDisposalID , Integer userID);
@@ -49,10 +50,10 @@ public class CommonDisposalController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
             System.out.println("1");
-            commonDisposalService.addCommonDiposals(  doctorID,disposalID);
+            commonDisposalService.addCommonDiposals(  user.getId(),disposalID);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加模板成功");
             resultDTO.setData(disposalID);
@@ -72,9 +73,9 @@ public class CommonDisposalController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        System.out.println(session.getAttribute("userID"));
-        Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-        commonDisposalService.addCommonDiposalsList( doctorID , idDTO);
+        User user = (User)session.getAttribute("user");
+        System.out.println(user.getId());
+        commonDisposalService.addCommonDiposalsList( user.getId() , idDTO);
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处置详细成功");
         //resultDTO.setData(inspection);
@@ -89,9 +90,9 @@ public class CommonDisposalController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        System.out.println(session.getAttribute("userID"));
-        Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-        commonDisposalService.deleteCommonDiposalsList( idDTO , doctorID);
+        User user = (User)session.getAttribute("user");
+        System.out.println(user.getId());
+        commonDisposalService.deleteCommonDiposalsList( idDTO , user.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("删除多个成功");
         //resultDTO.setData(inspection);
@@ -107,9 +108,9 @@ public class CommonDisposalController {
         ResultDTO<CommonDiposals> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            commonDisposalService.updateCommonDiposals(commonDisposal, doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            commonDisposalService.updateCommonDiposals(commonDisposal, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("修改模板成功");
             resultDTO.setData(commonDisposal);
@@ -129,9 +130,9 @@ public class CommonDisposalController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            commonDisposalService.deleteCommonDiposals(commonDisposalID ,doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            commonDisposalService.deleteCommonDiposals(commonDisposalID ,user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
@@ -173,9 +174,9 @@ public class CommonDisposalController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            List<CommonDiposals> commonDisposalList = commonDisposalService.listCommonDiposals(doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            List<CommonDiposals> commonDisposalList = commonDisposalService.listCommonDiposals(user.getId());
             System.out.println("-----");
             System.out.println("-----");
             resultDTO.setMsg("模糊查询处置");

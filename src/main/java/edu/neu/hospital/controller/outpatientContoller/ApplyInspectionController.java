@@ -34,9 +34,9 @@ public class ApplyInspectionController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            applyInspectionService.newInspection(inspection, doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            applyInspectionService.newInspection(inspection, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加处置成功");
             resultDTO.setData(inspection);
@@ -56,9 +56,9 @@ public class ApplyInspectionController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        System.out.println(session.getAttribute("userID"));
-        Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-        applyInspectionService.addInspectionDetailsList(inspection, inspectionDetailsList, doctorID);
+        User user = (User)session.getAttribute("user");
+        System.out.println(user.getId());
+        applyInspectionService.addInspectionDetailsList(inspection, inspectionDetailsList, user.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处置详细成功");
         resultDTO.setData(inspection);
@@ -73,9 +73,9 @@ public class ApplyInspectionController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        System.out.println(session.getAttribute("userID"));
-        Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-        applyInspectionService.addInspectionDetails(inspection, inspectionDetails, doctorID);
+        User user = (User)session.getAttribute("user");
+        System.out.println(user.getId());
+        applyInspectionService.addInspectionDetails(inspection, inspectionDetails, user.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处置详细成功");
         resultDTO.setData(inspection);
@@ -112,15 +112,15 @@ public class ApplyInspectionController {
         ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
             List<InspectionDetails> list = dataListDTO.getData();
             List<InspectionDetails> res = new LinkedList<>();
 
             for (int i = 0; i < list.size(); i++) {
                 InspectionDetails inspectionDetails = list.get(i);
                 inspectionDetails.setAppearDate(new Date());
-                inspectionDetails.setAppearUserID(doctorID);
+                inspectionDetails.setAppearUserID(user.getId());
                 res.add(inspectionDetails);
 
             }
@@ -148,9 +148,9 @@ public class ApplyInspectionController {
         ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            List<InspectionDetails> inspectionDetailsList = applyInspectionService.drawInspectionDetails(inspectionDetailsIdList, doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            List<InspectionDetails> inspectionDetailsList = applyInspectionService.drawInspectionDetails(inspectionDetailsIdList, user.getId());
             PageInfo<InspectionDetails> list = new PageInfo<>(inspectionDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("开立成功");
@@ -197,9 +197,9 @@ public class ApplyInspectionController {
         ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            List<InspectionDetails> inspectionDetailsList = applyInspectionService.deleteInspectionDetails(inspectionDetailsIdList, doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            List<InspectionDetails> inspectionDetailsList = applyInspectionService.deleteInspectionDetails(inspectionDetailsIdList, user.getId());
             PageInfo<InspectionDetails> list = new PageInfo<>(inspectionDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
@@ -218,9 +218,9 @@ public class ApplyInspectionController {
         ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            List<InspectionDetails> inspectionDetailsList = applyInspectionService.abolishInspectionDetails(inspectionDetailsIdList, doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            List<InspectionDetails> inspectionDetailsList = applyInspectionService.abolishInspectionDetails(inspectionDetailsIdList, user.getId());
             PageInfo<InspectionDetails> list = new PageInfo<>(inspectionDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("废除成功");
@@ -240,7 +240,8 @@ public class ApplyInspectionController {
         ResultDTO<CommonInspection> resultDTO = new ResultDTO<>();
         try {
             //
-            Integer userID = Integer.parseInt((String)session.getAttribute("userID"));
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
             CommonInspection commonInspection = applyInspectionService.useCommonInspection(commonInspectionID);
 
             resultDTO.setStatus("OK");
@@ -262,9 +263,9 @@ public class ApplyInspectionController {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
         try{
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            Integer id = applyInspectionService.saveTemplate(projectTemplate , doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            Integer id = applyInspectionService.saveTemplate(projectTemplate , user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("存为模板");
@@ -283,9 +284,9 @@ public class ApplyInspectionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            applyInspectionService.saveTemplateDetails(lists, doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            applyInspectionService.saveTemplateDetails(lists, user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("模板详细存储成功");
@@ -305,8 +306,8 @@ public class ApplyInspectionController {
         ResultDTO<ProjectTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
             ProjectTemplate p = applyInspectionService.use_Check(projectTemplateID);
 
             resultDTO.setStatus("OK");

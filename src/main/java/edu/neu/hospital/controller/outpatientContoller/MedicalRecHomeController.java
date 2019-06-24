@@ -52,9 +52,9 @@ public class MedicalRecHomeController {
         ResultDTO<MedicalRecHome> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID") );
-            Integer doctorID = Integer.parseInt((String)session.getAttribute("userID"));
-            medicalRecHome.setDoctorId(doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            medicalRecHome.setDoctorId(user.getId());
             session.setAttribute("tmpMedicalRecHome" , medicalRecHome);
 
             resultDTO.setStatus("OK");
@@ -95,9 +95,10 @@ public class MedicalRecHomeController {
         ResultDTO<MedicalRecHome> resultDTO = new ResultDTO<>();
         try {
 
-            Integer userID = Integer.parseInt((String)session.getAttribute("userID"));
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
             //先把判断填写完整的那句去掉，不然测试太费劲
-            medicalRecHomeService.add(medicalRecHome , userID);
+            medicalRecHomeService.add(medicalRecHome , user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加一条");
             resultDTO.setData(medicalRecHome);
@@ -116,8 +117,9 @@ public class MedicalRecHomeController {
     ResultDTO save_Template(MedicalRecHomeTemplate medicalRecHomeTemplate , HttpSession session){
         ResultDTO<MedicalRecHomeTemplate> resultDTO = new ResultDTO<>();
         try{
-            Integer userID = Integer.parseInt((String)session.getAttribute("userID"));
-            medicalRecHomeService.save_Template(medicalRecHomeTemplate , userID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            medicalRecHomeService.save_Template(medicalRecHomeTemplate , user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("存为组套");
             resultDTO.setData(medicalRecHomeTemplate);
@@ -137,7 +139,8 @@ public class MedicalRecHomeController {
         ResultDTO<MedicalRecHomeTemplate> resultDTO = new ResultDTO<>();
         try {
             //
-            Integer userID = Integer.parseInt((String)session.getAttribute("userID"));
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
             MedicalRecHomeTemplate medicalRecHomeTemplate = medicalRecHomeService.use_Template(recHomeTemplateID);
 
             resultDTO.setStatus("OK");
@@ -162,7 +165,8 @@ public class MedicalRecHomeController {
         ResultDTO<CommonDiagnosis> resultDTO = new ResultDTO<>();
         try {
             //
-            Integer userID = Integer.parseInt((String)session.getAttribute("userID"));
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
             CommonDiagnosis commonDiagnosis = medicalRecHomeService.use_CommonDiagnosis(commonDiagnosisID);
 
             resultDTO.setStatus("OK");

@@ -3,6 +3,7 @@ package edu.neu.hospital.controller.outpatientContoller;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.basicTableBean.Diagnosis;
 import edu.neu.hospital.bean.basicTableBean.Disease;
+import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
@@ -27,9 +28,9 @@ public class DiagnosisController {
         ResultDTO<Diagnosis> resultDTO = new ResultDTO<>();
         try{
 
-            System.out.println(session.getAttribute("userID") );
-            Integer doctorID = Integer.parseInt((String)session.getAttribute("userID"));
-            diagnoseService.addDiagnosis(diagnosis , doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            diagnoseService.addDiagnosis(diagnosis , user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加诊断成功");
             resultDTO.setData(diagnosis);
@@ -51,10 +52,10 @@ public class DiagnosisController {
 
        // try{
 
-            System.out.println(session.getAttribute("userID") );
-            Integer doctorID = Integer.parseInt((String)session.getAttribute("userID"));
+        User user = (User)session.getAttribute("user");
+        System.out.println(user.getId());
             System.out.println("wai-----");
-            diagnoseService.addDiagnosisList(diagnosisList , doctorID);
+            diagnoseService.addDiagnosisList(diagnosisList , user.getId());
             System.out.println("-----");
             PageInfo<Diagnosis> list = new PageInfo<>(diagnosisList.getData());
             resultDTO.setStatus("OK");
@@ -100,9 +101,9 @@ public class DiagnosisController {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
         try{
 
-            System.out.println(session.getAttribute("userID") );
-            Integer doctorID = Integer.parseInt((String)session.getAttribute("userID"));
-            diagnoseService.deleteDiagnosis(diagnosisID , doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            diagnoseService.deleteDiagnosis(diagnosisID , user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除诊断成功");
             resultDTO.setData(diagnosisID);
@@ -122,11 +123,11 @@ public class DiagnosisController {
 
         // try{
 
-        System.out.println(session.getAttribute("userID") );
-        Integer doctorID = Integer.parseInt((String)session.getAttribute("userID"));
+        User user = (User)session.getAttribute("user");
+        System.out.println(user.getId());
         System.out.println("wai-----");
 
-        diagnoseService.deleteDiagnosisList(ids , doctorID);
+        diagnoseService.deleteDiagnosisList(ids , user.getId());
         System.out.println("-----");
 
 
@@ -150,9 +151,9 @@ public class DiagnosisController {
         ResultDTO<Diagnosis> resultDTO = new ResultDTO<>();
     try{
 
-            System.out.println(session.getAttribute("userID") );
-            Integer doctorID = Integer.parseInt((String)session.getAttribute("userID"));
-            diagnoseService.updateDiagnosis(diagnosis , doctorID);
+        User user = (User)session.getAttribute("user");
+        System.out.println(user.getId());
+            diagnoseService.updateDiagnosis(diagnosis , user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("更新诊断成功");
             resultDTO.setData(diagnosis);
@@ -236,9 +237,9 @@ public class DiagnosisController {
 
         try {
 
-            System.out.println(session.getAttribute("userID") );
-            Integer doctorID = Integer.parseInt((String)session.getAttribute("userID"));
-            diagnoseService.defineDiagnose(diagnosisID , doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            diagnoseService.defineDiagnose(diagnosisID , user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("确诊成功");
             resultDTO.setData(diagnosisID);

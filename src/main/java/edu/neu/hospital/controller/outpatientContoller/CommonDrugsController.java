@@ -2,6 +2,7 @@ package edu.neu.hospital.controller.outpatientContoller;
 
 import edu.neu.hospital.bean.basicTableBean.CommonDrugs;
 import edu.neu.hospital.bean.basicTableBean.Inspection;
+import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.CommonDrugService;
@@ -21,12 +22,12 @@ public class CommonDrugsController {
         //常用诊断管理
     //列出
     //根据医生ID列出他的常用诊断
-    public List<CommonDrugs> listCommonDrugs(Integer doctorID );
+    public List<CommonDrugs> listCommonDrugs(Integer user.getId() );
 
     //增
-    public Integer addCommonDrugs( Integer doctorID , Integer drugsID);
+    public Integer addCommonDrugs( Integer user.getId() , Integer drugsID);
     //批量增
-    public boolean addCommonDrugsList( Integer doctorID , IdDTO IdDTO);
+    public boolean addCommonDrugsList( Integer user.getId() , IdDTO IdDTO);
     public List<Disease> searchDisease(String str);
     //删
     public Integer deleteCommonDrugs ( Integer commonDrugsID , Integer userID);
@@ -46,9 +47,9 @@ public class CommonDrugsController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            commonDrugsService.addCommonDrugs( doctorID ,drugsID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            commonDrugsService.addCommonDrugs( user.getId() ,drugsID);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加模板成功");
             resultDTO.setData(drugsID);
@@ -68,9 +69,9 @@ public class CommonDrugsController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        System.out.println(session.getAttribute("userID"));
-        Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-        commonDrugsService.addCommonDrugsList( doctorID , idDTO);
+        User user = (User)session.getAttribute("user");
+        System.out.println(user.getId());
+        commonDrugsService.addCommonDrugsList( user.getId() , idDTO);
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处置详细成功");
         //resultDTO.setData(inspection);
@@ -85,9 +86,9 @@ public class CommonDrugsController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        System.out.println(session.getAttribute("userID"));
-        Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-        commonDrugsService.deleteCommonDrugsList(idDTO , doctorID);
+        User user = (User)session.getAttribute("user");
+        System.out.println(user.getId());
+        commonDrugsService.deleteCommonDrugsList(idDTO , user.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("删除多个成功");
         //resultDTO.setData(inspection);
@@ -103,9 +104,9 @@ public class CommonDrugsController {
         ResultDTO<CommonDrugs> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            commonDrugsService.updateCommonDrugs(commonDrugs, doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            commonDrugsService.updateCommonDrugs(commonDrugs, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加模板成功");
             resultDTO.setData(commonDrugs);
@@ -125,9 +126,9 @@ public class CommonDrugsController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            commonDrugsService.deleteCommonDrugs(commonDrugsID ,doctorID);
+            User user = (User)session.getAttribute("user");
+            System.out.println(user.getId());
+            commonDrugsService.deleteCommonDrugs(commonDrugsID ,user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
