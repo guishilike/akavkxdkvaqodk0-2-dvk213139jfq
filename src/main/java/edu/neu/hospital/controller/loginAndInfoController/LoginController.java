@@ -40,6 +40,7 @@ public class LoginController {
     ResultDTO<UserView> check(HttpServletRequest request, @RequestBody User user){
 //        System.out.println("userName"+user.getUserName());
 ////        System.out.println("passwd"+user.getPasswd());
+        System.out.println("aaaaaa");
         HttpSession session = request.getSession(true);
         ResultDTO<UserView> resultDTO = new ResultDTO();
         try{
@@ -54,6 +55,8 @@ public class LoginController {
                     resultDTO.setData(userView);
                     userView.setPasswd("");
                     session.setAttribute("user",userView);
+//                    UserView u = (UserView) session.getAttribute("user");
+//                    System.out.println(u.getId());
                 }else {
                     resultDTO.setStatus("NG");
                     resultDTO.setMsg("用户检查失败！");
