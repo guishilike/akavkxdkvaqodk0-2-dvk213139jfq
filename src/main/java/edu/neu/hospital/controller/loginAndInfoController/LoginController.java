@@ -52,6 +52,7 @@ public class LoginController {
                     resultDTO.setStatus("OK");
                     resultDTO.setMsg("用户检查成功！可以登录");
                     resultDTO.setData(userView);
+                    userView.setPasswd("");
                     session.setAttribute("user",userView);
                 }else {
                     resultDTO.setStatus("NG");
