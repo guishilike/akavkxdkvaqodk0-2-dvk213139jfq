@@ -1385,52 +1385,52 @@ public class UserViewExample {
             return (Criteria) this;
         }
 
-        public Criteria andContactEqualTo(Integer value) {
+        public Criteria andContactEqualTo(Long value) {
             addCriterion("contact =", value, "contact");
             return (Criteria) this;
         }
 
-        public Criteria andContactNotEqualTo(Integer value) {
+        public Criteria andContactNotEqualTo(Long value) {
             addCriterion("contact <>", value, "contact");
             return (Criteria) this;
         }
 
-        public Criteria andContactGreaterThan(Integer value) {
+        public Criteria andContactGreaterThan(Long value) {
             addCriterion("contact >", value, "contact");
             return (Criteria) this;
         }
 
-        public Criteria andContactGreaterThanOrEqualTo(Integer value) {
+        public Criteria andContactGreaterThanOrEqualTo(Long value) {
             addCriterion("contact >=", value, "contact");
             return (Criteria) this;
         }
 
-        public Criteria andContactLessThan(Integer value) {
+        public Criteria andContactLessThan(Long value) {
             addCriterion("contact <", value, "contact");
             return (Criteria) this;
         }
 
-        public Criteria andContactLessThanOrEqualTo(Integer value) {
+        public Criteria andContactLessThanOrEqualTo(Long value) {
             addCriterion("contact <=", value, "contact");
             return (Criteria) this;
         }
 
-        public Criteria andContactIn(List<Integer> values) {
+        public Criteria andContactIn(List<Long> values) {
             addCriterion("contact in", values, "contact");
             return (Criteria) this;
         }
 
-        public Criteria andContactNotIn(List<Integer> values) {
+        public Criteria andContactNotIn(List<Long> values) {
             addCriterion("contact not in", values, "contact");
             return (Criteria) this;
         }
 
-        public Criteria andContactBetween(Integer value1, Integer value2) {
+        public Criteria andContactBetween(Long value1, Long value2) {
             addCriterion("contact between", value1, value2, "contact");
             return (Criteria) this;
         }
 
-        public Criteria andContactNotBetween(Integer value1, Integer value2) {
+        public Criteria andContactNotBetween(Long value1, Long value2) {
             addCriterion("contact not between", value1, value2, "contact");
             return (Criteria) this;
         }

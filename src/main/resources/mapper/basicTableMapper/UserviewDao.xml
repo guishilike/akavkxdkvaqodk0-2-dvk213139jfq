@@ -21,7 +21,7 @@
     <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
     <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
     <result column="photoLocation" jdbcType="VARCHAR" property="photoLocation" />
-    <result column="contact" jdbcType="INTEGER" property="contact" />
+    <result column="contact" jdbcType="BIGINT" property="contact" />
     <result column="appearUserName" jdbcType="VARCHAR" property="appearUserName" />
     <result column="changeUserName" jdbcType="VARCHAR" property="changeUserName" />
   </resultMap>
@@ -131,7 +131,7 @@
       #{type,jdbcType=VARCHAR}, #{rankID,jdbcType=INTEGER}, #{rankCode,jdbcType=VARCHAR}, 
       #{rank,jdbcType=VARCHAR}, #{isSchedule,jdbcType=CHAR}, #{appearUserID,jdbcType=INTEGER}, 
       #{changeUserID,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, #{changeDate,jdbcType=TIMESTAMP}, 
-      #{photoLocation,jdbcType=VARCHAR}, #{contact,jdbcType=INTEGER}, #{appearUserName,jdbcType=VARCHAR}, 
+      #{photoLocation,jdbcType=VARCHAR}, #{contact,jdbcType=BIGINT}, #{appearUserName,jdbcType=VARCHAR}, 
       #{changeUserName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="edu.neu.hospital.bean.baseBean.UserView">
@@ -263,7 +263,7 @@
         #{photoLocation,jdbcType=VARCHAR},
       </if>
       <if test="contact != null">
-        #{contact,jdbcType=INTEGER},
+        #{contact,jdbcType=BIGINT},
       </if>
       <if test="appearUserName != null">
         #{appearUserName,jdbcType=VARCHAR},
@@ -340,7 +340,7 @@
         photoLocation = #{record.photoLocation,jdbcType=VARCHAR},
       </if>
       <if test="record.contact != null">
-        contact = #{record.contact,jdbcType=INTEGER},
+        contact = #{record.contact,jdbcType=BIGINT},
       </if>
       <if test="record.appearUserName != null">
         appearUserName = #{record.appearUserName,jdbcType=VARCHAR},
@@ -374,7 +374,7 @@
       appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
       changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
       photoLocation = #{record.photoLocation,jdbcType=VARCHAR},
-      contact = #{record.contact,jdbcType=INTEGER},
+      contact = #{record.contact,jdbcType=BIGINT},
       appearUserName = #{record.appearUserName,jdbcType=VARCHAR},
       changeUserName = #{record.changeUserName,jdbcType=VARCHAR}
     <if test="_parameter != null">

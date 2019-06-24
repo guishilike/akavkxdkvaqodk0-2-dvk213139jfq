@@ -3,7 +3,9 @@ package edu.neu.hospital.controller.medicalTechContoller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
-import edu.neu.hospital.bean.basicTableBean.*;
+import edu.neu.hospital.bean.basicTableBean.Drugs;
+import edu.neu.hospital.bean.basicTableBean.Materials;
+import edu.neu.hospital.bean.basicTableBean.MedicinesMaterialsList;
 import edu.neu.hospital.bean.disposalBean.DisposalFormView;
 import edu.neu.hospital.bean.disposalBean.DisposalMatPlateView;
 import edu.neu.hospital.bean.disposalBean.DisposalMedPlateView;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;

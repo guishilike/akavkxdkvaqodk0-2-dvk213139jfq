@@ -7,7 +7,6 @@ import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.Disease;
 import edu.neu.hospital.bean.basicTableBean.DiseaseCategory;
-import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.ConstantService;

@@ -4,11 +4,11 @@ package edu.neu.hospital.service.loginAndInfoService.impl;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.bean.finaceBean.WorkLoadStatistics;
-import edu.neu.hospital.dao.basicTableDao.UserDao;
 import edu.neu.hospital.dao.baseDao.UserViewDao;
+import edu.neu.hospital.dao.basicTableDao.UserDao;
 import edu.neu.hospital.dao.finaceDao.WorkLoadStatisticsDao;
-import edu.neu.hospital.example.basicTableExample.UserExample;
 import edu.neu.hospital.example.baseExample.UserViewExample;
+import edu.neu.hospital.example.basicTableExample.UserExample;
 import edu.neu.hospital.example.finaceExample.WorkLoadStatisticsExample;
 import edu.neu.hospital.service.loginAndInfoService.UserInfoService;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
-import java.util.zip.DeflaterOutputStream;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {

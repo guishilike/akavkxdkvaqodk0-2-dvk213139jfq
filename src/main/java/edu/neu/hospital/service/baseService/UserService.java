@@ -40,7 +40,7 @@ public interface UserService {
      * @param user 修改所需的用户信息
      * @param userID 进行修改操作的用户ID
      */
-    public void change(User user,Integer userID);
+    public void change(User user, Integer userID);
     /**
      * 查重
      * @param user 要进行查重的用户信息

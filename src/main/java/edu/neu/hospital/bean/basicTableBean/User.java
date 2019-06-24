@@ -5,56 +5,73 @@ import java.util.Date;
 
 /**
  * user
- *
- * @author LiJie
+ * @author 
  */
 public class User implements Serializable {
-    private static final long serialVersionUID = 1L;
     /**
      * 用户ID
      */
     private Integer id;
+
     /**
      * 登录名
      */
     private String userName;
+
     /**
      * 真名
      */
     private String realName;
+
     /**
      * 密码
      */
     private String passwd;
+
     /**
      * 科室ID
      */
     private Integer departmentID;
+
     /**
      * 用户类别
      */
     private Integer typeID;
+
     /**
      * 职称，查常数项表
      */
     private Integer rankID;
+
     /**
      * 是否排班
      */
     private String isSchedule;
+
     /**
      * 是否有效
      */
     private String status;
+
     private Integer appearUserID;
+
     private Integer changeUserID;
+
     private Date appearDate;
+
     private Date changeDate;
+
     private String photoLocation;
-    private Integer contact;
+
+    private Long contact;
+
     private String reserve1;
+
     private String reserve2;
+
     private String reserve3;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
@@ -168,11 +185,11 @@ public class User implements Serializable {
         this.photoLocation = photoLocation;
     }
 
-    public Integer getContact() {
+    public Long getContact() {
         return contact;
     }
 
-    public void setContact(Integer contact) {
+    public void setContact(Long contact) {
         this.contact = contact;
     }
 
@@ -213,23 +230,23 @@ public class User implements Serializable {
         }
         User other = (User) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-                && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
-                && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
-                && (this.getPasswd() == null ? other.getPasswd() == null : this.getPasswd().equals(other.getPasswd()))
-                && (this.getDepartmentID() == null ? other.getDepartmentID() == null : this.getDepartmentID().equals(other.getDepartmentID()))
-                && (this.getTypeID() == null ? other.getTypeID() == null : this.getTypeID().equals(other.getTypeID()))
-                && (this.getRankID() == null ? other.getRankID() == null : this.getRankID().equals(other.getRankID()))
-                && (this.getIsSchedule() == null ? other.getIsSchedule() == null : this.getIsSchedule().equals(other.getIsSchedule()))
-                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-                && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
-                && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
-                && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
-                && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
-                && (this.getPhotoLocation() == null ? other.getPhotoLocation() == null : this.getPhotoLocation().equals(other.getPhotoLocation()))
-                && (this.getContact() == null ? other.getContact() == null : this.getContact().equals(other.getContact()))
-                && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
-                && (this.getReserve2() == null ? other.getReserve2() == null : this.getReserve2().equals(other.getReserve2()))
-                && (this.getReserve3() == null ? other.getReserve3() == null : this.getReserve3().equals(other.getReserve3()));
+            && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
+            && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
+            && (this.getPasswd() == null ? other.getPasswd() == null : this.getPasswd().equals(other.getPasswd()))
+            && (this.getDepartmentID() == null ? other.getDepartmentID() == null : this.getDepartmentID().equals(other.getDepartmentID()))
+            && (this.getTypeID() == null ? other.getTypeID() == null : this.getTypeID().equals(other.getTypeID()))
+            && (this.getRankID() == null ? other.getRankID() == null : this.getRankID().equals(other.getRankID()))
+            && (this.getIsSchedule() == null ? other.getIsSchedule() == null : this.getIsSchedule().equals(other.getIsSchedule()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
+            && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
+            && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
+            && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
+            && (this.getPhotoLocation() == null ? other.getPhotoLocation() == null : this.getPhotoLocation().equals(other.getPhotoLocation()))
+            && (this.getContact() == null ? other.getContact() == null : this.getContact().equals(other.getContact()))
+            && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
+            && (this.getReserve2() == null ? other.getReserve2() == null : this.getReserve2().equals(other.getReserve2()))
+            && (this.getReserve3() == null ? other.getReserve3() == null : this.getReserve3().equals(other.getReserve3()));
     }
 
     @Override

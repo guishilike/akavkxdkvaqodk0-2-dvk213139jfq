@@ -2,12 +2,9 @@ package edu.neu.hospital.dao.basicTableDao;
 
 import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.example.basicTableExample.UserExample;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
-@Repository
 public interface UserDao {
     long countByExample(UserExample example);
 

@@ -37,7 +37,7 @@ public class LoginController {
 
     @RequestMapping("/check")
     public @ResponseBody
-    ResultDTO<UserView> check(HttpServletRequest request,  @RequestBody User user){
+    ResultDTO<UserView> check(HttpServletRequest request, @RequestBody User user){
 //        System.out.println("userName"+user.getUserName());
 ////        System.out.println("passwd"+user.getPasswd());
         HttpSession session = request.getSession(true);

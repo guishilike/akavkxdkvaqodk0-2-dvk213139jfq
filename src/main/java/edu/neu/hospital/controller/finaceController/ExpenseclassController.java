@@ -2,11 +2,9 @@ package edu.neu.hospital.controller.finaceController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.ExpenseClass;
 import edu.neu.hospital.bean.finaceBean.ExpenseClassView;
-import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.finaceService.ExpenseclassService;

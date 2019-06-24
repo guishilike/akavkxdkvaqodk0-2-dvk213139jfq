@@ -1,13 +1,13 @@
 package edu.neu.hospital.service.baseService.impl;
 
-import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.bean.baseBean.UserView;
-import edu.neu.hospital.dao.basicTableDao.UserDao;
+import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dao.baseDao.UserViewDao;
+import edu.neu.hospital.dao.basicTableDao.UserDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.UserNameAndPassDTO;
-import edu.neu.hospital.example.basicTableExample.UserExample;
 import edu.neu.hospital.example.baseExample.UserViewExample;
+import edu.neu.hospital.example.basicTableExample.UserExample;
 import edu.neu.hospital.service.baseService.UserService;
 import org.springframework.stereotype.Service;
 

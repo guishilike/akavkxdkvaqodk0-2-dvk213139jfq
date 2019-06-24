@@ -1,13 +1,11 @@
 package edu.neu.hospital.dao.baseDao;
 
 import edu.neu.hospital.bean.baseBean.UserView;
+import edu.neu.hospital.example.baseExample.UserViewExample;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-import edu.neu.hospital.example.baseExample.UserViewExample;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-@Mapper
 public interface UserViewDao {
     long countByExample(UserViewExample example);
 

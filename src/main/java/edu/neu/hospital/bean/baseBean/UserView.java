@@ -76,7 +76,7 @@ public class UserView implements Serializable {
 
     private String photoLocation;
 
-    private Integer contact;
+    private Long contact;
 
     /**
      * 登录名
@@ -242,11 +242,11 @@ public class UserView implements Serializable {
         this.photoLocation = photoLocation;
     }
 
-    public Integer getContact() {
+    public Long getContact() {
         return contact;
     }
 
-    public void setContact(Integer contact) {
+    public void setContact(Long contact) {
         this.contact = contact;
     }
 
