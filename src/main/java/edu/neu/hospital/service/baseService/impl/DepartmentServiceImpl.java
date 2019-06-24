@@ -7,6 +7,7 @@ import edu.neu.hospital.dao.basicTableDao.ConstantItemDao;
 import edu.neu.hospital.dao.basicTableDao.DepartmentDao;
 import edu.neu.hospital.dao.baseDao.DepartmentViewDao;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.example.basicTableExample.ConstantItemExample;
 import edu.neu.hospital.example.basicTableExample.DepartmentExample;
 import edu.neu.hospital.example.baseExample.DepartmentViewExample;
@@ -117,6 +118,11 @@ public class DepartmentServiceImpl implements DepartmentService {
             return false;
         else
             return true;
+    }
+
+    @Override
+    public List<NameCodeDTO> getAllDeptNamesAndDeptCodes() {
+        return departmentviewDao.selectAllDeptNamesAndCodes();
     }
 
 

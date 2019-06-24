@@ -1,5 +1,6 @@
 package edu.neu.hospital.controller.baseController;
 
+import com.github.pagehelper.Constant;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
@@ -7,6 +8,7 @@ import edu.neu.hospital.bean.basicTableBean.Department;
 import edu.neu.hospital.bean.baseBean.DepartmentView;
 import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,8 @@ public class DepartmentController {
      */
     @RequestMapping("/list")
     public @ResponseBody
-    ResultDTO<PageInfo> list(Integer deptCategoryID, Integer typeID, Integer pageNum, Integer pageSize) {
+    ResultDTO<PageInfo> list(Integer deptCategoryID, Integer typeID,
+                               Integer pageNum, Integer pageSize) {
         System.out.println(pageNum);
         System.out.println(pageSize);
         ResultDTO<PageInfo> resultDTO = new ResultDTO<>();
@@ -174,7 +177,12 @@ public class DepartmentController {
         return resultDTO;
     }
 
-    //添加科室
+    /**
+     * 添加科室
+     * @param department 要添加的科室
+     * @param session HttpSession会话
+     * @return
+     */
     @RequestMapping("/add")
     public @ResponseBody
     ResultDTO add(@RequestBody Department department, HttpSession session) {
@@ -196,6 +204,25 @@ public class DepartmentController {
         }
         return resultDTO;
     }
+
+    @RequestMapping("/findAllDeptNamesAndCodes")
+    public @ResponseBody ResultDTO getAllDeptNamesAndCodes(){
+        ResultDTO<List<NameCodeDTO>> resultDTO=new ResultDTO<>();
+        try{
+            List<NameCodeDTO> list=departmentService.getAllDeptNamesAndDeptCodes();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得搜索列表成功");
+
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得搜索列表失败");
+        }
+        return resultDTO;
+
+    }
+
+
 
 
 }

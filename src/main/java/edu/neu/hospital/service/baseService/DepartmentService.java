@@ -4,6 +4,7 @@ import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.Department;
 import edu.neu.hospital.bean.baseBean.DepartmentView;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 
 import java.util.List;
 
@@ -58,4 +59,10 @@ public interface DepartmentService {
      * @return
      */
     public boolean checkContent(Department department, int state);
+
+    /**
+     * 获取所有科室名称和科室编号
+     * @return
+     */
+    public List<NameCodeDTO> getAllDeptNamesAndDeptCodes();
 }
