@@ -2,6 +2,7 @@ package edu.neu.hospital.controller.outpatientContoller;
 
 
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
@@ -34,7 +35,7 @@ public class ApplyDisposalController {
     ResultDTO newDisposal(Disposal disposal, HttpSession session) {
         ResultDTO<Disposal> resultDTO = new ResultDTO<>();
         try {
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             applyDisposalService.newDisposal(disposal, user.getId());
             resultDTO.setStatus("OK");
@@ -56,7 +57,7 @@ public class ApplyDisposalController {
         ResultDTO<Disposal> resultDTO = new ResultDTO<>();
 
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
         applyDisposalService.addDisposalDetailsList(disposal, disposalDetialsList, user.getId());
         resultDTO.setStatus("OK");
@@ -73,7 +74,7 @@ public class ApplyDisposalController {
         ResultDTO<Disposal> resultDTO = new ResultDTO<>();
 
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
         applyDisposalService.addDisposalDetails(disposal, disposalDetails, user.getId());
         resultDTO.setStatus("OK");
@@ -112,7 +113,7 @@ public class ApplyDisposalController {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<DisposalDetails> list = dataListDTO.getData();
             List<DisposalDetails> res = new LinkedList<>();
@@ -148,7 +149,7 @@ public class ApplyDisposalController {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<DisposalDetails> disposalDetailsList = applyDisposalService.drawDisposalDetails(disposalDetailsIdList, user.getId());
             PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
@@ -170,7 +171,7 @@ public class ApplyDisposalController {
         try {
 
             //
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             Fee fee = applyDisposalService.addProjectFee(disposalDetailID , user.getId());
 
@@ -193,7 +194,7 @@ public class ApplyDisposalController {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<DisposalDetails> disposalDetailsList = applyDisposalService.deleteDisposalDetails(disposalDetailsIdList, user.getId());
             PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
@@ -214,7 +215,7 @@ public class ApplyDisposalController {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<DisposalDetails> disposalDetailsList = applyDisposalService.abolishDisposalDetails(disposalDetailsIdList, user.getId());
             PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
@@ -235,8 +236,8 @@ public class ApplyDisposalController {
     ResultDTO useCommonDisposal(Integer commonDisposalID , HttpSession session) {
         ResultDTO<CommonDiposals> resultDTO = new ResultDTO<>();
         try {
-            //
-            Integer userID = Integer.parseInt((String)session.getAttribute("userID"));
+            UserView user = (UserView) session.getAttribute("user");
+            Integer userID = user.getId();
             CommonDiposals commonDisposal = applyDisposalService.useCommonDisposal(commonDisposalID);
 
             resultDTO.setStatus("OK");

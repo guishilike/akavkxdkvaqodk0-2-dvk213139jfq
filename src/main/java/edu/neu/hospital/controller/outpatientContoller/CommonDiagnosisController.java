@@ -1,12 +1,12 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.CommonDiagnosis;
 import edu.neu.hospital.bean.basicTableBean.Disease;
 import edu.neu.hospital.bean.basicTableBean.Inspection;
-import edu.neu.hospital.bean.basicTableBean.User;
-import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.CommonDiagnosisService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +50,7 @@ public class CommonDiagnosisController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             commonDiagnosisService.addCommonDiagnosis( user.getId() ,diagnosisID);
             resultDTO.setStatus("OK");
@@ -72,7 +72,7 @@ public class CommonDiagnosisController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
         commonDiagnosisService.addCommonDiagnosisList( user.getId() , idDTO);
         resultDTO.setStatus("OK");
@@ -89,7 +89,7 @@ public class CommonDiagnosisController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
         commonDiagnosisService.deleteCommonDiagnosisList( idDTO , user.getId());
         resultDTO.setStatus("OK");
@@ -107,7 +107,7 @@ public class CommonDiagnosisController {
         ResultDTO<CommonDiagnosis> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             commonDiagnosisService.updateCommonDiagnosis(commonDiagnosis, user.getId());
             resultDTO.setStatus("OK");
@@ -129,7 +129,7 @@ public class CommonDiagnosisController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             commonDiagnosisService.deleteCommonDiagnosis(commonDiagnosisID ,user.getId());
 
@@ -173,7 +173,7 @@ public class CommonDiagnosisController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<CommonDiagnosis> commonDiagnosisList = commonDiagnosisService.listCommonDiagnosis(user.getId());
             System.out.println("-----");

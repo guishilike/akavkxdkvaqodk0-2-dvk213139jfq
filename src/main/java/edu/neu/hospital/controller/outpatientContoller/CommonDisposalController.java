@@ -1,10 +1,10 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.bean.basicTableBean.Inspection;
-import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.CommonDisposalService;
@@ -50,7 +50,7 @@ public class CommonDisposalController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             System.out.println("1");
             commonDisposalService.addCommonDiposals(  user.getId(),disposalID);
@@ -73,7 +73,7 @@ public class CommonDisposalController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
         commonDisposalService.addCommonDiposalsList( user.getId() , idDTO);
         resultDTO.setStatus("OK");
@@ -90,7 +90,7 @@ public class CommonDisposalController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
         commonDisposalService.deleteCommonDiposalsList( idDTO , user.getId());
         resultDTO.setStatus("OK");
@@ -108,7 +108,7 @@ public class CommonDisposalController {
         ResultDTO<CommonDiposals> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             commonDisposalService.updateCommonDiposals(commonDisposal, user.getId());
             resultDTO.setStatus("OK");
@@ -130,7 +130,7 @@ public class CommonDisposalController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             commonDisposalService.deleteCommonDiposals(commonDisposalID ,user.getId());
 
@@ -174,7 +174,7 @@ public class CommonDisposalController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<CommonDiposals> commonDisposalList = commonDisposalService.listCommonDiposals(user.getId());
             System.out.println("-----");

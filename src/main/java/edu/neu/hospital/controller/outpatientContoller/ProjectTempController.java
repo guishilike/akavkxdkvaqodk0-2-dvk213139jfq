@@ -1,12 +1,12 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.bean.basicTableBean.ProjectTemplate;
 import edu.neu.hospital.bean.basicTableBean.ProjectTemplateDetail;
-import edu.neu.hospital.bean.basicTableBean.User;
-import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.ProjectTempService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,7 +49,7 @@ public class ProjectTempController {
         ResultDTO<ProjectTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             projectTempService.addProjectTemplate(projectTemplate, user.getId());
             resultDTO.setStatus("OK");
@@ -70,7 +70,7 @@ public class ProjectTempController {
         ResultDTO<ProjectTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             projectTempService.updateProjectTemplate(projectTemplate, user.getId());
             resultDTO.setStatus("OK");
@@ -92,7 +92,7 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             projectTempService.deleteProjectTemplate(projectTemplateID ,user.getId());
 
@@ -114,7 +114,7 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             projectTempService.deleteProjectTemplateList(idDTO ,user.getId());
 
@@ -158,7 +158,7 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
 
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
             List<Integer> projectTemplateList = projectTempService.getThisDoctorTemp(user.getId());
             System.out.println("-----");
@@ -196,7 +196,7 @@ public class ProjectTempController {
         ResultDTO<ProjectTemplateDetail> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             projectTempService.addProjectTmpDetails(projectTempID, projectTemplateDetail,user.getId());
             resultDTO.setStatus("OK");
@@ -217,7 +217,7 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             projectTempService.updateProjectTmpDetails(projectTemplateDetail, user.getId());
             resultDTO.setStatus("OK");
@@ -239,7 +239,7 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             projectTempService.deleteProjectTmpDetails(projectTemplateDetailID ,user.getId());
 
@@ -261,7 +261,7 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             projectTempService.deleteProjectTmpDetailsList(idDTO ,user.getId());
 

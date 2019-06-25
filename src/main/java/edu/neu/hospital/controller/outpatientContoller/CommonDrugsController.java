@@ -1,8 +1,8 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.CommonDrugs;
 import edu.neu.hospital.bean.basicTableBean.Inspection;
-import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.CommonDrugService;
@@ -47,7 +47,7 @@ public class CommonDrugsController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             commonDrugsService.addCommonDrugs( user.getId() ,drugsID);
             resultDTO.setStatus("OK");
@@ -69,7 +69,7 @@ public class CommonDrugsController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
         commonDrugsService.addCommonDrugsList( user.getId() , idDTO);
         resultDTO.setStatus("OK");
@@ -86,7 +86,7 @@ public class CommonDrugsController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
         commonDrugsService.deleteCommonDrugsList(idDTO , user.getId());
         resultDTO.setStatus("OK");
@@ -104,7 +104,7 @@ public class CommonDrugsController {
         ResultDTO<CommonDrugs> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             commonDrugsService.updateCommonDrugs(commonDrugs, user.getId());
             resultDTO.setStatus("OK");
@@ -126,7 +126,7 @@ public class CommonDrugsController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             commonDrugsService.deleteCommonDrugs(commonDrugsID ,user.getId());
 

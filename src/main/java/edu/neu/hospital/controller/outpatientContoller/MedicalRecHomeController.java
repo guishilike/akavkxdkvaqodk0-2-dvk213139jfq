@@ -2,6 +2,7 @@ package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.MedicalRecHomeService;
@@ -52,7 +53,7 @@ public class MedicalRecHomeController {
         ResultDTO<MedicalRecHome> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             medicalRecHome.setDoctorId(user.getId());
             session.setAttribute("tmpMedicalRecHome" , medicalRecHome);
@@ -95,7 +96,7 @@ public class MedicalRecHomeController {
         ResultDTO<MedicalRecHome> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             //先把判断填写完整的那句去掉，不然测试太费劲
             medicalRecHomeService.add(medicalRecHome , user.getId());
@@ -117,7 +118,7 @@ public class MedicalRecHomeController {
     ResultDTO save_Template(MedicalRecHomeTemplate medicalRecHomeTemplate , HttpSession session){
         ResultDTO<MedicalRecHomeTemplate> resultDTO = new ResultDTO<>();
         try{
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             medicalRecHomeService.save_Template(medicalRecHomeTemplate , user.getId());
             resultDTO.setStatus("OK");
@@ -139,7 +140,7 @@ public class MedicalRecHomeController {
         ResultDTO<MedicalRecHomeTemplate> resultDTO = new ResultDTO<>();
         try {
             //
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             MedicalRecHomeTemplate medicalRecHomeTemplate = medicalRecHomeService.use_Template(recHomeTemplateID);
 
@@ -165,7 +166,7 @@ public class MedicalRecHomeController {
         ResultDTO<CommonDiagnosis> resultDTO = new ResultDTO<>();
         try {
             //
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             CommonDiagnosis commonDiagnosis = medicalRecHomeService.use_CommonDiagnosis(commonDiagnosisID);
 

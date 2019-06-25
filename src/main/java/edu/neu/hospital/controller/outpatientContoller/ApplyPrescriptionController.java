@@ -1,6 +1,7 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.ResultDTO;
@@ -33,7 +34,7 @@ public class ApplyPrescriptionController {
         ResultDTO<Prescription> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             applyPrescriptionService.addPrescription(prescription, user.getId());
             resultDTO.setStatus("OK");
@@ -56,7 +57,7 @@ public class ApplyPrescriptionController {
         ResultDTO<PageInfo<PrescriptionDetail>> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<PrescriptionDetail> list = dataListDTO.getData();
             List<PrescriptionDetail> res = new LinkedList<>();
@@ -91,7 +92,7 @@ public class ApplyPrescriptionController {
         ResultDTO resultDTO = new ResultDTO<>();
 
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
         applyPrescriptionService.addDrugs(prescriptionID, prescriptionDetail, user.getId());
         resultDTO.setStatus("OK");
@@ -134,7 +135,7 @@ public class ApplyPrescriptionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             applyPrescriptionService.drawPrescription(prescriptionID, user.getId());
             //PageInfo<PrescriptionDetail> list = new PageInfo<>(prescriptionDetailsList);
@@ -156,7 +157,7 @@ public class ApplyPrescriptionController {
         try {
 
             //
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             Fee fee = applyPrescriptionService.addProjectFee(prescriptionDetailID , user.getId());
 
@@ -179,7 +180,7 @@ public class ApplyPrescriptionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             applyPrescriptionService.deleteDrugs(prescriptionID, prescriptionDetailID ,user.getId());
 
@@ -201,7 +202,7 @@ public class ApplyPrescriptionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             applyPrescriptionService.deletePrescription(prescriptionID ,user.getId());
 
@@ -224,7 +225,7 @@ public class ApplyPrescriptionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             applyPrescriptionService.abolishPrescription(prescriptionID, user.getId());
             //PageInfo<PrescriptionDetail> list = new PageInfo<>(prescriptionDetailsList);
@@ -246,7 +247,7 @@ public class ApplyPrescriptionController {
         ResultDTO<CommonDrugs> resultDTO = new ResultDTO<>();
         try {
             //
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             CommonDrugs commonPrescription = applyPrescriptionService.useCommonDrugs(commonPrescriptionID);
 
@@ -269,7 +270,7 @@ public class ApplyPrescriptionController {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
         try{
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             Integer id = applyPrescriptionService.saveTemplate(projectTemplate , user.getId());
 
@@ -290,7 +291,7 @@ public class ApplyPrescriptionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             applyPrescriptionService.saveTemplateDetails(lists, user.getId());
 
@@ -312,7 +313,7 @@ public class ApplyPrescriptionController {
         ResultDTO<ProjectTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             ProjectTemplate p = applyPrescriptionService.use_Check(projectTemplateID);
 

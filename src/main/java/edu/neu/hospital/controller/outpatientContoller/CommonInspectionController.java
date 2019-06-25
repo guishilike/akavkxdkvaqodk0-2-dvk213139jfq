@@ -1,8 +1,8 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.CommonInspection;
 import edu.neu.hospital.bean.basicTableBean.Inspection;
-import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.CommonInspectionService;
@@ -49,7 +49,7 @@ public class CommonInspectionController {
             System.out.println("111111111111");
 
             System.out.println("111111111111");
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             System.out.println("111111111111");
             commonInspectionService.addCommonInspection( user.getId() ,inspectionID);
@@ -72,7 +72,7 @@ public class CommonInspectionController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
         commonInspectionService.addCommonInspectionList( user.getId() , idDTO);
         resultDTO.setStatus("OK");
@@ -89,7 +89,7 @@ public class CommonInspectionController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
         commonInspectionService.deleteCommonInspectionList( idDTO , user.getId());
         resultDTO.setStatus("OK");
@@ -107,7 +107,7 @@ public class CommonInspectionController {
         ResultDTO<CommonInspection> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             commonInspectionService.updateCommonInspection(commonInspection, user.getId());
             resultDTO.setStatus("OK");
@@ -129,7 +129,7 @@ public class CommonInspectionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             commonInspectionService.deleteCommonInspection(commonInspectionID ,user.getId());
 

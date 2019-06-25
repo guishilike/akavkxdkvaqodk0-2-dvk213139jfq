@@ -1,9 +1,9 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Diagnosis;
 import edu.neu.hospital.bean.basicTableBean.Disease;
-import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
@@ -28,7 +28,7 @@ public class DiagnosisController {
         ResultDTO<Diagnosis> resultDTO = new ResultDTO<>();
         try{
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             diagnoseService.addDiagnosis(diagnosis , user.getId());
             resultDTO.setStatus("OK");
@@ -52,7 +52,7 @@ public class DiagnosisController {
 
        // try{
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
             System.out.println("wai-----");
             diagnoseService.addDiagnosisList(diagnosisList , user.getId());
@@ -101,7 +101,7 @@ public class DiagnosisController {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
         try{
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             diagnoseService.deleteDiagnosis(diagnosisID , user.getId());
             resultDTO.setStatus("OK");
@@ -123,7 +123,7 @@ public class DiagnosisController {
 
         // try{
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
         System.out.println("wai-----");
 
@@ -151,7 +151,7 @@ public class DiagnosisController {
         ResultDTO<Diagnosis> resultDTO = new ResultDTO<>();
     try{
 
-        User user = (User)session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
             diagnoseService.updateDiagnosis(diagnosis , user.getId());
             resultDTO.setStatus("OK");
@@ -237,7 +237,7 @@ public class DiagnosisController {
 
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             diagnoseService.defineDiagnose(diagnosisID , user.getId());
             resultDTO.setStatus("OK");

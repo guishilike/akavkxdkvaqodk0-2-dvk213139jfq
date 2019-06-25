@@ -1,8 +1,8 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.MedicalRecHomeTemplate;
-import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.MedicalRecHomeTempService;
 import org.springframework.stereotype.Controller;
@@ -25,7 +25,7 @@ public class MedicalRecHomeTempController {
         ResultDTO<MedicalRecHomeTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             medicalRecHomeTempService.addMedicalRecHomeTemp(medicalRecHomeTemplate, user.getId());
             resultDTO.setStatus("OK");
@@ -46,7 +46,7 @@ public class MedicalRecHomeTempController {
         ResultDTO<MedicalRecHomeTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             medicalRecHomeTempService.updateMedicalRecHomeTemp(medicalRecHomeTemplate, user.getId());
             resultDTO.setStatus("OK");
@@ -68,7 +68,7 @@ public class MedicalRecHomeTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             medicalRecHomeTempService.deleteMedicalRecHomeTemplate(medicalRecHomeTemplateID ,user.getId());
 
@@ -112,7 +112,7 @@ public class MedicalRecHomeTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<Integer> medicalRecHomeTemplateList = medicalRecHomeTempService.getThisDoctorTemp(user.getId());
             System.out.println("-----");
