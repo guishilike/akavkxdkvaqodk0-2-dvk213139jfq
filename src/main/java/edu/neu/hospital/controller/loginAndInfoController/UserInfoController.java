@@ -140,7 +140,7 @@ public class UserInfoController {
             }
         }catch (Exception e){
             e.printStackTrace();
-            resultDTO.setStatus("FALSE");
+            resultDTO.setStatus("ERROR");
             resultDTO.setMsg("密码更新出现错误！");
         }
         return resultDTO;
@@ -149,13 +149,13 @@ public class UserInfoController {
     public @ResponseBody
 //    ResultDTO<User> update(int id, String userName, String realName, String passwd){
     ResultDTO<UserView> update( User user, HttpSession session){
-        System.out.println(user.getUserName());
-        System.out.println(user.getId());
-        System.out.println(user.getRealName());
-        System.out.println(user.getContact());
+//        System.out.println(user.getUserName());
+//        System.out.println(user.getId());
+//        System.out.println(user.getRealName());
+//        System.out.println(user.getContact());
 //        MultipartFile pic = pic1;
         UserView userView = (UserView) session.getAttribute("user");
-        System.out.println(userView.getId());
+//        System.out.println(userView.getId());
         //只能更新自己的用户信息
         user.setId(userView.getId());
         //更新用户密码时需要验证旧密码，不能直接修改，使用updatePasswd
