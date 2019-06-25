@@ -32,7 +32,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<DepartmentView> findDepartments(Integer deptCategoryID, Integer deptTypeID) {
         DepartmentViewExample example = new DepartmentViewExample();
         DepartmentViewExample.Criteria criteria = example.createCriteria();
-        System.out.println(departmentviewDao.selectByExample(example));
 
         if (deptCategoryID != null)
             criteria.andDeptCategoryIDEqualTo(deptCategoryID);
