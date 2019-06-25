@@ -23,11 +23,11 @@ public class CORSFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         Cookie mycookies[] = request.getCookies();
         String s = ((HttpServletRequest) servletRequest).getSession().getId();
-        System.out.println(s);
-        if (mycookies!=null)
-        for (Cookie c:mycookies) {
-            System.out.println(c.getName()+c.getValue());
-        }
+//        System.out.println(s);
+//        if (mycookies!=null)
+//        for (Cookie c:mycookies) {
+//            System.out.println(c.getName()+c.getValue());
+//        }
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
     @Resource
@@ -25,38 +26,42 @@ public class DepartmentServiceImpl implements DepartmentService {
     DepartmentDao departmentDao;
     @Resource
     ConstantItemDao constantitemDao;
-//查询科室列表
+
+    //查询科室列表
     @Override
     public List<DepartmentView> findDepartments(Integer deptCategoryID, Integer deptTypeID) {
-        DepartmentViewExample example=new DepartmentViewExample();
-        DepartmentViewExample.Criteria criteria=example.createCriteria();
+        DepartmentViewExample example = new DepartmentViewExample();
+        DepartmentViewExample.Criteria criteria = example.createCriteria();
+        System.out.println(departmentviewDao.selectByExample(example));
 
-        if(deptCategoryID!=null)
-        criteria.andDeptCategoryIDEqualTo(deptCategoryID);
-        if(deptTypeID!=null)
+        if (deptCategoryID != null)
+            criteria.andDeptCategoryIDEqualTo(deptCategoryID);
+        if (deptTypeID != null)
             criteria.andDeptTypeIDEqualTo(deptTypeID);
+
         return departmentviewDao.selectByExample(example);
     }
 
-//删除科室
+    //删除科室
     @Override
-    public void deleteById(Integer id,Integer userID) {
+    public void deleteById(Integer id, Integer userID) {
 
-            Department department=departmentDao.selectByPrimaryKey(id);
-            if(department!=null) {
-                department.setStatus("0");
-                department.setChangeDate(new Date());
-                department.setChangeUserID(userID);
-                departmentDao.updateByPrimaryKeySelective(department);
-            }
+        Department department = departmentDao.selectByPrimaryKey(id);
+        if (department != null) {
+            department.setStatus("0");
+            department.setChangeDate(new Date());
+            department.setChangeUserID(userID);
+            departmentDao.updateByPrimaryKeySelective(department);
+        }
 
     }
-//批量删除科室
+
+    //批量删除科室
     @Override
     public void deleteByChoose(IdDTO ids, Integer userID) {
-        for(Integer id:ids.getId()){
-            Department department=departmentDao.selectByPrimaryKey(id);
-            if(department!=null) {
+        for (Integer id : ids.getId()) {
+            Department department = departmentDao.selectByPrimaryKey(id);
+            if (department != null) {
                 department.setStatus("0");
                 department.setChangeDate(new Date());
                 department.setChangeUserID(userID);
@@ -65,53 +70,57 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         }
     }
+
     //列出所有科室类型或科室分类的id
     @Override
     public List<NameCodeDTO> findALLDeptTypeOrCategoryId(int i) {
-        if(i==0)
+        if (i == 0)
             return constantitemDao.findAllNamesAndCodesByType(21);
         else
             return constantitemDao.findAllNamesAndCodesByType(1);
 
     }
 
-//添加新科室
+    //添加新科室
     @Override
-    public void add(Department department,Integer userID) {
+    public void add(Department department, Integer userID) {
         department.setStatus("1");
         department.setAppearUserID(userID);
         department.setAppearDate(new Date());
         departmentDao.insert(department);
     }
-//修改科室信息
+
+    //修改科室信息
     @Override
-    public void change(Department department,Integer userID) {
+    public void change(Department department, Integer userID) {
         department.setChangeUserID(userID);
         department.setChangeDate(new Date());
         departmentDao.updateByPrimaryKeySelective(department);
     }
-//根据科室名称或编号查询科室
+
+    //根据科室名称或编号查询科室
     @Override
     public List<DepartmentView> findDepartmentByNameOrCode(String nameOrCode) {
-        DepartmentViewExample departmentviewExample =new DepartmentViewExample();
-        DepartmentViewExample.Criteria criteria1= departmentviewExample.createCriteria();
-        DepartmentViewExample.Criteria criteria2= departmentviewExample.createCriteria();
+        DepartmentViewExample departmentviewExample = new DepartmentViewExample();
+        DepartmentViewExample.Criteria criteria1 = departmentviewExample.createCriteria();
+        DepartmentViewExample.Criteria criteria2 = departmentviewExample.createCriteria();
 
         criteria1.andDeptNameEqualTo(nameOrCode);
         criteria2.andDeptCodeEqualTo(nameOrCode);
         departmentviewExample.or(criteria2);
         return departmentviewDao.selectByExample(departmentviewExample);
     }
-//查重
+
+    //查重
     @Override
-    public boolean checkContent(Department department,int state) {
-        DepartmentExample example=new DepartmentExample();
-        DepartmentExample.Criteria criteria=example.createCriteria();
-        if(state==1)
+    public boolean checkContent(Department department, int state) {
+        DepartmentExample example = new DepartmentExample();
+        DepartmentExample.Criteria criteria = example.createCriteria();
+        if (state == 1)
             criteria.andIdNotEqualTo(department.getId());
         criteria.andDeptNameEqualTo(department.getDeptName());
         criteria.andStatusEqualTo("1");
-        if(departmentDao.countByExample(example)>0)
+        if (departmentDao.countByExample(example) > 0)
             return false;
         else
             return true;
