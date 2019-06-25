@@ -122,6 +122,9 @@ public class DepartmentController {
     public @ResponseBody
     ResultDTO findByNameOrCode(String nameOrCode, Integer pageNum, Integer pageSize) {
         ResultDTO<PageInfo> resultDTO = new ResultDTO<>();
+        System.out.println(pageSize);
+        System.out.println(pageNum);
+        System.out.println(nameOrCode);
         try {
             PageHelper.startPage(pageNum, pageSize);
             List<DepartmentView> departmentview = departmentService.findDepartmentByNameOrCode(nameOrCode);
@@ -137,6 +140,7 @@ public class DepartmentController {
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，查找失败");
+            System.out.println(e);
         }
         return resultDTO;
     }
