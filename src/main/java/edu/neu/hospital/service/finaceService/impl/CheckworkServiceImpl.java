@@ -48,20 +48,30 @@ public class CheckworkServiceImpl implements CheckworkService {
     }
 
     @Override
-    public int updateById(Integer feeID, Integer userID) {
+    public void updateById(Integer feeID, Integer userID) {
         FeeExample feeExample = new FeeExample();
         feeExample.clear();
         FeeExample.Criteria criteria = feeExample.createCriteria();
         Fee fee = feeDao.selectByPrimaryKey(feeID);
         if(fee != null){
-//            fee.set
+            fee.setCheckStatus("已对账");
+            fee.setChangeUserID(userID);
+            fee.setFeeChangeDate(new Date());
+            feeDao.updateByPrimaryKeySelective(fee);
         }
-        return 0;
     }
 
     @Override
-    public int updateByChoose(IdDTO feeIDs, Integer userID) {
-        return 0;
+    public void updateByChoose(IdDTO feeIDs, Integer userID) {
+        for (Integer id : feeIDs.getId()){
+            Fee fee = feeDao.selectByPrimaryKey(id);
+            if(fee != null){
+                fee.setCheckStatus("已对账");
+                fee.setChangeUserID(userID);
+                fee.setFeeChangeDate(new Date());
+                feeDao.updateByPrimaryKeySelective(fee);
+            }
+        }
     }
 
 

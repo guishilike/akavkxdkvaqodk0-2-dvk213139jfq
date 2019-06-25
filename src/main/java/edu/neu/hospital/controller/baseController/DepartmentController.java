@@ -93,7 +93,8 @@ public class DepartmentController {
         ResultDTO<IdDTO> resultDTO = new ResultDTO<>();
         if(ids.getId()!=null) {
             try {
-                UserView user = (UserView) session.getAttribute("user");                departmentService.deleteByChoose(ids, user.getId());
+                UserView user = (UserView) session.getAttribute("user");
+                departmentService.deleteByChoose(ids, user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除科室成功");
                 resultDTO.setData(ids);

@@ -18,7 +18,7 @@ public interface CheckworkService {
      */
     List<CheckWork> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd);
 
-    public int updateById(Integer id,Integer userID);
+    public void updateById(Integer id,Integer userID);
 
-    public int updateByChoose(IdDTO ids, Integer userID);
+    public void updateByChoose(IdDTO ids, Integer userID);
 }
