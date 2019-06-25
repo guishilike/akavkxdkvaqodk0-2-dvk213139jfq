@@ -1,9 +1,12 @@
 package edu.neu.hospital.service.finaceService.impl;
 
 
-
+import edu.neu.hospital.bean.basicTableBean.Fee;
 import edu.neu.hospital.bean.finaceBean.CheckWork;
+import edu.neu.hospital.dao.basicTableDao.FeeDao;
 import edu.neu.hospital.dao.finaceDao.CheckWorkDao;
+import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.example.basicTableExample.FeeExample;
 import edu.neu.hospital.example.finaceExample.CheckWorkExample;
 import edu.neu.hospital.service.finaceService.CheckworkService;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,8 @@ import java.util.List;
 public class CheckworkServiceImpl implements CheckworkService {
     @Resource
     CheckWorkDao checkworkDao;
+    @Resource
+    FeeDao feeDao;
 
     /**
      *
@@ -41,4 +46,23 @@ public class CheckworkServiceImpl implements CheckworkService {
         List<CheckWork> list = checkworkDao.selectByExample(checkworkExample);
         return list;
     }
+
+    @Override
+    public int updateById(Integer feeID, Integer userID) {
+        FeeExample feeExample = new FeeExample();
+        feeExample.clear();
+        FeeExample.Criteria criteria = feeExample.createCriteria();
+        Fee fee = feeDao.selectByPrimaryKey(feeID);
+        if(fee != null){
+//            fee.set
+        }
+        return 0;
+    }
+
+    @Override
+    public int updateByChoose(IdDTO feeIDs, Integer userID) {
+        return 0;
+    }
+
+
 }

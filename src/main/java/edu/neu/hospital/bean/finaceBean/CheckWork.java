@@ -92,6 +92,11 @@ public class CheckWork implements Serializable {
 
     private String datestatusName;
 
+    /**
+     * 对账状态:1.未对账2.已对账
+     */
+    private String checkStatus;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getDoctorID() {
@@ -246,6 +251,14 @@ public class CheckWork implements Serializable {
         this.datestatusName = datestatusName;
     }
 
+    public String getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus(String checkStatus) {
+        this.checkStatus = checkStatus;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -276,7 +289,8 @@ public class CheckWork implements Serializable {
             && (this.getPaystatusName() == null ? other.getPaystatusName() == null : this.getPaystatusName().equals(other.getPaystatusName()))
             && (this.getDateStatus() == null ? other.getDateStatus() == null : this.getDateStatus().equals(other.getDateStatus()))
             && (this.getDatestatusCode() == null ? other.getDatestatusCode() == null : this.getDatestatusCode().equals(other.getDatestatusCode()))
-            && (this.getDatestatusName() == null ? other.getDatestatusName() == null : this.getDatestatusName().equals(other.getDatestatusName()));
+            && (this.getDatestatusName() == null ? other.getDatestatusName() == null : this.getDatestatusName().equals(other.getDatestatusName()))
+            && (this.getCheckStatus() == null ? other.getCheckStatus() == null : this.getCheckStatus().equals(other.getCheckStatus()));
     }
 
     @Override
@@ -302,6 +316,7 @@ public class CheckWork implements Serializable {
         result = prime * result + ((getDateStatus() == null) ? 0 : getDateStatus().hashCode());
         result = prime * result + ((getDatestatusCode() == null) ? 0 : getDatestatusCode().hashCode());
         result = prime * result + ((getDatestatusName() == null) ? 0 : getDatestatusName().hashCode());
+        result = prime * result + ((getCheckStatus() == null) ? 0 : getCheckStatus().hashCode());
         return result;
     }
 
@@ -330,6 +345,7 @@ public class CheckWork implements Serializable {
         sb.append(", dateStatus=").append(dateStatus);
         sb.append(", datestatusCode=").append(datestatusCode);
         sb.append(", datestatusName=").append(datestatusName);
+        sb.append(", checkStatus=").append(checkStatus);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

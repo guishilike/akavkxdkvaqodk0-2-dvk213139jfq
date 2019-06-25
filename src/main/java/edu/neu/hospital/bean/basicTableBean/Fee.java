@@ -85,7 +85,10 @@ public class Fee implements Serializable {
      */
     private String status;
 
-    private String reserve1;
+    /**
+     * 对账状态:1.未对账2.已对账
+     */
+    private String checkStatus;
 
     private static final long serialVersionUID = 1L;
 
@@ -209,12 +212,12 @@ public class Fee implements Serializable {
         this.status = status;
     }
 
-    public String getReserve1() {
-        return reserve1;
+    public String getCheckStatus() {
+        return checkStatus;
     }
 
-    public void setReserve1(String reserve1) {
-        this.reserve1 = reserve1;
+    public void setCheckStatus(String checkStatus) {
+        this.checkStatus = checkStatus;
     }
 
     @Override
@@ -244,7 +247,7 @@ public class Fee implements Serializable {
             && (this.getPayStatus() == null ? other.getPayStatus() == null : this.getPayStatus().equals(other.getPayStatus()))
             && (this.getDateStatus() == null ? other.getDateStatus() == null : this.getDateStatus().equals(other.getDateStatus()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()));
+            && (this.getCheckStatus() == null ? other.getCheckStatus() == null : this.getCheckStatus().equals(other.getCheckStatus()));
     }
 
     @Override
@@ -266,7 +269,7 @@ public class Fee implements Serializable {
         result = prime * result + ((getPayStatus() == null) ? 0 : getPayStatus().hashCode());
         result = prime * result + ((getDateStatus() == null) ? 0 : getDateStatus().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getReserve1() == null) ? 0 : getReserve1().hashCode());
+        result = prime * result + ((getCheckStatus() == null) ? 0 : getCheckStatus().hashCode());
         return result;
     }
 
@@ -291,7 +294,7 @@ public class Fee implements Serializable {
         sb.append(", payStatus=").append(payStatus);
         sb.append(", dateStatus=").append(dateStatus);
         sb.append(", status=").append(status);
-        sb.append(", reserve1=").append(reserve1);
+        sb.append(", checkStatus=").append(checkStatus);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

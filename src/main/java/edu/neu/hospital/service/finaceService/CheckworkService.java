@@ -1,9 +1,8 @@
 package edu.neu.hospital.service.finaceService;
 
 
-
-
 import edu.neu.hospital.bean.finaceBean.CheckWork;
+import edu.neu.hospital.dto.IdDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -18,4 +17,8 @@ public interface CheckworkService {
      * @return Checkwork核对类型的list
      */
     List<CheckWork> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd);
+
+    public int updateById(Integer id,Integer userID);
+
+    public int updateByChoose(IdDTO ids, Integer userID);
 }
