@@ -1,5 +1,6 @@
 package edu.neu.hospital.controller.registerAndChargeController;
 
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Patient;
 import edu.neu.hospital.bean.basicTableBean.Registrationinfo;
 import edu.neu.hospital.dto.ResultDTO;
@@ -31,8 +32,8 @@ public class RegisterController {
                        Registrationinfo regInfo, HttpSession session) {
 
         try {
-
-            Integer appearUserID = Integer.parseInt((String) session.getAttribute("userID"));
+            UserView user = (UserView) session.getAttribute("user");
+            Integer appearUserID = user.getId();
             int result = regService.addRegisteredInfo(isHaveCard, patient, passwd, regInfo, appearUserID);
 
             if (0 == result) {
