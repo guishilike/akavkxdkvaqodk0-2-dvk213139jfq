@@ -1,5 +1,6 @@
 package edu.neu.hospital.controller.registerAndChargeController;
 
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Patient;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.patientcard.PatientCardService;
@@ -55,8 +56,8 @@ public class PatientCardController {
     ResultDTO changePasswd(Integer id, String passwd, HttpSession session) {
 
         try {
-
-            Integer changeUserID = Integer.parseInt((String) session.getAttribute("userID"));
+            UserView user = (UserView) session.getAttribute("user");
+            Integer changeUserID = user.getId();
             int result = patientCardService.changePasswd(id, passwd, changeUserID);
 
             if (0 == result) {
@@ -99,8 +100,8 @@ public class PatientCardController {
     ResultDTO recharge(Integer id, BigDecimal money, HttpSession session) {
 
         try {
-
-            Integer appearUserID = Integer.parseInt((String) session.getAttribute("userID"));
+            UserView user = (UserView) session.getAttribute("user");
+            Integer appearUserID = user.getId();
             int result = patientCardService.recharge(id, money, appearUserID);
 
             if (0 == result) {

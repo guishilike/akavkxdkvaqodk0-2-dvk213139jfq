@@ -1,6 +1,7 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.ResultDTO;
@@ -33,9 +34,9 @@ public class ApplyPrescriptionController {
         ResultDTO<Prescription> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            applyPrescriptionService.addPrescription(prescription, doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            applyPrescriptionService.addPrescription(prescription, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增方成功");
             resultDTO.setData(prescription);
@@ -56,15 +57,15 @@ public class ApplyPrescriptionController {
         ResultDTO<PageInfo<PrescriptionDetail>> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
             List<PrescriptionDetail> list = dataListDTO.getData();
             List<PrescriptionDetail> res = new LinkedList<>();
 
             for (int i = 0; i < list.size(); i++) {
                 PrescriptionDetail prescriptionDetails = list.get(i);
                 prescriptionDetails.setAppearDate(new Date());
-                prescriptionDetails.setAppearUserID(doctorID);
+                prescriptionDetails.setAppearUserID(user.getId());
                 res.add(prescriptionDetails);
 
             }
@@ -91,9 +92,9 @@ public class ApplyPrescriptionController {
         ResultDTO resultDTO = new ResultDTO<>();
 
 
-        System.out.println(session.getAttribute("userID"));
-        Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-        applyPrescriptionService.addDrugs(prescriptionID, prescriptionDetail, doctorID);
+        UserView user = (UserView) session.getAttribute("user");
+        System.out.println(user.getId());
+        applyPrescriptionService.addDrugs(prescriptionID, prescriptionDetail, user.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处方药成功");
         resultDTO.setData(prescriptionID);
@@ -134,9 +135,9 @@ public class ApplyPrescriptionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            applyPrescriptionService.drawPrescription(prescriptionID, doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            applyPrescriptionService.drawPrescription(prescriptionID, user.getId());
             //PageInfo<PrescriptionDetail> list = new PageInfo<>(prescriptionDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("开立成功");
@@ -156,7 +157,7 @@ public class ApplyPrescriptionController {
         try {
 
             //
-            User user = (User)session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             Fee fee = applyPrescriptionService.addProjectFee(prescriptionDetailID , user.getId());
 
@@ -179,9 +180,9 @@ public class ApplyPrescriptionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            applyPrescriptionService.deleteDrugs(prescriptionID, prescriptionDetailID ,doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            applyPrescriptionService.deleteDrugs(prescriptionID, prescriptionDetailID ,user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
@@ -201,9 +202,9 @@ public class ApplyPrescriptionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            applyPrescriptionService.deletePrescription(prescriptionID ,doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            applyPrescriptionService.deletePrescription(prescriptionID ,user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
@@ -224,9 +225,9 @@ public class ApplyPrescriptionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            applyPrescriptionService.abolishPrescription(prescriptionID, doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            applyPrescriptionService.abolishPrescription(prescriptionID, user.getId());
             //PageInfo<PrescriptionDetail> list = new PageInfo<>(prescriptionDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("废除成功");
@@ -246,7 +247,8 @@ public class ApplyPrescriptionController {
         ResultDTO<CommonDrugs> resultDTO = new ResultDTO<>();
         try {
             //
-            Integer userID = Integer.parseInt((String)session.getAttribute("userID"));
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
             CommonDrugs commonPrescription = applyPrescriptionService.useCommonDrugs(commonPrescriptionID);
 
             resultDTO.setStatus("OK");
@@ -268,9 +270,9 @@ public class ApplyPrescriptionController {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
         try{
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            Integer id = applyPrescriptionService.saveTemplate(projectTemplate , doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            Integer id = applyPrescriptionService.saveTemplate(projectTemplate , user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("存为模板");
@@ -289,9 +291,9 @@ public class ApplyPrescriptionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            applyPrescriptionService.saveTemplateDetails(lists, doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            applyPrescriptionService.saveTemplateDetails(lists, user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("模板详细存储成功");
@@ -311,8 +313,8 @@ public class ApplyPrescriptionController {
         ResultDTO<ProjectTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
             ProjectTemplate p = applyPrescriptionService.use_Check(projectTemplateID);
 
             resultDTO.setStatus("OK");

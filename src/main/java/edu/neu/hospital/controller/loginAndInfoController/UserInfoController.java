@@ -37,7 +37,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -84,8 +83,11 @@ public class UserInfoController {
 
     @RequestMapping("/updatePic")
     ResultDTO<String> updatePic(MultipartFile pic,HttpSession session){
+//        System.out.println(pic.isEmpty());
         ResultDTO<String> resultDTO = new ResultDTO<>();
         UserView userView = (UserView) session.getAttribute("user");
+        System.out.println("上传图");
+        System.out.println(userView.getId());
         User user = new User();
         user.setId(userView.getId());
         user.setUserName(userView.getUserName());
@@ -146,9 +148,14 @@ public class UserInfoController {
     @RequestMapping("/updateUserInfo")
     public @ResponseBody
 //    ResultDTO<User> update(int id, String userName, String realName, String passwd){
-    ResultDTO<UserView> update(@RequestBody User user, HttpSession session){
+    ResultDTO<UserView> update( User user, HttpSession session){
+        System.out.println(user.getUserName());
+        System.out.println(user.getId());
+        System.out.println(user.getRealName());
+        System.out.println(user.getContact());
 //        MultipartFile pic = pic1;
         UserView userView = (UserView) session.getAttribute("user");
+        System.out.println(userView.getId());
         //只能更新自己的用户信息
         user.setId(userView.getId());
         //更新用户密码时需要验证旧密码，不能直接修改，使用updatePasswd

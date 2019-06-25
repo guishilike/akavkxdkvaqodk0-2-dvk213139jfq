@@ -1,11 +1,12 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.bean.basicTableBean.ProjectTemplate;
 import edu.neu.hospital.bean.basicTableBean.ProjectTemplateDetail;
-import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.ProjectTempService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,9 +49,9 @@ public class ProjectTempController {
         ResultDTO<ProjectTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            projectTempService.addProjectTemplate(projectTemplate, doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            projectTempService.addProjectTemplate(projectTemplate, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加模板成功");
             resultDTO.setData(projectTemplate);
@@ -69,9 +70,9 @@ public class ProjectTempController {
         ResultDTO<ProjectTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            projectTempService.updateProjectTemplate(projectTemplate, doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            projectTempService.updateProjectTemplate(projectTemplate, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加模板成功");
             resultDTO.setData(projectTemplate);
@@ -91,9 +92,9 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            projectTempService.deleteProjectTemplate(projectTemplateID ,doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            projectTempService.deleteProjectTemplate(projectTemplateID ,user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
@@ -113,9 +114,9 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            projectTempService.deleteProjectTemplateList(idDTO ,doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            projectTempService.deleteProjectTemplateList(idDTO ,user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
@@ -157,9 +158,9 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
 
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            List<Integer> projectTemplateList = projectTempService.getThisDoctorTemp(doctorID);
+        UserView user = (UserView) session.getAttribute("user");
+        System.out.println(user.getId());
+            List<Integer> projectTemplateList = projectTempService.getThisDoctorTemp(user.getId());
             System.out.println("-----");
             System.out.println("-----");
             resultDTO.setMsg("模糊查询处置");
@@ -195,9 +196,9 @@ public class ProjectTempController {
         ResultDTO<ProjectTemplateDetail> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            projectTempService.addProjectTmpDetails(projectTempID, projectTemplateDetail,doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            projectTempService.addProjectTmpDetails(projectTempID, projectTemplateDetail,user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加模板成功");
             resultDTO.setData(projectTemplateDetail);
@@ -216,9 +217,9 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            projectTempService.updateProjectTmpDetails(projectTemplateDetail, doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            projectTempService.updateProjectTmpDetails(projectTemplateDetail, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("更改模板成功");
             resultDTO.setData(projectTemplateDetail);
@@ -238,9 +239,9 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            projectTempService.deleteProjectTmpDetails(projectTemplateDetailID ,doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            projectTempService.deleteProjectTmpDetails(projectTemplateDetailID ,user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
@@ -260,9 +261,9 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            projectTempService.deleteProjectTmpDetailsList(idDTO ,doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            projectTempService.deleteProjectTmpDetailsList(idDTO ,user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");

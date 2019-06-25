@@ -1,11 +1,12 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.CommonDiagnosis;
 import edu.neu.hospital.bean.basicTableBean.Disease;
 import edu.neu.hospital.bean.basicTableBean.Inspection;
-import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.CommonDiagnosisService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +25,12 @@ public class CommonDiagnosisController {
         //常用诊断管理
     //列出
     //根据医生ID列出他的常用诊断
-    public List<CommonDiagnosis> listCommonDiagnosis(Integer doctorID );
+    public List<CommonDiagnosis> listCommonDiagnosis(Integer user.getId() );
 
     //增
-    public Integer addCommonDiagnosis( Integer doctorID , Integer diagnosisID);
+    public Integer addCommonDiagnosis( Integer user.getId() , Integer diagnosisID);
     //批量增
-    public boolean addCommonDiagnosisList( Integer doctorID , IdDTO IdDTO);
+    public boolean addCommonDiagnosisList( Integer user.getId() , IdDTO IdDTO);
     public List<Disease> searchDisease(String str);
     //删
     public Integer deleteCommonDiagnosis ( Integer commonDiagnosisID , Integer userID);
@@ -49,9 +50,9 @@ public class CommonDiagnosisController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            commonDiagnosisService.addCommonDiagnosis( doctorID ,diagnosisID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            commonDiagnosisService.addCommonDiagnosis( user.getId() ,diagnosisID);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加模板成功");
             resultDTO.setData(diagnosisID);
@@ -71,9 +72,9 @@ public class CommonDiagnosisController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        System.out.println(session.getAttribute("userID"));
-        Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-        commonDiagnosisService.addCommonDiagnosisList( doctorID , idDTO);
+        UserView user = (UserView) session.getAttribute("user");
+        System.out.println(user.getId());
+        commonDiagnosisService.addCommonDiagnosisList( user.getId() , idDTO);
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处置详细成功");
         //resultDTO.setData(inspection);
@@ -88,9 +89,9 @@ public class CommonDiagnosisController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        System.out.println(session.getAttribute("userID"));
-        Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-        commonDiagnosisService.deleteCommonDiagnosisList( idDTO , doctorID);
+        UserView user = (UserView) session.getAttribute("user");
+        System.out.println(user.getId());
+        commonDiagnosisService.deleteCommonDiagnosisList( idDTO , user.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("删除多个成功");
         //resultDTO.setData(inspection);
@@ -106,9 +107,9 @@ public class CommonDiagnosisController {
         ResultDTO<CommonDiagnosis> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            commonDiagnosisService.updateCommonDiagnosis(commonDiagnosis, doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            commonDiagnosisService.updateCommonDiagnosis(commonDiagnosis, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加模板成功");
             resultDTO.setData(commonDiagnosis);
@@ -128,9 +129,9 @@ public class CommonDiagnosisController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            commonDiagnosisService.deleteCommonDiagnosis(commonDiagnosisID ,doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            commonDiagnosisService.deleteCommonDiagnosis(commonDiagnosisID ,user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
@@ -172,9 +173,9 @@ public class CommonDiagnosisController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            List<CommonDiagnosis> commonDiagnosisList = commonDiagnosisService.listCommonDiagnosis(doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            List<CommonDiagnosis> commonDiagnosisList = commonDiagnosisService.listCommonDiagnosis(user.getId());
             System.out.println("-----");
             System.out.println("-----");
             resultDTO.setMsg("模糊查询处置");

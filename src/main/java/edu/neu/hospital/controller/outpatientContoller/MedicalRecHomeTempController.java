@@ -1,6 +1,7 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.MedicalRecHomeTemplate;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.MedicalRecHomeTempService;
@@ -24,9 +25,9 @@ public class MedicalRecHomeTempController {
         ResultDTO<MedicalRecHomeTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            medicalRecHomeTempService.addMedicalRecHomeTemp(medicalRecHomeTemplate, doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            medicalRecHomeTempService.addMedicalRecHomeTemp(medicalRecHomeTemplate, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加模板成功");
             resultDTO.setData(medicalRecHomeTemplate);
@@ -45,9 +46,9 @@ public class MedicalRecHomeTempController {
         ResultDTO<MedicalRecHomeTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            medicalRecHomeTempService.updateMedicalRecHomeTemp(medicalRecHomeTemplate, doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            medicalRecHomeTempService.updateMedicalRecHomeTemp(medicalRecHomeTemplate, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加模板成功");
             resultDTO.setData(medicalRecHomeTemplate);
@@ -67,9 +68,9 @@ public class MedicalRecHomeTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            medicalRecHomeTempService.deleteMedicalRecHomeTemplate(medicalRecHomeTemplateID ,doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            medicalRecHomeTempService.deleteMedicalRecHomeTemplate(medicalRecHomeTemplateID ,user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
@@ -111,9 +112,9 @@ public class MedicalRecHomeTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            List<Integer> medicalRecHomeTemplateList = medicalRecHomeTempService.getThisDoctorTemp(doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            List<Integer> medicalRecHomeTemplateList = medicalRecHomeTempService.getThisDoctorTemp(user.getId());
             System.out.println("-----");
             System.out.println("-----");
             resultDTO.setMsg("该医生的模板");

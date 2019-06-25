@@ -1,5 +1,6 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.CommonInspection;
 import edu.neu.hospital.bean.basicTableBean.Inspection;
 import edu.neu.hospital.dto.IdDTO;
@@ -21,12 +22,12 @@ public class CommonInspectionController {
         //常用诊断管理
     //列出
     //根据医生ID列出他的常用诊断
-    public List<CommonInspection> listCommonInspection(Integer doctorID );
+    public List<CommonInspection> listCommonInspection(Integer user.getId() );
 
     //增
-    public Integer addCommonInspection( Integer doctorID , Integer inspectionID);
+    public Integer addCommonInspection( Integer user.getId() , Integer inspectionID);
     //批量增
-    public boolean addCommonInspectionList( Integer doctorID , IdDTO IdDTO);
+    public boolean addCommonInspectionList( Integer user.getId() , IdDTO IdDTO);
     public List<Disease> searchDisease(String str);
     //删
     public Integer deleteCommonInspection ( Integer commonInspectionID , Integer userID);
@@ -48,11 +49,10 @@ public class CommonInspectionController {
             System.out.println("111111111111");
 
             System.out.println("111111111111");
-            System.out.println(session.getAttribute("userID"));
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
             System.out.println("111111111111");
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            System.out.println("111111111111");
-            commonInspectionService.addCommonInspection( doctorID ,inspectionID);
+            commonInspectionService.addCommonInspection( user.getId() ,inspectionID);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加模板成功");
             resultDTO.setData(inspectionID);
@@ -72,9 +72,9 @@ public class CommonInspectionController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        System.out.println(session.getAttribute("userID"));
-        Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-        commonInspectionService.addCommonInspectionList( doctorID , idDTO);
+        UserView user = (UserView) session.getAttribute("user");
+        System.out.println(user.getId());
+        commonInspectionService.addCommonInspectionList( user.getId() , idDTO);
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处置详细成功");
         //resultDTO.setData(inspection);
@@ -89,9 +89,9 @@ public class CommonInspectionController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        System.out.println(session.getAttribute("userID"));
-        Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-        commonInspectionService.deleteCommonInspectionList( idDTO , doctorID);
+        UserView user = (UserView) session.getAttribute("user");
+        System.out.println(user.getId());
+        commonInspectionService.deleteCommonInspectionList( idDTO , user.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("删除多个成功");
         //resultDTO.setData(inspection);
@@ -107,9 +107,9 @@ public class CommonInspectionController {
         ResultDTO<CommonInspection> resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            commonInspectionService.updateCommonInspection(commonInspection, doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            commonInspectionService.updateCommonInspection(commonInspection, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加模板成功");
             resultDTO.setData(commonInspection);
@@ -129,9 +129,9 @@ public class CommonInspectionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            System.out.println(session.getAttribute("userID"));
-            Integer doctorID = Integer.parseInt((String) session.getAttribute("userID"));
-            commonInspectionService.deleteCommonInspection(commonInspectionID ,doctorID);
+            UserView user = (UserView) session.getAttribute("user");
+            System.out.println(user.getId());
+            commonInspectionService.deleteCommonInspection(commonInspectionID ,user.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
