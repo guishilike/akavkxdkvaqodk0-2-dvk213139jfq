@@ -7,6 +7,7 @@ import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.dao.disposalDao.*;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.basicTableExample.DrugsExample;
+import edu.neu.hospital.example.basicTableExample.FMedItemExample;
 import edu.neu.hospital.example.basicTableExample.MaterialsExample;
 import edu.neu.hospital.example.basicTableExample.MedicinesMaterialsListExample;
 import edu.neu.hospital.example.disposalExample.*;
@@ -44,7 +45,8 @@ public class DisposalServiceImpl implements DisposalService {
     private DisposalDetailsDao disposaldetailsDao;
     @Resource
     private FeeDao feeDao;
-
+    @Resource
+    private FMedItemDao fMedItemDao;
 
     /**
      * 处置搜索表单信息
@@ -116,7 +118,7 @@ public class DisposalServiceImpl implements DisposalService {
                 criteria3.andIsPaidEqualTo(133);
                 criteria4.andIsPaidEqualTo(133);
                 criteria5.andIsPaidEqualTo(133);
-            } else if (mark == 144||mark == 145) {
+            } else if (mark == 144 || mark == 145) {
                 criteria.andIsExecutedEqualTo(mark);
                 criteria1.andIsExecutedEqualTo(mark);
                 criteria2.andIsExecutedEqualTo(mark);
@@ -155,10 +157,10 @@ public class DisposalServiceImpl implements DisposalService {
             //去除空格
             String searchd = regexProcess.regexProcess02(search);
 
-            if (regexProcess.regexProcess03(search)){
+            if (regexProcess.regexProcess03(search)) {
                 criteria.andDisposalIdEqualTo(Integer.valueOf(search));
             }
-            if (regexProcess.regexProcess03(search)){
+            if (regexProcess.regexProcess03(search)) {
                 criteria1.andFmeditemIdEqualTo(Integer.valueOf(search));
             }
             criteria2.andFmeditemCodeLike("%" + searchd + "%");
@@ -172,6 +174,20 @@ public class DisposalServiceImpl implements DisposalService {
         disposalformviewExample.or(criteria3);
 
         return DisposalformviewDao.selectByExample(disposalformviewExample);
+    }
+
+
+    /**
+     * searchFMedItem
+     *
+     * @return 非药品项目列表
+     */
+    public List<FMedItem> searchFMedItem() {
+        FMedItemExample fMedItemExample = new FMedItemExample();
+        FMedItemExample.Criteria criteria = fMedItemExample.createCriteria();
+        criteria.andRecordTypeEqualTo(119);
+        criteria.andStatusEqualTo("1");
+        return fMedItemDao.selectByExample(fMedItemExample);
     }
 
 
@@ -195,14 +211,14 @@ public class DisposalServiceImpl implements DisposalService {
     /**
      * 组套查询相关药品
      *
-     * @param  fMedItemName 项目名称
-     * @param search 搜索内容
+     * @param fMedItemName 项目名称
+     * @param search       搜索内容
      * @return 药品列表
      */
-    public List<DisposalMedPlateView> disposalmedplateview(String fMedItemName, String search){
-        DisposalMedPlateViewExample DisposalmedplateviewExample=new DisposalMedPlateViewExample();
-        DisposalMedPlateViewExample.Criteria criteria=DisposalmedplateviewExample.createCriteria();
-        DisposalMedPlateViewExample.Criteria criteria1=DisposalmedplateviewExample.createCriteria();
+    public List<DisposalMedPlateView> disposalmedplateview(String fMedItemName, String search) {
+        DisposalMedPlateViewExample DisposalmedplateviewExample = new DisposalMedPlateViewExample();
+        DisposalMedPlateViewExample.Criteria criteria = DisposalmedplateviewExample.createCriteria();
+        DisposalMedPlateViewExample.Criteria criteria1 = DisposalmedplateviewExample.createCriteria();
         criteria.andNameLike("fMedItemName");
         criteria1.andNameLike("search");
         DisposalmedplateviewExample.or(criteria1);
@@ -212,20 +228,19 @@ public class DisposalServiceImpl implements DisposalService {
     /**
      * 组套查询相关材料
      *
-     * @param  fMedItemName 项目名称
-     * @param search 搜索内容
+     * @param fMedItemName 项目名称
+     * @param search       搜索内容
      * @return 材料列表
      */
-    public List<DisposalMatPlateView> disposalmatplateview(String fMedItemName, String search){
-        DisposalMatPlateViewExample DisposalmatplateviewExample=new DisposalMatPlateViewExample();
-        DisposalMatPlateViewExample.Criteria criteria=DisposalmatplateviewExample.createCriteria();
-        DisposalMatPlateViewExample.Criteria criteria1=DisposalmatplateviewExample.createCriteria();
+    public List<DisposalMatPlateView> disposalmatplateview(String fMedItemName, String search) {
+        DisposalMatPlateViewExample DisposalmatplateviewExample = new DisposalMatPlateViewExample();
+        DisposalMatPlateViewExample.Criteria criteria = DisposalmatplateviewExample.createCriteria();
+        DisposalMatPlateViewExample.Criteria criteria1 = DisposalmatplateviewExample.createCriteria();
         criteria.andPlateNameLike("fMedItemName");
         criteria1.andPlateNameLike("search");
         DisposalmatplateviewExample.or(criteria1);
         return DisposalmatplateviewDao.selectByExample(DisposalmatplateviewExample);
     }
-
 
 
     /**
@@ -335,7 +350,7 @@ public class DisposalServiceImpl implements DisposalService {
      *
      * @param matListIDs 药品材料关联编号列表
      */
-    public void approveMat(IdDTO matListIDs,Integer userID) {
+    public void approveMat(IdDTO matListIDs, Integer userID) {
         List<Integer> medMatListIDlist = matListIDs.getId();
         for (Integer ID : medMatListIDlist) {
             MedicinesMaterialsList medicinesmaterialslist = new MedicinesMaterialsList();
@@ -349,25 +364,25 @@ public class DisposalServiceImpl implements DisposalService {
             medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
 
 
-            DisposalMatReViewExample DisposalmatreviewExample=new DisposalMatReViewExample();
-            DisposalMatReViewExample.Criteria criteriaM=DisposalmatreviewExample.createCriteria();
+            DisposalMatReViewExample DisposalmatreviewExample = new DisposalMatReViewExample();
+            DisposalMatReViewExample.Criteria criteriaM = DisposalmatreviewExample.createCriteria();
             criteriaM.andMedicinesMaterialsIDEqualTo(ID);
-            DisposalMatReView Disposalmatreview=DisposalmatreviewDao.selectByExample(DisposalmatreviewExample).get(0);
+            DisposalMatReView Disposalmatreview = DisposalmatreviewDao.selectByExample(DisposalmatreviewExample).get(0);
 
-            DisposalFormViewExample DisposalformviewExample=new DisposalFormViewExample();
-            DisposalFormViewExample.Criteria criteriaF=DisposalformviewExample.createCriteria();
+            DisposalFormViewExample DisposalformviewExample = new DisposalFormViewExample();
+            DisposalFormViewExample.Criteria criteriaF = DisposalformviewExample.createCriteria();
             criteriaF.andDisposaldetialsIDEqualTo(Disposalmatreview.getItemsDetailID());
-            DisposalFormView Disposalformview=DisposalformviewDao.selectByExample(DisposalformviewExample).get(0);
+            DisposalFormView Disposalformview = DisposalformviewDao.selectByExample(DisposalformviewExample).get(0);
 
 
-            BigDecimal total=Disposalmatreview.getDosage().multiply(Disposalmatreview.getPrice());
-            Fee fee=new Fee();
+            BigDecimal total = Disposalmatreview.getDosage().multiply(Disposalmatreview.getPrice());
+            Fee fee = new Fee();
             fee.setMedicalRecordID(Disposalformview.getMedicalrecordId());
             fee.setChargeItemID(medicinesmaterialslist.getMedicinesMaterialsID());
-            if(medicinesmaterialslist.getMatOrMedType()=="0") {
+            if (medicinesmaterialslist.getMatOrMedType() == "0") {
                 fee.setExpID(23);
             }
-            if(medicinesmaterialslist.getMatOrMedType()=="1") {
+            if (medicinesmaterialslist.getMatOrMedType() == "1") {
                 fee.setExpID(17);
             }
             fee.setPayStatus(134);
@@ -384,7 +399,7 @@ public class DisposalServiceImpl implements DisposalService {
      *
      * @param medListIDs 药品材料关联编号列表
      */
-    public void approveMed(IdDTO medListIDs,Integer userID) {
+    public void approveMed(IdDTO medListIDs, Integer userID) {
         List<Integer> medListIDlist = medListIDs.getId();
         for (Integer ID : medListIDlist) {
             MedicinesMaterialsList medicinesmaterialslist = new MedicinesMaterialsList();
@@ -399,19 +414,19 @@ public class DisposalServiceImpl implements DisposalService {
             medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
 
 
-            DisposalMedReViewExample DisposalmedreviewExample=new DisposalMedReViewExample();
-            DisposalMedReViewExample.Criteria criteriaM=DisposalmedreviewExample.createCriteria();
+            DisposalMedReViewExample DisposalmedreviewExample = new DisposalMedReViewExample();
+            DisposalMedReViewExample.Criteria criteriaM = DisposalmedreviewExample.createCriteria();
             criteriaM.andMedicinesMaterialsIDEqualTo(ID);
-            DisposalMedReView Disposalmedreview=DisposalmedreviewDao.selectByExample(DisposalmedreviewExample).get(0);
+            DisposalMedReView Disposalmedreview = DisposalmedreviewDao.selectByExample(DisposalmedreviewExample).get(0);
 
-            DisposalFormViewExample DisposalformviewExample=new DisposalFormViewExample();
-            DisposalFormViewExample.Criteria criteriaF=DisposalformviewExample.createCriteria();
+            DisposalFormViewExample DisposalformviewExample = new DisposalFormViewExample();
+            DisposalFormViewExample.Criteria criteriaF = DisposalformviewExample.createCriteria();
             criteriaF.andDisposaldetialsIDEqualTo(Disposalmedreview.getItemsDetailID());
-            DisposalFormView Disposalformview=DisposalformviewDao.selectByExample(DisposalformviewExample).get(0);
+            DisposalFormView Disposalformview = DisposalformviewDao.selectByExample(DisposalformviewExample).get(0);
 
 
-            BigDecimal total=Disposalmedreview.getDosage().multiply(Disposalmedreview.getDrugsPrice());
-            Fee fee=new Fee();
+            BigDecimal total = Disposalmedreview.getDosage().multiply(Disposalmedreview.getDrugsPrice());
+            Fee fee = new Fee();
             fee.setMedicalRecordID(Disposalformview.getMedicalrecordId());
             fee.setExpID(4);
             fee.setAppearUserID(userID);
@@ -430,7 +445,7 @@ public class DisposalServiceImpl implements DisposalService {
      * @param disposalDetailsID 药品材料关联编号列表
      */
     public void approvedisposalDetails(Integer disposalDetailsID) {
-        DisposalDetails disposaldetails=new DisposalDetails();
+        DisposalDetails disposaldetails = new DisposalDetails();
         disposaldetails.setId(disposalDetailsID);
         disposaldetails.setIsChecked(141);
         disposaldetailsDao.updateByPrimaryKeySelective(disposaldetails);
@@ -443,45 +458,42 @@ public class DisposalServiceImpl implements DisposalService {
      * @param disposalDetailsID 药品材料关联编号列表
      */
     public String registerdisposalDetails(Integer disposalDetailsID) {
-        String result="可以登记";
-        DisposalDetails disposaldetails=disposaldetailsDao.selectByPrimaryKey(disposalDetailsID);
+        String result = "可以登记";
+        DisposalDetails disposaldetails = disposaldetailsDao.selectByPrimaryKey(disposalDetailsID);
 
-        MedicinesMaterialsListExample medicinesmaterialslistExample=new MedicinesMaterialsListExample();
-        MedicinesMaterialsListExample.Criteria criteria=medicinesmaterialslistExample.createCriteria();
+        MedicinesMaterialsListExample medicinesmaterialslistExample = new MedicinesMaterialsListExample();
+        MedicinesMaterialsListExample.Criteria criteria = medicinesmaterialslistExample.createCriteria();
         criteria.andIsAbolishedEqualTo(150);
         criteria.andItemsDetailIDEqualTo(disposalDetailsID);
-        List<MedicinesMaterialsList> medMatList=medicinesmaterialslistDao.selectByExample(medicinesmaterialslistExample);
+        List<MedicinesMaterialsList> medMatList = medicinesmaterialslistDao.selectByExample(medicinesmaterialslistExample);
         for (MedicinesMaterialsList medicinesmaterialslist : medMatList) {
-            if(medicinesmaterialslist.getIsPaid()==134) {
+            if (medicinesmaterialslist.getIsPaid() == 134) {
                 result = "药品材料未缴费";
-            }else if(medicinesmaterialslist.getIsChecked()==142){
+            } else if (medicinesmaterialslist.getIsChecked() == 142) {
                 result = "药品材料未通过审核";
             }
         }
-        if(result.equals("可以登记")){
-            for (MedicinesMaterialsList medicinesmaterialslist : medMatList){
+        if (result.equals("可以登记")) {
+            for (MedicinesMaterialsList medicinesmaterialslist : medMatList) {
                 medicinesmaterialslist.setIsRegistered(136);
                 medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
             }
             disposaldetails.setIsChecked(136);
             disposaldetailsDao.updateByPrimaryKeySelective(disposaldetails);
-            result="登记成功";
+            result = "登记成功";
         }
         return result;
     }
 
 
-
-
     /**
      * 完成处置
-     *
      */
-    public void finishDisposal(Integer disposalDetailsID){
-        DisposalDetails disposaldetails=new DisposalDetails();
+    public void finishDisposal(Integer disposalDetailsID) {
+        DisposalDetails disposaldetails = new DisposalDetails();
         disposaldetails.setId(disposalDetailsID);
         disposaldetails.setIsExecuted(145);
-        disposaldetailsDao.updateByPrimaryKeySelective( disposaldetails);
+        disposaldetailsDao.updateByPrimaryKeySelective(disposaldetails);
     }
-    
+
 }

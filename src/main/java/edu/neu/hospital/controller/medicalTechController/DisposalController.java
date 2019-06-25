@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Drugs;
+import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.bean.basicTableBean.Materials;
 import edu.neu.hospital.bean.basicTableBean.MedicinesMaterialsList;
 import edu.neu.hospital.bean.disposalBean.DisposalFormView;
@@ -71,7 +72,25 @@ public class DisposalController {
             }
             return resultDTO;
         }
-
+        /**
+         * searchFMedItem
+         *
+         * @return 非药品项目列表
+         */
+        @RequestMapping("/searchFMedItem")
+        public @ResponseBody ResultDTO<List<FMedItem>> searchFMedItem(){
+            ResultDTO<List<FMedItem>> resultDTO = new ResultDTO<>();
+            try {
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("操作成功！");
+                resultDTO.setData(disposalService.searchFMedItem());
+            } catch (Exception e) {
+                e.printStackTrace();
+                resultDTO.setStatus("NG");
+                resultDTO.setMsg("操作失败！");
+            }
+            return resultDTO;
+        }
 
         /**
          * 组套查询相关药品

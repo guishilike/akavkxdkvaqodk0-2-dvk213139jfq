@@ -1,6 +1,7 @@
 package edu.neu.hospital.service.MedicalTechService;
 
 import edu.neu.hospital.bean.basicTableBean.Drugs;
+import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.bean.basicTableBean.Materials;
 import edu.neu.hospital.bean.basicTableBean.MedicinesMaterialsList;
 import edu.neu.hospital.bean.disposalBean.*;
@@ -20,6 +21,14 @@ public interface DisposalService {
      * @return 处置搜索结果表单信息
      */
     List<DisposalFormView> disposalformview(String search, Date date, String itemName, Integer mark);
+
+
+    /**
+     * searchFMedItem
+     *
+     * @return 非药品项目列表
+     */
+     List<FMedItem> searchFMedItem();
 
     /**
      * 处置审查表单信息

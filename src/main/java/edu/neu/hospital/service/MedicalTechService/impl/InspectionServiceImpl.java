@@ -6,10 +6,7 @@ import edu.neu.hospital.config.CustomDateConverter;
 import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.dao.inspectionDao.*;
 import edu.neu.hospital.dto.IdDTO;
-import edu.neu.hospital.example.basicTableExample.DrugsExample;
-import edu.neu.hospital.example.basicTableExample.InspectionResultImageExample;
-import edu.neu.hospital.example.basicTableExample.MaterialsExample;
-import edu.neu.hospital.example.basicTableExample.MedicinesMaterialsListExample;
+import edu.neu.hospital.example.basicTableExample.*;
 import edu.neu.hospital.example.inspectionExample.*;
 import edu.neu.hospital.service.MedicalTechService.InspectionService;
 import edu.neu.hospital.utils.RegexProcess;
@@ -49,19 +46,20 @@ public class InspectionServiceImpl implements InspectionService {
     private InspectionDetailsDao inspectiondetailsDao;
     @Resource
     private FeeDao feeDao;
-
+    @Resource
+    private  FMedItemDao fMedItemDao;
 
     /**
      * 检查搜索表单信息
      *
      * @param search   检查搜索表单搜索框的内容
      * @param date     检查搜索表单限制日期
-     * @param itemName 检查搜索表单项目名称
+     * @param itemID 检查搜索表单项目名称
      * @param mark     检查表单项目标识
      * @return 检查搜索结果表单信息
      */
 
-    public List<InspectFormView> inspectformview(String search, Date date, String itemName, Integer mark) {
+    public List<InspectFormView> inspectformview(String search, Date date, Integer itemID, Integer mark) {
         InspectFormViewExample inspectformviewExample = new InspectFormViewExample();
         //默认按时间升序显示
         inspectformviewExample.getOrderByClause("inspectionAppearDate asc");
@@ -71,6 +69,7 @@ public class InspectionServiceImpl implements InspectionService {
         InspectFormViewExample.Criteria criteria3 = inspectformviewExample.createCriteria();
         InspectFormViewExample.Criteria criteria4 = inspectformviewExample.createCriteria();
         InspectFormViewExample.Criteria criteria5 = inspectformviewExample.createCriteria();
+        InspectFormViewExample.Criteria criteria6 = inspectformviewExample.createCriteria();
         //查询匹配限制日期、项目名称、标识的项目
         criteria.andIsDrawnEqualTo(131);
         criteria1.andIsDrawnEqualTo(131);
@@ -78,12 +77,14 @@ public class InspectionServiceImpl implements InspectionService {
         criteria3.andIsDrawnEqualTo(131);
         criteria4.andIsDrawnEqualTo(131);
         criteria5.andIsDrawnEqualTo(131);
+        criteria6.andIsDrawnEqualTo(131);
         criteria.andIsAbolishedEqualTo(150);
         criteria1.andIsAbolishedEqualTo(150);
         criteria2.andIsAbolishedEqualTo(150);
         criteria3.andIsAbolishedEqualTo(150);
         criteria4.andIsAbolishedEqualTo(150);
         criteria5.andIsAbolishedEqualTo(150);
+        criteria6.andIsAbolishedEqualTo(150);
         if (mark != null) {
             if (mark == 134) {
                 criteria.andIsPaidEqualTo(mark);
@@ -92,6 +93,7 @@ public class InspectionServiceImpl implements InspectionService {
                 criteria3.andIsPaidEqualTo(mark);
                 criteria4.andIsPaidEqualTo(mark);
                 criteria5.andIsPaidEqualTo(mark);
+                criteria6.andIsPaidEqualTo(mark);
             } else if (mark == 137) {
                 criteria.andIsCheckedEqualTo(141);
                 criteria1.andIsCheckedEqualTo(141);
@@ -99,12 +101,14 @@ public class InspectionServiceImpl implements InspectionService {
                 criteria3.andIsCheckedEqualTo(141);
                 criteria4.andIsCheckedEqualTo(141);
                 criteria5.andIsCheckedEqualTo(141);
+                criteria6.andIsCheckedEqualTo(141);
                 criteria.andIsRegisteredEqualTo(mark);
                 criteria1.andIsRegisteredEqualTo(mark);
                 criteria2.andIsRegisteredEqualTo(mark);
                 criteria3.andIsRegisteredEqualTo(mark);
                 criteria4.andIsRegisteredEqualTo(mark);
                 criteria5.andIsRegisteredEqualTo(mark);
+                criteria6.andIsRegisteredEqualTo(mark);
             } else if (mark == 142) {
                 criteria.andIsPaidEqualTo(133);
                 criteria1.andIsPaidEqualTo(133);
@@ -112,12 +116,14 @@ public class InspectionServiceImpl implements InspectionService {
                 criteria3.andIsPaidEqualTo(133);
                 criteria4.andIsPaidEqualTo(133);
                 criteria5.andIsPaidEqualTo(133);
+                criteria6.andIsPaidEqualTo(133);
                 criteria.andIsCheckedEqualTo(mark);
                 criteria1.andIsCheckedEqualTo(mark);
                 criteria2.andIsCheckedEqualTo(mark);
                 criteria3.andIsCheckedEqualTo(mark);
                 criteria4.andIsCheckedEqualTo(mark);
                 criteria5.andIsCheckedEqualTo(mark);
+                criteria6.andIsCheckedEqualTo(mark);
             } else if (mark == 144||mark == 145) {
                 criteria.andIsRegisteredEqualTo(136);
                 criteria1.andIsRegisteredEqualTo(136);
@@ -125,12 +131,15 @@ public class InspectionServiceImpl implements InspectionService {
                 criteria3.andIsRegisteredEqualTo(136);
                 criteria4.andIsRegisteredEqualTo(136);
                 criteria5.andIsRegisteredEqualTo(136);
+                criteria5.andIsRegisteredEqualTo(136);
+                criteria6.andIsRegisteredEqualTo(136);
                 criteria.andIsExecutedEqualTo(mark);
                 criteria1.andIsExecutedEqualTo(mark);
                 criteria2.andIsExecutedEqualTo(mark);
                 criteria3.andIsExecutedEqualTo(mark);
                 criteria4.andIsExecutedEqualTo(mark);
                 criteria5.andIsExecutedEqualTo(mark);
+                criteria6.andIsExecutedEqualTo(mark);
             }
         }
 
@@ -142,14 +151,16 @@ public class InspectionServiceImpl implements InspectionService {
             criteria3.andInspectionAppearDateBetween(date, nextDay);
             criteria4.andInspectionAppearDateBetween(date, nextDay);
             criteria5.andInspectionAppearDateBetween(date, nextDay);
+            criteria6.andInspectionAppearDateBetween(date, nextDay);
         }
-        if (itemName != null) {
-            criteria.andFmeditemNameEqualTo(itemName);
-            criteria1.andFmeditemNameEqualTo(itemName);
-            criteria2.andFmeditemNameEqualTo(itemName);
-            criteria3.andFmeditemNameEqualTo(itemName);
-            criteria4.andFmeditemNameEqualTo(itemName);
-            criteria5.andFmeditemNameEqualTo(itemName);
+        if (itemID != null ) {
+            criteria.andFmeditemIdEqualTo(itemID);
+            criteria1.andFmeditemIdEqualTo(itemID);
+            criteria2.andFmeditemIdEqualTo(itemID);
+            criteria3.andFmeditemIdEqualTo(itemID);
+            criteria4.andFmeditemIdEqualTo(itemID);
+            criteria5.andFmeditemIdEqualTo(itemID);
+            criteria6.andFmeditemIdEqualTo(itemID);
         }
         //返回表单搜索内容作搜索关联匹配查询
         if (search != null) {
@@ -165,12 +176,34 @@ public class InspectionServiceImpl implements InspectionService {
             if (regexProcess.regexProcess03(search)){
                 criteria5.andInspectionIdEqualTo(Integer.valueOf(search));
             }
+            criteria6.andFmeditemNameLike("%" + searchd + "%");
         }
         inspectformviewExample.or(criteria1);
         inspectformviewExample.or(criteria2);
         inspectformviewExample.or(criteria3);
+        inspectformviewExample.or(criteria4);
+        inspectformviewExample.or(criteria5);
+        inspectformviewExample.or(criteria6);
 
         return inspectformviewDao.selectByExample(inspectformviewExample);
+    }
+
+
+    /**
+     * searchFMedItem
+     *
+     * @return 非药品项目列表
+     */
+    public List<FMedItem> searchFMedItem(){
+        FMedItemExample fMedItemExample=new FMedItemExample();
+        FMedItemExample.Criteria criteria=fMedItemExample.createCriteria();
+        FMedItemExample.Criteria criteria1=fMedItemExample.createCriteria();
+        criteria.andRecordTypeEqualTo(117);
+        criteria1.andRecordTypeEqualTo(118);
+        criteria.andStatusEqualTo("1");
+        criteria1.andStatusEqualTo("1");
+        fMedItemExample.or(criteria1);
+        return fMedItemDao.selectByExample(fMedItemExample);
     }
 
 
