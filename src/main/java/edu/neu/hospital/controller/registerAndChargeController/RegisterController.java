@@ -63,9 +63,10 @@ public class RegisterController {
             List<DepartmentView> departmentViewList = departmentService.findDepartments(null, 120);
 
             List<DeptIDAndNameDTO> deptIDAndNameDTOS = new ArrayList<>();
-            DeptIDAndNameDTO deptIDAndNameDTO = new DeptIDAndNameDTO();
 
             for (DepartmentView deptView : departmentViewList) {
+
+                DeptIDAndNameDTO deptIDAndNameDTO = new DeptIDAndNameDTO();
                 deptIDAndNameDTO.setDeptID(deptView.getId());
                 deptIDAndNameDTO.setDeptName(deptView.getDeptName());
                 deptIDAndNameDTOS.add(deptIDAndNameDTO);
