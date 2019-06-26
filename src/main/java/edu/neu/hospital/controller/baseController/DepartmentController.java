@@ -67,6 +67,7 @@ public class DepartmentController {
     deleteById(Integer id, HttpSession session) {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
         try {
+            System.out.println(id);
             UserView user = (UserView) session.getAttribute("user");
             departmentService.deleteById(id, user.getId());
             resultDTO.setStatus("OK");
@@ -76,6 +77,7 @@ public class DepartmentController {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，删除科室失败");
             resultDTO.setData(id);
+            System.out.println(e);
         }
         return resultDTO;
     }
@@ -104,7 +106,7 @@ public class DepartmentController {
                 resultDTO.setData(ids);
             }
         }else{
-            resultDTO.setStatus("FALSE");
+            resultDTO.setStatus("WARN");
             resultDTO.setMsg("请先选择要删除的科室");
             resultDTO.setData(ids);
         }
@@ -135,7 +137,7 @@ public class DepartmentController {
                 resultDTO.setMsg("查找成功");
                 resultDTO.setData(list);
             }else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("科室名称或编号不存在");
             }
         } catch (Exception e) {
@@ -155,7 +157,7 @@ public class DepartmentController {
      */
     @RequestMapping("/update")
     public @ResponseBody
-    ResultDTO update(@RequestBody Department department, HttpSession session) {
+    ResultDTO update(Department department, HttpSession session) {
         ResultDTO<Department> resultDTO = new ResultDTO<>();
         try {
             if (departmentService.checkContent(department, 1)) {
@@ -164,7 +166,7 @@ public class DepartmentController {
                 resultDTO.setMsg("修改科室成功");
                 resultDTO.setData(department);
             } else {
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("存在重复的科室名，修改科室失败");
                 resultDTO.setData(department);
             }
@@ -184,15 +186,18 @@ public class DepartmentController {
      */
     @RequestMapping("/add")
     public @ResponseBody
-    ResultDTO add(@RequestBody Department department, HttpSession session) {
+    ResultDTO add(Department department, HttpSession session) {
         ResultDTO<Department> resultDTO = new ResultDTO<>();
         try {
             if (departmentService.checkContent(department, 0)) {
                 UserView user = (UserView) session.getAttribute("user");                department.setStatus("1");
                 department.setAppearDate(new Date());
                 departmentService.add(department,user.getId());
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("添加科室成功");
+                resultDTO.setData(department);
             }else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("存在重复的科室名，添加科室失败");
                 resultDTO.setData(department);
             }
