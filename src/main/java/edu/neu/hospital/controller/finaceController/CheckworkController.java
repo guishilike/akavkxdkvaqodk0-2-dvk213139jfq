@@ -16,15 +16,19 @@ package edu.neu.hospital.controller.finaceController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.finaceBean.CheckWork;
+import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.finaceService.CheckworkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +38,7 @@ import java.util.List;
 public class CheckworkController {
     @Autowired
     CheckworkService checkworkService;
+
 
     @RequestMapping("/findByInfo")
     public @ResponseBody
@@ -56,6 +61,56 @@ public class CheckworkController {
             e.printStackTrace();
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("核对检查出现错误！");
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping("updateById")
+    public @ResponseBody
+    ResultDTO
+    updateById(Integer feeID, HttpSession session) {
+        ResultDTO<Integer> resultDTO = new ResultDTO<>();
+        try {
+            UserView user = (UserView) session.getAttribute("user");
+            checkworkService.updateById(feeID, user.getId());
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("修改对账状态成功");
+            resultDTO.setData(feeID);
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发生异常，修改对账状态失败");
+            resultDTO.setData(feeID);
+        }
+        return resultDTO;
+    }
+
+    /**
+     * 批量删除所选的科室
+     *
+     * @param feeIDs     批量删除所选科室的idDTO
+     * @param session HttpSession会话
+     * @return resultDTO
+     */
+    @RequestMapping("updateByChoose")
+    public @ResponseBody
+    ResultDTO<IdDTO> updateByChoose(@RequestBody IdDTO feeIDs, HttpSession session) {
+        ResultDTO<IdDTO> resultDTO = new ResultDTO<>();
+        if(feeIDs.getId()!=null) {
+            try {
+                UserView user = (UserView) session.getAttribute("user");
+                checkworkService.updateByChoose(feeIDs, user.getId());
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("批量修改对账状态成功");
+                resultDTO.setData(feeIDs);
+            } catch (Exception e) {
+                resultDTO.setStatus("FALSE");
+                resultDTO.setMsg("发生异常，批量修改对账状态失败");
+                resultDTO.setData(feeIDs);
+            }
+        }else{
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("请先选择要修改的对账状态");
+            resultDTO.setData(feeIDs);
         }
         return resultDTO;
     }

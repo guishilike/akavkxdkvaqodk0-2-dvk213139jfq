@@ -1,7 +1,5 @@
 package edu.neu.hospital.bean.baseBean;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -46,7 +44,6 @@ public class DepartmentView implements Serializable {
     /**
      * 创建日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date appearDate;
 
     /**
@@ -57,7 +54,6 @@ public class DepartmentView implements Serializable {
     /**
      * 修改日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date changeDate;
 
     /**

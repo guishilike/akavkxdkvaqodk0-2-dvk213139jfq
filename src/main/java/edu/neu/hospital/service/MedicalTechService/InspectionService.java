@@ -13,11 +13,20 @@ public interface InspectionService {
      *
      * @param search   检查搜索表单搜索框的内容
      * @param date  检查搜索表单限制日期
-     * @param itemName  检查搜索表单项目名称
+     * @param itemID 检查搜索表单项目名称
      * @param mark      检查表单项目标识
      * @return 检查搜索结果表单信息
      */
-    List<InspectFormView> inspectformview(String search, Date date, String itemName, Integer mark);
+    List<InspectFormView> inspectformview(String search, Date date, Integer itemID, Integer mark);
+
+
+    /**
+     * searchFMedItem
+     *
+     * @return 非药品项目列表
+     */
+    List<FMedItem> searchFMedItem();
+
 
     /**
      * 检查审查表单信息
@@ -26,7 +35,6 @@ public interface InspectionService {
      * @return 检查审查表单信息
      */
     List<InspectReView> inspectreview(Integer inspectionDetailsID);
-
 
 
     /**

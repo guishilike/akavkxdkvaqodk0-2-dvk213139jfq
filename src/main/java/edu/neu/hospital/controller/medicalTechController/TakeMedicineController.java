@@ -1,4 +1,4 @@
-package edu.neu.hospital.controller.medicalTechContoller;
+package edu.neu.hospital.controller.medicalTechController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

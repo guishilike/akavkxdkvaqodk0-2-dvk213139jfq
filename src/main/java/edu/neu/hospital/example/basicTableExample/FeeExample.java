@@ -1036,73 +1036,73 @@ public class FeeExample {
             return (Criteria) this;
         }
 
-        public Criteria andReserve1IsNull() {
-            addCriterion("reserve1 is null");
+        public Criteria andCheckStatusIsNull() {
+            addCriterion("checkStatus is null");
             return (Criteria) this;
         }
 
-        public Criteria andReserve1IsNotNull() {
-            addCriterion("reserve1 is not null");
+        public Criteria andCheckStatusIsNotNull() {
+            addCriterion("checkStatus is not null");
             return (Criteria) this;
         }
 
-        public Criteria andReserve1EqualTo(String value) {
-            addCriterion("reserve1 =", value, "reserve1");
+        public Criteria andCheckStatusEqualTo(String value) {
+            addCriterion("checkStatus =", value, "checkStatus");
             return (Criteria) this;
         }
 
-        public Criteria andReserve1NotEqualTo(String value) {
-            addCriterion("reserve1 <>", value, "reserve1");
+        public Criteria andCheckStatusNotEqualTo(String value) {
+            addCriterion("checkStatus <>", value, "checkStatus");
             return (Criteria) this;
         }
 
-        public Criteria andReserve1GreaterThan(String value) {
-            addCriterion("reserve1 >", value, "reserve1");
+        public Criteria andCheckStatusGreaterThan(String value) {
+            addCriterion("checkStatus >", value, "checkStatus");
             return (Criteria) this;
         }
 
-        public Criteria andReserve1GreaterThanOrEqualTo(String value) {
-            addCriterion("reserve1 >=", value, "reserve1");
+        public Criteria andCheckStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("checkStatus >=", value, "checkStatus");
             return (Criteria) this;
         }
 
-        public Criteria andReserve1LessThan(String value) {
-            addCriterion("reserve1 <", value, "reserve1");
+        public Criteria andCheckStatusLessThan(String value) {
+            addCriterion("checkStatus <", value, "checkStatus");
             return (Criteria) this;
         }
 
-        public Criteria andReserve1LessThanOrEqualTo(String value) {
-            addCriterion("reserve1 <=", value, "reserve1");
+        public Criteria andCheckStatusLessThanOrEqualTo(String value) {
+            addCriterion("checkStatus <=", value, "checkStatus");
             return (Criteria) this;
         }
 
-        public Criteria andReserve1Like(String value) {
-            addCriterion("reserve1 like", value, "reserve1");
+        public Criteria andCheckStatusLike(String value) {
+            addCriterion("checkStatus like", value, "checkStatus");
             return (Criteria) this;
         }
 
-        public Criteria andReserve1NotLike(String value) {
-            addCriterion("reserve1 not like", value, "reserve1");
+        public Criteria andCheckStatusNotLike(String value) {
+            addCriterion("checkStatus not like", value, "checkStatus");
             return (Criteria) this;
         }
 
-        public Criteria andReserve1In(List<String> values) {
-            addCriterion("reserve1 in", values, "reserve1");
+        public Criteria andCheckStatusIn(List<String> values) {
+            addCriterion("checkStatus in", values, "checkStatus");
             return (Criteria) this;
         }
 
-        public Criteria andReserve1NotIn(List<String> values) {
-            addCriterion("reserve1 not in", values, "reserve1");
+        public Criteria andCheckStatusNotIn(List<String> values) {
+            addCriterion("checkStatus not in", values, "checkStatus");
             return (Criteria) this;
         }
 
-        public Criteria andReserve1Between(String value1, String value2) {
-            addCriterion("reserve1 between", value1, value2, "reserve1");
+        public Criteria andCheckStatusBetween(String value1, String value2) {
+            addCriterion("checkStatus between", value1, value2, "checkStatus");
             return (Criteria) this;
         }
 
-        public Criteria andReserve1NotBetween(String value1, String value2) {
-            addCriterion("reserve1 not between", value1, value2, "reserve1");
+        public Criteria andCheckStatusNotBetween(String value1, String value2) {
+            addCriterion("checkStatus not between", value1, value2, "checkStatus");
             return (Criteria) this;
         }
     }

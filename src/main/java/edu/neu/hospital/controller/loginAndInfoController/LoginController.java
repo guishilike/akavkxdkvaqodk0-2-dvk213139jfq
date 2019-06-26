@@ -40,7 +40,7 @@ public class LoginController {
     ResultDTO<UserView> check(HttpServletRequest request, @RequestBody User user){
 //        System.out.println("userName"+user.getUserName());
 ////        System.out.println("passwd"+user.getPasswd());
-        System.out.println("aaaaaa");
+//        System.out.println("aaaaaa");
         HttpSession session = request.getSession(true);
         ResultDTO<UserView> resultDTO = new ResultDTO();
         try{

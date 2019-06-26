@@ -1,4 +1,4 @@
-package edu.neu.hospital.controller.medicalTechContoller;
+package edu.neu.hospital.controller.medicalTechController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -36,16 +36,37 @@ public class InspectionController{
 
     @RequestMapping("/inspectformview")
     public @ResponseBody
-    ResultDTO<PageInfo<InspectFormView>> inspectformview(String search, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date, String itemName, Integer mark, Integer pageNum, Integer pageSize){
+    ResultDTO<PageInfo<InspectFormView>> inspectformview(String search, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date, Integer itemID, Integer mark, Integer pageNum, Integer pageSize){
 
         ResultDTO<PageInfo<InspectFormView>> resultDTO = new ResultDTO<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            List<InspectFormView> inspectFormViewList =inspectionService.inspectformview(search,date,itemName,mark);
+            List<InspectFormView> inspectFormViewList =inspectionService.inspectformview(search,date,itemID,mark);
             PageInfo<InspectFormView> inspectformviewPageInfo = new PageInfo<>(inspectFormViewList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功！");
             resultDTO.setData(inspectformviewPageInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus("NG");
+            resultDTO.setMsg("操作失败！");
+        }
+        return resultDTO;
+    }
+
+
+    /**
+     * searchFMedItem
+     *
+     * @return 非药品项目列表
+     */
+    @RequestMapping("/searchFMedItem")
+    public @ResponseBody ResultDTO<List<FMedItem>> searchFMedItem(){
+        ResultDTO<List<FMedItem>> resultDTO = new ResultDTO<>();
+        try {
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("操作成功！");
+            resultDTO.setData(inspectionService.searchFMedItem());
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus("NG");

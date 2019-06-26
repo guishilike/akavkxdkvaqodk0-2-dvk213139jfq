@@ -1355,6 +1355,76 @@ public class CheckWorkExample {
             addCriterion("datestatusName not between", value1, value2, "datestatusName");
             return (Criteria) this;
         }
+
+        public Criteria andCheckStatusIsNull() {
+            addCriterion("checkStatus is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStatusIsNotNull() {
+            addCriterion("checkStatus is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStatusEqualTo(String value) {
+            addCriterion("checkStatus =", value, "checkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStatusNotEqualTo(String value) {
+            addCriterion("checkStatus <>", value, "checkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStatusGreaterThan(String value) {
+            addCriterion("checkStatus >", value, "checkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("checkStatus >=", value, "checkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStatusLessThan(String value) {
+            addCriterion("checkStatus <", value, "checkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStatusLessThanOrEqualTo(String value) {
+            addCriterion("checkStatus <=", value, "checkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStatusLike(String value) {
+            addCriterion("checkStatus like", value, "checkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStatusNotLike(String value) {
+            addCriterion("checkStatus not like", value, "checkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStatusIn(List<String> values) {
+            addCriterion("checkStatus in", values, "checkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStatusNotIn(List<String> values) {
+            addCriterion("checkStatus not in", values, "checkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStatusBetween(String value1, String value2) {
+            addCriterion("checkStatus between", value1, value2, "checkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStatusNotBetween(String value1, String value2) {
+            addCriterion("checkStatus not between", value1, value2, "checkStatus");
+            return (Criteria) this;
+        }
     }
 
     /**

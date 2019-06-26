@@ -17,7 +17,7 @@
     <result column="payStatus" jdbcType="INTEGER" property="payStatus" />
     <result column="dateStatus" jdbcType="INTEGER" property="dateStatus" />
     <result column="status" jdbcType="CHAR" property="status" />
-    <result column="reserve1" jdbcType="VARCHAR" property="reserve1" />
+    <result column="checkStatus" jdbcType="VARCHAR" property="checkStatus" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -80,7 +80,7 @@
   <sql id="Base_Column_List">
     id, medicalRecordID, feeCategoryID, chargeItemID, expID, fee, tollManID, tollDate, 
     appearUserID, changeUserID, feeAppearDate, feeChangeDate, payStatus, dateStatus, 
-    `status`, reserve1
+    `status`, checkStatus
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.basicTableExample.FeeExample" resultMap="BaseResultMap">
     select
@@ -125,13 +125,13 @@
       expID, fee, tollManID, 
       tollDate, appearUserID, changeUserID, 
       feeAppearDate, feeChangeDate, payStatus, 
-      dateStatus, `status`, reserve1
+      dateStatus, `status`, checkStatus
       )
     values (#{medicalRecordID,jdbcType=INTEGER}, #{feeCategoryID,jdbcType=INTEGER}, #{chargeItemID,jdbcType=INTEGER}, 
       #{expID,jdbcType=INTEGER}, #{fee,jdbcType=DECIMAL}, #{tollManID,jdbcType=INTEGER}, 
       #{tollDate,jdbcType=TIMESTAMP}, #{appearUserID,jdbcType=INTEGER}, #{changeUserID,jdbcType=INTEGER}, 
       #{feeAppearDate,jdbcType=TIMESTAMP}, #{feeChangeDate,jdbcType=TIMESTAMP}, #{payStatus,jdbcType=INTEGER}, 
-      #{dateStatus,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{reserve1,jdbcType=VARCHAR}
+      #{dateStatus,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{checkStatus,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.basicTableBean.Fee" useGeneratedKeys="true">
@@ -179,8 +179,8 @@
       <if test="status != null">
         `status`,
       </if>
-      <if test="reserve1 != null">
-        reserve1,
+      <if test="checkStatus != null">
+        checkStatus,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -226,8 +226,8 @@
       <if test="status != null">
         #{status,jdbcType=CHAR},
       </if>
-      <if test="reserve1 != null">
-        #{reserve1,jdbcType=VARCHAR},
+      <if test="checkStatus != null">
+        #{checkStatus,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -285,8 +285,8 @@
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=CHAR},
       </if>
-      <if test="record.reserve1 != null">
-        reserve1 = #{record.reserve1,jdbcType=VARCHAR},
+      <if test="record.checkStatus != null">
+        checkStatus = #{record.checkStatus,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -310,7 +310,7 @@
       payStatus = #{record.payStatus,jdbcType=INTEGER},
       dateStatus = #{record.dateStatus,jdbcType=INTEGER},
       `status` = #{record.status,jdbcType=CHAR},
-      reserve1 = #{record.reserve1,jdbcType=VARCHAR}
+      checkStatus = #{record.checkStatus,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -360,8 +360,8 @@
       <if test="status != null">
         `status` = #{status,jdbcType=CHAR},
       </if>
-      <if test="reserve1 != null">
-        reserve1 = #{reserve1,jdbcType=VARCHAR},
+      <if test="checkStatus != null">
+        checkStatus = #{checkStatus,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -382,7 +382,7 @@
       payStatus = #{payStatus,jdbcType=INTEGER},
       dateStatus = #{dateStatus,jdbcType=INTEGER},
       `status` = #{status,jdbcType=CHAR},
-      reserve1 = #{reserve1,jdbcType=VARCHAR}
+      checkStatus = #{checkStatus,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
