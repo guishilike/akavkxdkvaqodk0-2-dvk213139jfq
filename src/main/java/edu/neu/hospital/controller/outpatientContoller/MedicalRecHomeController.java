@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("medicalRecHome")
 public class MedicalRecHomeController {
 
-    //@Autowired
+    //@Resource
     @Resource
     MedicalRecHomeService medicalRecHomeService;
     //查询患者:通过患者病历号或患者名字

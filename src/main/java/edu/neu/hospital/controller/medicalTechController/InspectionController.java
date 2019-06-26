@@ -11,7 +11,6 @@ import edu.neu.hospital.bean.inspectionBean.InspectReView;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.MedicalTechService.InspectionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.Date;
@@ -31,7 +31,7 @@ import java.util.UUID;
 @RequestMapping("inspection")
 
 public class InspectionController{
-    @Autowired
+    @Resource
     private InspectionService inspectionService;
 
     @RequestMapping("/inspectformview")

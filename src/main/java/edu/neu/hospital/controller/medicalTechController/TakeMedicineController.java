@@ -8,19 +8,19 @@ import edu.neu.hospital.bean.takeMedicineBean.TakeMedicineFormView;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.MedicalTechService.TakeMedicineService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 @Controller
 @RequestMapping("TakeMedicineController")
 public class TakeMedicineController {
-    @Autowired
+    @Resource
     private TakeMedicineService takeMedicineService;
 
     /**

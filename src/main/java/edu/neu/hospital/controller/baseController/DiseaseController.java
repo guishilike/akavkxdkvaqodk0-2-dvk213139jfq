@@ -11,13 +11,13 @@ import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.ConstantService;
 import edu.neu.hospital.service.baseService.DiseaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -25,9 +25,9 @@ import java.util.List;
 @RequestMapping("disease")
 @CrossOrigin
 public class DiseaseController {
-    @Autowired
+    @Resource
     DiseaseService diseaseService;
-    @Autowired
+    @Resource
     ConstantService constantService;
 
     /**

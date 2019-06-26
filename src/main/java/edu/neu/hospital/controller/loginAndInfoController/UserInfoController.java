@@ -33,7 +33,6 @@ import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.bean.finaceBean.WorkLoadStatistics;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.loginAndInfoService.UserInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -41,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -51,7 +51,7 @@ import java.util.UUID;
 @RequestMapping("UserInfo")
 @CrossOrigin
 public class UserInfoController {
-    @Autowired
+    @Resource
     UserInfoService userInfoService;
 
     @RequestMapping("/show")

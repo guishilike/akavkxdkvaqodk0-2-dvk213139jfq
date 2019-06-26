@@ -21,13 +21,13 @@ import edu.neu.hospital.bean.finaceBean.CheckWork;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.finaceService.CheckworkService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +36,7 @@ import java.util.List;
 @RequestMapping("Checkwork")
 @CrossOrigin
 public class CheckworkController {
-    @Autowired
+    @Resource
     CheckworkService checkworkService;
 
 
