@@ -180,7 +180,6 @@ public class RegistrationLevelController {
     @RequestMapping("/list")
     public @ResponseBody
     ResultDTO findAll() {
-        ResultDTO<List<IdAndNameDTO>> resultDTO = new ResultDTO<>();
         try {
             List<RegistrationLevelView> registrationLevelViews = registrationLevelService.findAll();
             List<IdAndNameDTO> idAndNameDTOS = new ArrayList<>();
