@@ -6,8 +6,8 @@ import edu.neu.hospital.bean.baseBean.RegistrationLevelView;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.RegistrationLevelDetails;
-import edu.neu.hospital.dto.IdAndNameDTO;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.ConstantService;
 import edu.neu.hospital.service.baseService.RegistrationLevelService;
@@ -182,16 +182,16 @@ public class RegistrationLevelController {
     ResultDTO findAll() {
         try {
             List<RegistrationLevelView> registrationLevelViews = registrationLevelService.findAll();
-            List<IdAndNameDTO> idAndNameDTOS = new ArrayList<>();
+            List<NameCodeDTO> nameCodeDTOS = new ArrayList<>();
 
             for (RegistrationLevelView view : registrationLevelViews) {
-                IdAndNameDTO idAndNameDTO = new IdAndNameDTO();
-                idAndNameDTO.setId(view.getId());
-                idAndNameDTO.setName(view.getRegisteredName());
-                idAndNameDTOS.add(idAndNameDTO);
+                NameCodeDTO nameCodeDTO = new NameCodeDTO();
+                nameCodeDTO.setId(view.getId());
+                nameCodeDTO.setName(view.getRegisteredName());
+                nameCodeDTOS.add(nameCodeDTO);
             }
 
-            return new ResultDTO<>("OK", "操作成功", idAndNameDTOS);
+            return new ResultDTO<>("OK", "操作成功", nameCodeDTOS);
         } catch (Exception e) {
             return new ResultDTO<>("FALSE", "发生异常，操作失败", null);
         }
