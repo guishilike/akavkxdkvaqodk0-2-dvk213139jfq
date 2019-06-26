@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -24,15 +25,15 @@ public class MedicalRecHomeController {
     //查询患者:通过患者病历号或患者名字
     @RequestMapping("/findPatient")
     public @ResponseBody
-    ResultDTO<PageInfo<Patient>> findPatient(String nameOrMedicalRecNo , Integer pageNum, Integer pageSize){
-        ResultDTO<PageInfo<Patient>> resultDTO = new ResultDTO<>();
+    ResultDTO<PageInfo<PatientMedicalRec>> findPatient(String nameOrMedicalRecNo , Integer pageNum, Integer pageSize){
+        ResultDTO<PageInfo<PatientMedicalRec>> resultDTO = new ResultDTO<>();
 
        try {
            PageHelper.startPage(pageNum, pageSize);
 
-           List<Patient> patients = medicalRecHomeService.findPatient(nameOrMedicalRecNo);
+           List<PatientMedicalRec> patients = medicalRecHomeService.findPatient(nameOrMedicalRecNo);
            resultDTO.setMsg("操作成功");
-           PageInfo<Patient> list = new PageInfo<>(patients);
+           PageInfo<PatientMedicalRec> list = new PageInfo<>(patients);
            resultDTO.setData(list);
            for (int i = 0; i < patients.size(); i++) {
                System.out.println(patients.get(i).toString());
@@ -42,7 +43,9 @@ public class MedicalRecHomeController {
        }catch (Exception e){
            resultDTO.setStatus("FALSE");
 
-           resultDTO.setMsg("操1111");
+           resultDTO.setMsg("findPatient失败");
+
+           System.out.println(e);
        }
 
         return resultDTO;
@@ -202,6 +205,69 @@ public class MedicalRecHomeController {
         return resultDTO;
 
 
+    }
+
+    @RequestMapping("/listPatientNoDiagnosis")
+    public @ResponseBody
+    ResultDTO<PageInfo<PatientMedicalRec>> listPatientNoDiagnosis(Integer pageNum , Integer pageSize){
+        ResultDTO<PageInfo<PatientMedicalRec>> resultDTO = new ResultDTO<>();
+
+        try {
+            PageHelper.startPage(pageNum, pageSize);
+            System.out.println("1");
+            List<PatientMedicalRec> patientMedicalRecList = medicalRecHomeService.listPatientNoDiagnosis();
+            resultDTO.setMsg("listPatientNoDiagnosis操作成功");
+            System.out.println("1");
+            PageInfo<PatientMedicalRec> list = new PageInfo<>(patientMedicalRecList);
+            resultDTO.setData(list);
+            System.out.println("1");
+            for (int i = 0; i < patientMedicalRecList.size(); i++) {
+                System.out.println(patientMedicalRecList.get(i).toString());
+                System.out.println("2");
+            }
+            resultDTO.setStatus("OK");
+
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+
+            resultDTO.setMsg("listPatientNoDiagnosis失败");
+
+            System.out.println(e);
+        }
+
+        return resultDTO;
+
+    }
+
+    //获取所有patientMedicalRecList序列中的medicalRecNO和patientName(想检索的东西)
+    @RequestMapping("/listSearchValue")
+    public @ResponseBody
+    ResultDTO<List<String>> listSearchValue(){
+        ResultDTO<List<String>> resultDTO = new ResultDTO<>();
+        try{
+            List<PatientMedicalRec> patientMedicalRecList = medicalRecHomeService.listPatientNoDiagnosis();
+            List<String> stringList = new LinkedList<>();
+            for( int i = 0 ; i < patientMedicalRecList.size() ; i ++){
+                stringList.add(patientMedicalRecList.get(i).getPatientName());
+                stringList.add(patientMedicalRecList.get(i).getMedicalRecordNo());
+            }
+            resultDTO.setMsg("listSearchValue操作成功");
+
+            resultDTO.setData(stringList);
+            for (int i = 0; i < patientMedicalRecList.size(); i++) {
+                System.out.println(patientMedicalRecList.get(i).toString());
+            }
+            resultDTO.setStatus("OK");
+
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+
+            resultDTO.setMsg("listSearchValue失败");
+
+            System.out.println(e);
+        }
+
+        return resultDTO;
     }
 
 

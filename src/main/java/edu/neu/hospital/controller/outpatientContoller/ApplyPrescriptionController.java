@@ -1,5 +1,6 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.*;
@@ -56,7 +57,7 @@ public class ApplyPrescriptionController {
     ResultDTO<PageInfo<PrescriptionDetail>> tmpStore(DataListDTO dataListDTO, HttpSession session, Integer pageNum, Integer pageSize) {
         ResultDTO<PageInfo<PrescriptionDetail>> resultDTO = new ResultDTO<>();
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<PrescriptionDetail> list = dataListDTO.getData();
@@ -111,7 +112,7 @@ public class ApplyPrescriptionController {
         ResultDTO<PageInfo<Drugs>> resultDTO = new ResultDTO<>();
 
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             List<Drugs> drugsList = applyPrescriptionService.searchDrugs(str);
             System.out.println("-----");
             PageInfo<Drugs> list = new PageInfo<>(drugsList);

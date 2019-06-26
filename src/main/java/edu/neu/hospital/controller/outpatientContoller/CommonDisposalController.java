@@ -1,5 +1,6 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
@@ -152,7 +153,7 @@ public class CommonDisposalController {
         ResultDTO<PageInfo<FMedItem>> resultDTO = new ResultDTO<>();
 
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             List<FMedItem> diposals = commonDisposalService.searchDiposal(str);
             System.out.println("-----");
             PageInfo<FMedItem> list = new PageInfo<>(diposals);

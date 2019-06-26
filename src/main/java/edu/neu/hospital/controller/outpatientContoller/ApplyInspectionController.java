@@ -1,5 +1,6 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.*;
@@ -91,7 +92,7 @@ public class ApplyInspectionController {
         ResultDTO<PageInfo<FMedItem>> resultDTO = new ResultDTO<>();
 
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             List<FMedItem> diseaseList = applyInspectionService.searchInspections(str);
             System.out.println("-----");
             PageInfo<FMedItem> list = new PageInfo<>(diseaseList);
@@ -112,7 +113,7 @@ public class ApplyInspectionController {
     ResultDTO<PageInfo<InspectionDetails>> tmpStore(DataListDTO dataListDTO, HttpSession session, Integer pageNum, Integer pageSize) {
         ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<InspectionDetails> list = dataListDTO.getData();
@@ -148,7 +149,7 @@ public class ApplyInspectionController {
     ResultDTO<PageInfo<InspectionDetails>> drawInspectionDetails(IdDTO inspectionDetailsIdList, HttpSession session, Integer pageNum, Integer pageSize) {
         ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<InspectionDetails> inspectionDetailsList = applyInspectionService.drawInspectionDetails(inspectionDetailsIdList, user.getId());
@@ -197,7 +198,7 @@ public class ApplyInspectionController {
     ResultDTO<PageInfo<InspectionDetails>> deleteInspectionDetails(IdDTO inspectionDetailsIdList, HttpSession session, Integer pageNum, Integer pageSize) {
         ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<InspectionDetails> inspectionDetailsList = applyInspectionService.deleteInspectionDetails(inspectionDetailsIdList, user.getId());
@@ -218,7 +219,7 @@ public class ApplyInspectionController {
     ResultDTO<PageInfo<InspectionDetails>> abolishInspectionDetails(IdDTO inspectionDetailsIdList, HttpSession session, Integer pageNum, Integer pageSize) {
         ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<InspectionDetails> inspectionDetailsList = applyInspectionService.abolishInspectionDetails(inspectionDetailsIdList, user.getId());
@@ -326,10 +327,10 @@ public class ApplyInspectionController {
 
     @RequestMapping("/lookInspectionRes")
     public @ResponseBody
-    ResultDTO<PageInfo<InspectionResult>> lookInspectionRes(Integer inspectionDetailsID) {
+    ResultDTO<PageInfo<InspectionResult>> lookInspectionRes(Integer inspectionDetailsID , int pageNum , int pageSize) {
         ResultDTO<PageInfo<InspectionResult>> resultDTO = new ResultDTO<>();
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             List<InspectionResult> inspectionresultList = applyInspectionService.lookInspectionRes(inspectionDetailsID);
             PageInfo<InspectionResult> list = new PageInfo<>(inspectionresultList);
             resultDTO.setStatus("OK");

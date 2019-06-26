@@ -7,7 +7,7 @@ import java.util.List;
 public interface MedicalRecHomeService {
     //1.	查询患者:通过患者病历号或者姓名
     //public Patient findPatient_recID(Integer medicalRecID);
-    public List<Patient> findPatient(String nameOrMedicalRecID);
+    public List<PatientMedicalRec> findPatient(String nameOrMedicalRecID);
     //2.	暂存病历首页
     public boolean tempStore(MedicalRecHome medicalRecHome);
 
@@ -31,4 +31,7 @@ public interface MedicalRecHomeService {
 
     //8.	查看历史病历
     public List<MedicalRecord> searchHistoryRec(Integer patientID);
+
+
+    public List<PatientMedicalRec> listPatientNoDiagnosis();
 }

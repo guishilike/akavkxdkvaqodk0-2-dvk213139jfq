@@ -1,5 +1,6 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.MedicalRecHomeTemplate;
@@ -90,7 +91,7 @@ public class MedicalRecHomeTempController {
         ResultDTO<PageInfo<MedicalRecHomeTemplate>> resultDTO = new ResultDTO<>();
 
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             List<MedicalRecHomeTemplate> medicalRecHomeTemplateList = medicalRecHomeTempService.findMedicalRecHomeTemplate(str);
             System.out.println("-----");
             PageInfo<MedicalRecHomeTemplate> list = new PageInfo<>(medicalRecHomeTemplateList);

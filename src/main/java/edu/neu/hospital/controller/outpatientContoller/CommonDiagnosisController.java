@@ -1,5 +1,6 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.CommonDiagnosis;
@@ -151,7 +152,7 @@ public class CommonDiagnosisController {
         ResultDTO<PageInfo<Disease>> resultDTO = new ResultDTO<>();
 
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             List<Disease> diseaseList = commonDiagnosisService.searchDisease(str);
             System.out.println("-----");
             PageInfo<Disease> list = new PageInfo<>(diseaseList);

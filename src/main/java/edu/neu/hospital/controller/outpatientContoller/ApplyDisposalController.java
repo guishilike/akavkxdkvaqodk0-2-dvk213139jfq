@@ -1,6 +1,7 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.*;
@@ -91,7 +92,7 @@ public class ApplyDisposalController {
         ResultDTO<PageInfo<FMedItem>> resultDTO = new ResultDTO<>();
 
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             List<FMedItem> diseaseList = applyDisposalService.searchDisposal(str);
             System.out.println("-----");
             PageInfo<FMedItem> list = new PageInfo<>(diseaseList);
@@ -112,7 +113,7 @@ public class ApplyDisposalController {
     ResultDTO<PageInfo<DisposalDetails>> tmpStore(DataListDTO dataListDTO, HttpSession session, Integer pageNum, Integer pageSize) {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<DisposalDetails> list = dataListDTO.getData();
@@ -148,7 +149,7 @@ public class ApplyDisposalController {
     ResultDTO<PageInfo<DisposalDetails>> drawDisposalDetails(IdDTO disposalDetailsIdList, HttpSession session, Integer pageNum, Integer pageSize) {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<DisposalDetails> disposalDetailsList = applyDisposalService.drawDisposalDetails(disposalDetailsIdList, user.getId());
@@ -193,7 +194,7 @@ public class ApplyDisposalController {
     ResultDTO<PageInfo<DisposalDetails>> deleteDisposalDetails(IdDTO disposalDetailsIdList, HttpSession session, Integer pageNum, Integer pageSize) {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<DisposalDetails> disposalDetailsList = applyDisposalService.deleteDisposalDetails(disposalDetailsIdList, user.getId());
@@ -214,7 +215,7 @@ public class ApplyDisposalController {
     ResultDTO<PageInfo<DisposalDetails>> abolishDisposalDetails(IdDTO disposalDetailsIdList, HttpSession session, Integer pageNum, Integer pageSize) {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             UserView user = (UserView) session.getAttribute("user");
             System.out.println(user.getId());
             List<DisposalDetails> disposalDetailsList = applyDisposalService.abolishDisposalDetails(disposalDetailsIdList, user.getId());

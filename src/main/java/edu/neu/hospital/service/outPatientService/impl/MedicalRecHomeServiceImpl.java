@@ -60,14 +60,14 @@ public class MedicalRecHomeServiceImpl implements MedicalRecHomeService {
      * @return 一个该名字的患者List
      */
     @Override
-    public List<Patient> findPatient(String nameOrMedicalRecNo) {
+    public List<PatientMedicalRec> findPatient(String nameOrMedicalRecNo) {
         System.out.println("传入" + nameOrMedicalRecNo);
-        PatientExample patientExample = new PatientExample();
+       /* PatientExample patientExample = new PatientExample();
 
         PatientExample.Criteria criteria1 = patientExample.createCriteria();
         PatientExample.Criteria criteria2 = patientExample.createCriteria();
         System.out.println("1111111");
-        List<Patient> patients1 = new LinkedList<>();
+
         if( nameOrMedicalRecNo != null){
             criteria1.andPatientNameEqualTo(nameOrMedicalRecNo);//根据名字
             System.out.println("根据名字查到辣");
@@ -76,25 +76,24 @@ public class MedicalRecHomeServiceImpl implements MedicalRecHomeService {
         }
         //根据病历ID
         System.out.println("根据病历no查");
-
+*/
+       List<PatientMedicalRec> patientMedicalRecList = new LinkedList<>();
 
         //先在view里用病历号查patientID，在用id在patient里查patient
         PatientMedicalRecExample patientMedicalRecExample = new PatientMedicalRecExample();
         PatientMedicalRecExample.Criteria criteria = patientMedicalRecExample.createCriteria();
+        PatientMedicalRecExample.Criteria criteria2 = patientMedicalRecExample.createCriteria();
+
         if( nameOrMedicalRecNo != null){
             criteria.andMedicalRecordNoEqualTo(nameOrMedicalRecNo);
+            criteria2.andPatientNameEqualTo(nameOrMedicalRecNo);
         }
+        patientMedicalRecExample.or(criteria2);
         List<PatientMedicalRec> list = patientMedicalRecDao.selectByExample(patientMedicalRecExample);
-        List<Integer> patientID =  new LinkedList<>();
-        for( int i = 0 ; i < list.size() ; i ++) {
-            patientID.add(list.get(i).getPatientID());
-            System.out.println("病历查，病人id" + patientID);
-            patients1 .add(patientDao.selectByPrimaryKey(list.get(i).getPatientID()));
-        }
 
 
 
-        return patients1;
+        return list;
     }
 
     /**
@@ -230,5 +229,13 @@ public class MedicalRecHomeServiceImpl implements MedicalRecHomeService {
             medicalRecords.add(medicalRecordDao.selectByPrimaryKey(medicalRecordID));
         }
         return medicalRecords;
+    }
+
+
+    public List<PatientMedicalRec> listPatientNoDiagnosis(){
+        PatientMedicalRecExample patientMedicalRecExample = new PatientMedicalRecExample();
+        PatientMedicalRecExample.Criteria criteria = patientMedicalRecExample.createCriteria();
+        criteria.andDiagnosisStatusEqualTo("0");
+        return patientMedicalRecDao.selectByExample(patientMedicalRecExample);
     }
 }

@@ -1,5 +1,6 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
@@ -136,7 +137,7 @@ public class ProjectTempController {
         ResultDTO<PageInfo<ProjectTemplate>> resultDTO = new ResultDTO<>();
 
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             List<ProjectTemplate> projectTemplateList = projectTempService.findProjectTemplate(str);
             System.out.println("-----");
             PageInfo<ProjectTemplate> list = new PageInfo<>(projectTemplateList);
@@ -283,7 +284,7 @@ public class ProjectTempController {
         ResultDTO<PageInfo<FMedItem>> resultDTO = new ResultDTO<>();
 
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             List<FMedItem> diseaseList = projectTempService.searchProject(str);
             System.out.println("-----");
             PageInfo<FMedItem> list = new PageInfo<>(diseaseList);

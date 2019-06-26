@@ -1,5 +1,6 @@
 package edu.neu.hospital.controller.outpatientContoller;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Diagnosis;
@@ -51,7 +52,7 @@ public class DiagnosisController {
         ResultDTO<PageInfo<Diagnosis>> resultDTO = new ResultDTO<>();
 
        // try{
-
+        PageHelper.startPage(pageNum, pageSize);
         UserView user = (UserView) session.getAttribute("user");
         System.out.println(user.getId());
             System.out.println("wai-----");
@@ -77,7 +78,7 @@ public class DiagnosisController {
         ResultDTO<PageInfo<Disease>> resultDTO = new ResultDTO<>();
 
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             List<Disease> diseaseList = diagnoseService.searchDisease(str);
             System.out.println("-----");
             PageInfo<Disease> list = new PageInfo<>(diseaseList);
