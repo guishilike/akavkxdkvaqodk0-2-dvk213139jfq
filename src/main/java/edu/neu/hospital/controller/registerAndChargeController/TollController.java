@@ -33,15 +33,13 @@ public class TollController {
      */
     @RequestMapping("/tollInspection")
     public @ResponseBody
-    ResultDTO<PageInfo> tollInspection(String search, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endDate, Integer payStatus, Integer pageNum, Integer pageSize){
-        ResultDTO<PageInfo> resultDTO = new ResultDTO<>();
+    ResultDTO<List<TollInspectView>> tollInspection(String search, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endDate, Integer payStatus){
+        ResultDTO<List<TollInspectView>> resultDTO = new ResultDTO<>();
         try {
-            PageHelper.startPage(pageNum, pageSize);
             List<TollInspectView> tollInspectViewList =tollService.tollInspection(search,startDate,endDate,payStatus);
-            PageInfo<TollInspectView> tollinspectviewPageInfo= new PageInfo<>(tollInspectViewList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功！");
-            resultDTO.setData(tollinspectviewPageInfo);
+            resultDTO.setData(tollInspectViewList);
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus("NG");

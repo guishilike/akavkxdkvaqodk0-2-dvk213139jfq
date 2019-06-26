@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.neu.hospital.dao.inspectionDao.InspectMatReViewDao">
-  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.inspectionBean.InspectMatReview">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.inspectionBean.InspectMatReView">
     <result column="medMatListID" jdbcType="INTEGER" property="medMatListID" />
-    <result column="itemsType" jdbcType="CHAR" property="itemsType" />
+    <result column="itemsType" jdbcType="INTEGER" property="itemsType" />
     <result column="itemsDetailID" jdbcType="INTEGER" property="itemsDetailID" />
     <result column="medicinesMaterialsID" jdbcType="INTEGER" property="medicinesMaterialsID" />
     <result column="dosage" jdbcType="DECIMAL" property="dosage" />
@@ -127,7 +127,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="edu.neu.hospital.bean.inspectionBean.InspectMatReview">
+  <insert id="insert" parameterType="edu.neu.hospital.bean.inspectionBean.InspectMatReView">
     insert into inspectmatreview (medMatListID, itemsType, itemsDetailID, 
       medicinesMaterialsID, dosage, matOrMedType, 
       constantName, appearUserID, appearDate, 
@@ -139,7 +139,7 @@
       isExecuted, drawnName, paidName, 
       checkedName, abolishedName, registeredName, 
       executedName)
-    values (#{medMatListID,jdbcType=INTEGER}, #{itemsType,jdbcType=CHAR}, #{itemsDetailID,jdbcType=INTEGER}, 
+    values (#{medMatListID,jdbcType=INTEGER}, #{itemsType,jdbcType=INTEGER}, #{itemsDetailID,jdbcType=INTEGER}, 
       #{medicinesMaterialsID,jdbcType=INTEGER}, #{dosage,jdbcType=DECIMAL}, #{matOrMedType,jdbcType=CHAR}, 
       #{constantName,jdbcType=VARCHAR}, #{appearUserID,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, 
       #{changeUserID,jdbcType=INTEGER}, #{changeDate,jdbcType=TIMESTAMP}, #{creatRName,jdbcType=VARCHAR}, 
@@ -151,7 +151,7 @@
       #{checkedName,jdbcType=VARCHAR}, #{abolishedName,jdbcType=VARCHAR}, #{registeredName,jdbcType=VARCHAR}, 
       #{executedName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="edu.neu.hospital.bean.inspectionBean.InspectMatReview">
+  <insert id="insertSelective" parameterType="edu.neu.hospital.bean.inspectionBean.InspectMatReView">
     insert into inspectmatreview
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="medMatListID != null">
@@ -253,7 +253,7 @@
         #{medMatListID,jdbcType=INTEGER},
       </if>
       <if test="itemsType != null">
-        #{itemsType,jdbcType=CHAR},
+        #{itemsType,jdbcType=INTEGER},
       </if>
       <if test="itemsDetailID != null">
         #{itemsDetailID,jdbcType=INTEGER},
@@ -357,7 +357,7 @@
         medMatListID = #{record.medMatListID,jdbcType=INTEGER},
       </if>
       <if test="record.itemsType != null">
-        itemsType = #{record.itemsType,jdbcType=CHAR},
+        itemsType = #{record.itemsType,jdbcType=INTEGER},
       </if>
       <if test="record.itemsDetailID != null">
         itemsDetailID = #{record.itemsDetailID,jdbcType=INTEGER},
@@ -454,7 +454,7 @@
   <update id="updateByExample" parameterType="map">
     update inspectmatreview
     set medMatListID = #{record.medMatListID,jdbcType=INTEGER},
-      itemsType = #{record.itemsType,jdbcType=CHAR},
+      itemsType = #{record.itemsType,jdbcType=INTEGER},
       itemsDetailID = #{record.itemsDetailID,jdbcType=INTEGER},
       medicinesMaterialsID = #{record.medicinesMaterialsID,jdbcType=INTEGER},
       dosage = #{record.dosage,jdbcType=DECIMAL},

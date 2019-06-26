@@ -2,12 +2,9 @@ package edu.neu.hospital.dao.basicTableDao;
 
 import edu.neu.hospital.bean.basicTableBean.MedicinesMaterialsList;
 import edu.neu.hospital.example.basicTableExample.MedicinesMaterialsListExample;
-import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
-@Mapper
 public interface MedicinesMaterialsListDao {
     long countByExample(MedicinesMaterialsListExample example);
 

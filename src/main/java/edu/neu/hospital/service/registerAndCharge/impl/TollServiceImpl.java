@@ -73,16 +73,15 @@ public class TollServiceImpl implements TollService {
 
         if ((startDate != null) && (endDate != null)) {
             criteria.andFeeAppearDateBetween(startDate, endDate);
-
         }
         if(payStatus!=null){
             criteria.andPayStatusEqualTo(payStatus);
         }
         //返回表单搜索内容作搜索关联匹配查询
-        if (search != null) {
+        if (search != null &&!search.equals("")) {
             //去除空格
             String searchd = regexProcess.regexProcess02(search);
-            if (regexProcess.regexProcess03(search)) {
+            if (regexProcess.regexProcess03(searchd)){
                 criteria.andMedicalRecordIDEqualTo(Integer.valueOf(searchd));
             }
         }
@@ -101,10 +100,8 @@ public class TollServiceImpl implements TollService {
 
     public List<TollInspectView> tollInspection(String search, Date startDate, Date endDate, Integer payStatus) {
         List<TollInspectView> tollInspectViewList = new ArrayList<>();
-
         FeeExample feeExample = new FeeExample();
         FeeExample.Criteria criteria = feeExample.createCriteria();
-
         setCrireria(criteria,search,startDate,endDate,payStatus);
         List<Fee> feeList = feeDao.selectByExample(feeExample);
         for (Fee fee : feeList) {

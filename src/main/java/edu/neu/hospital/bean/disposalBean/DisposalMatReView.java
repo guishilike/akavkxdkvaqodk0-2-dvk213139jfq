@@ -17,7 +17,7 @@ public class DisposalMatReView implements Serializable {
     /**
      * 检查检验或处置
      */
-    private String itemsType;
+    private Integer itemsType;
 
     /**
      * 明细ID
@@ -97,7 +97,7 @@ public class DisposalMatReView implements Serializable {
     private BigDecimal price;
 
     /**
-     * 非药品目录ID
+     * 非药品项目ID
      */
     private Integer fmedItemID;
 
@@ -135,11 +135,11 @@ public class DisposalMatReView implements Serializable {
         this.medMatListID = medMatListID;
     }
 
-    public String getItemsType() {
+    public Integer getItemsType() {
         return itemsType;
     }
 
-    public void setItemsType(String itemsType) {
+    public void setItemsType(Integer itemsType) {
         this.itemsType = itemsType;
     }
 

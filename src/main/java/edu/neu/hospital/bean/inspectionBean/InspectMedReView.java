@@ -17,7 +17,7 @@ public class InspectMedReView implements Serializable {
     /**
      * 检查检验或处置
      */
-    private String itemsType;
+    private Integer itemsType;
 
     /**
      * 明细ID
@@ -171,11 +171,11 @@ public class InspectMedReView implements Serializable {
         this.medMatListID = medMatListID;
     }
 
-    public String getItemsType() {
+    public Integer getItemsType() {
         return itemsType;
     }
 
-    public void setItemsType(String itemsType) {
+    public void setItemsType(Integer itemsType) {
         this.itemsType = itemsType;
     }
 

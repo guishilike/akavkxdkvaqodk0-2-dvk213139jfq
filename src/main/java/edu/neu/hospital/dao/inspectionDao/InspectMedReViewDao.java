@@ -1,8 +1,9 @@
 package edu.neu.hospital.dao.inspectionDao;
 
-import edu.neu.hospital.bean.inspectionBean.InspectMedReView;
 import edu.neu.hospital.example.inspectionExample.InspectMedReViewExample;
 import java.util.List;
+
+import edu.neu.hospital.bean.inspectionBean.InspectMedReView;
 import org.apache.ibatis.annotations.Param;
 
 public interface InspectMedReViewDao {

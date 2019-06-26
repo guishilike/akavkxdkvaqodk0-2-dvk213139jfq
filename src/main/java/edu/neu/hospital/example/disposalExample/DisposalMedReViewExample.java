@@ -196,62 +196,52 @@ public class DisposalMedReViewExample {
             return (Criteria) this;
         }
 
-        public Criteria andItemsTypeEqualTo(String value) {
+        public Criteria andItemsTypeEqualTo(Integer value) {
             addCriterion("itemsType =", value, "itemsType");
             return (Criteria) this;
         }
 
-        public Criteria andItemsTypeNotEqualTo(String value) {
+        public Criteria andItemsTypeNotEqualTo(Integer value) {
             addCriterion("itemsType <>", value, "itemsType");
             return (Criteria) this;
         }
 
-        public Criteria andItemsTypeGreaterThan(String value) {
+        public Criteria andItemsTypeGreaterThan(Integer value) {
             addCriterion("itemsType >", value, "itemsType");
             return (Criteria) this;
         }
 
-        public Criteria andItemsTypeGreaterThanOrEqualTo(String value) {
+        public Criteria andItemsTypeGreaterThanOrEqualTo(Integer value) {
             addCriterion("itemsType >=", value, "itemsType");
             return (Criteria) this;
         }
 
-        public Criteria andItemsTypeLessThan(String value) {
+        public Criteria andItemsTypeLessThan(Integer value) {
             addCriterion("itemsType <", value, "itemsType");
             return (Criteria) this;
         }
 
-        public Criteria andItemsTypeLessThanOrEqualTo(String value) {
+        public Criteria andItemsTypeLessThanOrEqualTo(Integer value) {
             addCriterion("itemsType <=", value, "itemsType");
             return (Criteria) this;
         }
 
-        public Criteria andItemsTypeLike(String value) {
-            addCriterion("itemsType like", value, "itemsType");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemsTypeNotLike(String value) {
-            addCriterion("itemsType not like", value, "itemsType");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemsTypeIn(List<String> values) {
+        public Criteria andItemsTypeIn(List<Integer> values) {
             addCriterion("itemsType in", values, "itemsType");
             return (Criteria) this;
         }
 
-        public Criteria andItemsTypeNotIn(List<String> values) {
+        public Criteria andItemsTypeNotIn(List<Integer> values) {
             addCriterion("itemsType not in", values, "itemsType");
             return (Criteria) this;
         }
 
-        public Criteria andItemsTypeBetween(String value1, String value2) {
+        public Criteria andItemsTypeBetween(Integer value1, Integer value2) {
             addCriterion("itemsType between", value1, value2, "itemsType");
             return (Criteria) this;
         }
 
-        public Criteria andItemsTypeNotBetween(String value1, String value2) {
+        public Criteria andItemsTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("itemsType not between", value1, value2, "itemsType");
             return (Criteria) this;
         }

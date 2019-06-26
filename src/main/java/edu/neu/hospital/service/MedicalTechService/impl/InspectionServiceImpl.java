@@ -170,19 +170,23 @@ public class InspectionServiceImpl implements InspectionService {
             criteria1.andFmeditemMnemonicCodeLike("%" + searchd + "%");
             criteria2.andPatientNameLike("%" + searchd + "%");
             criteria3.andRealNameLike("%" + searchd + "%");
-            if (regexProcess.regexProcess03(search)){
-               criteria4.andFmeditemIdEqualTo(Integer.valueOf(search));
+            if (regexProcess.regexProcess03(searchd)){
+               criteria4.andFmeditemIdEqualTo(Integer.valueOf(searchd));
             }
-            if (regexProcess.regexProcess03(search)){
-                criteria5.andInspectionIdEqualTo(Integer.valueOf(search));
+            if (regexProcess.regexProcess03(searchd)){
+                criteria5.andInspectionIdEqualTo(Integer.valueOf(searchd));
             }
             criteria6.andFmeditemNameLike("%" + searchd + "%");
         }
         inspectformviewExample.or(criteria1);
         inspectformviewExample.or(criteria2);
         inspectformviewExample.or(criteria3);
+        if(search!=null&&regexProcess.regexProcess03(regexProcess.regexProcess02(search))){
         inspectformviewExample.or(criteria4);
+        }
+        if(search!=null&&regexProcess.regexProcess03(regexProcess.regexProcess02(search))){
         inspectformviewExample.or(criteria5);
+        }
         inspectformviewExample.or(criteria6);
 
         return inspectformviewDao.selectByExample(inspectformviewExample);
@@ -382,7 +386,7 @@ public class InspectionServiceImpl implements InspectionService {
             InspectMatReViewExample inspectmatreviewExample=new InspectMatReViewExample();
             InspectMatReViewExample.Criteria criteriaM=inspectmatreviewExample.createCriteria();
             criteriaM.andMedicinesMaterialsIDEqualTo(ID);
-            InspectMatReview inspectmatreview=inspectmatreviewDao.selectByExample(inspectmatreviewExample).get(0);
+            InspectMatReView inspectmatreview=inspectmatreviewDao.selectByExample(inspectmatreviewExample).get(0);
 
             InspectFormViewExample inspectformviewExample=new InspectFormViewExample();
             InspectFormViewExample.Criteria criteriaF=inspectformviewExample.createCriteria();

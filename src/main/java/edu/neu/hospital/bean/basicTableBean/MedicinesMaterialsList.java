@@ -6,61 +6,77 @@ import java.util.Date;
 
 /**
  * medicinesmaterialslist
- *
- * @author
+ * @author 
  */
 public class MedicinesMaterialsList implements Serializable {
-    private static final long serialVersionUID = 1L;
     /**
      * 编号
      */
     private Integer id;
+
     /**
      * 检查检验或处置
      */
-    private String itemsType;
+    private Integer itemsType;
+
     /**
      * 明细ID
      */
     private Integer itemsDetailID;
+
     /**
      * 药品材料编号
      */
     private Integer medicinesMaterialsID;
+
     /**
      * 用量
      */
     private BigDecimal dosage;
+
     /**
      * 药品或材料，0：药品 1：材料
      */
     private String matOrMedType;
+
     /**
      * 创建人
      */
     private Integer appearUserID;
+
     /**
      * 创建日期
      */
     private Date appearDate;
+
     /**
      * 修改人
      */
     private Integer changeUserID;
+
     /**
      * 修改日期
      */
     private Date changeDate;
+
     /**
      * 状态
      */
     private String status;
+
     private Integer isDrawn;
+
     private Integer isPaid;
+
     private Integer isChecked;
+
     private Integer isAbolished;
+
     private Integer isRegistered;
+
     private Integer isExecuted;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
@@ -70,11 +86,11 @@ public class MedicinesMaterialsList implements Serializable {
         this.id = id;
     }
 
-    public String getItemsType() {
+    public Integer getItemsType() {
         return itemsType;
     }
 
-    public void setItemsType(String itemsType) {
+    public void setItemsType(Integer itemsType) {
         this.itemsType = itemsType;
     }
 
@@ -211,22 +227,22 @@ public class MedicinesMaterialsList implements Serializable {
         }
         MedicinesMaterialsList other = (MedicinesMaterialsList) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-                && (this.getItemsType() == null ? other.getItemsType() == null : this.getItemsType().equals(other.getItemsType()))
-                && (this.getItemsDetailID() == null ? other.getItemsDetailID() == null : this.getItemsDetailID().equals(other.getItemsDetailID()))
-                && (this.getMedicinesMaterialsID() == null ? other.getMedicinesMaterialsID() == null : this.getMedicinesMaterialsID().equals(other.getMedicinesMaterialsID()))
-                && (this.getDosage() == null ? other.getDosage() == null : this.getDosage().equals(other.getDosage()))
-                && (this.getMatOrMedType() == null ? other.getMatOrMedType() == null : this.getMatOrMedType().equals(other.getMatOrMedType()))
-                && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
-                && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
-                && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
-                && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
-                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-                && (this.getIsDrawn() == null ? other.getIsDrawn() == null : this.getIsDrawn().equals(other.getIsDrawn()))
-                && (this.getIsPaid() == null ? other.getIsPaid() == null : this.getIsPaid().equals(other.getIsPaid()))
-                && (this.getIsChecked() == null ? other.getIsChecked() == null : this.getIsChecked().equals(other.getIsChecked()))
-                && (this.getIsAbolished() == null ? other.getIsAbolished() == null : this.getIsAbolished().equals(other.getIsAbolished()))
-                && (this.getIsRegistered() == null ? other.getIsRegistered() == null : this.getIsRegistered().equals(other.getIsRegistered()))
-                && (this.getIsExecuted() == null ? other.getIsExecuted() == null : this.getIsExecuted().equals(other.getIsExecuted()));
+            && (this.getItemsType() == null ? other.getItemsType() == null : this.getItemsType().equals(other.getItemsType()))
+            && (this.getItemsDetailID() == null ? other.getItemsDetailID() == null : this.getItemsDetailID().equals(other.getItemsDetailID()))
+            && (this.getMedicinesMaterialsID() == null ? other.getMedicinesMaterialsID() == null : this.getMedicinesMaterialsID().equals(other.getMedicinesMaterialsID()))
+            && (this.getDosage() == null ? other.getDosage() == null : this.getDosage().equals(other.getDosage()))
+            && (this.getMatOrMedType() == null ? other.getMatOrMedType() == null : this.getMatOrMedType().equals(other.getMatOrMedType()))
+            && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
+            && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
+            && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
+            && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getIsDrawn() == null ? other.getIsDrawn() == null : this.getIsDrawn().equals(other.getIsDrawn()))
+            && (this.getIsPaid() == null ? other.getIsPaid() == null : this.getIsPaid().equals(other.getIsPaid()))
+            && (this.getIsChecked() == null ? other.getIsChecked() == null : this.getIsChecked().equals(other.getIsChecked()))
+            && (this.getIsAbolished() == null ? other.getIsAbolished() == null : this.getIsAbolished().equals(other.getIsAbolished()))
+            && (this.getIsRegistered() == null ? other.getIsRegistered() == null : this.getIsRegistered().equals(other.getIsRegistered()))
+            && (this.getIsExecuted() == null ? other.getIsExecuted() == null : this.getIsExecuted().equals(other.getIsExecuted()));
     }
 
     @Override

@@ -25,7 +25,7 @@
     <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
     <result column="familyAddress" jdbcType="VARCHAR" property="familyAddress" />
     <result column="medicinesMaterialsID" jdbcType="INTEGER" property="medicinesMaterialsID" />
-    <result column="itemsType" jdbcType="CHAR" property="itemsType" />
+    <result column="itemsType" jdbcType="INTEGER" property="itemsType" />
     <result column="dosage" jdbcType="DECIMAL" property="dosage" />
     <result column="matOrMedType" jdbcType="CHAR" property="matOrMedType" />
     <result column="drugsCode" jdbcType="CHAR" property="drugsCode" />
@@ -169,7 +169,7 @@
       #{payStatus,jdbcType=INTEGER}, #{dateStatus,jdbcType=INTEGER}, #{medicalRecordNo,jdbcType=CHAR}, 
       #{patientID,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, #{identityCardNo,jdbcType=CHAR}, 
       #{age,jdbcType=INTEGER}, #{gender,jdbcType=CHAR}, #{birthday,jdbcType=TIMESTAMP}, 
-      #{familyAddress,jdbcType=VARCHAR}, #{medicinesMaterialsID,jdbcType=INTEGER}, #{itemsType,jdbcType=CHAR}, 
+      #{familyAddress,jdbcType=VARCHAR}, #{medicinesMaterialsID,jdbcType=INTEGER}, #{itemsType,jdbcType=INTEGER}, 
       #{dosage,jdbcType=DECIMAL}, #{matOrMedType,jdbcType=CHAR}, #{drugsCode,jdbcType=CHAR}, 
       #{drugsName,jdbcType=VARCHAR}, #{drugsFormat,jdbcType=VARCHAR}, #{drugsUnit,jdbcType=VARCHAR}, 
       #{manufacturer,jdbcType=VARCHAR}, #{drugsDosageID,jdbcType=INTEGER}, #{drugsTypeID,jdbcType=INTEGER}, 
@@ -395,7 +395,7 @@
         #{medicinesMaterialsID,jdbcType=INTEGER},
       </if>
       <if test="itemsType != null">
-        #{itemsType,jdbcType=CHAR},
+        #{itemsType,jdbcType=INTEGER},
       </if>
       <if test="dosage != null">
         #{dosage,jdbcType=DECIMAL},
@@ -547,7 +547,7 @@
         medicinesMaterialsID = #{record.medicinesMaterialsID,jdbcType=INTEGER},
       </if>
       <if test="record.itemsType != null">
-        itemsType = #{record.itemsType,jdbcType=CHAR},
+        itemsType = #{record.itemsType,jdbcType=INTEGER},
       </if>
       <if test="record.dosage != null">
         dosage = #{record.dosage,jdbcType=DECIMAL},
@@ -648,7 +648,7 @@
       birthday = #{record.birthday,jdbcType=TIMESTAMP},
       familyAddress = #{record.familyAddress,jdbcType=VARCHAR},
       medicinesMaterialsID = #{record.medicinesMaterialsID,jdbcType=INTEGER},
-      itemsType = #{record.itemsType,jdbcType=CHAR},
+      itemsType = #{record.itemsType,jdbcType=INTEGER},
       dosage = #{record.dosage,jdbcType=DECIMAL},
       matOrMedType = #{record.matOrMedType,jdbcType=CHAR},
       drugsCode = #{record.drugsCode,jdbcType=CHAR},

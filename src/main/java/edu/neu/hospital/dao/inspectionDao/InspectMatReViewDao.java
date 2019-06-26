@@ -1,8 +1,9 @@
 package edu.neu.hospital.dao.inspectionDao;
 
-import edu.neu.hospital.bean.inspectionBean.InspectMatReview;
 import edu.neu.hospital.example.inspectionExample.InspectMatReViewExample;
 import java.util.List;
+
+import edu.neu.hospital.bean.inspectionBean.InspectMatReView;
 import org.apache.ibatis.annotations.Param;
 
 public interface InspectMatReViewDao {
@@ -10,13 +11,13 @@ public interface InspectMatReViewDao {
 
     int deleteByExample(InspectMatReViewExample example);
 
-    int insert(InspectMatReview record);
+    int insert(InspectMatReView record);
 
-    int insertSelective(InspectMatReview record);
+    int insertSelective(InspectMatReView record);
 
-    List<InspectMatReview> selectByExample(InspectMatReViewExample example);
+    List<InspectMatReView> selectByExample(InspectMatReViewExample example);
 
-    int updateByExampleSelective(@Param("record") InspectMatReview record, @Param("example") InspectMatReViewExample example);
+    int updateByExampleSelective(@Param("record") InspectMatReView record, @Param("example") InspectMatReViewExample example);
 
-    int updateByExample(@Param("record") InspectMatReview record, @Param("example") InspectMatReViewExample example);
+    int updateByExample(@Param("record") InspectMatReView record, @Param("example") InspectMatReViewExample example);
 }

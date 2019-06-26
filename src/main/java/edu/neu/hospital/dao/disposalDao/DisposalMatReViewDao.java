@@ -1,8 +1,9 @@
 package edu.neu.hospital.dao.disposalDao;
 
-import edu.neu.hospital.bean.disposalBean.DisposalMatReView;
-import edu.neu.hospital.example.disposalExample.DisposalMatReViewExample;
 import java.util.List;
+
+import edu.neu.hospital.example.disposalExample.DisposalMatReViewExample;
+import edu.neu.hospital.bean.disposalBean.DisposalMatReView;
 import org.apache.ibatis.annotations.Param;
 
 public interface DisposalMatReViewDao {

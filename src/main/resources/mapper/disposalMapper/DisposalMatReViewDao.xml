@@ -3,7 +3,7 @@
 <mapper namespace="edu.neu.hospital.dao.disposalDao.DisposalMatReViewDao">
   <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.disposalBean.DisposalMatReView">
     <result column="medMatListID" jdbcType="INTEGER" property="medMatListID" />
-    <result column="itemsType" jdbcType="CHAR" property="itemsType" />
+    <result column="itemsType" jdbcType="INTEGER" property="itemsType" />
     <result column="itemsDetailID" jdbcType="INTEGER" property="itemsDetailID" />
     <result column="medicinesMaterialsID" jdbcType="INTEGER" property="medicinesMaterialsID" />
     <result column="dosage" jdbcType="DECIMAL" property="dosage" />
@@ -139,7 +139,7 @@
       isExecuted, drawnName, paidName, 
       checkedName, abolishedName, registeredName, 
       executedName)
-    values (#{medMatListID,jdbcType=INTEGER}, #{itemsType,jdbcType=CHAR}, #{itemsDetailID,jdbcType=INTEGER}, 
+    values (#{medMatListID,jdbcType=INTEGER}, #{itemsType,jdbcType=INTEGER}, #{itemsDetailID,jdbcType=INTEGER}, 
       #{medicinesMaterialsID,jdbcType=INTEGER}, #{dosage,jdbcType=DECIMAL}, #{matOrMedType,jdbcType=CHAR}, 
       #{constantName,jdbcType=VARCHAR}, #{appearUserID,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, 
       #{changeUserID,jdbcType=INTEGER}, #{changeDate,jdbcType=TIMESTAMP}, #{creatRName,jdbcType=VARCHAR}, 
@@ -253,7 +253,7 @@
         #{medMatListID,jdbcType=INTEGER},
       </if>
       <if test="itemsType != null">
-        #{itemsType,jdbcType=CHAR},
+        #{itemsType,jdbcType=INTEGER},
       </if>
       <if test="itemsDetailID != null">
         #{itemsDetailID,jdbcType=INTEGER},
@@ -357,7 +357,7 @@
         medMatListID = #{record.medMatListID,jdbcType=INTEGER},
       </if>
       <if test="record.itemsType != null">
-        itemsType = #{record.itemsType,jdbcType=CHAR},
+        itemsType = #{record.itemsType,jdbcType=INTEGER},
       </if>
       <if test="record.itemsDetailID != null">
         itemsDetailID = #{record.itemsDetailID,jdbcType=INTEGER},
@@ -454,7 +454,7 @@
   <update id="updateByExample" parameterType="map">
     update disposalmatreview
     set medMatListID = #{record.medMatListID,jdbcType=INTEGER},
-      itemsType = #{record.itemsType,jdbcType=CHAR},
+      itemsType = #{record.itemsType,jdbcType=INTEGER},
       itemsDetailID = #{record.itemsDetailID,jdbcType=INTEGER},
       medicinesMaterialsID = #{record.medicinesMaterialsID,jdbcType=INTEGER},
       dosage = #{record.dosage,jdbcType=DECIMAL},

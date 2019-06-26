@@ -1,5 +1,7 @@
 package edu.neu.hospital.bean.tollBean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -48,6 +50,7 @@ public class TollRegView implements Serializable {
     /**
      * 收费时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date tollDate;
 
     /**
@@ -63,11 +66,13 @@ public class TollRegView implements Serializable {
     /**
      * 费用产生日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date feeAppearDate;
 
     /**
      * 费用变动日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date feeChangeDate;
 
     /**

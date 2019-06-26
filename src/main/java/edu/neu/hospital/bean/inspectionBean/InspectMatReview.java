@@ -8,7 +8,7 @@ import java.util.Date;
  * inspectmatreview
  * @author 
  */
-public class InspectMatReview implements Serializable {
+public class InspectMatReView implements Serializable {
     /**
      * 编号
      */
@@ -17,7 +17,7 @@ public class InspectMatReview implements Serializable {
     /**
      * 检查检验或处置
      */
-    private String itemsType;
+    private Integer itemsType;
 
     /**
      * 明细ID
@@ -135,11 +135,11 @@ public class InspectMatReview implements Serializable {
         this.medMatListID = medMatListID;
     }
 
-    public String getItemsType() {
+    public Integer getItemsType() {
         return itemsType;
     }
 
-    public void setItemsType(String itemsType) {
+    public void setItemsType(Integer itemsType) {
         this.itemsType = itemsType;
     }
 
@@ -386,7 +386,7 @@ public class InspectMatReview implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        InspectMatReview other = (InspectMatReview) that;
+        InspectMatReView other = (InspectMatReView) that;
         return (this.getMedMatListID() == null ? other.getMedMatListID() == null : this.getMedMatListID().equals(other.getMedMatListID()))
             && (this.getItemsType() == null ? other.getItemsType() == null : this.getItemsType().equals(other.getItemsType()))
             && (this.getItemsDetailID() == null ? other.getItemsDetailID() == null : this.getItemsDetailID().equals(other.getItemsDetailID()))
