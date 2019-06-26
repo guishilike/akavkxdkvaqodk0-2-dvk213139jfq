@@ -4,7 +4,7 @@ import edu.neu.hospital.bean.baseBean.DepartmentView;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Patient;
 import edu.neu.hospital.bean.basicTableBean.Registrationinfo;
-import edu.neu.hospital.dto.DeptIDAndNameDTO;
+import edu.neu.hospital.dto.IdAndNameDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.DepartmentService;
 import edu.neu.hospital.service.registerAndCharge.RegisterService;
@@ -56,23 +56,23 @@ public class RegisterController {
 
     @RequestMapping("/getDeptList")
     public @ResponseBody
-    ResultDTO<List<DeptIDAndNameDTO>> getDepartmentList() {
+    ResultDTO<List<IdAndNameDTO>> getDepartmentList() {
 
         try {
 
             List<DepartmentView> departmentViewList = departmentService.findDepartments(null, 120);
 
-            List<DeptIDAndNameDTO> deptIDAndNameDTOS = new ArrayList<>();
+            List<IdAndNameDTO> idAndNameDTOS = new ArrayList<>();
 
             for (DepartmentView deptView : departmentViewList) {
 
-                DeptIDAndNameDTO deptIDAndNameDTO = new DeptIDAndNameDTO();
-                deptIDAndNameDTO.setDeptID(deptView.getId());
-                deptIDAndNameDTO.setDeptName(deptView.getDeptName());
-                deptIDAndNameDTOS.add(deptIDAndNameDTO);
+                IdAndNameDTO idAndNameDTO = new IdAndNameDTO();
+                idAndNameDTO.setId(deptView.getId());
+                idAndNameDTO.setName(deptView.getDeptName());
+                idAndNameDTOS.add(idAndNameDTO);
             }
 
-            return new ResultDTO<>("OK", "获取成功", deptIDAndNameDTOS);
+            return new ResultDTO<>("OK", "获取成功", idAndNameDTOS);
 
         } catch (Exception e) {
             return new ResultDTO<>("error", "获取失败", null);
