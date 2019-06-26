@@ -42,11 +42,12 @@ public class CheckworkController {
 
     @RequestMapping("/findByInfo")
     public @ResponseBody
-    ResultDTO<PageInfo> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd,Integer pageNum,Integer pageSize){
+    ResultDTO<PageInfo> findByInfo(String realName, String deptName, Date dateStart, Date dateEnd,Integer pageNum,Integer pageSize){
         ResultDTO<PageInfo> resultDTO = new ResultDTO();
         try{
             PageHelper.startPage(pageNum,pageSize);
-            List<CheckWork> checkWorks = checkworkService.findByInfo(realName,departmentName,dateStart,dateEnd);
+            List<CheckWork> checkWorks = checkworkService.findByInfo(realName,deptName,dateStart,dateEnd);
+
             PageInfo<CheckWork> list=new PageInfo<>(checkWorks);
             if (list != null){
                 resultDTO.setStatus("OK");

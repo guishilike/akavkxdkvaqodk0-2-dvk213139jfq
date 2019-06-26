@@ -1,5 +1,7 @@
 package edu.neu.hospital.bean.finaceBean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -52,6 +54,7 @@ public class CheckWork implements Serializable {
     /**
      * 费用产生日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date feeAppearDate;
 
     /**
@@ -72,6 +75,7 @@ public class CheckWork implements Serializable {
     /**
      * 收费时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date tollDate;
 
     /**

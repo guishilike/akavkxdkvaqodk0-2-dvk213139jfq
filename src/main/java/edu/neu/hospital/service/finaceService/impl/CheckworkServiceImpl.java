@@ -25,20 +25,20 @@ public class CheckworkServiceImpl implements CheckworkService {
     /**
      *
      * @param realName 用户真实姓名
-     * @param departmentName 部门名称
+     * @param deptName 部门名称
      * @param dateStart 开始日期
      * @param dateEnd 结束日期
      * @return Checkwork核对类型的list
      */
     @Override
-    public List<CheckWork> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd) {
+    public List<CheckWork> findByInfo(String realName, String deptName, Date dateStart, Date dateEnd) {
         CheckWorkExample checkworkExample = new CheckWorkExample();
         checkworkExample.clear();
         CheckWorkExample.Criteria criteria = checkworkExample.createCriteria();
-        if(realName != null)
+        if((realName != null)&&(!realName.equals("")))
             criteria.andRealNameEqualTo(realName);
-        if(departmentName != null)
-            criteria.andDeptNameEqualTo(departmentName);
+        if((deptName != null)&&(!deptName.equals(""))){
+            criteria.andDeptNameEqualTo(deptName);}
         if(dateStart != null)
             criteria.andFeeAppearDateGreaterThan(dateStart);
         if(dateEnd != null)
@@ -73,6 +73,7 @@ public class CheckworkServiceImpl implements CheckworkService {
             }
         }
     }
+
 
 
 }

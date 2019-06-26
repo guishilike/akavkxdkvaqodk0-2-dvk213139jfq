@@ -11,14 +11,15 @@ public interface CheckworkService {
     /**
      *
      * @param realName 用户真实姓名
-     * @param departmentName 部门名称
+     * @param deptName 部门名称
      * @param dateStart 开始日期
      * @param dateEnd 结束日期
      * @return Checkwork核对类型的list
      */
-    List<CheckWork> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd);
+    List<CheckWork> findByInfo(String realName, String deptName, Date dateStart, Date dateEnd);
 
     public void updateById(Integer id,Integer userID);
 
     public void updateByChoose(IdDTO ids, Integer userID);
+
 }

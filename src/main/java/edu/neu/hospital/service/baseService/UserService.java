@@ -3,6 +3,7 @@ package edu.neu.hospital.service.baseService;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.UserNameAndPassDTO;
 
 import java.util.List;
@@ -60,5 +61,7 @@ public interface UserService {
      * @return
      */
     public List<UserView> findUserByName(String name);
+
+    public List<NameCodeDTO> getAllUserNamesAndUserIDs();
 
 }

@@ -5,6 +5,7 @@ import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dao.baseDao.UserViewDao;
 import edu.neu.hospital.dao.basicTableDao.UserDao;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.UserNameAndPassDTO;
 import edu.neu.hospital.example.baseExample.UserViewExample;
 import edu.neu.hospital.example.basicTableExample.UserExample;
@@ -108,5 +109,10 @@ public class UserServiceImpl implements UserService {
         criteria2.andUserNameEqualTo(name);
         example.or(criteria2);
         return userviewDao.selectByExample(example);
+    }
+
+    @Override
+    public List<NameCodeDTO> getAllUserNamesAndUserIDs() {
+        return userviewDao.selectAllUserNamesAndUserIDs();
     }
 }

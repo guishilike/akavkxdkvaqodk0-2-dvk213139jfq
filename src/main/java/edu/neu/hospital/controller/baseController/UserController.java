@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.UserService;
 import org.springframework.stereotype.Controller;
@@ -187,7 +188,22 @@ public class UserController {
         return resultDTO;
     }
 
+    @RequestMapping("/findAllUserNamesAndIDs")
+    public @ResponseBody ResultDTO AllUserNamesAndIDs(){
+        ResultDTO<List<NameCodeDTO>> resultDTO=new ResultDTO<>();
+        try{
+            List<NameCodeDTO> list=userService.getAllUserNamesAndUserIDs();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得搜索列表成功");
 
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得搜索列表失败");
+        }
+        return resultDTO;
+
+    }
 
 
 }
