@@ -37,6 +37,11 @@
     <result column="isExecuted" jdbcType="INTEGER" property="isExecuted" />
     <result column="realName" jdbcType="VARCHAR" property="realName" />
     <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="currentTreatmentSituation" jdbcType="VARCHAR" property="currentTreatmentSituation" />
+    <result column="physicalExamination" jdbcType="VARCHAR" property="physicalExamination" />
+    <result column="initialDiagnosis" jdbcType="VARCHAR" property="initialDiagnosis" />
+    <result column="inspectRecommend" jdbcType="VARCHAR" property="inspectRecommend" />
+    <result column="attention" jdbcType="VARCHAR" property="attention" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -102,7 +107,8 @@
     fmeditemId, fmeditemName, fmeditemCode, fmeditemFormat, medicalrechomeId, cheifComplaint, 
     currentMedicalHistory, pastMedicalHistory, allergies, DrawnName, PaidName, checkedName, 
     registeredName, abolishedName, executedName, appearDate, isDrawn, isPaid, isChecked, 
-    isRegistered, isAbolished, isExecuted, realName, `number`
+    isRegistered, isAbolished, isExecuted, realName, `number`, currentTreatmentSituation, 
+    physicalExamination, initialDiagnosis, inspectRecommend, attention
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.inspectionExample.InspectReViewExample" resultMap="BaseResultMap">
     select
@@ -145,7 +151,9 @@
       executedName, appearDate, isDrawn, 
       isPaid, isChecked, isRegistered, 
       isAbolished, isExecuted, realName, 
-      `number`)
+      `number`, currentTreatmentSituation, physicalExamination, 
+      initialDiagnosis, inspectRecommend, attention
+      )
     values (#{inspectionId,jdbcType=INTEGER}, #{inspectionAppearUserID,jdbcType=INTEGER}, 
       #{medicalrecordId,jdbcType=INTEGER}, #{inspectiondetailsId,jdbcType=INTEGER}, #{patientId,jdbcType=INTEGER}, 
       #{patientName,jdbcType=VARCHAR}, #{patientIdentityCardNo,jdbcType=CHAR}, #{patientAge,jdbcType=INTEGER}, 
@@ -158,7 +166,9 @@
       #{executedName,jdbcType=VARCHAR}, #{appearDate,jdbcType=TIMESTAMP}, #{isDrawn,jdbcType=INTEGER}, 
       #{isPaid,jdbcType=INTEGER}, #{isChecked,jdbcType=INTEGER}, #{isRegistered,jdbcType=INTEGER}, 
       #{isAbolished,jdbcType=INTEGER}, #{isExecuted,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, 
-      #{number,jdbcType=INTEGER})
+      #{number,jdbcType=INTEGER}, #{currentTreatmentSituation,jdbcType=VARCHAR}, #{physicalExamination,jdbcType=VARCHAR}, 
+      #{initialDiagnosis,jdbcType=VARCHAR}, #{inspectRecommend,jdbcType=VARCHAR}, #{attention,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="edu.neu.hospital.bean.inspectionBean.InspectReView">
     insert into inspectreview
@@ -268,6 +278,21 @@
       <if test="number != null">
         `number`,
       </if>
+      <if test="currentTreatmentSituation != null">
+        currentTreatmentSituation,
+      </if>
+      <if test="physicalExamination != null">
+        physicalExamination,
+      </if>
+      <if test="initialDiagnosis != null">
+        initialDiagnosis,
+      </if>
+      <if test="inspectRecommend != null">
+        inspectRecommend,
+      </if>
+      <if test="attention != null">
+        attention,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="inspectionId != null">
@@ -374,6 +399,21 @@
       </if>
       <if test="number != null">
         #{number,jdbcType=INTEGER},
+      </if>
+      <if test="currentTreatmentSituation != null">
+        #{currentTreatmentSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="physicalExamination != null">
+        #{physicalExamination,jdbcType=VARCHAR},
+      </if>
+      <if test="initialDiagnosis != null">
+        #{initialDiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectRecommend != null">
+        #{inspectRecommend,jdbcType=VARCHAR},
+      </if>
+      <if test="attention != null">
+        #{attention,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -491,6 +531,21 @@
       <if test="record.number != null">
         `number` = #{record.number,jdbcType=INTEGER},
       </if>
+      <if test="record.currentTreatmentSituation != null">
+        currentTreatmentSituation = #{record.currentTreatmentSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.physicalExamination != null">
+        physicalExamination = #{record.physicalExamination,jdbcType=VARCHAR},
+      </if>
+      <if test="record.initialDiagnosis != null">
+        initialDiagnosis = #{record.initialDiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inspectRecommend != null">
+        inspectRecommend = #{record.inspectRecommend,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attention != null">
+        attention = #{record.attention,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -532,7 +587,12 @@
       isAbolished = #{record.isAbolished,jdbcType=INTEGER},
       isExecuted = #{record.isExecuted,jdbcType=INTEGER},
       realName = #{record.realName,jdbcType=VARCHAR},
-      `number` = #{record.number,jdbcType=INTEGER}
+      `number` = #{record.number,jdbcType=INTEGER},
+      currentTreatmentSituation = #{record.currentTreatmentSituation,jdbcType=VARCHAR},
+      physicalExamination = #{record.physicalExamination,jdbcType=VARCHAR},
+      initialDiagnosis = #{record.initialDiagnosis,jdbcType=VARCHAR},
+      inspectRecommend = #{record.inspectRecommend,jdbcType=VARCHAR},
+      attention = #{record.attention,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

@@ -123,6 +123,22 @@ public class DisposalReView implements Serializable {
 
     private Integer number;
 
+    private String currentTreatmentSituation;
+
+    private String physicalExamination;
+
+    private String initialDiagnosis;
+
+    /**
+     * 检查建议
+     */
+    private String inspectRecommend;
+
+    /**
+     * 注意事项
+     */
+    private String attention;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getDisposalId() {
@@ -405,6 +421,46 @@ public class DisposalReView implements Serializable {
         this.number = number;
     }
 
+    public String getCurrentTreatmentSituation() {
+        return currentTreatmentSituation;
+    }
+
+    public void setCurrentTreatmentSituation(String currentTreatmentSituation) {
+        this.currentTreatmentSituation = currentTreatmentSituation;
+    }
+
+    public String getPhysicalExamination() {
+        return physicalExamination;
+    }
+
+    public void setPhysicalExamination(String physicalExamination) {
+        this.physicalExamination = physicalExamination;
+    }
+
+    public String getInitialDiagnosis() {
+        return initialDiagnosis;
+    }
+
+    public void setInitialDiagnosis(String initialDiagnosis) {
+        this.initialDiagnosis = initialDiagnosis;
+    }
+
+    public String getInspectRecommend() {
+        return inspectRecommend;
+    }
+
+    public void setInspectRecommend(String inspectRecommend) {
+        this.inspectRecommend = inspectRecommend;
+    }
+
+    public String getAttention() {
+        return attention;
+    }
+
+    public void setAttention(String attention) {
+        this.attention = attention;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -451,7 +507,12 @@ public class DisposalReView implements Serializable {
             && (this.getIsAbolished() == null ? other.getIsAbolished() == null : this.getIsAbolished().equals(other.getIsAbolished()))
             && (this.getIsExecuted() == null ? other.getIsExecuted() == null : this.getIsExecuted().equals(other.getIsExecuted()))
             && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
-            && (this.getNumber() == null ? other.getNumber() == null : this.getNumber().equals(other.getNumber()));
+            && (this.getNumber() == null ? other.getNumber() == null : this.getNumber().equals(other.getNumber()))
+            && (this.getCurrentTreatmentSituation() == null ? other.getCurrentTreatmentSituation() == null : this.getCurrentTreatmentSituation().equals(other.getCurrentTreatmentSituation()))
+            && (this.getPhysicalExamination() == null ? other.getPhysicalExamination() == null : this.getPhysicalExamination().equals(other.getPhysicalExamination()))
+            && (this.getInitialDiagnosis() == null ? other.getInitialDiagnosis() == null : this.getInitialDiagnosis().equals(other.getInitialDiagnosis()))
+            && (this.getInspectRecommend() == null ? other.getInspectRecommend() == null : this.getInspectRecommend().equals(other.getInspectRecommend()))
+            && (this.getAttention() == null ? other.getAttention() == null : this.getAttention().equals(other.getAttention()));
     }
 
     @Override
@@ -493,6 +554,11 @@ public class DisposalReView implements Serializable {
         result = prime * result + ((getIsExecuted() == null) ? 0 : getIsExecuted().hashCode());
         result = prime * result + ((getRealName() == null) ? 0 : getRealName().hashCode());
         result = prime * result + ((getNumber() == null) ? 0 : getNumber().hashCode());
+        result = prime * result + ((getCurrentTreatmentSituation() == null) ? 0 : getCurrentTreatmentSituation().hashCode());
+        result = prime * result + ((getPhysicalExamination() == null) ? 0 : getPhysicalExamination().hashCode());
+        result = prime * result + ((getInitialDiagnosis() == null) ? 0 : getInitialDiagnosis().hashCode());
+        result = prime * result + ((getInspectRecommend() == null) ? 0 : getInspectRecommend().hashCode());
+        result = prime * result + ((getAttention() == null) ? 0 : getAttention().hashCode());
         return result;
     }
 
@@ -537,6 +603,11 @@ public class DisposalReView implements Serializable {
         sb.append(", isExecuted=").append(isExecuted);
         sb.append(", realName=").append(realName);
         sb.append(", number=").append(number);
+        sb.append(", currentTreatmentSituation=").append(currentTreatmentSituation);
+        sb.append(", physicalExamination=").append(physicalExamination);
+        sb.append(", initialDiagnosis=").append(initialDiagnosis);
+        sb.append(", inspectRecommend=").append(inspectRecommend);
+        sb.append(", attention=").append(attention);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
