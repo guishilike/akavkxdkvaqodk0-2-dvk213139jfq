@@ -29,7 +29,7 @@ public class FileManage {
         if (!fileDirectory.exists()) {
             fileDirectory.mkdir();
         }
-        File file = new File(fileName);
+        File file = new File(path+"/"+fileName);
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         wb.write(fileOutputStream);
         fileOutputStream.close();

@@ -205,7 +205,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public File createExcel() throws IOException {
         String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLS";
-        String fileName = path + "/" + "department.xls";
+        String fileName ="department.xls";
         List<DepartmentView> results = departmentviewDao.selectByExample(new DepartmentViewExample());
 
 
@@ -237,7 +237,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public File createXLSTemplate() throws IOException {
         String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLSTemplate";
-        String fileName = path + "/" + "departmentTemplate.xls";
+        String fileName ="departmentTemplate.xls";
         String[] title = {"科室编码", "科室名称", "科室类型", "科室分类"};
         XSSFWorkbook wb = FileManage.createXLSTemplate(title);
         return FileManage.createXLSFile(wb, path, fileName);
