@@ -98,6 +98,7 @@ public class UserInfoController {
                 String suffixName = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
                 String newFileName = uuid + "." + suffixName;
                 File file = new File(ResourceUtils.getURL("classpath:").getPath() + "static/images/" + newFileName);
+                System.out.println(file.getName());
                 pic.transferTo(file);
                 user.setPhotoLocation(newFileName);
                 User user1 = userInfoService.updateUserInfo(user);
