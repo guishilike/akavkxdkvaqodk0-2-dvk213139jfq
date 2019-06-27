@@ -135,15 +135,30 @@ public class RegisterController {
         }
     }
 
+
     @RequestMapping("/getRegSource")
     public @ResponseBody
     ResultDTO<List<NameCodeDTO>> getRegSource() {
 
         System.out.println("url: /register/getRegSource");
 
+        return getConstants(14);
+    }
+
+    @RequestMapping("/getPayCategory")
+    public @ResponseBody
+    ResultDTO<List<NameCodeDTO>> getPayCategory() {
+
+        System.out.println("url: /register/getPayCategory");
+
+        return getConstants(12);
+    }
+
+    private ResultDTO<List<NameCodeDTO>> getConstants(Integer typeID) {
+
         try {
 
-            List<ConstantItem> constantItemList = constantService.findByTypeID(14);
+            List<ConstantItem> constantItemList = constantService.findByTypeID(typeID);
             List<NameCodeDTO> nameCodeDTOS = new ArrayList<>();
 
             for (ConstantItem item : constantItemList) {
