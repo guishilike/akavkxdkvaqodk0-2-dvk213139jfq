@@ -6,7 +6,6 @@ import edu.neu.hospital.bean.finaceBean.CheckWork;
 import edu.neu.hospital.dao.basicTableDao.FeeDao;
 import edu.neu.hospital.dao.finaceDao.CheckWorkDao;
 import edu.neu.hospital.dto.IdDTO;
-import edu.neu.hospital.example.basicTableExample.FeeExample;
 import edu.neu.hospital.example.finaceExample.CheckWorkExample;
 import edu.neu.hospital.service.finaceService.CheckworkService;
 import org.springframework.stereotype.Service;
@@ -49,11 +48,10 @@ public class CheckworkServiceImpl implements CheckworkService {
 
     @Override
     public void updateById(Integer feeID, Integer userID) {
-        FeeExample feeExample = new FeeExample();
-        feeExample.clear();
-        FeeExample.Criteria criteria = feeExample.createCriteria();
+//        System.out.println("impl中的feeID是"+feeID);
         Fee fee = feeDao.selectByPrimaryKey(feeID);
         if(fee != null){
+//            System.out.println("找到了对应的fee！");
             fee.setCheckStatus("已对账");
             fee.setChangeUserID(userID);
             fee.setFeeChangeDate(new Date());

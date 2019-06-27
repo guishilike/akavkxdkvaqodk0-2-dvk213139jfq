@@ -82,6 +82,7 @@ public class UserInfoController {
     }
 
     @RequestMapping("/updatePic")
+    public @ResponseBody
     ResultDTO<String> updatePic(MultipartFile pic,HttpSession session){
 //        System.out.println(pic.isEmpty());
         ResultDTO<String> resultDTO = new ResultDTO<>();

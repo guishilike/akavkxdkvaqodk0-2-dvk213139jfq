@@ -71,8 +71,11 @@ public class CheckworkController {
     ResultDTO
     updateById(Integer feeID, HttpSession session) {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
+//        System.out.println("传进来的费用ID是   "+feeID);
         try {
+//            System.out.println("进入了try");
             UserView user = (UserView) session.getAttribute("user");
+//            System.out.println("session没有问题，userID是"+user.getId());
             checkworkService.updateById(feeID, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("修改对账状态成功");
@@ -96,6 +99,8 @@ public class CheckworkController {
     public @ResponseBody
     ResultDTO<IdDTO> updateByChoose(@RequestBody IdDTO feeIDs, HttpSession session) {
         ResultDTO<IdDTO> resultDTO = new ResultDTO<>();
+//        System.out.println("feeIDs是"+feeIDs.toString());
+//        System.out.println(feeIDs.getId());
         if(feeIDs.getId()!=null) {
             try {
                 UserView user = (UserView) session.getAttribute("user");
