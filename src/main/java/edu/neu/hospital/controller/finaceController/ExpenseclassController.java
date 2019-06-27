@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -27,45 +28,70 @@ public class ExpenseclassController {
     ExpenseclassService expenseclassService;
 
     /**
-     * 获取excel文件
+     * 创建excel文件
      *
      * @return resultDTO
      */
-    @RequestMapping("/getExcel")
+    @RequestMapping("/createXLS")
     public @ResponseBody
-    ResultDTO<String> getExcel(){
+    ResultDTO<String> createXLS(){
         ResultDTO<String> resultDTO=new ResultDTO<>();
         try {
             File file=expenseclassService.createExcle();
             resultDTO.setStatus("OK");
-            resultDTO.setMsg("操作成功");
+            resultDTO.setMsg("创建excel文件成功");
             resultDTO.setData(file.getName());
         }catch (Exception e){
             resultDTO.setStatus("FALSE");
-            resultDTO.setMsg("发生异常，操作失败");
+            resultDTO.setMsg("创建excel文件失败");
         }
         return resultDTO;
     }
 
-    @RequestMapping("/uploadXls")
+    @RequestMapping("/upload")
     public @ResponseBody
-    ResultDTO<String> upload(MultipartFile file,HttpSession session) {
+    ResultDTO<String> upload(MultipartFile file, boolean errorHappenContinue,
+                             boolean repeatCoverage, HttpSession session)  throws IOException {
         ResultDTO<String> resultDTO = new ResultDTO<>();
-        try {
-            UserView user = (UserView) session.getAttribute("user");
-            int i = expenseclassService.uploadXls(file,user.getId());
-            if (i != -1) {
-                resultDTO.setStatus("OK");
-                resultDTO.setMsg("操作成功");
-                resultDTO.setData(file.getName());
-            } else {
+        if (!file.isEmpty()){
+            try {
+                UserView user = (UserView) session.getAttribute("user");
+                if(expenseclassService.uploadXls(file, user.getId(),errorHappenContinue,repeatCoverage)){
+                    resultDTO.setStatus("OK");
+                    resultDTO.setMsg("上传费用类型信息成功");
+                }else{
+                    resultDTO.setStatus("WARN");
+                    resultDTO.setMsg("文件部分内容出错");
+                }
+
+            } catch (Exception e) {
                 resultDTO.setStatus("FALSE");
-                resultDTO.setMsg("失败");
-                resultDTO.setData(file.getName());
+                resultDTO.setMsg("上传费用类型信息失败");
+                e.printStackTrace();
             }
-        }catch (Exception e){
+        }else {
             resultDTO.setStatus("FALSE");
-            resultDTO.setMsg("发生异常，操作失败");
+            resultDTO.setMsg("上传费用类型信息失败");
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping("/createTemplate")
+    public @ResponseBody
+    ResultDTO createTemplate() {
+        System.out.println("开始创建模板");
+        ResultDTO<String> resultDTO = new ResultDTO();
+        try {
+            File file = expenseclassService.createXLSTemplate();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(file.getName());
+            resultDTO.setMsg("创建XLS文件模板成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("创建XLS文件模板失败");
+            e.printStackTrace();
+
         }
         return resultDTO;
     }
@@ -106,7 +132,7 @@ public class ExpenseclassController {
      * @param session
      * @return
      */
-    @RequestMapping("/delete")
+    @RequestMapping("/deleteById")
     public @ResponseBody ResultDTO<Integer> delete(Integer id,HttpSession session){
         ResultDTO<Integer> resultDTO=new ResultDTO();
         try{

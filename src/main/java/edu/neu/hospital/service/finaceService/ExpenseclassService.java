@@ -11,9 +11,11 @@ import java.util.List;
 
 public interface ExpenseclassService {
 
-    public int uploadXls(MultipartFile file,int userID) throws IOException;
+    public boolean uploadXls(MultipartFile file,int userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException;
 
-    public File createExcle();
+    public File createExcle()throws IOException;
+
+    public File createXLSTemplate() throws IOException;
 
     /**
      * 增加
