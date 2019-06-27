@@ -33,14 +33,14 @@ public class ExpenseclassController {
      */
     @RequestMapping("/getExcel")
     public @ResponseBody
-    ResultDTO<String> getExcel() {
-        ResultDTO<String> resultDTO = new ResultDTO<>();
+    ResultDTO<String> getExcel(){
+        ResultDTO<String> resultDTO=new ResultDTO<>();
         try {
-            File file = expenseclassService.createExcle();
+            File file=expenseclassService.createExcle();
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功");
             resultDTO.setData(file.getName());
-        } catch (Exception e) {
+        }catch (Exception e){
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，操作失败");
         }
@@ -49,20 +49,21 @@ public class ExpenseclassController {
 
     @RequestMapping("/uploadXls")
     public @ResponseBody
-    ResultDTO<String> upload(MultipartFile file) {
+    ResultDTO<String> upload(MultipartFile file,HttpSession session) {
         ResultDTO<String> resultDTO = new ResultDTO<>();
         try {
-            int i = expenseclassService.uploadXls(file);
+            UserView user = (UserView) session.getAttribute("user");
+            int i = expenseclassService.uploadXls(file,user.getId());
             if (i != -1) {
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("操作成功");
                 resultDTO.setData(file.getName());
             } else {
                 resultDTO.setStatus("FALSE");
-                resultDTO.setMsg("文件类型错误");
+                resultDTO.setMsg("失败");
                 resultDTO.setData(file.getName());
             }
-        } catch (Exception e) {
+        }catch (Exception e){
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，操作失败");
         }
@@ -71,26 +72,27 @@ public class ExpenseclassController {
 
     /**
      * 添加
-     *
+     * @param expenseclass
+     * @param session
      * @return
      */
     @RequestMapping("/add")
     public @ResponseBody
-    ResultDTO<ExpenseClass> add(ExpenseClass expenseclass, HttpSession session) {
+    ResultDTO<ExpenseClass> add(ExpenseClass expenseclass , HttpSession session){
         ResultDTO<ExpenseClass> resultDTO = new ResultDTO<>();
         try {
-            if (expenseclassService.checkContent(expenseclass, 0)) {
+            if(expenseclassService.checkContent(expenseclass,0)){
                 UserView loginUser = (UserView) session.getAttribute("user");
-                expenseclassService.add(expenseclass, loginUser.getId());
+                expenseclassService.add(expenseclass,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加收费类型成功");
                 resultDTO.setData(expenseclass);
-            } else {
+            }else{
                 resultDTO.setStatus("FALSE");
                 resultDTO.setMsg("存在重复的项目，添加收费类型失败");
                 resultDTO.setData(expenseclass);
             }
-        } catch (Exception e) {
+        }catch (Exception e){
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，添加收费类型失败");
             resultDTO.setData(expenseclass);
@@ -100,20 +102,20 @@ public class ExpenseclassController {
 
     /**
      * 删除收费类型
-     *
+     * @param id
+     * @param session
      * @return
      */
     @RequestMapping("/delete")
-    public @ResponseBody
-    ResultDTO<Integer> delete(Integer id, HttpSession session) {
-        ResultDTO<Integer> resultDTO = new ResultDTO();
-        try {
-            UserView loginUser = (UserView) session.getAttribute("user");
-            expenseclassService.deleteById(id, loginUser.getId());
+    public @ResponseBody ResultDTO<Integer> delete(Integer id,HttpSession session){
+        ResultDTO<Integer> resultDTO=new ResultDTO();
+        try{
+            UserView loginUser=(UserView) session.getAttribute("user");
+            expenseclassService.deleteById(id,loginUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除收费类型成功");
             resultDTO.setData(id);
-        } catch (Exception e) {
+        }catch (Exception e){
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("删除收费类型失败");
             resultDTO.setData(id);
@@ -123,15 +125,15 @@ public class ExpenseclassController {
 
     /**
      * 批量删除
-     *
+     * @param ids
+     * @param session
      * @return
      */
     @RequestMapping("/deleteByChoose")
-    public @ResponseBody
-    ResultDTO<IdDTO>
-    deleteByChoose(IdDTO ids, HttpSession session) {
-        ResultDTO<IdDTO> resultDTO = new ResultDTO();
-        if (ids.getId() != null) {
+    public @ResponseBody ResultDTO<IdDTO>
+    deleteByChoose(IdDTO ids, HttpSession session){
+        ResultDTO<IdDTO> resultDTO=new ResultDTO();
+        if(ids.getId()!=null) {
             try {
                 UserView loginUser = (UserView) session.getAttribute("user");
                 expenseclassService.deleteByChoose(ids, loginUser.getId());
@@ -143,7 +145,7 @@ public class ExpenseclassController {
                 resultDTO.setMsg("发生异常，批量删除收费类型失败");
                 resultDTO.setData(ids);
             }
-        } else {
+        }else{
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("请先选择你要删除的收费类型");
             resultDTO.setData(ids);
@@ -153,27 +155,28 @@ public class ExpenseclassController {
 
     /**
      * 更新
-     *
+     * @param expenseclass
+     * @param session
      * @return
      */
     @RequestMapping("/update")
-    public @ResponseBody
-    ResultDTO<ExpenseClass>
-    update(ExpenseClass expenseclass, HttpSession session) {
+    public @ResponseBody ResultDTO<ExpenseClass>
+    update(ExpenseClass expenseclass , HttpSession session){
         ResultDTO<ExpenseClass> resultDTO = new ResultDTO<>();
-        try {
-            if (expenseclassService.checkContent(expenseclass, 1)) {
+        try{
+            if(expenseclassService.checkContent(expenseclass,1)) {
                 UserView loginUser = (UserView) session.getAttribute("user");
                 expenseclassService.change(expenseclass, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改收费类型成功");
                 resultDTO.setData(expenseclass);
-            } else {
+            }
+            else{
                 resultDTO.setStatus("FALSE");
                 resultDTO.setMsg("存在重复的项目，修改收费类型失败");
                 resultDTO.setData(expenseclass);
             }
-        } catch (Exception e) {
+        }catch (Exception e){
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，修改收费类型失败");
             resultDTO.setData(expenseclass);
@@ -183,24 +186,24 @@ public class ExpenseclassController {
 
     /**
      * 按名称或code模糊查找
-     *
-     * @param pageNum  第几页
+     * @param code
+     * @param name
+     * @param pageNum 第几页
      * @param pageSize 页大小
      * @return
      */
     @RequestMapping("/find")
-    public @ResponseBody
-    ResultDTO<PageInfo>
-    find(String code, String name, Integer pageNum, Integer pageSize) {
-        ResultDTO<PageInfo> resultDTO = new ResultDTO();
-        try {
-            PageHelper.startPage(pageNum, pageSize);
-            List<ExpenseClassView> expenseClassViews = expenseclassService.find(code, name);
-            PageInfo<ExpenseClassView> list = new PageInfo<>(expenseClassViews);
+    public @ResponseBody ResultDTO<PageInfo>
+    find(String code, String name,Integer pageNum,Integer pageSize){
+        ResultDTO<PageInfo> resultDTO=new ResultDTO();
+        try{
+            PageHelper.startPage(pageNum,pageSize);
+            List<ExpenseClassView> expenseClassViews = expenseclassService.find(code,name);
+            PageInfo<ExpenseClassView> list=new PageInfo<>(expenseClassViews);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("查找收费类型成功");
             resultDTO.setData(list);
-        } catch (Exception e) {
+        }catch (Exception e){
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，查找收费类型目失败");
         }

@@ -2,12 +2,10 @@ package edu.neu.hospital.dao.basicTableDao;
 
 import edu.neu.hospital.bean.basicTableBean.ExpenseClass;
 import edu.neu.hospital.example.basicTableExample.ExpenseClassExample;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-@Mapper
 public interface ExpenseClassDao {
     long countByExample(ExpenseClassExample example);
 
@@ -30,6 +28,4 @@ public interface ExpenseClassDao {
     int updateByPrimaryKeySelective(ExpenseClass record);
 
     int updateByPrimaryKey(ExpenseClass record);
-
-    int uploadExpenseclassInfo(List<ExpenseClass> expenseClasses);
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ExpenseclassService {
 
-    public int uploadXls(MultipartFile file) throws IOException;
+    public int uploadXls(MultipartFile file,int userID) throws IOException;
 
     public File createExcle();
 

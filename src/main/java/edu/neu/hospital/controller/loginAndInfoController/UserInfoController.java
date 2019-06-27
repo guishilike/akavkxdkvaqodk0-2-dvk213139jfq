@@ -87,8 +87,8 @@ public class UserInfoController {
 //        System.out.println(pic.isEmpty());
         ResultDTO<String> resultDTO = new ResultDTO<>();
         UserView userView = (UserView) session.getAttribute("user");
-        System.out.println("上传图");
-        System.out.println(userView.getId());
+//        System.out.println("上传图");
+//        System.out.println(userView.getId());
         User user = new User();
         user.setId(userView.getId());
         user.setUserName(userView.getUserName());
