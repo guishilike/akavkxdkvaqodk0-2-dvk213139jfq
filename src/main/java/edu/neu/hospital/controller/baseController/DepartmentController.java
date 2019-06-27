@@ -10,13 +10,17 @@ import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.DepartmentService;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -190,8 +194,7 @@ public class DepartmentController {
         ResultDTO<Department> resultDTO = new ResultDTO<>();
         try {
             if (departmentService.checkContent(department, 0)) {
-                UserView user = (UserView) session.getAttribute("user");                department.setStatus("1");
-                department.setAppearDate(new Date());
+                UserView user = (UserView) session.getAttribute("user");
                 departmentService.add(department,user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加科室成功");
@@ -271,6 +274,78 @@ public class DepartmentController {
         return resultDTO;
 
     }
+    /**
+     * 创建xml文件
+     */
+    @RequestMapping("/createXLS")
+    public @ResponseBody ResultDTO createXLS(){
+        System.out.println("开始创建");
+        ResultDTO<String> resultDTO=new ResultDTO();
+        try{
+            File file=departmentService.createExcel();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(file.getName());
+            resultDTO.setMsg("创建XLS文件信息成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("创建XLS文件信息失败");
+
+        }
+        return  resultDTO;
+    }
+
+    @RequestMapping("/upload")
+    public @ResponseBody ResultDTO upload(MultipartFile file,HttpSession session) throws IOException {
+
+        ResultDTO resultDTO=new ResultDTO();
+        if(!file.isEmpty()){
+            try {
+                System.out.println("tset");
+                System.out.println();
+                UserView user = (UserView) session.getAttribute("user");
+                System.out.println(user.getId());
+                departmentService.uploadXls(file, user.getId());
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("上传科室信息成功");
+            }catch (Exception e){
+                resultDTO.setStatus("FALSE");
+                resultDTO.setMsg("上传科室信息失败");
+                e.printStackTrace();
+            }
+
+        }
+        else {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("上传科室信息失败");
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping("/createTemplate")
+    public @ResponseBody ResultDTO createTemplate(){
+        System.out.println("开始创建模板");
+        ResultDTO<String> resultDTO=new ResultDTO();
+        try{
+            File file=departmentService.createXLSTemplate();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(file.getName());
+            resultDTO.setMsg("创建XLS文件模板成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("创建XLS文件模板失败");
+            e.printStackTrace();
+
+        }
+        return  resultDTO;
+    }
+
+
+
+
+
+
 
 
 

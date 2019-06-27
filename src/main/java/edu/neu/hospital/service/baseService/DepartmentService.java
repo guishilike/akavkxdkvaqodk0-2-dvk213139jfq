@@ -1,11 +1,13 @@
 package edu.neu.hospital.service.baseService;
 
-import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.Department;
 import edu.neu.hospital.bean.baseBean.DepartmentView;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.NameCodeDTO;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public interface DepartmentService {
@@ -65,4 +67,21 @@ public interface DepartmentService {
      * @return
      */
     public List<NameCodeDTO> getAllDeptNamesAndDeptCodes();
+    /**
+     * 用Excle表导入到数据库
+     * @param file Excle文件
+     * @throws IOException
+     * @return
+     */
+    public String uploadXls(MultipartFile file, Integer userID) throws IOException;
+
+    /**
+     * 从数据库导出
+     */
+    public File createExcel() throws IOException;
+    /**
+     * 创建下载模板
+     * @return
+     */
+    public File createXLSTemplate() throws IOException;
 }

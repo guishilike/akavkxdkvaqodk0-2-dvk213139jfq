@@ -8,12 +8,10 @@ import edu.neu.hospital.dao.baseDao.FMedItemViewDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.basicTableExample.FMedItemExample;
 import edu.neu.hospital.example.baseExample.FMedItemViewExample;
-import edu.neu.hospital.exception.FileTypeException;
 
-import edu.neu.hospital.exception.GettingTypeException;
 import edu.neu.hospital.service.baseService.FmeditemService;
+import edu.neu.hospital.utils.XMLValidateAndSetting;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -21,8 +19,6 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,7 +41,7 @@ public class FmeditemServiceImpl implements FmeditemService {
     @Resource
     FMedItemViewDao fmeditemviewDao;
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
@@ -136,7 +132,7 @@ public class FmeditemServiceImpl implements FmeditemService {
      */
     @Override
     public int uploadXls(MultipartFile file) throws IOException {
-        if (!validateType(file)) {
+        if (!XMLValidateAndSetting.validateType(file)) {
 
             return -1;
         }
@@ -155,23 +151,23 @@ public class FmeditemServiceImpl implements FmeditemService {
             fmeditem = new FMedItem();
             FMedItemList.add(fmeditem);
             Row row = sheet.getRow(i);
-            fmeditem.setId(Integer.valueOf(getStringValueFromCell((XSSFCell)row.getCell(0))) );
-            fmeditem.setCode( getStringValueFromCell((XSSFCell)row.getCell(1)));
-            fmeditem.setName( getStringValueFromCell((XSSFCell)row.getCell(2)));
+            fmeditem.setId(Integer.valueOf(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(0))) );
+            fmeditem.setCode(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(1)));
+            fmeditem.setName(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(2)));
 //            XSSFCell cell3= (XSSFCell) row.getCell(3);
 //            cell3.setCellType(CellType.STRING);
 //            fmeditem.setFormat(cell3.getStringCellValue());
 //            XSSFCell cell4= (XSSFCell) row.getCell(4);
 //            cell4.setCellType(CellType.STRING);
 //            fmeditem.setPrice(cell4.getStringCellValue());
-            fmeditem.setFormat(getStringValueFromCell((XSSFCell)row.getCell(3)));
-            fmeditem.setPrice(BigDecimal.valueOf(Double.valueOf(getStringValueFromCell((XSSFCell)row.getCell(4)))));
-            fmeditem.setExpClassID(Integer.valueOf(getStringValueFromCell((XSSFCell)row.getCell(5))));
-            fmeditem.setDeptID(Integer.valueOf(getStringValueFromCell((XSSFCell)row.getCell(6))));
-            fmeditem.setMnemonicCode(getStringValueFromCell((XSSFCell)row.getCell(7)));
-            fmeditem.setRecordType(Integer.valueOf(getStringValueFromCell((XSSFCell)row.getCell(8))));
+            fmeditem.setFormat(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(3)));
+            fmeditem.setPrice(BigDecimal.valueOf(Double.valueOf(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(4)))));
+            fmeditem.setExpClassID(Integer.valueOf(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(5))));
+            fmeditem.setDeptID(Integer.valueOf(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(6))));
+            fmeditem.setMnemonicCode(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(7)));
+            fmeditem.setRecordType(Integer.valueOf(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(8))));
             try {
-                fmeditem.setAppearDate(simpleDateFormat.parse(getStringValueFromCell((XSSFCell)row.getCell(9))));
+                fmeditem.setAppearDate(simpleDateFormat.parse(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(9))));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -278,34 +274,5 @@ public class FmeditemServiceImpl implements FmeditemService {
     }
 
 
-    //检查是不是xls文件
-    private boolean validateType(MultipartFile file) {
-        String fileType;
-        try {
-            //get MultipartFile original filename to validate file type.
-            String fileName = file.getOriginalFilename();
-            fileType = fileName.substring(fileName.lastIndexOf('.'),
-                    fileName.lastIndexOf('s') + 1);
-            if (fileType.isEmpty() || !fileType.toLowerCase().equals(".xls")) {
-                throw new FileTypeException("the file introduced is not .xls file.");
-            }
-        } catch (GettingTypeException e) {
-            logger.error("error occurs while getting file type.");
-            return false;
-        } catch (FileTypeException e) {
-            logger.error("the file introduced is not .xls file.");
-            return false;
-        }
-        return true;
-    }
 
-    //将单元格格式变成字符串
-    public static String getStringValueFromCell(XSSFCell cell) {
-        String cellValue="";
-        if (cell.getCellType()!= CellType.STRING) {
-            cell.setCellType(CellType.STRING);
-            cellValue = cell.getStringCellValue();
-        }
-        return cellValue;
-    }
 }

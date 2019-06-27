@@ -248,7 +248,7 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
     private boolean validateType(MultipartFile file) {
         String fileType;
         try {
-            //get MultipartFile original filename to validate file type.
+            //get MultipartFile original filename to validateAndSetting file type.
             String fileName = file.getOriginalFilename();
             fileType = fileName.substring(fileName.lastIndexOf('.'),
                     fileName.lastIndexOf('s') + 1);

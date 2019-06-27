@@ -1,6 +1,5 @@
 package edu.neu.hospital.service.baseService.impl;
 
-import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.Department;
 import edu.neu.hospital.bean.baseBean.DepartmentView;
 import edu.neu.hospital.dao.basicTableDao.ConstantItemDao;
@@ -8,13 +7,29 @@ import edu.neu.hospital.dao.basicTableDao.DepartmentDao;
 import edu.neu.hospital.dao.baseDao.DepartmentViewDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.NameCodeDTO;
-import edu.neu.hospital.example.basicTableExample.ConstantItemExample;
 import edu.neu.hospital.example.basicTableExample.DepartmentExample;
 import edu.neu.hospital.example.baseExample.DepartmentViewExample;
 import edu.neu.hospital.service.baseService.DepartmentService;
+import edu.neu.hospital.utils.FileManage;
+import edu.neu.hospital.utils.XMLValidateAndSetting;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +41,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     DepartmentDao departmentDao;
     @Resource
     ConstantItemDao constantitemDao;
+
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     //查询科室列表
     @Override
@@ -128,6 +145,97 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<NameCodeDTO> getAllDeptNamesAndDeptCodes() {
         return departmentviewDao.selectAllDeptNamesAndCodes();
+    }
+
+    @Override
+    public String uploadXls(MultipartFile file, Integer userID) throws IOException {
+        if (!XMLValidateAndSetting.validateType(file)) {
+            return null;
+        }
+        File file1 = new File(ResourceUtils.getURL("classpath:").getPath() + "static/images/" + file.getOriginalFilename());
+        file.transferTo(file1);
+        InputStream is=new FileInputStream(file1);
+
+        Department department = null;
+        Workbook book = null;
+        try {
+            book = new XSSFWorkbook(is);
+            System.out.println("success");
+        } catch (Exception e) {
+            try {
+                book = new HSSFWorkbook(is);
+                System.out.println("hffs");
+            }catch (Exception e2){
+                System.out.println("false");
+                return null;
+            }
+        }
+        Sheet sheet = book.getSheetAt(0);
+        System.out.println("开始写入信息");
+        for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getLastRowNum(); i++) {
+            System.out.println("sddddd");
+            department = new Department();
+            Row row = sheet.getRow(i);
+            System.out.println(row.getCell(2));
+            department.setDeptCode(row.getCell(0).toString());
+            department.setDeptName(row.getCell(1).toString());
+            String deptTypeName =row.getCell(2).toString();
+            System.out.println(deptTypeName);
+            NameCodeDTO deptType = constantitemDao.findIdByName(deptTypeName, 21);
+            department.setDeptTypeID(deptType.getId());
+            String deptCategoryName =row.getCell(3).toString();
+            NameCodeDTO deptCategory = constantitemDao.findIdByName(deptCategoryName, 1);
+            department.setDeptCategoryID(deptCategory.getId());
+            department.setStatus("1");
+            department.setAppearDate(new Date());
+            department.setAppearUserID(userID);
+            if(checkContent(department,0)){
+                add(department,userID);
+            }
+
+        }
+        return null;
+    }
+
+    @Override
+    public File createExcel() throws IOException {
+        String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLS";
+        String fileName = path + "/" + "department.xls";
+        List<DepartmentView> results = departmentviewDao.selectByExample(new DepartmentViewExample());
+
+
+        String[] title = {"编号", "科室编码", "科室名称", "科室类型", "科室分类",
+                "创建时间", "创建人", "修改时间", "修改人"};
+        XSSFWorkbook wb = FileManage.createXLSTemplate(title);
+        XSSFSheet sheet = wb.getSheet("sheet1");
+        XSSFRow row;
+        // 写入正式数据
+        for (int i = 0; i < results.size(); i++) {
+            row = sheet.createRow(i + 1);
+            row.createCell(0).setCellValue(results.get(i).getId());
+            row.createCell(1).setCellValue(results.get(i).getDeptCode());
+            row.createCell(2).setCellValue(results.get(i).getDeptName());
+            row.createCell(3).setCellValue(results.get(i).getDeptType());
+            row.createCell(4).setCellValue(results.get(i).getDeptCategory());
+            if (results.get(i).getAppearDate() != null)
+                row.createCell(5).setCellValue(simpleDateFormat.format(results.get(i).getAppearDate()));
+            row.createCell(6).setCellValue(results.get(i).getAppearUserName());
+            if (results.get(i).getChangeDate() != null)
+                row.createCell(7).setCellValue(simpleDateFormat.format(results.get(i).getChangeDate()));
+            row.createCell(8).setCellValue(results.get(i).getChangeUserName());
+        }
+        File file=FileManage.createXLSFile(wb,path,fileName);
+        return file;
+
+    }
+
+    @Override
+    public File createXLSTemplate() throws IOException {
+        String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLSTemplate";
+        String fileName = path + "/" + "departmentTemplate.xls";
+        String[] title={"科室编码", "科室名称", "科室类型", "科室分类"};
+        XSSFWorkbook wb=FileManage.createXLSTemplate(title);
+        return FileManage.createXLSFile(wb,path,fileName);
     }
 
 
