@@ -33,6 +33,7 @@ public class DepartmentController {
 
     /**
      * 列出科室
+     *
      * @param deptCategoryID 科室分类ID
      * @param typeID         科室类型ID
      * @param pageNum        第几页
@@ -42,7 +43,7 @@ public class DepartmentController {
     @RequestMapping("/list")
     public @ResponseBody
     ResultDTO<PageInfo> list(Integer deptCategoryID, Integer typeID,
-                               Integer pageNum, Integer pageSize) {
+                             Integer pageNum, Integer pageSize) {
         ResultDTO<PageInfo> resultDTO = new ResultDTO<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
@@ -97,7 +98,7 @@ public class DepartmentController {
     public @ResponseBody
     ResultDTO<IdDTO> deleteByChoose(@RequestBody IdDTO ids, HttpSession session) {
         ResultDTO<IdDTO> resultDTO = new ResultDTO<>();
-        if(ids.getId()!=null) {
+        if (ids.getId() != null&&ids.getId().size()!=0) {
             try {
                 UserView user = (UserView) session.getAttribute("user");
                 departmentService.deleteByChoose(ids, user.getId());
@@ -109,7 +110,7 @@ public class DepartmentController {
                 resultDTO.setMsg("发生异常，批量删除科室失败");
                 resultDTO.setData(ids);
             }
-        }else{
+        } else {
             resultDTO.setStatus("WARN");
             resultDTO.setMsg("请先选择要删除的科室");
             resultDTO.setData(ids);
@@ -135,12 +136,12 @@ public class DepartmentController {
         try {
             PageHelper.startPage(pageNum, pageSize);
             List<DepartmentView> departmentview = departmentService.findDepartmentByNameOrCode(nameOrCode);
-            if(departmentview!=null) {
+            if (departmentview != null) {
                 PageInfo<DepartmentView> list = new PageInfo<>(departmentview);
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("查找成功");
                 resultDTO.setData(list);
-            }else{
+            } else {
                 resultDTO.setStatus("WARN");
                 resultDTO.setMsg("科室名称或编号不存在");
             }
@@ -165,7 +166,8 @@ public class DepartmentController {
         ResultDTO<Department> resultDTO = new ResultDTO<>();
         try {
             if (departmentService.checkContent(department, 1)) {
-                UserView user = (UserView) session.getAttribute("user");                departmentService.change(department, user.getId());
+                UserView user = (UserView) session.getAttribute("user");
+                departmentService.change(department, user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改科室成功");
                 resultDTO.setData(department);
@@ -184,8 +186,9 @@ public class DepartmentController {
 
     /**
      * 添加科室
+     *
      * @param department 要添加的科室
-     * @param session HttpSession会话
+     * @param session    HttpSession会话
      * @return
      */
     @RequestMapping("/add")
@@ -195,16 +198,16 @@ public class DepartmentController {
         try {
             if (departmentService.checkContent(department, 0)) {
                 UserView user = (UserView) session.getAttribute("user");
-                departmentService.add(department,user.getId());
+                departmentService.add(department, user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加科室成功");
                 resultDTO.setData(department);
-            }else{
+            } else {
                 resultDTO.setStatus("WARN");
                 resultDTO.setMsg("存在重复的科室名，添加科室失败");
                 resultDTO.setData(department);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，添加科室失败");
             resultDTO.setData(department);
@@ -214,18 +217,20 @@ public class DepartmentController {
 
     /**
      * 获得所有科室名称和编码
+     *
      * @return resultDTO
      */
     @RequestMapping("/findAllDeptNamesAndCodes")
-    public @ResponseBody ResultDTO getAllDeptNamesAndCodes(){
-        ResultDTO<List<NameCodeDTO>> resultDTO=new ResultDTO<>();
-        try{
-            List<NameCodeDTO> list=departmentService.getAllDeptNamesAndDeptCodes();
+    public @ResponseBody
+    ResultDTO getAllDeptNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = departmentService.getAllDeptNamesAndDeptCodes();
             resultDTO.setStatus("OK");
             resultDTO.setData(list);
             resultDTO.setMsg("获得搜索列表成功");
 
-        }catch (Exception e){
+        } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("获得搜索列表失败");
         }
@@ -235,18 +240,20 @@ public class DepartmentController {
 
     /**
      * 获得所有科室类型名称和编码
+     *
      * @return
      */
     @RequestMapping("/findAllDeptTypeNamesAndCodes")
-    public @ResponseBody ResultDTO getAllDeptTypeNamesAndCodes(){
-        ResultDTO<List<NameCodeDTO>> resultDTO=new ResultDTO<>();
-        try{
-            List<NameCodeDTO> list=departmentService.findALLDeptTypeOrCategoryId(0);
+    public @ResponseBody
+    ResultDTO getAllDeptTypeNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = departmentService.findALLDeptTypeOrCategoryId(0);
             resultDTO.setStatus("OK");
             resultDTO.setData(list);
             resultDTO.setMsg("获得科室类型搜索列表成功");
 
-        }catch (Exception e){
+        } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("获得科室类型搜索列表失败");
         }
@@ -256,66 +263,75 @@ public class DepartmentController {
 
     /**
      * 获得所有科室分类名称和编码
+     *
      * @return
      */
     @RequestMapping("/findAllDeptCategoryNamesAndCodes")
-    public @ResponseBody ResultDTO getAllDeptCategoryNamesAndCodes(){
-        ResultDTO<List<NameCodeDTO>> resultDTO=new ResultDTO<>();
-        try{
-            List<NameCodeDTO> list=departmentService.findALLDeptTypeOrCategoryId(1);
+    public @ResponseBody
+    ResultDTO getAllDeptCategoryNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = departmentService.findALLDeptTypeOrCategoryId(1);
             resultDTO.setStatus("OK");
             resultDTO.setData(list);
             resultDTO.setMsg("获得科室分类搜索列表成功");
 
-        }catch (Exception e){
+        } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("获得科室分类搜索列表失败");
         }
         return resultDTO;
 
     }
+
     /**
      * 创建xml文件
      */
     @RequestMapping("/createXLS")
-    public @ResponseBody ResultDTO createXLS(){
+    public @ResponseBody
+    ResultDTO createXLS() {
         System.out.println("开始创建");
-        ResultDTO<String> resultDTO=new ResultDTO();
-        try{
-            File file=departmentService.createExcel();
+        ResultDTO<String> resultDTO = new ResultDTO();
+        try {
+            File file = departmentService.createExcel();
             resultDTO.setStatus("OK");
             resultDTO.setData(file.getName());
             resultDTO.setMsg("创建XLS文件信息成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("创建XLS文件信息失败");
 
         }
-        return  resultDTO;
+        return resultDTO;
     }
 
     @RequestMapping("/upload")
-    public @ResponseBody ResultDTO upload(MultipartFile file,HttpSession session) throws IOException {
+    public @ResponseBody
+    ResultDTO upload(MultipartFile file, boolean errorHappenContinue,
+                     boolean repeatCoverage, HttpSession session) throws IOException {
 
-        ResultDTO resultDTO=new ResultDTO();
-        if(!file.isEmpty()){
+        ResultDTO resultDTO = new ResultDTO();
+        if (!file.isEmpty()) {
             try {
                 System.out.println("tset");
-                System.out.println();
                 UserView user = (UserView) session.getAttribute("user");
                 System.out.println(user.getId());
-                departmentService.uploadXls(file, user.getId());
-                resultDTO.setStatus("OK");
-                resultDTO.setMsg("上传科室信息成功");
-            }catch (Exception e){
+                if(departmentService.uploadXls(file, user.getId(),errorHappenContinue,repeatCoverage)){
+                    resultDTO.setStatus("OK");
+                    resultDTO.setMsg("上传科室信息成功");
+                }else{
+                    resultDTO.setStatus("WARN");
+                    resultDTO.setMsg("文件部分内容出错");
+                }
+
+            } catch (Exception e) {
                 resultDTO.setStatus("FALSE");
                 resultDTO.setMsg("上传科室信息失败");
                 e.printStackTrace();
             }
 
-        }
-        else {
+        } else {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("上传科室信息失败");
         }
@@ -323,31 +339,24 @@ public class DepartmentController {
     }
 
     @RequestMapping("/createTemplate")
-    public @ResponseBody ResultDTO createTemplate(){
+    public @ResponseBody
+    ResultDTO createTemplate() {
         System.out.println("开始创建模板");
-        ResultDTO<String> resultDTO=new ResultDTO();
-        try{
-            File file=departmentService.createXLSTemplate();
+        ResultDTO<String> resultDTO = new ResultDTO();
+        try {
+            File file = departmentService.createXLSTemplate();
             resultDTO.setStatus("OK");
             resultDTO.setData(file.getName());
             resultDTO.setMsg("创建XLS文件模板成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("创建XLS文件模板失败");
             e.printStackTrace();
 
         }
-        return  resultDTO;
+        return resultDTO;
     }
-
-
-
-
-
-
-
-
 
 
 }

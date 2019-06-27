@@ -11,12 +11,10 @@ import edu.neu.hospital.example.basicTableExample.DepartmentExample;
 import edu.neu.hospital.example.baseExample.DepartmentViewExample;
 import edu.neu.hospital.service.baseService.DepartmentService;
 import edu.neu.hospital.utils.FileManage;
-import edu.neu.hospital.utils.XMLValidateAndSetting;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -148,53 +146,60 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public String uploadXls(MultipartFile file, Integer userID) throws IOException {
-        if (!XMLValidateAndSetting.validateType(file)) {
-            return null;
-        }
+    public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException {
+        //标识文件内容是否有错
+        Boolean state=true;
         File file1 = new File(ResourceUtils.getURL("classpath:").getPath() + "static/images/" + file.getOriginalFilename());
         file.transferTo(file1);
-        InputStream is=new FileInputStream(file1);
+        InputStream is = new FileInputStream(file1);
 
-        Department department = null;
-        Workbook book = null;
+        Department department;
+        Workbook book;
         try {
             book = new XSSFWorkbook(is);
             System.out.println("success");
         } catch (Exception e) {
-            try {
-                book = new HSSFWorkbook(is);
-                System.out.println("hffs");
-            }catch (Exception e2){
-                System.out.println("false");
-                return null;
-            }
+            book = new HSSFWorkbook(is);
         }
         Sheet sheet = book.getSheetAt(0);
         System.out.println("开始写入信息");
         for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getLastRowNum(); i++) {
-            System.out.println("sddddd");
-            department = new Department();
-            Row row = sheet.getRow(i);
-            System.out.println(row.getCell(2));
-            department.setDeptCode(row.getCell(0).toString());
-            department.setDeptName(row.getCell(1).toString());
-            String deptTypeName =row.getCell(2).toString();
-            System.out.println(deptTypeName);
-            NameCodeDTO deptType = constantitemDao.findIdByName(deptTypeName, 21);
-            department.setDeptTypeID(deptType.getId());
-            String deptCategoryName =row.getCell(3).toString();
-            NameCodeDTO deptCategory = constantitemDao.findIdByName(deptCategoryName, 1);
-            department.setDeptCategoryID(deptCategory.getId());
-            department.setStatus("1");
-            department.setAppearDate(new Date());
-            department.setAppearUserID(userID);
-            if(checkContent(department,0)){
-                add(department,userID);
+            try {
+                department = new Department();
+                Row row = sheet.getRow(i);
+                System.out.println(row.getCell(2));
+                department.setDeptCode(row.getCell(0).toString());
+                department.setDeptName(row.getCell(1).toString());
+                String deptTypeName = row.getCell(2).toString();
+                NameCodeDTO deptType = constantitemDao.findIdByName(deptTypeName, 21);
+                department.setDeptTypeID(deptType.getId());
+                String deptCategoryName = row.getCell(3).toString();
+                NameCodeDTO deptCategory = constantitemDao.findIdByName(deptCategoryName, 1);
+                department.setDeptCategoryID(deptCategory.getId());
+                department.setStatus("1");
+                //遇到重复是否继续执行
+                if (checkContent(department, 0)) {
+                    department.setAppearDate(new Date());
+                    department.setAppearUserID(userID);
+                    add(department, userID);
+                } else if (repeatCoverage) {
+                    department.setChangeDate(new Date());
+                    department.setChangeUserID(userID);
+                    department.setId(departmentviewDao.getIDByName(row.getCell(1).toString()));
+                    departmentDao.updateByPrimaryKeySelective(department);
+                }
+            } catch (Exception e) {
+                //遇到错误是否继续执行
+                state=false;
+                if (errorHappenContinue)
+                    continue;
+                else
+                    return false;
+
             }
 
         }
-        return null;
+        return state;
     }
 
     @Override
@@ -224,7 +229,7 @@ public class DepartmentServiceImpl implements DepartmentService {
                 row.createCell(7).setCellValue(simpleDateFormat.format(results.get(i).getChangeDate()));
             row.createCell(8).setCellValue(results.get(i).getChangeUserName());
         }
-        File file=FileManage.createXLSFile(wb,path,fileName);
+        File file = FileManage.createXLSFile(wb, path, fileName);
         return file;
 
     }
@@ -233,9 +238,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     public File createXLSTemplate() throws IOException {
         String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLSTemplate";
         String fileName = path + "/" + "departmentTemplate.xls";
-        String[] title={"科室编码", "科室名称", "科室类型", "科室分类"};
-        XSSFWorkbook wb=FileManage.createXLSTemplate(title);
-        return FileManage.createXLSFile(wb,path,fileName);
+        String[] title = {"科室编码", "科室名称", "科室类型", "科室分类"};
+        XSSFWorkbook wb = FileManage.createXLSTemplate(title);
+        return FileManage.createXLSFile(wb, path, fileName);
     }
 
 

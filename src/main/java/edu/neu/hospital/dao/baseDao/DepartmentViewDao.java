@@ -25,6 +25,8 @@ public interface DepartmentViewDao {
 
     @Select("select id,deptCode as code,deptName as name from departmentview")
     List<NameCodeDTO> selectAllDeptNamesAndCodes();
+    @Select("select id from departmentview where deptName=#{deptName}")
+    int getIDByName(String deptName);
 
 
 }
