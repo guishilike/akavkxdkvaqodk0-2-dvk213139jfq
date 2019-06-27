@@ -25,6 +25,15 @@ public class NameCodeDTO {
         return code;
     }
 
+    @Override
+    public String toString() {
+        return "NameCodeDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
+
     public void setCode(String code) {
         this.code = code;
     }

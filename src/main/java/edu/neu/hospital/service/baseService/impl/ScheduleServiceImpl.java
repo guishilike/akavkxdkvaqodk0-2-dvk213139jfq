@@ -1,15 +1,15 @@
 package edu.neu.hospital.service.baseService.impl;
 
-import edu.neu.hospital.bean.basicTableBean.Schedule;
 import edu.neu.hospital.bean.baseBean.ScheduleRuleView;
 import edu.neu.hospital.bean.baseBean.ScheduleView;
-import edu.neu.hospital.dao.basicTableDao.ScheduleDao;
+import edu.neu.hospital.bean.basicTableBean.Schedule;
 import edu.neu.hospital.dao.baseDao.ScheduleRuleViewDao;
 import edu.neu.hospital.dao.baseDao.ScheduleViewDao;
+import edu.neu.hospital.dao.basicTableDao.ScheduleDao;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.example.baseExample.ScheduleViewExample;
 import edu.neu.hospital.example.basicTableExample.ScheduleExample;
 import edu.neu.hospital.example.basicTableExample.ScheduleRuleViewExample;
-import edu.neu.hospital.example.baseExample.ScheduleViewExample;
 import edu.neu.hospital.service.baseService.ScheduleService;
 import org.springframework.stereotype.Service;
 
@@ -110,17 +110,17 @@ public class ScheduleServiceImpl implements ScheduleService {
         Calendar endCalendar = Calendar.getInstance();
         endCalendar.add(Calendar.DAY_OF_MONTH, 30);
         //当前日期
-        Calendar calendar=Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
         if (scheduleDao.countByExample(example) != 0) {
             example.setOrderByClause("onDutyDate desc");
             example.setLimit(1);
             Date lastDate = scheduleDao.selectByExample(example).get(0).getOnDutyDate();
-            if (getDateRemoveTime(lastDate).compareTo(getDateRemoveTime(date)) >= 0){
+            if (getDateRemoveTime(lastDate).compareTo(getDateRemoveTime(date)) >= 0) {
                 date = getDateRemoveTime(lastDate);
                 calendar.setTime(date);
-                calendar.add(Calendar.DAY_OF_MONTH,1);
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
             }
 
         }

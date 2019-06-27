@@ -180,18 +180,27 @@ public class RegistrationLevelController {
     @RequestMapping("/list")
     public @ResponseBody
     ResultDTO findAll() {
+
+        System.out.println("url: /register/getDoctor");
         try {
+
             List<RegistrationLevelView> registrationLevelViews = registrationLevelService.findAll();
             List<NameCodeDTO> nameCodeDTOS = new ArrayList<>();
 
             for (RegistrationLevelView view : registrationLevelViews) {
+
                 NameCodeDTO nameCodeDTO = new NameCodeDTO();
                 nameCodeDTO.setId(view.getId());
+                nameCodeDTO.setCode(view.getRegisteredCode());
                 nameCodeDTO.setName(view.getRegisteredName());
+
                 nameCodeDTOS.add(nameCodeDTO);
+
+                System.out.println(nameCodeDTO.toString());
             }
 
             return new ResultDTO<>("OK", "操作成功", nameCodeDTOS);
+
         } catch (Exception e) {
             return new ResultDTO<>("FALSE", "发生异常，操作失败", null);
         }

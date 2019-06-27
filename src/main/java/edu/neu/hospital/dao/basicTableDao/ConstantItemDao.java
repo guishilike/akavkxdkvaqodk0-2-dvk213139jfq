@@ -36,9 +36,11 @@ public interface ConstantItemDao {
     //根据名称和typeID查找id
     @Select("select id from constantitem where constantName=#{name} and constantTypeID=#{typeID} and status='1'")
     int findIdByName(String name, int typeID);
+
     //根据typeID查找所有constantitem
     @Select("select * from constantitem where constantTypeID=#{typeID} and status='1'")
     List<ConstantItem> findByTypeID(int typeID);
+
     @Select("select id,constantCode as code,constantName as name from constantitem " +
             "where status='1' and constantTypeID=#{constantTypeID}")
     List<NameCodeDTO> findAllNamesAndCodesByType(int constantTypeID);
