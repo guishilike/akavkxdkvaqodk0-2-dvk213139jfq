@@ -1,8 +1,9 @@
 package edu.neu.hospital.dao.disposalDao;
 
-import edu.neu.hospital.bean.disposalBean.DisposalFormView;
-import edu.neu.hospital.example.disposalExample.DisposalFormViewExample;
 import java.util.List;
+
+import edu.neu.hospital.example.disposalExample.DisposalFormViewExample;
+import edu.neu.hospital.bean.disposalBean.DisposalFormView;
 import org.apache.ibatis.annotations.Param;
 
 public interface DisposalFormViewDao {

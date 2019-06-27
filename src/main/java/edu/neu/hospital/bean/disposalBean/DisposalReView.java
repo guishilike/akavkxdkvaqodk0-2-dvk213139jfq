@@ -17,7 +17,7 @@ public class DisposalReView implements Serializable {
      */
     private Integer medicalrecordId;
 
-    private Integer disposaldetialsId;
+    private Integer disposaldetailsId;
 
     /**
      * 患者ID
@@ -121,6 +121,8 @@ public class DisposalReView implements Serializable {
      */
     private String realName;
 
+    private Integer number;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getDisposalId() {
@@ -147,12 +149,12 @@ public class DisposalReView implements Serializable {
         this.medicalrecordId = medicalrecordId;
     }
 
-    public Integer getDisposaldetialsId() {
-        return disposaldetialsId;
+    public Integer getDisposaldetailsId() {
+        return disposaldetailsId;
     }
 
-    public void setDisposaldetialsId(Integer disposaldetialsId) {
-        this.disposaldetialsId = disposaldetialsId;
+    public void setDisposaldetailsId(Integer disposaldetailsId) {
+        this.disposaldetailsId = disposaldetailsId;
     }
 
     public Integer getPatientId() {
@@ -395,6 +397,14 @@ public class DisposalReView implements Serializable {
         this.realName = realName;
     }
 
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -410,7 +420,7 @@ public class DisposalReView implements Serializable {
         return (this.getDisposalId() == null ? other.getDisposalId() == null : this.getDisposalId().equals(other.getDisposalId()))
             && (this.getDisposalAppearUserID() == null ? other.getDisposalAppearUserID() == null : this.getDisposalAppearUserID().equals(other.getDisposalAppearUserID()))
             && (this.getMedicalrecordId() == null ? other.getMedicalrecordId() == null : this.getMedicalrecordId().equals(other.getMedicalrecordId()))
-            && (this.getDisposaldetialsId() == null ? other.getDisposaldetialsId() == null : this.getDisposaldetialsId().equals(other.getDisposaldetialsId()))
+            && (this.getDisposaldetailsId() == null ? other.getDisposaldetailsId() == null : this.getDisposaldetailsId().equals(other.getDisposaldetailsId()))
             && (this.getPatientId() == null ? other.getPatientId() == null : this.getPatientId().equals(other.getPatientId()))
             && (this.getPatientName() == null ? other.getPatientName() == null : this.getPatientName().equals(other.getPatientName()))
             && (this.getPatientIdentityCardNo() == null ? other.getPatientIdentityCardNo() == null : this.getPatientIdentityCardNo().equals(other.getPatientIdentityCardNo()))
@@ -440,7 +450,8 @@ public class DisposalReView implements Serializable {
             && (this.getIsRegistered() == null ? other.getIsRegistered() == null : this.getIsRegistered().equals(other.getIsRegistered()))
             && (this.getIsAbolished() == null ? other.getIsAbolished() == null : this.getIsAbolished().equals(other.getIsAbolished()))
             && (this.getIsExecuted() == null ? other.getIsExecuted() == null : this.getIsExecuted().equals(other.getIsExecuted()))
-            && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()));
+            && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
+            && (this.getNumber() == null ? other.getNumber() == null : this.getNumber().equals(other.getNumber()));
     }
 
     @Override
@@ -450,7 +461,7 @@ public class DisposalReView implements Serializable {
         result = prime * result + ((getDisposalId() == null) ? 0 : getDisposalId().hashCode());
         result = prime * result + ((getDisposalAppearUserID() == null) ? 0 : getDisposalAppearUserID().hashCode());
         result = prime * result + ((getMedicalrecordId() == null) ? 0 : getMedicalrecordId().hashCode());
-        result = prime * result + ((getDisposaldetialsId() == null) ? 0 : getDisposaldetialsId().hashCode());
+        result = prime * result + ((getDisposaldetailsId() == null) ? 0 : getDisposaldetailsId().hashCode());
         result = prime * result + ((getPatientId() == null) ? 0 : getPatientId().hashCode());
         result = prime * result + ((getPatientName() == null) ? 0 : getPatientName().hashCode());
         result = prime * result + ((getPatientIdentityCardNo() == null) ? 0 : getPatientIdentityCardNo().hashCode());
@@ -481,6 +492,7 @@ public class DisposalReView implements Serializable {
         result = prime * result + ((getIsAbolished() == null) ? 0 : getIsAbolished().hashCode());
         result = prime * result + ((getIsExecuted() == null) ? 0 : getIsExecuted().hashCode());
         result = prime * result + ((getRealName() == null) ? 0 : getRealName().hashCode());
+        result = prime * result + ((getNumber() == null) ? 0 : getNumber().hashCode());
         return result;
     }
 
@@ -493,7 +505,7 @@ public class DisposalReView implements Serializable {
         sb.append(", disposalId=").append(disposalId);
         sb.append(", disposalAppearUserID=").append(disposalAppearUserID);
         sb.append(", medicalrecordId=").append(medicalrecordId);
-        sb.append(", disposaldetialsId=").append(disposaldetialsId);
+        sb.append(", disposaldetailsId=").append(disposaldetailsId);
         sb.append(", patientId=").append(patientId);
         sb.append(", patientName=").append(patientName);
         sb.append(", patientIdentityCardNo=").append(patientIdentityCardNo);
@@ -524,6 +536,7 @@ public class DisposalReView implements Serializable {
         sb.append(", isAbolished=").append(isAbolished);
         sb.append(", isExecuted=").append(isExecuted);
         sb.append(", realName=").append(realName);
+        sb.append(", number=").append(number);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

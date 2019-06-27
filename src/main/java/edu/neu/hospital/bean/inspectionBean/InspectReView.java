@@ -136,6 +136,11 @@ public class InspectReView implements Serializable {
      */
     private String realName;
 
+    /**
+     * 数目
+     */
+    private Integer number;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getInspectionId() {
@@ -410,6 +415,14 @@ public class InspectReView implements Serializable {
         this.realName = realName;
     }
 
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -455,7 +468,8 @@ public class InspectReView implements Serializable {
             && (this.getIsRegistered() == null ? other.getIsRegistered() == null : this.getIsRegistered().equals(other.getIsRegistered()))
             && (this.getIsAbolished() == null ? other.getIsAbolished() == null : this.getIsAbolished().equals(other.getIsAbolished()))
             && (this.getIsExecuted() == null ? other.getIsExecuted() == null : this.getIsExecuted().equals(other.getIsExecuted()))
-            && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()));
+            && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
+            && (this.getNumber() == null ? other.getNumber() == null : this.getNumber().equals(other.getNumber()));
     }
 
     @Override
@@ -496,6 +510,7 @@ public class InspectReView implements Serializable {
         result = prime * result + ((getIsAbolished() == null) ? 0 : getIsAbolished().hashCode());
         result = prime * result + ((getIsExecuted() == null) ? 0 : getIsExecuted().hashCode());
         result = prime * result + ((getRealName() == null) ? 0 : getRealName().hashCode());
+        result = prime * result + ((getNumber() == null) ? 0 : getNumber().hashCode());
         return result;
     }
 
@@ -539,6 +554,7 @@ public class InspectReView implements Serializable {
         sb.append(", isAbolished=").append(isAbolished);
         sb.append(", isExecuted=").append(isExecuted);
         sb.append(", realName=").append(realName);
+        sb.append(", number=").append(number);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

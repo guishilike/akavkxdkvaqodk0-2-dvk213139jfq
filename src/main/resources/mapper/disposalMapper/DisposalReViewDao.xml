@@ -5,7 +5,7 @@
     <result column="disposalId" jdbcType="INTEGER" property="disposalId" />
     <result column="disposalAppearUserID" jdbcType="INTEGER" property="disposalAppearUserID" />
     <result column="medicalrecordId" jdbcType="INTEGER" property="medicalrecordId" />
-    <result column="disposaldetialsId" jdbcType="INTEGER" property="disposaldetialsId" />
+    <result column="disposaldetailsId" jdbcType="INTEGER" property="disposaldetailsId" />
     <result column="patientId" jdbcType="INTEGER" property="patientId" />
     <result column="patientName" jdbcType="VARCHAR" property="patientName" />
     <result column="patientIdentityCardNo" jdbcType="CHAR" property="patientIdentityCardNo" />
@@ -36,6 +36,7 @@
     <result column="isAbolished" jdbcType="INTEGER" property="isAbolished" />
     <result column="isExecuted" jdbcType="INTEGER" property="isExecuted" />
     <result column="realName" jdbcType="VARCHAR" property="realName" />
+    <result column="number" jdbcType="INTEGER" property="number" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -96,12 +97,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    disposalId, disposalAppearUserID, medicalrecordId, disposaldetialsId, patientId, 
+    disposalId, disposalAppearUserID, medicalrecordId, disposaldetailsId, patientId, 
     patientName, patientIdentityCardNo, patientAge, patientGender, patientBirthday, patientFamilyAddress, 
     fmeditemId, fmeditemName, fmeditemCode, fmeditemFormat, medicalrechomeId, cheifComplaint, 
     currentMedicalHistory, pastMedicalHistory, allergies, DrawnName, PaidName, checkedName, 
     registeredName, abolishedName, executedName, appearDate, isDrawn, isPaid, isChecked, 
-    isRegistered, isAbolished, isExecuted, realName
+    isRegistered, isAbolished, isExecuted, realName, `number`
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.disposalExample.DisposalReViewExample" resultMap="BaseResultMap">
     select
@@ -133,7 +134,7 @@
   </delete>
   <insert id="insert" parameterType="edu.neu.hospital.bean.disposalBean.DisposalReView">
     insert into disposalreview (disposalId, disposalAppearUserID, 
-      medicalrecordId, disposaldetialsId, patientId, 
+      medicalrecordId, disposaldetailsId, patientId, 
       patientName, patientIdentityCardNo, patientAge, 
       patientGender, patientBirthday, patientFamilyAddress, 
       fmeditemId, fmeditemName, fmeditemCode, 
@@ -143,10 +144,10 @@
       checkedName, registeredName, abolishedName, 
       executedName, appearDate, isDrawn, 
       isPaid, isChecked, isRegistered, 
-      isAbolished, isExecuted, realName
-      )
+      isAbolished, isExecuted, realName, 
+      `number`)
     values (#{disposalId,jdbcType=INTEGER}, #{disposalAppearUserID,jdbcType=INTEGER}, 
-      #{medicalrecordId,jdbcType=INTEGER}, #{disposaldetialsId,jdbcType=INTEGER}, #{patientId,jdbcType=INTEGER}, 
+      #{medicalrecordId,jdbcType=INTEGER}, #{disposaldetailsId,jdbcType=INTEGER}, #{patientId,jdbcType=INTEGER}, 
       #{patientName,jdbcType=VARCHAR}, #{patientIdentityCardNo,jdbcType=CHAR}, #{patientAge,jdbcType=INTEGER}, 
       #{patientGender,jdbcType=CHAR}, #{patientBirthday,jdbcType=TIMESTAMP}, #{patientFamilyAddress,jdbcType=VARCHAR}, 
       #{fmeditemId,jdbcType=INTEGER}, #{fmeditemName,jdbcType=VARCHAR}, #{fmeditemCode,jdbcType=VARCHAR}, 
@@ -156,8 +157,8 @@
       #{checkedName,jdbcType=VARCHAR}, #{registeredName,jdbcType=VARCHAR}, #{abolishedName,jdbcType=VARCHAR}, 
       #{executedName,jdbcType=VARCHAR}, #{appearDate,jdbcType=TIMESTAMP}, #{isDrawn,jdbcType=INTEGER}, 
       #{isPaid,jdbcType=INTEGER}, #{isChecked,jdbcType=INTEGER}, #{isRegistered,jdbcType=INTEGER}, 
-      #{isAbolished,jdbcType=INTEGER}, #{isExecuted,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}
-      )
+      #{isAbolished,jdbcType=INTEGER}, #{isExecuted,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, 
+      #{number,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="edu.neu.hospital.bean.disposalBean.DisposalReView">
     insert into disposalreview
@@ -171,8 +172,8 @@
       <if test="medicalrecordId != null">
         medicalrecordId,
       </if>
-      <if test="disposaldetialsId != null">
-        disposaldetialsId,
+      <if test="disposaldetailsId != null">
+        disposaldetailsId,
       </if>
       <if test="patientId != null">
         patientId,
@@ -264,6 +265,9 @@
       <if test="realName != null">
         realName,
       </if>
+      <if test="number != null">
+        `number`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="disposalId != null">
@@ -275,8 +279,8 @@
       <if test="medicalrecordId != null">
         #{medicalrecordId,jdbcType=INTEGER},
       </if>
-      <if test="disposaldetialsId != null">
-        #{disposaldetialsId,jdbcType=INTEGER},
+      <if test="disposaldetailsId != null">
+        #{disposaldetailsId,jdbcType=INTEGER},
       </if>
       <if test="patientId != null">
         #{patientId,jdbcType=INTEGER},
@@ -368,6 +372,9 @@
       <if test="realName != null">
         #{realName,jdbcType=VARCHAR},
       </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="edu.neu.hospital.example.disposalExample.DisposalReViewExample" resultType="java.lang.Long">
@@ -388,8 +395,8 @@
       <if test="record.medicalrecordId != null">
         medicalrecordId = #{record.medicalrecordId,jdbcType=INTEGER},
       </if>
-      <if test="record.disposaldetialsId != null">
-        disposaldetialsId = #{record.disposaldetialsId,jdbcType=INTEGER},
+      <if test="record.disposaldetailsId != null">
+        disposaldetailsId = #{record.disposaldetailsId,jdbcType=INTEGER},
       </if>
       <if test="record.patientId != null">
         patientId = #{record.patientId,jdbcType=INTEGER},
@@ -481,6 +488,9 @@
       <if test="record.realName != null">
         realName = #{record.realName,jdbcType=VARCHAR},
       </if>
+      <if test="record.number != null">
+        `number` = #{record.number,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -491,7 +501,7 @@
     set disposalId = #{record.disposalId,jdbcType=INTEGER},
       disposalAppearUserID = #{record.disposalAppearUserID,jdbcType=INTEGER},
       medicalrecordId = #{record.medicalrecordId,jdbcType=INTEGER},
-      disposaldetialsId = #{record.disposaldetialsId,jdbcType=INTEGER},
+      disposaldetailsId = #{record.disposaldetailsId,jdbcType=INTEGER},
       patientId = #{record.patientId,jdbcType=INTEGER},
       patientName = #{record.patientName,jdbcType=VARCHAR},
       patientIdentityCardNo = #{record.patientIdentityCardNo,jdbcType=CHAR},
@@ -521,7 +531,8 @@
       isRegistered = #{record.isRegistered,jdbcType=INTEGER},
       isAbolished = #{record.isAbolished,jdbcType=INTEGER},
       isExecuted = #{record.isExecuted,jdbcType=INTEGER},
-      realName = #{record.realName,jdbcType=VARCHAR}
+      realName = #{record.realName,jdbcType=VARCHAR},
+      `number` = #{record.number,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

@@ -2056,76 +2056,6 @@ public class TollInspectViewExample {
             return (Criteria) this;
         }
 
-        public Criteria andExpNameIsNull() {
-            addCriterion("expName is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpNameIsNotNull() {
-            addCriterion("expName is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpNameEqualTo(String value) {
-            addCriterion("expName =", value, "expName");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpNameNotEqualTo(String value) {
-            addCriterion("expName <>", value, "expName");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpNameGreaterThan(String value) {
-            addCriterion("expName >", value, "expName");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpNameGreaterThanOrEqualTo(String value) {
-            addCriterion("expName >=", value, "expName");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpNameLessThan(String value) {
-            addCriterion("expName <", value, "expName");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpNameLessThanOrEqualTo(String value) {
-            addCriterion("expName <=", value, "expName");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpNameLike(String value) {
-            addCriterion("expName like", value, "expName");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpNameNotLike(String value) {
-            addCriterion("expName not like", value, "expName");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpNameIn(List<String> values) {
-            addCriterion("expName in", values, "expName");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpNameNotIn(List<String> values) {
-            addCriterion("expName not in", values, "expName");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpNameBetween(String value1, String value2) {
-            addCriterion("expName between", value1, value2, "expName");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpNameNotBetween(String value1, String value2) {
-            addCriterion("expName not between", value1, value2, "expName");
-            return (Criteria) this;
-        }
-
         public Criteria andPayStatusNameIsNull() {
             addCriterion("payStatusName is null");
             return (Criteria) this;
@@ -2383,6 +2313,136 @@ public class TollInspectViewExample {
 
         public Criteria andDateStatusNameNotBetween(String value1, String value2) {
             addCriterion("dateStatusName not between", value1, value2, "dateStatusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameIsNull() {
+            addCriterion("expName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameIsNotNull() {
+            addCriterion("expName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameEqualTo(String value) {
+            addCriterion("expName =", value, "expName");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameNotEqualTo(String value) {
+            addCriterion("expName <>", value, "expName");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameGreaterThan(String value) {
+            addCriterion("expName >", value, "expName");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameGreaterThanOrEqualTo(String value) {
+            addCriterion("expName >=", value, "expName");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameLessThan(String value) {
+            addCriterion("expName <", value, "expName");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameLessThanOrEqualTo(String value) {
+            addCriterion("expName <=", value, "expName");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameLike(String value) {
+            addCriterion("expName like", value, "expName");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameNotLike(String value) {
+            addCriterion("expName not like", value, "expName");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameIn(List<String> values) {
+            addCriterion("expName in", values, "expName");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameNotIn(List<String> values) {
+            addCriterion("expName not in", values, "expName");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameBetween(String value1, String value2) {
+            addCriterion("expName between", value1, value2, "expName");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpNameNotBetween(String value1, String value2) {
+            addCriterion("expName not between", value1, value2, "expName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberIsNull() {
+            addCriterion("`number` is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberIsNotNull() {
+            addCriterion("`number` is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberEqualTo(Integer value) {
+            addCriterion("`number` =", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberNotEqualTo(Integer value) {
+            addCriterion("`number` <>", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberGreaterThan(Integer value) {
+            addCriterion("`number` >", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberGreaterThanOrEqualTo(Integer value) {
+            addCriterion("`number` >=", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberLessThan(Integer value) {
+            addCriterion("`number` <", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberLessThanOrEqualTo(Integer value) {
+            addCriterion("`number` <=", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberIn(List<Integer> values) {
+            addCriterion("`number` in", values, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberNotIn(List<Integer> values) {
+            addCriterion("`number` not in", values, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberBetween(Integer value1, Integer value2) {
+            addCriterion("`number` between", value1, value2, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberNotBetween(Integer value1, Integer value2) {
+            addCriterion("`number` not between", value1, value2, "number");
             return (Criteria) this;
         }
     }

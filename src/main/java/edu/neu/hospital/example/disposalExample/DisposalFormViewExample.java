@@ -845,63 +845,63 @@ public class DisposalFormViewExample {
             return (Criteria) this;
         }
 
-        public Criteria andDisposaldetialsIDIsNull() {
-            addCriterion("disposaldetialsID is null");
+        public Criteria andDisposaldetailsIDIsNull() {
+            addCriterion("disposaldetailsID is null");
             return (Criteria) this;
         }
 
-        public Criteria andDisposaldetialsIDIsNotNull() {
-            addCriterion("disposaldetialsID is not null");
+        public Criteria andDisposaldetailsIDIsNotNull() {
+            addCriterion("disposaldetailsID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDisposaldetialsIDEqualTo(Integer value) {
-            addCriterion("disposaldetialsID =", value, "disposaldetialsID");
+        public Criteria andDisposaldetailsIDEqualTo(Integer value) {
+            addCriterion("disposaldetailsID =", value, "disposaldetailsID");
             return (Criteria) this;
         }
 
-        public Criteria andDisposaldetialsIDNotEqualTo(Integer value) {
-            addCriterion("disposaldetialsID <>", value, "disposaldetialsID");
+        public Criteria andDisposaldetailsIDNotEqualTo(Integer value) {
+            addCriterion("disposaldetailsID <>", value, "disposaldetailsID");
             return (Criteria) this;
         }
 
-        public Criteria andDisposaldetialsIDGreaterThan(Integer value) {
-            addCriterion("disposaldetialsID >", value, "disposaldetialsID");
+        public Criteria andDisposaldetailsIDGreaterThan(Integer value) {
+            addCriterion("disposaldetailsID >", value, "disposaldetailsID");
             return (Criteria) this;
         }
 
-        public Criteria andDisposaldetialsIDGreaterThanOrEqualTo(Integer value) {
-            addCriterion("disposaldetialsID >=", value, "disposaldetialsID");
+        public Criteria andDisposaldetailsIDGreaterThanOrEqualTo(Integer value) {
+            addCriterion("disposaldetailsID >=", value, "disposaldetailsID");
             return (Criteria) this;
         }
 
-        public Criteria andDisposaldetialsIDLessThan(Integer value) {
-            addCriterion("disposaldetialsID <", value, "disposaldetialsID");
+        public Criteria andDisposaldetailsIDLessThan(Integer value) {
+            addCriterion("disposaldetailsID <", value, "disposaldetailsID");
             return (Criteria) this;
         }
 
-        public Criteria andDisposaldetialsIDLessThanOrEqualTo(Integer value) {
-            addCriterion("disposaldetialsID <=", value, "disposaldetialsID");
+        public Criteria andDisposaldetailsIDLessThanOrEqualTo(Integer value) {
+            addCriterion("disposaldetailsID <=", value, "disposaldetailsID");
             return (Criteria) this;
         }
 
-        public Criteria andDisposaldetialsIDIn(List<Integer> values) {
-            addCriterion("disposaldetialsID in", values, "disposaldetialsID");
+        public Criteria andDisposaldetailsIDIn(List<Integer> values) {
+            addCriterion("disposaldetailsID in", values, "disposaldetailsID");
             return (Criteria) this;
         }
 
-        public Criteria andDisposaldetialsIDNotIn(List<Integer> values) {
-            addCriterion("disposaldetialsID not in", values, "disposaldetialsID");
+        public Criteria andDisposaldetailsIDNotIn(List<Integer> values) {
+            addCriterion("disposaldetailsID not in", values, "disposaldetailsID");
             return (Criteria) this;
         }
 
-        public Criteria andDisposaldetialsIDBetween(Integer value1, Integer value2) {
-            addCriterion("disposaldetialsID between", value1, value2, "disposaldetialsID");
+        public Criteria andDisposaldetailsIDBetween(Integer value1, Integer value2) {
+            addCriterion("disposaldetailsID between", value1, value2, "disposaldetailsID");
             return (Criteria) this;
         }
 
-        public Criteria andDisposaldetialsIDNotBetween(Integer value1, Integer value2) {
-            addCriterion("disposaldetialsID not between", value1, value2, "disposaldetialsID");
+        public Criteria andDisposaldetailsIDNotBetween(Integer value1, Integer value2) {
+            addCriterion("disposaldetailsID not between", value1, value2, "disposaldetailsID");
             return (Criteria) this;
         }
 
@@ -1742,6 +1742,66 @@ public class DisposalFormViewExample {
 
         public Criteria andRealNameNotBetween(String value1, String value2) {
             addCriterion("realName not between", value1, value2, "realName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberIsNull() {
+            addCriterion("`number` is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberIsNotNull() {
+            addCriterion("`number` is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberEqualTo(Integer value) {
+            addCriterion("`number` =", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberNotEqualTo(Integer value) {
+            addCriterion("`number` <>", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberGreaterThan(Integer value) {
+            addCriterion("`number` >", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberGreaterThanOrEqualTo(Integer value) {
+            addCriterion("`number` >=", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberLessThan(Integer value) {
+            addCriterion("`number` <", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberLessThanOrEqualTo(Integer value) {
+            addCriterion("`number` <=", value, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberIn(List<Integer> values) {
+            addCriterion("`number` in", values, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberNotIn(List<Integer> values) {
+            addCriterion("`number` not in", values, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberBetween(Integer value1, Integer value2) {
+            addCriterion("`number` between", value1, value2, "number");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumberNotBetween(Integer value1, Integer value2) {
+            addCriterion("`number` not between", value1, value2, "number");
             return (Criteria) this;
         }
     }

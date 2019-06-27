@@ -32,11 +32,12 @@
     <result column="appearName" jdbcType="VARCHAR" property="appearName" />
     <result column="changeName" jdbcType="VARCHAR" property="changeName" />
     <result column="feeCategoryName" jdbcType="VARCHAR" property="feeCategoryName" />
-    <result column="expName" jdbcType="VARCHAR" property="expName" />
     <result column="payStatusName" jdbcType="VARCHAR" property="payStatusName" />
     <result column="patientID" jdbcType="INTEGER" property="patientID" />
     <result column="FmedItemID" jdbcType="INTEGER" property="fmedItemID" />
     <result column="dateStatusName" jdbcType="VARCHAR" property="dateStatusName" />
+    <result column="expName" jdbcType="VARCHAR" property="expName" />
+    <result column="number" jdbcType="INTEGER" property="number" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -101,7 +102,7 @@
     appearUserID, feeAppearDate, changeUserID, feeChangeDate, payStatus, dateStatus, 
     medicalRecordNo, patientName, IdentityCardNo, age, gender, birthday, familyAddress, 
     code, `name`, format, price, mnemonicCode, tollName, appearName, changeName, feeCategoryName, 
-    expName, payStatusName, patientID, FmedItemID, dateStatusName
+    payStatusName, patientID, FmedItemID, dateStatusName, expName, `number`
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.tollExample.TollInspectViewExample" resultMap="BaseResultMap">
     select
@@ -142,8 +143,9 @@
       code, `name`, format, 
       price, mnemonicCode, tollName, 
       appearName, changeName, feeCategoryName, 
-      expName, payStatusName, patientID, 
-      FmedItemID, dateStatusName)
+      payStatusName, patientID, FmedItemID, 
+      dateStatusName, expName, `number`
+      )
     values (#{id,jdbcType=INTEGER}, #{medicalRecordID,jdbcType=INTEGER}, #{feeCategoryID,jdbcType=INTEGER}, 
       #{chargeItemID,jdbcType=INTEGER}, #{expID,jdbcType=INTEGER}, #{fee,jdbcType=DECIMAL}, 
       #{tollManID,jdbcType=INTEGER}, #{tollDate,jdbcType=TIMESTAMP}, #{appearUserID,jdbcType=INTEGER}, 
@@ -154,8 +156,9 @@
       #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{format,jdbcType=VARCHAR}, 
       #{price,jdbcType=DECIMAL}, #{mnemonicCode,jdbcType=VARCHAR}, #{tollName,jdbcType=VARCHAR}, 
       #{appearName,jdbcType=VARCHAR}, #{changeName,jdbcType=VARCHAR}, #{feeCategoryName,jdbcType=VARCHAR}, 
-      #{expName,jdbcType=VARCHAR}, #{payStatusName,jdbcType=VARCHAR}, #{patientID,jdbcType=INTEGER}, 
-      #{fmedItemID,jdbcType=INTEGER}, #{dateStatusName,jdbcType=VARCHAR})
+      #{payStatusName,jdbcType=VARCHAR}, #{patientID,jdbcType=INTEGER}, #{fmedItemID,jdbcType=INTEGER}, 
+      #{dateStatusName,jdbcType=VARCHAR}, #{expName,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="edu.neu.hospital.bean.tollBean.TollInspectView">
     insert into tollinspectview
@@ -250,9 +253,6 @@
       <if test="feeCategoryName != null">
         feeCategoryName,
       </if>
-      <if test="expName != null">
-        expName,
-      </if>
       <if test="payStatusName != null">
         payStatusName,
       </if>
@@ -264,6 +264,12 @@
       </if>
       <if test="dateStatusName != null">
         dateStatusName,
+      </if>
+      <if test="expName != null">
+        expName,
+      </if>
+      <if test="number != null">
+        `number`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -357,9 +363,6 @@
       <if test="feeCategoryName != null">
         #{feeCategoryName,jdbcType=VARCHAR},
       </if>
-      <if test="expName != null">
-        #{expName,jdbcType=VARCHAR},
-      </if>
       <if test="payStatusName != null">
         #{payStatusName,jdbcType=VARCHAR},
       </if>
@@ -371,6 +374,12 @@
       </if>
       <if test="dateStatusName != null">
         #{dateStatusName,jdbcType=VARCHAR},
+      </if>
+      <if test="expName != null">
+        #{expName,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -473,9 +482,6 @@
       <if test="record.feeCategoryName != null">
         feeCategoryName = #{record.feeCategoryName,jdbcType=VARCHAR},
       </if>
-      <if test="record.expName != null">
-        expName = #{record.expName,jdbcType=VARCHAR},
-      </if>
       <if test="record.payStatusName != null">
         payStatusName = #{record.payStatusName,jdbcType=VARCHAR},
       </if>
@@ -487,6 +493,12 @@
       </if>
       <if test="record.dateStatusName != null">
         dateStatusName = #{record.dateStatusName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expName != null">
+        expName = #{record.expName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null">
+        `number` = #{record.number,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -525,11 +537,12 @@
       appearName = #{record.appearName,jdbcType=VARCHAR},
       changeName = #{record.changeName,jdbcType=VARCHAR},
       feeCategoryName = #{record.feeCategoryName,jdbcType=VARCHAR},
-      expName = #{record.expName,jdbcType=VARCHAR},
       payStatusName = #{record.payStatusName,jdbcType=VARCHAR},
       patientID = #{record.patientID,jdbcType=INTEGER},
       FmedItemID = #{record.fmedItemID,jdbcType=INTEGER},
-      dateStatusName = #{record.dateStatusName,jdbcType=VARCHAR}
+      dateStatusName = #{record.dateStatusName,jdbcType=VARCHAR},
+      expName = #{record.expName,jdbcType=VARCHAR},
+      `number` = #{record.number,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

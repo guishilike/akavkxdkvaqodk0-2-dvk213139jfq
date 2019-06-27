@@ -1,8 +1,9 @@
 package edu.neu.hospital.dao.inspectionDao;
 
-import edu.neu.hospital.bean.inspectionBean.InspectFormView;
-import edu.neu.hospital.example.inspectionExample.InspectFormViewExample;
 import java.util.List;
+
+import edu.neu.hospital.example.inspectionExample.InspectFormViewExample;
+import edu.neu.hospital.bean.inspectionBean.InspectFormView;
 import org.apache.ibatis.annotations.Param;
 
 public interface InspectFormViewDao {

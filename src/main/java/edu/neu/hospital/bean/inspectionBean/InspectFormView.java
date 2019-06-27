@@ -1,7 +1,5 @@
 package edu.neu.hospital.bean.inspectionBean;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,7 +9,7 @@ import java.util.Date;
  */
 public class InspectFormView implements Serializable {
     private Integer inspectionId;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     private Date inspectionAppearDate;
 
     /**
@@ -104,6 +102,11 @@ public class InspectFormView implements Serializable {
      * 真名
      */
     private String realName;
+
+    /**
+     * 数目
+     */
+    private Integer number;
 
     private static final long serialVersionUID = 1L;
 
@@ -307,6 +310,14 @@ public class InspectFormView implements Serializable {
         this.realName = realName;
     }
 
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -343,7 +354,8 @@ public class InspectFormView implements Serializable {
             && (this.getAbolishedName() == null ? other.getAbolishedName() == null : this.getAbolishedName().equals(other.getAbolishedName()))
             && (this.getExecutedName() == null ? other.getExecutedName() == null : this.getExecutedName().equals(other.getExecutedName()))
             && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
-            && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()));
+            && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
+            && (this.getNumber() == null ? other.getNumber() == null : this.getNumber().equals(other.getNumber()));
     }
 
     @Override
@@ -375,6 +387,7 @@ public class InspectFormView implements Serializable {
         result = prime * result + ((getExecutedName() == null) ? 0 : getExecutedName().hashCode());
         result = prime * result + ((getAppearUserID() == null) ? 0 : getAppearUserID().hashCode());
         result = prime * result + ((getRealName() == null) ? 0 : getRealName().hashCode());
+        result = prime * result + ((getNumber() == null) ? 0 : getNumber().hashCode());
         return result;
     }
 
@@ -409,6 +422,7 @@ public class InspectFormView implements Serializable {
         sb.append(", executedName=").append(executedName);
         sb.append(", appearUserID=").append(appearUserID);
         sb.append(", realName=").append(realName);
+        sb.append(", number=").append(number);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

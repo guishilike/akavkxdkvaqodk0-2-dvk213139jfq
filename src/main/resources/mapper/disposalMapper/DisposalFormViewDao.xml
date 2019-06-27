@@ -13,7 +13,7 @@
     <result column="medicalrecordId" jdbcType="INTEGER" property="medicalrecordId" />
     <result column="fmeditemId" jdbcType="INTEGER" property="fmeditemId" />
     <result column="patientId" jdbcType="INTEGER" property="patientId" />
-    <result column="disposaldetialsID" jdbcType="INTEGER" property="disposaldetialsID" />
+    <result column="disposaldetailsID" jdbcType="INTEGER" property="disposaldetailsID" />
     <result column="isDrawn" jdbcType="INTEGER" property="isDrawn" />
     <result column="isPaid" jdbcType="INTEGER" property="isPaid" />
     <result column="isChecked" jdbcType="INTEGER" property="isChecked" />
@@ -27,6 +27,7 @@
     <result column="executedName" jdbcType="VARCHAR" property="executedName" />
     <result column="appearUserID" jdbcType="INTEGER" property="appearUserID" />
     <result column="realName" jdbcType="VARCHAR" property="realName" />
+    <result column="number" jdbcType="INTEGER" property="number" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -88,9 +89,9 @@
   </sql>
   <sql id="Base_Column_List">
     disposalId, disposalAppearDate, fmeditemName, fmeditemCode, fmeditemFormat, patientName, 
-    fmeditemMnemonicCode, drawmName, medicalrecordId, fmeditemId, patientId, disposaldetialsID, 
+    fmeditemMnemonicCode, drawmName, medicalrecordId, fmeditemId, patientId, disposaldetailsID, 
     isDrawn, isPaid, isChecked, isRegistered, isAbolished, isExecuted, paidName, checkedName, 
-    registeredName, abolishedName, executedName, appearUserID, realName
+    registeredName, abolishedName, executedName, appearUserID, realName, `number`
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.disposalExample.DisposalFormViewExample" resultMap="BaseResultMap">
     select
@@ -125,20 +126,22 @@
       fmeditemName, fmeditemCode, fmeditemFormat, 
       patientName, fmeditemMnemonicCode, drawmName, 
       medicalrecordId, fmeditemId, patientId, 
-      disposaldetialsID, isDrawn, isPaid, 
+      disposaldetailsID, isDrawn, isPaid, 
       isChecked, isRegistered, isAbolished, 
       isExecuted, paidName, checkedName, 
       registeredName, abolishedName, executedName, 
-      appearUserID, realName)
+      appearUserID, realName, `number`
+      )
     values (#{disposalId,jdbcType=INTEGER}, #{disposalAppearDate,jdbcType=TIMESTAMP}, 
       #{fmeditemName,jdbcType=VARCHAR}, #{fmeditemCode,jdbcType=VARCHAR}, #{fmeditemFormat,jdbcType=VARCHAR}, 
       #{patientName,jdbcType=VARCHAR}, #{fmeditemMnemonicCode,jdbcType=VARCHAR}, #{drawmName,jdbcType=VARCHAR}, 
       #{medicalrecordId,jdbcType=INTEGER}, #{fmeditemId,jdbcType=INTEGER}, #{patientId,jdbcType=INTEGER}, 
-      #{disposaldetialsID,jdbcType=INTEGER}, #{isDrawn,jdbcType=INTEGER}, #{isPaid,jdbcType=INTEGER}, 
+      #{disposaldetailsID,jdbcType=INTEGER}, #{isDrawn,jdbcType=INTEGER}, #{isPaid,jdbcType=INTEGER}, 
       #{isChecked,jdbcType=INTEGER}, #{isRegistered,jdbcType=INTEGER}, #{isAbolished,jdbcType=INTEGER}, 
       #{isExecuted,jdbcType=INTEGER}, #{paidName,jdbcType=VARCHAR}, #{checkedName,jdbcType=VARCHAR}, 
       #{registeredName,jdbcType=VARCHAR}, #{abolishedName,jdbcType=VARCHAR}, #{executedName,jdbcType=VARCHAR}, 
-      #{appearUserID,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR})
+      #{appearUserID,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="edu.neu.hospital.bean.disposalBean.DisposalFormView">
     insert into disposalformview
@@ -176,8 +179,8 @@
       <if test="patientId != null">
         patientId,
       </if>
-      <if test="disposaldetialsID != null">
-        disposaldetialsID,
+      <if test="disposaldetailsID != null">
+        disposaldetailsID,
       </if>
       <if test="isDrawn != null">
         isDrawn,
@@ -218,6 +221,9 @@
       <if test="realName != null">
         realName,
       </if>
+      <if test="number != null">
+        `number`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="disposalId != null">
@@ -253,8 +259,8 @@
       <if test="patientId != null">
         #{patientId,jdbcType=INTEGER},
       </if>
-      <if test="disposaldetialsID != null">
-        #{disposaldetialsID,jdbcType=INTEGER},
+      <if test="disposaldetailsID != null">
+        #{disposaldetailsID,jdbcType=INTEGER},
       </if>
       <if test="isDrawn != null">
         #{isDrawn,jdbcType=INTEGER},
@@ -294,6 +300,9 @@
       </if>
       <if test="realName != null">
         #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -339,8 +348,8 @@
       <if test="record.patientId != null">
         patientId = #{record.patientId,jdbcType=INTEGER},
       </if>
-      <if test="record.disposaldetialsID != null">
-        disposaldetialsID = #{record.disposaldetialsID,jdbcType=INTEGER},
+      <if test="record.disposaldetailsID != null">
+        disposaldetailsID = #{record.disposaldetailsID,jdbcType=INTEGER},
       </if>
       <if test="record.isDrawn != null">
         isDrawn = #{record.isDrawn,jdbcType=INTEGER},
@@ -381,6 +390,9 @@
       <if test="record.realName != null">
         realName = #{record.realName,jdbcType=VARCHAR},
       </if>
+      <if test="record.number != null">
+        `number` = #{record.number,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -399,7 +411,7 @@
       medicalrecordId = #{record.medicalrecordId,jdbcType=INTEGER},
       fmeditemId = #{record.fmeditemId,jdbcType=INTEGER},
       patientId = #{record.patientId,jdbcType=INTEGER},
-      disposaldetialsID = #{record.disposaldetialsID,jdbcType=INTEGER},
+      disposaldetailsID = #{record.disposaldetailsID,jdbcType=INTEGER},
       isDrawn = #{record.isDrawn,jdbcType=INTEGER},
       isPaid = #{record.isPaid,jdbcType=INTEGER},
       isChecked = #{record.isChecked,jdbcType=INTEGER},
@@ -412,7 +424,8 @@
       abolishedName = #{record.abolishedName,jdbcType=VARCHAR},
       executedName = #{record.executedName,jdbcType=VARCHAR},
       appearUserID = #{record.appearUserID,jdbcType=INTEGER},
-      realName = #{record.realName,jdbcType=VARCHAR}
+      realName = #{record.realName,jdbcType=VARCHAR},
+      `number` = #{record.number,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

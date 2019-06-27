@@ -1,7 +1,5 @@
 package edu.neu.hospital.bean.tollBean;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -50,7 +48,6 @@ public class TollInspectView implements Serializable {
     /**
      * 收费时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date tollDate;
 
     /**
@@ -61,7 +58,6 @@ public class TollInspectView implements Serializable {
     /**
      * 费用产生日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date feeAppearDate;
 
     /**
@@ -72,7 +68,6 @@ public class TollInspectView implements Serializable {
     /**
      * 费用变动日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date feeChangeDate;
 
     /**
@@ -162,8 +157,6 @@ public class TollInspectView implements Serializable {
 
     private String feeCategoryName;
 
-    private String expName;
-
     private String payStatusName;
 
     /**
@@ -177,6 +170,16 @@ public class TollInspectView implements Serializable {
     private Integer fmedItemID;
 
     private String dateStatusName;
+
+    /**
+     * 费用科目名字
+     */
+    private String expName;
+
+    /**
+     * 数目
+     */
+    private Integer number;
 
     private static final long serialVersionUID = 1L;
 
@@ -420,14 +423,6 @@ public class TollInspectView implements Serializable {
         this.feeCategoryName = feeCategoryName;
     }
 
-    public String getExpName() {
-        return expName;
-    }
-
-    public void setExpName(String expName) {
-        this.expName = expName;
-    }
-
     public String getPayStatusName() {
         return payStatusName;
     }
@@ -458,6 +453,22 @@ public class TollInspectView implements Serializable {
 
     public void setDateStatusName(String dateStatusName) {
         this.dateStatusName = dateStatusName;
+    }
+
+    public String getExpName() {
+        return expName;
+    }
+
+    public void setExpName(String expName) {
+        this.expName = expName;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     @Override
@@ -502,11 +513,12 @@ public class TollInspectView implements Serializable {
             && (this.getAppearName() == null ? other.getAppearName() == null : this.getAppearName().equals(other.getAppearName()))
             && (this.getChangeName() == null ? other.getChangeName() == null : this.getChangeName().equals(other.getChangeName()))
             && (this.getFeeCategoryName() == null ? other.getFeeCategoryName() == null : this.getFeeCategoryName().equals(other.getFeeCategoryName()))
-            && (this.getExpName() == null ? other.getExpName() == null : this.getExpName().equals(other.getExpName()))
             && (this.getPayStatusName() == null ? other.getPayStatusName() == null : this.getPayStatusName().equals(other.getPayStatusName()))
             && (this.getPatientID() == null ? other.getPatientID() == null : this.getPatientID().equals(other.getPatientID()))
             && (this.getFmedItemID() == null ? other.getFmedItemID() == null : this.getFmedItemID().equals(other.getFmedItemID()))
-            && (this.getDateStatusName() == null ? other.getDateStatusName() == null : this.getDateStatusName().equals(other.getDateStatusName()));
+            && (this.getDateStatusName() == null ? other.getDateStatusName() == null : this.getDateStatusName().equals(other.getDateStatusName()))
+            && (this.getExpName() == null ? other.getExpName() == null : this.getExpName().equals(other.getExpName()))
+            && (this.getNumber() == null ? other.getNumber() == null : this.getNumber().equals(other.getNumber()));
     }
 
     @Override
@@ -543,11 +555,12 @@ public class TollInspectView implements Serializable {
         result = prime * result + ((getAppearName() == null) ? 0 : getAppearName().hashCode());
         result = prime * result + ((getChangeName() == null) ? 0 : getChangeName().hashCode());
         result = prime * result + ((getFeeCategoryName() == null) ? 0 : getFeeCategoryName().hashCode());
-        result = prime * result + ((getExpName() == null) ? 0 : getExpName().hashCode());
         result = prime * result + ((getPayStatusName() == null) ? 0 : getPayStatusName().hashCode());
         result = prime * result + ((getPatientID() == null) ? 0 : getPatientID().hashCode());
         result = prime * result + ((getFmedItemID() == null) ? 0 : getFmedItemID().hashCode());
         result = prime * result + ((getDateStatusName() == null) ? 0 : getDateStatusName().hashCode());
+        result = prime * result + ((getExpName() == null) ? 0 : getExpName().hashCode());
+        result = prime * result + ((getNumber() == null) ? 0 : getNumber().hashCode());
         return result;
     }
 
@@ -587,11 +600,12 @@ public class TollInspectView implements Serializable {
         sb.append(", appearName=").append(appearName);
         sb.append(", changeName=").append(changeName);
         sb.append(", feeCategoryName=").append(feeCategoryName);
-        sb.append(", expName=").append(expName);
         sb.append(", payStatusName=").append(payStatusName);
         sb.append(", patientID=").append(patientID);
         sb.append(", fmedItemID=").append(fmedItemID);
         sb.append(", dateStatusName=").append(dateStatusName);
+        sb.append(", expName=").append(expName);
+        sb.append(", number=").append(number);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

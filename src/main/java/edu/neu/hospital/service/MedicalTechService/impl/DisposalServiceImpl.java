@@ -203,7 +203,7 @@ public class DisposalServiceImpl implements DisposalService {
         DisposalReViewExample.Criteria criteria = DisposalreviewExample.createCriteria();
         //查询匹配处置关联编号的项目
         if (disposalDetailsID != null) {
-            criteria.andDisposaldetialsIdEqualTo(disposalDetailsID);
+            criteria.andDisposaldetailsIdEqualTo(disposalDetailsID);
         }
         return DisposalreviewDao.selectByExample(DisposalreviewExample);
     }
@@ -371,7 +371,7 @@ public class DisposalServiceImpl implements DisposalService {
 
             DisposalFormViewExample DisposalformviewExample = new DisposalFormViewExample();
             DisposalFormViewExample.Criteria criteriaF = DisposalformviewExample.createCriteria();
-            criteriaF.andDisposaldetialsIDEqualTo(Disposalmatreview.getItemsDetailID());
+            criteriaF.andDisposaldetailsIDEqualTo(Disposalmatreview.getItemsDetailID());
             DisposalFormView Disposalformview = DisposalformviewDao.selectByExample(DisposalformviewExample).get(0);
 
 
@@ -421,7 +421,7 @@ public class DisposalServiceImpl implements DisposalService {
 
             DisposalFormViewExample DisposalformviewExample = new DisposalFormViewExample();
             DisposalFormViewExample.Criteria criteriaF = DisposalformviewExample.createCriteria();
-            criteriaF.andDisposaldetialsIDEqualTo(Disposalmedreview.getItemsDetailID());
+            criteriaF.andDisposaldetailsIDEqualTo(Disposalmedreview.getItemsDetailID());
             DisposalFormView Disposalformview = DisposalformviewDao.selectByExample(DisposalformviewExample).get(0);
 
 

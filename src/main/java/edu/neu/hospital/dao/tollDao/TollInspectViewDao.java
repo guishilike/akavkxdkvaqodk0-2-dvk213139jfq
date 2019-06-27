@@ -1,8 +1,9 @@
 package edu.neu.hospital.dao.tollDao;
 
-import edu.neu.hospital.bean.tollBean.TollInspectView;
-import edu.neu.hospital.example.tollExample.TollInspectViewExample;
 import java.util.List;
+
+import edu.neu.hospital.example.tollExample.TollInspectViewExample;
+import edu.neu.hospital.bean.tollBean.TollInspectView;
 import org.apache.ibatis.annotations.Param;
 
 public interface TollInspectViewDao {
