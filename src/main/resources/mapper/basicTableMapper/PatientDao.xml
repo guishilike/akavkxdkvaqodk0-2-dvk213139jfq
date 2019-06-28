@@ -115,7 +115,7 @@
         select
         <include refid = "Base_Column_List"/>
         from patient
-        where identityCardNo = #{identityCardNo,jdbcType=INTEGER}
+        where identityCardNo = #{identityCardNo,jdbcType=CHAR}
     </select>
     <delete id = "deleteByPrimaryKey" parameterType = "java.lang.Integer">
         delete

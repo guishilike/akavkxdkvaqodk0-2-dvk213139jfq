@@ -85,6 +85,7 @@ public class RegisterController {
             return new ResultDTO<>("OK", "挂号成功", result);
 
         } catch (Exception e) {
+            System.out.println(e.toString());
             return new ResultDTO<>("error", "发生异常，挂号失败", e);
         }
     }
