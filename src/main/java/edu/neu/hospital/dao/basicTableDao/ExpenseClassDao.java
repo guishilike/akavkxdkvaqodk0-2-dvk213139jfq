@@ -2,9 +2,8 @@ package edu.neu.hospital.dao.basicTableDao;
 
 import edu.neu.hospital.bean.basicTableBean.ExpenseClass;
 import edu.neu.hospital.example.basicTableExample.ExpenseClassExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface ExpenseClassDao {
     long countByExample(ExpenseClassExample example);

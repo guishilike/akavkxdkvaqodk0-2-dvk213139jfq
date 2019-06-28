@@ -10,7 +10,6 @@ import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.DepartmentService;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -73,7 +71,7 @@ public class DepartmentController {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
         try {
             System.out.println(id);
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("adminUser");
             departmentService.deleteById(id, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除科室成功");
@@ -100,7 +98,7 @@ public class DepartmentController {
         ResultDTO<IdDTO> resultDTO = new ResultDTO<>();
         if (ids.getId() != null&&ids.getId().size()!=0) {
             try {
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("adminUser");
                 departmentService.deleteByChoose(ids, user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除科室成功");
@@ -166,7 +164,7 @@ public class DepartmentController {
         ResultDTO<Department> resultDTO = new ResultDTO<>();
         try {
             if (departmentService.checkContent(department, 1)) {
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("adminUser");
                 departmentService.change(department, user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改科室成功");
@@ -197,7 +195,7 @@ public class DepartmentController {
         ResultDTO<Department> resultDTO = new ResultDTO<>();
         try {
             if (departmentService.checkContent(department, 0)) {
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("adminUser");
                 departmentService.add(department, user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加科室成功");
@@ -315,7 +313,7 @@ public class DepartmentController {
         if (!file.isEmpty()) {
             try {
                 System.out.println("tset");
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("adminUser");
                 System.out.println(user.getId());
                 if(departmentService.uploadXls(file, user.getId(),errorHappenContinue,repeatCoverage)){
                     resultDTO.setStatus("OK");

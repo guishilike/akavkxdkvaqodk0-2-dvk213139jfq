@@ -54,6 +54,24 @@ public class LoginController {
                     resultDTO.setMsg("用户检查成功！可以登录");
                     resultDTO.setData(userView);
                     userView.setPasswd("");
+                    if(userView.getTypeID() == 112){
+                        session.setAttribute("adminUser",userView);
+                    }
+                    if(userView.getTypeID() == 111){
+                        session.setAttribute("financeUser",userView);
+                    }
+                    if(userView.getTypeID() == 107){
+                        session.setAttribute("registerAndChargeUser",userView);
+                    }
+                    if(userView.getTypeID() == 108){
+                        session.setAttribute("outpatientUser",userView);
+                    }
+                    if(userView.getTypeID() == 109){
+                        session.setAttribute("medicalTechUser",userView);
+                    }
+                    if(userView.getTypeID() == 110){
+                        session.setAttribute("pharmacyUser",userView);
+                    }
                     session.setAttribute("user",userView);
 //                    UserView u = (UserView) session.getAttribute("user");
 //                    System.out.println(u.getId());
