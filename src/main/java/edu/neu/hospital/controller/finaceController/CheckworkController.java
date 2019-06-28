@@ -1,6 +1,6 @@
 /**
- * Checkwork核对工作的Controller
- * <p>
+ *Checkwork核对工作的Controller
+ *
  * 根据findByInfo传入的参数查找工作量信息
  * realName医生姓名,departmentName部门名称,dateStart开始日期,dateEnd结束日期
  * 传参查询格式
@@ -9,6 +9,7 @@
  * 不传参查询格式
  * http://localhost:8081/hospital/Checkwork/findByInfo
  * 测试成功
+ *
  */
 package edu.neu.hospital.controller.finaceController;
 
@@ -41,23 +42,23 @@ public class CheckworkController {
 
     @RequestMapping("/findByInfo")
     public @ResponseBody
-    ResultDTO<PageInfo> findByInfo(String realName, String deptName, Date dateStart, Date dateEnd, Integer pageNum, Integer pageSize) {
+    ResultDTO<PageInfo> findByInfo(String realName, String deptName, Date dateStart, Date dateEnd,Integer pageNum,Integer pageSize){
         ResultDTO<PageInfo> resultDTO = new ResultDTO();
-        try {
-            PageHelper.startPage(pageNum, pageSize);
-            List<CheckWork> checkWorks = checkworkService.findByInfo(realName, deptName, dateStart, dateEnd);
+        try{
+            PageHelper.startPage(pageNum,pageSize);
+            List<CheckWork> checkWorks = checkworkService.findByInfo(realName,deptName,dateStart,dateEnd);
 
-            PageInfo<CheckWork> list = new PageInfo<>(checkWorks);
-            if (list != null) {
+            PageInfo<CheckWork> list=new PageInfo<>(checkWorks);
+            if (list != null){
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("核对检查成功！");
                 resultDTO.setData(list);
-            } else {
+            }else {
                 resultDTO.setStatus("FALSE");
                 resultDTO.setMsg("核对检查失败！");
                 resultDTO.setData(list);
             }
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("核对检查出现错误！");
@@ -99,8 +100,8 @@ public class CheckworkController {
     ResultDTO<IdDTO> updateByChoose(@RequestBody IdDTO feeIDs, HttpSession session) {
         ResultDTO<IdDTO> resultDTO = new ResultDTO<>();
 //        System.out.println("feeIDs是"+feeIDs.toString());
-//        System.out.println(feeIDs.getId());
-        if (feeIDs.getId() != null) {
+        System.out.println(feeIDs.getId());
+        if(feeIDs.getId()!=null) {
             try {
                 UserView user = (UserView) session.getAttribute("user");
                 checkworkService.updateByChoose(feeIDs, user.getId());
@@ -112,7 +113,7 @@ public class CheckworkController {
                 resultDTO.setMsg("发生异常，批量修改对账状态失败");
                 resultDTO.setData(feeIDs);
             }
-        } else {
+        }else{
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("请先选择要修改的对账状态");
             resultDTO.setData(feeIDs);

@@ -10,6 +10,7 @@ import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.finaceService.ExpenseclassService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -109,6 +110,7 @@ public class ExpenseclassController {
         try {
             if(expenseclassService.checkContent(expenseclass,0)){
                 UserView loginUser = (UserView) session.getAttribute("user");
+                System.out.println("获得session成功");
                 expenseclassService.add(expenseclass,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加收费类型成功");
@@ -119,6 +121,7 @@ public class ExpenseclassController {
                 resultDTO.setData(expenseclass);
             }
         }catch (Exception e){
+            System.out.println(e);
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，添加收费类型失败");
             resultDTO.setData(expenseclass);
@@ -151,30 +154,32 @@ public class ExpenseclassController {
 
     /**
      * 批量删除
-     * @param ids
+     * @param id
      * @param session
      * @return
      */
     @RequestMapping("/deleteByChoose")
     public @ResponseBody ResultDTO<IdDTO>
-    deleteByChoose(IdDTO ids, HttpSession session){
+    deleteByChoose(@RequestBody IdDTO id, HttpSession session){
         ResultDTO<IdDTO> resultDTO=new ResultDTO();
-        if(ids.getId()!=null) {
+        System.out.println(id==null);
+        System.out.println(id.getId());
+        if(id.getId() != null) {
             try {
                 UserView loginUser = (UserView) session.getAttribute("user");
-                expenseclassService.deleteByChoose(ids, loginUser.getId());
+                expenseclassService.deleteByChoose(id, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除收费类型成功");
-                resultDTO.setData(ids);
+                resultDTO.setData(id);
             } catch (Exception e) {
                 resultDTO.setStatus("FALSE");
                 resultDTO.setMsg("发生异常，批量删除收费类型失败");
-                resultDTO.setData(ids);
+                resultDTO.setData(id);
             }
         }else{
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("请先选择你要删除的收费类型");
-            resultDTO.setData(ids);
+            resultDTO.setData(id);
         }
         return resultDTO;
     }

@@ -27,7 +27,10 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -129,9 +132,11 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
 
     @Override
     public void add(ExpenseClass expenseclass, Integer userID) {
+        System.out.println("进入impl");
         expenseclass.setStatus("1");
         expenseclass.setAppearDate(new Date());
         expenseclass.setAppearUserID(userID);
+        System.out.println("准备开始insert方法");
         expenseclassDao.insert(expenseclass);
     }
 
