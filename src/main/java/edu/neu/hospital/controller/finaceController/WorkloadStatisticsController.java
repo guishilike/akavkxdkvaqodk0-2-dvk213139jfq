@@ -37,11 +37,11 @@ public class WorkloadStatisticsController {
 
     @RequestMapping("/findByInfo")
     public @ResponseBody
-    ResultDTO<PageInfo> findByInfo(String realName, String departmentName, Date dateStart, Date dateEnd,Integer pageNum,Integer pageSize){
+    ResultDTO<PageInfo> findByInfo(String realName, String deptName, Date dateStart, Date dateEnd,Integer pageNum,Integer pageSize){
         ResultDTO<PageInfo> resultDTO = new ResultDTO();
         try{
             PageHelper.startPage(pageNum,pageSize);
-            List<WorkLoadStatistics> workloadstatistics = workloadStatisticsService.findByInfo(realName,departmentName,dateStart,dateEnd);
+            List<WorkLoadStatistics> workloadstatistics = workloadStatisticsService.findByInfo(realName,deptName,dateStart,dateEnd);
             PageInfo<WorkLoadStatistics> list = new PageInfo<>(workloadstatistics);
             if (list != null){
                 resultDTO.setStatus("OK");

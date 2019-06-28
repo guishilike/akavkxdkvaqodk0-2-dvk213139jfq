@@ -10,6 +10,11 @@ import java.util.Date;
  */
 public class WorkLoadStatistics implements Serializable {
     /**
+     * 患者费用编号
+     */
+    private Integer feeID;
+
+    /**
      * 用户ID
      */
     private Integer doctorID;
@@ -68,6 +73,14 @@ public class WorkLoadStatistics implements Serializable {
     private String datestatusName;
 
     private static final long serialVersionUID = 1L;
+
+    public Integer getFeeID() {
+        return feeID;
+    }
+
+    public void setFeeID(Integer feeID) {
+        this.feeID = feeID;
+    }
 
     public Integer getDoctorID() {
         return doctorID;
@@ -193,7 +206,8 @@ public class WorkLoadStatistics implements Serializable {
             return false;
         }
         WorkLoadStatistics other = (WorkLoadStatistics) that;
-        return (this.getDoctorID() == null ? other.getDoctorID() == null : this.getDoctorID().equals(other.getDoctorID()))
+        return (this.getFeeID() == null ? other.getFeeID() == null : this.getFeeID().equals(other.getFeeID()))
+            && (this.getDoctorID() == null ? other.getDoctorID() == null : this.getDoctorID().equals(other.getDoctorID()))
             && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
             && (this.getDeptName() == null ? other.getDeptName() == null : this.getDeptName().equals(other.getDeptName()))
             && (this.getMedicalRecordID() == null ? other.getMedicalRecordID() == null : this.getMedicalRecordID().equals(other.getMedicalRecordID()))
@@ -213,6 +227,7 @@ public class WorkLoadStatistics implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((getFeeID() == null) ? 0 : getFeeID().hashCode());
         result = prime * result + ((getDoctorID() == null) ? 0 : getDoctorID().hashCode());
         result = prime * result + ((getRealName() == null) ? 0 : getRealName().hashCode());
         result = prime * result + ((getDeptName() == null) ? 0 : getDeptName().hashCode());
@@ -236,6 +251,7 @@ public class WorkLoadStatistics implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", feeID=").append(feeID);
         sb.append(", doctorID=").append(doctorID);
         sb.append(", realName=").append(realName);
         sb.append(", deptName=").append(deptName);

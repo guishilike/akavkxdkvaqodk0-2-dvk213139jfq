@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.neu.hospital.dao.finaceDao.WorkLoadStatisticsDao">
   <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.finaceBean.WorkLoadStatistics">
+    <result column="feeID" jdbcType="INTEGER" property="feeID" />
     <result column="doctorID" jdbcType="INTEGER" property="doctorID" />
     <result column="realName" jdbcType="VARCHAR" property="realName" />
     <result column="deptName" jdbcType="VARCHAR" property="deptName" />
@@ -76,8 +77,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    doctorID, realName, deptName, medicalRecordID, patientName, feeTypeName, fee, feeAppearDate, 
-    payStatus, paystatusCode, paystatusName, dateStatus, datestatusCode, datestatusName
+    feeID, doctorID, realName, deptName, medicalRecordID, patientName, feeTypeName, fee, 
+    feeAppearDate, payStatus, paystatusCode, paystatusName, dateStatus, datestatusCode, 
+    datestatusName
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.finaceExample.WorkLoadStatisticsExample" resultMap="BaseResultMap">
     select
@@ -108,20 +110,25 @@
     </if>
   </delete>
   <insert id="insert" parameterType="edu.neu.hospital.bean.finaceBean.WorkLoadStatistics">
-    insert into workloadstatistics (doctorID, realName, deptName, 
-      medicalRecordID, patientName, feeTypeName, 
-      fee, feeAppearDate, payStatus, 
-      paystatusCode, paystatusName, dateStatus, 
-      datestatusCode, datestatusName)
-    values (#{doctorID,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
-      #{medicalRecordID,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, #{feeTypeName,jdbcType=VARCHAR}, 
-      #{fee,jdbcType=DECIMAL}, #{feeAppearDate,jdbcType=TIMESTAMP}, #{payStatus,jdbcType=INTEGER}, 
-      #{paystatusCode,jdbcType=VARCHAR}, #{paystatusName,jdbcType=VARCHAR}, #{dateStatus,jdbcType=INTEGER}, 
-      #{datestatusCode,jdbcType=VARCHAR}, #{datestatusName,jdbcType=VARCHAR})
+    insert into workloadstatistics (feeID, doctorID, realName, 
+      deptName, medicalRecordID, patientName, 
+      feeTypeName, fee, feeAppearDate, 
+      payStatus, paystatusCode, paystatusName, 
+      dateStatus, datestatusCode, datestatusName
+      )
+    values (#{feeID,jdbcType=INTEGER}, #{doctorID,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, 
+      #{deptName,jdbcType=VARCHAR}, #{medicalRecordID,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, 
+      #{feeTypeName,jdbcType=VARCHAR}, #{fee,jdbcType=DECIMAL}, #{feeAppearDate,jdbcType=TIMESTAMP}, 
+      #{payStatus,jdbcType=INTEGER}, #{paystatusCode,jdbcType=VARCHAR}, #{paystatusName,jdbcType=VARCHAR}, 
+      #{dateStatus,jdbcType=INTEGER}, #{datestatusCode,jdbcType=VARCHAR}, #{datestatusName,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="edu.neu.hospital.bean.finaceBean.WorkLoadStatistics">
     insert into workloadstatistics
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="feeID != null">
+        feeID,
+      </if>
       <if test="doctorID != null">
         doctorID,
       </if>
@@ -166,6 +173,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="feeID != null">
+        #{feeID,jdbcType=INTEGER},
+      </if>
       <if test="doctorID != null">
         #{doctorID,jdbcType=INTEGER},
       </if>
@@ -219,6 +229,9 @@
   <update id="updateByExampleSelective" parameterType="map">
     update workloadstatistics
     <set>
+      <if test="record.feeID != null">
+        feeID = #{record.feeID,jdbcType=INTEGER},
+      </if>
       <if test="record.doctorID != null">
         doctorID = #{record.doctorID,jdbcType=INTEGER},
       </if>
@@ -268,7 +281,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update workloadstatistics
-    set doctorID = #{record.doctorID,jdbcType=INTEGER},
+    set feeID = #{record.feeID,jdbcType=INTEGER},
+      doctorID = #{record.doctorID,jdbcType=INTEGER},
       realName = #{record.realName,jdbcType=VARCHAR},
       deptName = #{record.deptName,jdbcType=VARCHAR},
       medicalRecordID = #{record.medicalRecordID,jdbcType=INTEGER},
