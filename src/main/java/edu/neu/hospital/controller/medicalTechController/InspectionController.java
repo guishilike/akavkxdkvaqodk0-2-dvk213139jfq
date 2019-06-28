@@ -4,10 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.*;
-import edu.neu.hospital.bean.inspectionBean.InspectFormView;
-import edu.neu.hospital.bean.inspectionBean.InspectMatPlateView;
-import edu.neu.hospital.bean.inspectionBean.InspectMedPlateView;
-import edu.neu.hospital.bean.inspectionBean.InspectReView;
+import edu.neu.hospital.bean.inspectionBean.*;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.MedicalTechService.InspectionService;
@@ -82,6 +79,49 @@ public class InspectionController{
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功！");
             resultDTO.setData(inspectionService.inspectreview(inspectionDetailsID));
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus("NG");
+            resultDTO.setMsg("操作失败！");
+        }
+        return resultDTO;
+    }
+
+
+    /**
+     * 查询项目材料
+     * @param itemsDetailID 项目详情编号
+     * @return 材料列表
+     */
+    @RequestMapping("/inspectmatreview")
+    public @ResponseBody
+    ResultDTO<List<InspectMatReView>> inspectmatreview(Integer itemsDetailID ){
+        ResultDTO<List<InspectMatReView>> resultDTO = new ResultDTO<>();
+        try {
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("操作成功！");
+            resultDTO.setData(inspectionService.inspectmatreview(itemsDetailID));
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus("NG");
+            resultDTO.setMsg("操作失败！");
+        }
+        return resultDTO;
+    }
+
+    /**
+     * 查询项目药品
+     * @param itemsDetailID 项目详情编号
+     * @return 材料列表
+     */
+    @RequestMapping("/inspectmedreview")
+    public @ResponseBody
+    ResultDTO<List<InspectMedReView>> inspectmedreview(Integer itemsDetailID ){
+        ResultDTO<List<InspectMedReView>> resultDTO = new ResultDTO<>();
+        try {
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("操作成功！");
+            resultDTO.setData(inspectionService.inspectmedreview(itemsDetailID));
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus("NG");

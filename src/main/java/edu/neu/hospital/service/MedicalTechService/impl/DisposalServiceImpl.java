@@ -2,6 +2,8 @@ package edu.neu.hospital.service.MedicalTechService.impl;
 
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.bean.disposalBean.*;
+import edu.neu.hospital.bean.inspectionBean.InspectMatReView;
+import edu.neu.hospital.bean.inspectionBean.InspectMedReView;
 import edu.neu.hospital.config.CustomDateConverter;
 import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.dao.disposalDao.*;
@@ -11,6 +13,8 @@ import edu.neu.hospital.example.basicTableExample.FMedItemExample;
 import edu.neu.hospital.example.basicTableExample.MaterialsExample;
 import edu.neu.hospital.example.basicTableExample.MedicinesMaterialsListExample;
 import edu.neu.hospital.example.disposalExample.*;
+import edu.neu.hospital.example.inspectionExample.InspectMatReViewExample;
+import edu.neu.hospital.example.inspectionExample.InspectMedReViewExample;
 import edu.neu.hospital.service.MedicalTechService.DisposalService;
 import edu.neu.hospital.utils.RegexProcess;
 import org.springframework.stereotype.Service;
@@ -206,6 +210,31 @@ public class DisposalServiceImpl implements DisposalService {
             criteria.andDisposaldetailsIdEqualTo(disposalDetailsID);
         }
         return DisposalreviewDao.selectByExample(DisposalreviewExample);
+    }
+
+
+    /**
+     * 查询项目材料
+     * @param itemsDetailID 项目详情编号
+     * @return 材料列表
+     */
+    public List<DisposalMatReView> disposalmatreview(Integer itemsDetailID ){
+        DisposalMatReViewExample disposalMatReViewExample=new DisposalMatReViewExample();
+        DisposalMatReViewExample.Criteria criteria=disposalMatReViewExample.createCriteria();
+        criteria.andItemsDetailIDEqualTo(itemsDetailID);
+        return DisposalmatreviewDao.selectByExample(disposalMatReViewExample);
+    }
+
+    /**
+     * 查询项目药品
+     * @param itemsDetailID 项目详情编号
+     * @return 材料列表
+     */
+    public List<DisposalMedReView> disposalmedreview(Integer itemsDetailID ){
+        DisposalMedReViewExample disposalMedReViewExample=new DisposalMedReViewExample();
+        DisposalMedReViewExample.Criteria criteria=disposalMedReViewExample.createCriteria();
+        criteria.andItemsDetailIDEqualTo(itemsDetailID);
+        return DisposalmedreviewDao.selectByExample(disposalMedReViewExample);
     }
 
     /**

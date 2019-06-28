@@ -157,6 +157,11 @@ public class InspectReView implements Serializable {
      */
     private String attention;
 
+    /**
+     * 检查检验类型,0:检查，1：检验
+     */
+    private String type;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getInspectionId() {
@@ -479,6 +484,14 @@ public class InspectReView implements Serializable {
         this.attention = attention;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -530,7 +543,8 @@ public class InspectReView implements Serializable {
             && (this.getPhysicalExamination() == null ? other.getPhysicalExamination() == null : this.getPhysicalExamination().equals(other.getPhysicalExamination()))
             && (this.getInitialDiagnosis() == null ? other.getInitialDiagnosis() == null : this.getInitialDiagnosis().equals(other.getInitialDiagnosis()))
             && (this.getInspectRecommend() == null ? other.getInspectRecommend() == null : this.getInspectRecommend().equals(other.getInspectRecommend()))
-            && (this.getAttention() == null ? other.getAttention() == null : this.getAttention().equals(other.getAttention()));
+            && (this.getAttention() == null ? other.getAttention() == null : this.getAttention().equals(other.getAttention()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()));
     }
 
     @Override
@@ -577,6 +591,7 @@ public class InspectReView implements Serializable {
         result = prime * result + ((getInitialDiagnosis() == null) ? 0 : getInitialDiagnosis().hashCode());
         result = prime * result + ((getInspectRecommend() == null) ? 0 : getInspectRecommend().hashCode());
         result = prime * result + ((getAttention() == null) ? 0 : getAttention().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         return result;
     }
 
@@ -626,6 +641,7 @@ public class InspectReView implements Serializable {
         sb.append(", initialDiagnosis=").append(initialDiagnosis);
         sb.append(", inspectRecommend=").append(inspectRecommend);
         sb.append(", attention=").append(attention);
+        sb.append(", type=").append(type);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

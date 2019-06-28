@@ -263,6 +263,32 @@ public class InspectionServiceImpl implements InspectionService {
     }
 
 
+    /**
+     * 查询项目材料
+     * @param itemsDetailID 项目详情编号
+     * @return 材料列表
+     */
+    public List<InspectMatReView> inspectmatreview(Integer itemsDetailID ){
+        InspectMatReViewExample inspectMatReViewExample=new InspectMatReViewExample();
+        InspectMatReViewExample.Criteria criteria=inspectMatReViewExample.createCriteria();
+        criteria.andItemsDetailIDEqualTo(itemsDetailID);
+        return inspectmatreviewDao.selectByExample(inspectMatReViewExample);
+    }
+
+    /**
+     * 查询项目药品
+     * @param itemsDetailID 项目详情编号
+     * @return 材料列表
+     */
+    public List<InspectMedReView> inspectmedreview(Integer itemsDetailID ){
+        InspectMedReViewExample inspectMedReViewExample=new InspectMedReViewExample();
+        InspectMedReViewExample.Criteria criteria=inspectMedReViewExample.createCriteria();
+        criteria.andItemsDetailIDEqualTo(itemsDetailID);
+        return inspectmedreviewDao.selectByExample(inspectMedReViewExample);
+    }
+
+
+
 
     /**
      * 删除药品材料表单信息

@@ -1,7 +1,5 @@
 package edu.neu.hospital.bean.inspectionBean;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,7 +9,7 @@ import java.util.Date;
  */
 public class InspectFormView implements Serializable {
     private Integer inspectionId;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     private Date inspectionAppearDate;
 
     /**
@@ -109,6 +107,11 @@ public class InspectFormView implements Serializable {
      * 数目
      */
     private Integer number;
+
+    /**
+     * 检查检验类型,0:检查，1：检验
+     */
+    private String type;
 
     private static final long serialVersionUID = 1L;
 
@@ -320,6 +323,14 @@ public class InspectFormView implements Serializable {
         this.number = number;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -357,7 +368,8 @@ public class InspectFormView implements Serializable {
             && (this.getExecutedName() == null ? other.getExecutedName() == null : this.getExecutedName().equals(other.getExecutedName()))
             && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
             && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
-            && (this.getNumber() == null ? other.getNumber() == null : this.getNumber().equals(other.getNumber()));
+            && (this.getNumber() == null ? other.getNumber() == null : this.getNumber().equals(other.getNumber()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()));
     }
 
     @Override
@@ -390,6 +402,7 @@ public class InspectFormView implements Serializable {
         result = prime * result + ((getAppearUserID() == null) ? 0 : getAppearUserID().hashCode());
         result = prime * result + ((getRealName() == null) ? 0 : getRealName().hashCode());
         result = prime * result + ((getNumber() == null) ? 0 : getNumber().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         return result;
     }
 
@@ -425,6 +438,7 @@ public class InspectFormView implements Serializable {
         sb.append(", appearUserID=").append(appearUserID);
         sb.append(", realName=").append(realName);
         sb.append(", number=").append(number);
+        sb.append(", type=").append(type);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -57,6 +57,19 @@ public interface InspectionService {
      */
     List<InspectMatPlateView> inspectmatplateview(String fMedItemName, String search);
 
+    /**
+     * 查询项目材料
+     * @param itemsDetailID 项目详情编号
+     * @return 材料列表
+     */
+    List<InspectMatReView> inspectmatreview(Integer itemsDetailID );
+
+    /**
+     * 查询项目药品
+     * @param itemsDetailID 项目详情编号
+     * @return 材料列表
+     */
+    List<InspectMedReView> inspectmedreview(Integer itemsDetailID );
 
     /**
      *删除药品材料表单信息

@@ -7,10 +7,9 @@ import edu.neu.hospital.bean.basicTableBean.Drugs;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.bean.basicTableBean.Materials;
 import edu.neu.hospital.bean.basicTableBean.MedicinesMaterialsList;
-import edu.neu.hospital.bean.disposalBean.DisposalFormView;
-import edu.neu.hospital.bean.disposalBean.DisposalMatPlateView;
-import edu.neu.hospital.bean.disposalBean.DisposalMedPlateView;
-import edu.neu.hospital.bean.disposalBean.DisposalReView;
+import edu.neu.hospital.bean.disposalBean.*;
+import edu.neu.hospital.bean.inspectionBean.InspectMatReView;
+import edu.neu.hospital.bean.inspectionBean.InspectMedReView;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.MedicalTechService.DisposalService;
@@ -72,6 +71,8 @@ public class DisposalController {
             }
             return resultDTO;
         }
+        
+        
         /**
          * searchFMedItem
          *
@@ -116,6 +117,49 @@ public class DisposalController {
             return resultDTO;
         }
 
+
+        /**
+         * 查询项目材料
+         * @param itemsDetailID 项目详情编号
+         * @return 材料列表
+         */
+        @RequestMapping("/Disposalmatreview")
+        public @ResponseBody
+        ResultDTO<List<DisposalMatReView>> Disposalmatreview(Integer itemsDetailID ){
+            ResultDTO<List<DisposalMatReView>> resultDTO = new ResultDTO<>();
+            try {
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("操作成功！");
+                resultDTO.setData(disposalService.disposalmatreview(itemsDetailID));
+            } catch (Exception e) {
+                e.printStackTrace();
+                resultDTO.setStatus("NG");
+                resultDTO.setMsg("操作失败！");
+            }
+            return resultDTO;
+        }
+
+        /**
+         * 查询项目药品
+         * @param itemsDetailID 项目详情编号
+         * @return 材料列表
+         */
+        @RequestMapping("/Disposalmedreview")
+        public @ResponseBody
+        ResultDTO<List<DisposalMedReView>> Disposalmedreview(Integer itemsDetailID ){
+            ResultDTO<List<DisposalMedReView>> resultDTO = new ResultDTO<>();
+            try {
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("操作成功！");
+                resultDTO.setData(disposalService.disposalmedreview(itemsDetailID));
+            } catch (Exception e) {
+                e.printStackTrace();
+                resultDTO.setStatus("NG");
+                resultDTO.setMsg("操作失败！");
+            }
+            return resultDTO;
+        }
+        
 
         /**
          * 组套查询相关材料

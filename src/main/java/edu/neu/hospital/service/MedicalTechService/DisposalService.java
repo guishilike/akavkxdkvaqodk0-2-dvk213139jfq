@@ -6,6 +6,7 @@ import edu.neu.hospital.bean.basicTableBean.Materials;
 import edu.neu.hospital.bean.basicTableBean.MedicinesMaterialsList;
 import edu.neu.hospital.bean.disposalBean.*;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.example.disposalExample.DisposalMatReViewExample;
 
 import java.util.Date;
 import java.util.List;
@@ -38,7 +39,19 @@ public interface DisposalService {
      */
     List<DisposalReView> disposalreview(Integer disposalionDetailsID);
 
+    /**
+     * 查询项目材料
+     * @param itemsDetailID 项目详情编号
+     * @return 材料列表
+     */
+    List<DisposalMatReView> disposalmatreview(Integer itemsDetailID );
 
+    /**
+     * 查询项目药品
+     * @param itemsDetailID 项目详情编号
+     * @return 材料列表
+     */
+    List<DisposalMedReView> disposalmedreview(Integer itemsDetailID );
 
     /**
      * 组套查询相关药品
