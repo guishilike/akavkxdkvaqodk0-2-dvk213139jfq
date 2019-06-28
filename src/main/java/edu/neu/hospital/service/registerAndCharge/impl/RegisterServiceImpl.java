@@ -96,6 +96,7 @@ public class RegisterServiceImpl implements RegisterService {
         regInfo.setMedicalRecordID(medRec.getId());
         regInfo.setPatientID(patientID);
         regInfo.setRegistrationDate(new Date());
+        regInfo.setIsSeenDocator("0");
         regInfo.setRegistrationStatus("1");
         regInfo.setAppearUserID(appearUserID);
         regInfo.setAppearDate(new Date());
