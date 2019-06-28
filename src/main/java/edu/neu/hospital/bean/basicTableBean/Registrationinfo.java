@@ -2,6 +2,7 @@ package edu.neu.hospital.bean.basicTableBean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Date;
 
 /**
@@ -120,6 +121,10 @@ public class Registrationinfo implements Serializable {
 
     public Date getSeeDoctorDate() {
         return seeDoctorDate;
+    }
+
+    public void setSeeDoctorDate(String seeDoctorDate) {
+        this.seeDoctorDate = Date.from(Instant.parse(seeDoctorDate));
     }
 
     public void setSeeDoctorDate(Date seeDoctorDate) {

@@ -1,6 +1,7 @@
 package edu.neu.hospital.bean.basicTableBean;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Date;
 
 /**
@@ -92,6 +93,10 @@ public class Patient implements Serializable {
 
     public Date getBirthday() {
         return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = Date.from(Instant.parse(birthday));
     }
 
     public void setBirthday(Date birthday) {

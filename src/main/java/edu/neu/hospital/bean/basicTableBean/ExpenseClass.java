@@ -5,47 +5,40 @@ import java.util.Date;
 
 /**
  * expenseclass
- * @author 
+ *
+ * @author
  */
 public class ExpenseClass implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer id;
-
     /**
      * 费用科目代码
      */
     private String code;
-
     /**
      * 费用科目名字
      */
     private String name;
-
     /**
      * 创建者ID
      */
     private Integer appearUserID;
-
     /**
      * 修改者ID
      */
     private Integer changerUserID;
-
     /**
      * 创建时间
      */
     private Date appearDate;
-
     /**
      * 修改时间
      */
     private Date changeDate;
-
     /**
      * 状态：1有效，2无效
      */
     private String status;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
@@ -124,13 +117,13 @@ public class ExpenseClass implements Serializable {
         }
         ExpenseClass other = (ExpenseClass) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
-            && (this.getChangerUserID() == null ? other.getChangerUserID() == null : this.getChangerUserID().equals(other.getChangerUserID()))
-            && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
-            && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
+                && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+                && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
+                && (this.getChangerUserID() == null ? other.getChangerUserID() == null : this.getChangerUserID().equals(other.getChangerUserID()))
+                && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
+                && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
     }
 
     @Override

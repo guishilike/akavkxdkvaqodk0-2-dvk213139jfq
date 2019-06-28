@@ -2,10 +2,7 @@ package edu.neu.hospital.controller.registerAndChargeController;
 
 import edu.neu.hospital.bean.baseBean.DepartmentView;
 import edu.neu.hospital.bean.baseBean.ScheduleView;
-import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
-import edu.neu.hospital.bean.basicTableBean.Patient;
-import edu.neu.hospital.bean.basicTableBean.Registrationinfo;
 import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.ConstantService;
@@ -18,7 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.time.Instant;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,11 +46,19 @@ public class RegisterController {
      */
     @RequestMapping("/reg")
     public @ResponseBody
-    ResultDTO register(String isHaveCard, Patient patient, String passwd,
-                       Registrationinfo regInfo, HttpSession session) {
+    ResultDTO register(String isHaveCard, String patientName, String identityCardNo, String gender,
+                       Date birthday, String familyAddress, String passwd, Integer registeredLevelID,
+                       Integer departmentID, Integer doctorID, Date seeDoctorDate, Integer regSourceID,
+                       Integer payID, BigDecimal expense, HttpSession session) {
 
         System.out.println("url: /register/reg");
-        try {
+
+        System.out.println("isHaveCard: " + isHaveCard);
+        System.out.println("patientName: " + patientName);
+        System.out.println("seeDoctorDate");
+
+        return new ResultDTO<>("OK", "挂号成功", 1);
+        /*try {
             UserView user = (UserView) session.getAttribute("user");
             Integer appearUserID = user.getId();
             int result = regService.addRegisteredInfo(isHaveCard, patient, passwd, regInfo, appearUserID);
@@ -65,7 +71,7 @@ public class RegisterController {
 
         } catch (Exception e) {
             return new ResultDTO<>("error", "发生异常，挂号失败", e);
-        }
+        }*/
     }
 
     @RequestMapping("/getDeptList")
@@ -104,12 +110,14 @@ public class RegisterController {
 
         System.out.println("url: /register/getDoctor");
 
-        Date date1 = null;
-        if (date != null && !date.equals("")) {
-            date1 = Date.from(Instant.parse(date));
-        }
-
         try {
+
+            Date date1 = null;
+            if (date != null && !date.equals("")) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                date1 = simpleDateFormat.parse(date);
+            }
 
             List<ScheduleView> scheduleViews = scheduleService.find(date1, date1, null, null);
             List<NameCodeDTO> nameCodeDTOS = new ArrayList<>();
@@ -152,6 +160,50 @@ public class RegisterController {
         System.out.println("url: /register/getPayCategory");
 
         return getConstants(12);
+    }
+
+    @RequestMapping("/calculateExpanse")
+    public @ResponseBody
+    ResultDTO<Double> calculateExpanse(Integer regLevelID, Integer payCategoryID) {
+
+        System.out.println("url: /register/calculateExpanse");
+        double realFee, regFee, reimbursementRatio;
+
+        //挂号费
+        switch (regLevelID) {
+            case 95:
+                //急诊挂号
+                regFee = 20;
+                break;
+            case 96:
+                //专家挂号
+                regFee = 30;
+                break;
+            case 94:
+                //普通挂号
+            default:
+                //默认普通挂号
+                regFee = 10;
+        }
+        //报销比例
+        switch (payCategoryID) {
+            case 92:
+                //医保 报销20%
+                reimbursementRatio = 0.2;
+                break;
+            case 93:
+                //新农合 报销40%
+                reimbursementRatio = 0.4;
+                break;
+            case 91:
+                //自费 不报销
+            default:
+                //默认自费
+                reimbursementRatio = 0;
+        }
+        realFee = regFee * (1 - reimbursementRatio);
+        System.out.println("实际挂号费: " + realFee);
+        return new ResultDTO<>("OK", "获取成功", realFee);
     }
 
     private ResultDTO<List<NameCodeDTO>> getConstants(Integer typeID) {

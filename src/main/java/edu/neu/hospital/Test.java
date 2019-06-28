@@ -1,10 +1,12 @@
 package edu.neu.hospital;
 
-import java.util.Calendar;
+import java.time.Instant;
+import java.util.Date;
 
 public class Test {
     public static void main(String[] args) {
-        Calendar calendar=Calendar.getInstance();
-        System.out.println(calendar.get(Calendar.DAY_OF_WEEK));
+
+        Date date = Date.from(Instant.parse("2019-06-11T16:00:00.000Z"));
+        System.out.println(date);
     }
 }
