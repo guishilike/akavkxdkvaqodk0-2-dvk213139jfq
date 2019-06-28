@@ -2,7 +2,10 @@ package edu.neu.hospital.controller.registerAndChargeController;
 
 import edu.neu.hospital.bean.baseBean.DepartmentView;
 import edu.neu.hospital.bean.baseBean.ScheduleView;
+import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
+import edu.neu.hospital.bean.basicTableBean.Patient;
+import edu.neu.hospital.bean.basicTableBean.Registrationinfo;
 import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.ConstantService;
@@ -52,13 +55,25 @@ public class RegisterController {
                        Integer payID, BigDecimal expense, HttpSession session) {
 
         System.out.println("url: /register/reg");
+        Patient patient = new Patient();
+        Registrationinfo regInfo = new Registrationinfo();
 
-        System.out.println("isHaveCard: " + isHaveCard);
-        System.out.println("patientName: " + patientName);
-        System.out.println("seeDoctorDate");
+        patient.setPatientName(patientName);
+        patient.setIdentityCardNo(identityCardNo);
+        patient.setGender(gender);
+        patient.setBirthday(birthday);
+        patient.setFamilyAddress(familyAddress);
 
-        return new ResultDTO<>("OK", "挂号成功", 1);
-        /*try {
+        regInfo.setRegistrationLevelID(registeredLevelID);
+        regInfo.setDepartmentID(departmentID);
+        regInfo.setDoctorID(doctorID);
+        regInfo.setSeeDoctorDate(seeDoctorDate);
+        regInfo.setRegistrationSourceID(regSourceID);
+        regInfo.setPaymentCategoryID(payID);
+        regInfo.setExpense(expense);
+
+        try {
+
             UserView user = (UserView) session.getAttribute("user");
             Integer appearUserID = user.getId();
             int result = regService.addRegisteredInfo(isHaveCard, patient, passwd, regInfo, appearUserID);
@@ -71,7 +86,7 @@ public class RegisterController {
 
         } catch (Exception e) {
             return new ResultDTO<>("error", "发生异常，挂号失败", e);
-        }*/
+        }
     }
 
     @RequestMapping("/getDeptList")

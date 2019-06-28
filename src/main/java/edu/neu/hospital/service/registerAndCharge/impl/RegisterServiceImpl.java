@@ -46,6 +46,8 @@ public class RegisterServiceImpl implements RegisterService {
                 //插入一条患者信息
                 patient.setAppearUserID(appearUserID);
                 patient.setAppearDate(new Date());
+
+                System.out.println(patient.toString() + "\n");
                 patientDao.insertSelective(patient);
             }
             //插入就诊卡信息
@@ -57,6 +59,7 @@ public class RegisterServiceImpl implements RegisterService {
             patientCard.setAppearUserID(appearUserID);
             patientCard.setAppearDate(new Date());
 
+            System.out.println(patientCard.toString() + "\n");
             patientCardDao.insertSelective(patientCard);
         }
 
@@ -72,6 +75,7 @@ public class RegisterServiceImpl implements RegisterService {
         medRec.setAppearUserID(appearUserID);
         medRec.setAppearDate(new Date());
 
+        System.out.println(medRecDao.toString() + "\n");
         medRecDao.insertSelective(medRec);
 
         //排班计划中，同一个医生可能多天有排班
@@ -94,6 +98,8 @@ public class RegisterServiceImpl implements RegisterService {
         regInfo.setRegistrationDate(new Date());
         regInfo.setAppearUserID(appearUserID);
         regInfo.setAppearDate(new Date());
+
+        System.out.println(regInfo.toString() + "\n");
 
         return regInfoDao.insertSelective(regInfo);
     }
