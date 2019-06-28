@@ -74,7 +74,7 @@ public class CheckworkController {
 //        System.out.println("传进来的费用ID是   "+feeID);
         try {
 //            System.out.println("进入了try");
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("financeUser");
 //            System.out.println("session没有问题，userID是"+user.getId());
             checkworkService.updateById(feeID, user.getId());
             resultDTO.setStatus("OK");
@@ -103,7 +103,7 @@ public class CheckworkController {
         System.out.println(feeIDs.getId());
         if(feeIDs.getId()!=null) {
             try {
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("financeUser");
                 checkworkService.updateByChoose(feeIDs, user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量修改对账状态成功");

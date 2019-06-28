@@ -56,7 +56,7 @@ public class ExpenseclassController {
         ResultDTO<String> resultDTO = new ResultDTO<>();
         if (!file.isEmpty()){
             try {
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("financeUser");
                 if(expenseclassService.uploadXls(file, user.getId(),errorHappenContinue,repeatCoverage)){
                     resultDTO.setStatus("OK");
                     resultDTO.setMsg("上传费用类型信息成功");
@@ -109,7 +109,7 @@ public class ExpenseclassController {
         ResultDTO<ExpenseClass> resultDTO = new ResultDTO<>();
         try {
             if(expenseclassService.checkContent(expenseclass,0)){
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("financeUser");
                 System.out.println("获得session成功");
                 expenseclassService.add(expenseclass,loginUser.getId());
                 resultDTO.setStatus("OK");
@@ -139,7 +139,7 @@ public class ExpenseclassController {
     public @ResponseBody ResultDTO<Integer> delete(Integer id,HttpSession session){
         ResultDTO<Integer> resultDTO=new ResultDTO();
         try{
-            UserView loginUser=(UserView) session.getAttribute("user");
+            UserView loginUser=(UserView) session.getAttribute("financeUser");
             expenseclassService.deleteById(id,loginUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除收费类型成功");
@@ -166,7 +166,7 @@ public class ExpenseclassController {
         System.out.println(id.getId());
         if(id.getId() != null) {
             try {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("financeUser");
                 expenseclassService.deleteByChoose(id, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除收费类型成功");
@@ -196,7 +196,7 @@ public class ExpenseclassController {
         ResultDTO<ExpenseClass> resultDTO = new ResultDTO<>();
         try{
             if(expenseclassService.checkContent(expenseclass,1)) {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("financeUser");
                 expenseclassService.change(expenseclass, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改收费类型成功");

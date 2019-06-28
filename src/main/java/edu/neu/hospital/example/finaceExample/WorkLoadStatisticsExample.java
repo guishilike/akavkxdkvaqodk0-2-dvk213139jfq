@@ -126,6 +126,66 @@ public class WorkLoadStatisticsExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andFeeIDIsNull() {
+            addCriterion("feeID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeeIDIsNotNull() {
+            addCriterion("feeID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeeIDEqualTo(Integer value) {
+            addCriterion("feeID =", value, "feeID");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeeIDNotEqualTo(Integer value) {
+            addCriterion("feeID <>", value, "feeID");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeeIDGreaterThan(Integer value) {
+            addCriterion("feeID >", value, "feeID");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeeIDGreaterThanOrEqualTo(Integer value) {
+            addCriterion("feeID >=", value, "feeID");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeeIDLessThan(Integer value) {
+            addCriterion("feeID <", value, "feeID");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeeIDLessThanOrEqualTo(Integer value) {
+            addCriterion("feeID <=", value, "feeID");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeeIDIn(List<Integer> values) {
+            addCriterion("feeID in", values, "feeID");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeeIDNotIn(List<Integer> values) {
+            addCriterion("feeID not in", values, "feeID");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeeIDBetween(Integer value1, Integer value2) {
+            addCriterion("feeID between", value1, value2, "feeID");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeeIDNotBetween(Integer value1, Integer value2) {
+            addCriterion("feeID not between", value1, value2, "feeID");
+            return (Criteria) this;
+        }
+
         public Criteria andDoctorIDIsNull() {
             addCriterion("doctorID is null");
             return (Criteria) this;
