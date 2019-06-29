@@ -76,14 +76,14 @@ public interface InspectionService {
      *
      * @param medMatListID  药品材料关联编号
      */
-    void deleteMedMat(Integer medMatListID);
+    void deleteMedMat(Integer medMatListID,Integer userID);
 
     /**
      *批量删除药品材料表单信息
      *
      * @param medMatListIDs  药品材料关联编号列表
      */
-    void deleteMedMatByList(IdDTO medMatListIDs);
+    void deleteMedMatByList(IdDTO medMatListIDs,Integer userID);
 
 
     /**
@@ -91,7 +91,7 @@ public interface InspectionService {
      *
      * @param medicinesmaterialslist  药品材料表单信息
      */
-    void updateMedMat(MedicinesMaterialsList medicinesmaterialslist);
+    void updateMedMat(MedicinesMaterialsList medicinesmaterialslist,Integer userID);
 
     /**
      *搜索药品信息
@@ -128,36 +128,55 @@ public interface InspectionService {
     void approveMed(IdDTO medListIDs, Integer userID);
 
     /**
+     * 完成审核检查项目表单信息
+     *
+     * @param inspectionDetailsID 药品材料关联编号列表
+     */
+    void approveInspectionDetails(Integer inspectionDetailsID);
+
+
+    /**
+     * 登记检查项目表单信息
+     *
+     * @param inspectionDetailsID 药品材料关联编号列表
+     * @return  登记结果
+     */
+   String registerInspectionDetails(Integer inspectionDetailsID);
+
+
+    /**
      * 导入检查结果表单
      *
      * @param inspectionresultWithBLOBs 检查结果
      * @param userID 录入结果用户
+     * @return 检查结果表单
      */
-    void  importInspectResult(InspectionResultWithBLOBs inspectionresultWithBLOBs, Integer userID);
+    InspectionResultWithBLOBs  importInspectResult(InspectionResultWithBLOBs inspectionresultWithBLOBs, Integer userID);
 
     /**
-     * 删除检查结果表单
+     * 重新检查结果表单
      *
-     * @param  inspectionresultWithBLOBsID 检查结果编号
+     * @param  inspectionresultWithBLOBs 检查结果
+     * @param userID 删除检查结果用户编号
      */
-    void deleteInspectResult(Integer inspectionresultWithBLOBsID);
+    InspectionResultWithBLOBs updateInspectResult(InspectionResultWithBLOBs inspectionresultWithBLOBs,Integer userID);
 
     /**
      * 导入检查结果图片
      *
      * @param inspectionresultimage 结果图片信息
      * @param userID 导入图片用户
-     * @param catalog  图片名称
      */
 
-    void  importInspectResultImages(InspectionResultImage inspectionresultimage, Integer userID, String catalog);
+    void  importInspectResultImages(InspectionResultImage inspectionresultimage, Integer userID);
 
     /**
      * 删除检查结果图片
      *
      * @param  catalog 图片名称
+     * @param  userID 删除检查结果图片用户编号
      */
-    void  deleteInspectResultImages(String catalog);
+    void  deleteInspectResultImages(String catalog,Integer userID);
 
     /**
      * 完成检查

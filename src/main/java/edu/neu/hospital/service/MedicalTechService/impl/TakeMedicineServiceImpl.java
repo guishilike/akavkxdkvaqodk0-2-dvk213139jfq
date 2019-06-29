@@ -22,7 +22,7 @@ import java.util.List;
 
 @Service
 public class TakeMedicineServiceImpl implements TakeMedicineService {
-    RegexProcess regexProcess = new RegexProcess();
+    private RegexProcess regexProcess = new RegexProcess();
     @Resource
     private TakeMedicineFormViewDao takemedicineformviewDao;
 

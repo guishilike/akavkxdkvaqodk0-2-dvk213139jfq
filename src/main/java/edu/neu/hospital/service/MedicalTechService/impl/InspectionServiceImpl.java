@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 public class InspectionServiceImpl implements InspectionService {
-    RegexProcess regexProcess = new RegexProcess();
+    private RegexProcess regexProcess = new RegexProcess();
     @Resource
     private InspectFormViewDao inspectformviewDao;
     @Resource
@@ -48,7 +48,8 @@ public class InspectionServiceImpl implements InspectionService {
     private FeeDao feeDao;
     @Resource
     private  FMedItemDao fMedItemDao;
-
+    @Resource
+    private RegistrationInfoDao registrationInfoDao;
     /**
      * 检查搜索表单信息
      *
@@ -294,12 +295,15 @@ public class InspectionServiceImpl implements InspectionService {
      * 删除药品材料表单信息
      *
      * @param medMatListID 药品材料关联编号
+     * @param userID 修改人编号
      */
-    public void deleteMedMat(Integer medMatListID) {
+    public void deleteMedMat(Integer medMatListID,Integer userID) {
 
         MedicinesMaterialsList medicinesmaterialslist = new MedicinesMaterialsList();
         medicinesmaterialslist.setId(medMatListID);
         medicinesmaterialslist.setStatus("0");
+        medicinesmaterialslist.setChangeUserID(userID);
+        medicinesmaterialslist.setChangeDate(new Date());
         medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
     }
 
@@ -307,13 +311,16 @@ public class InspectionServiceImpl implements InspectionService {
      * 批量删除药品材料表单信息
      *
      * @param medMatListIDs 药品材料关联编号列表
+     * @param userID 修改人编号
      */
-    public void deleteMedMatByList(IdDTO medMatListIDs) {
+    public void deleteMedMatByList(IdDTO medMatListIDs,Integer userID) {
         List<Integer> medMatListIDlist = medMatListIDs.getId();
         for (Integer ID : medMatListIDlist) {
             MedicinesMaterialsList medicinesmaterialslist = new MedicinesMaterialsList();
             medicinesmaterialslist.setId(ID);
             medicinesmaterialslist.setStatus("0");
+            medicinesmaterialslist.setChangeUserID(userID);
+            medicinesmaterialslist.setChangeDate(new Date());
             medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
         }
 
@@ -324,8 +331,11 @@ public class InspectionServiceImpl implements InspectionService {
      * 修改药品材料表单信息
      *
      * @param medicinesmaterialslist 药品材料表单信息
+     * @param userID 修改人编号
      */
-    public void updateMedMat(MedicinesMaterialsList medicinesmaterialslist) {
+    public void updateMedMat(MedicinesMaterialsList medicinesmaterialslist,Integer userID) {
+        medicinesmaterialslist.setChangeUserID(userID);
+        medicinesmaterialslist.setChangeDate(new Date());
         medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
     }
 
@@ -349,6 +359,9 @@ public class InspectionServiceImpl implements InspectionService {
             criteria1.andDrugsNameLike("%" + searchd + "%");
             criteria2.andMnemonicCodeLike("%" + searchd + "%");
         }
+        criteria.andStatusEqualTo("1");
+        criteria1.andStatusEqualTo("1");
+        criteria2.andStatusEqualTo("1");
         drugsExample.or(criteria1);
         drugsExample.or(criteria2);
         return drugsDao.selectByExample(drugsExample);
@@ -372,6 +385,8 @@ public class InspectionServiceImpl implements InspectionService {
             criteria1.andNameLike("%" + searchd + "%");
 
         }
+        criteria.andStatusEqualTo("1");
+        criteria1.andStatusEqualTo("1");
         materialsExample.or(criteria1);
         return materialsDao.selectByExample(materialsExample);
     }
@@ -399,13 +414,14 @@ public class InspectionServiceImpl implements InspectionService {
         List<Integer> medMatListIDlist = matListIDs.getId();
         for (Integer ID : medMatListIDlist) {
             MedicinesMaterialsList medicinesmaterialslist = new MedicinesMaterialsList();
-            medicinesmaterialslist.setId(ID);
+
             medicinesmaterialslist.setIsDrawn(136);
             medicinesmaterialslist.setIsPaid(134);
             medicinesmaterialslist.setIsChecked(141);
             medicinesmaterialslist.setIsAbolished(150);
             medicinesmaterialslist.setIsRegistered(137);
             medicinesmaterialslist.setIsExecuted(146);
+            medicinesmaterialslist.setId(ID);
             medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
 
 
@@ -419,15 +435,25 @@ public class InspectionServiceImpl implements InspectionService {
             criteriaF.andInspectionDetailsIDEqualTo(inspectmatreview.getItemsDetailID());
             InspectFormView inspectformview=inspectformviewDao.selectByExample(inspectformviewExample).get(0);
 
+            RegistrationInfoExample registrationInfoExample=new RegistrationInfoExample();
+            RegistrationInfoExample.Criteria criteriaR=registrationInfoExample.createCriteria();
+            criteriaR.andMedicalRecordIDEqualTo(inspectformview.getMedicalrecordId());
+            List<Registrationinfo> registrationinfoList=registrationInfoDao.selectByExample(registrationInfoExample);
+
 
             BigDecimal total=inspectmatreview.getDosage().multiply(inspectmatreview.getPrice());
             Fee fee=new Fee();
             fee.setMedicalRecordID(inspectformview.getMedicalrecordId());
+            fee.setFeeCategoryID(registrationinfoList.get(0).getPaymentCategoryID());
             fee.setExpID(4);
             fee.setAppearUserID(userID);
             fee.setFeeAppearDate(new Date());
             fee.setPayStatus(134);
+            fee.setStatus("1");
+            fee.setDateStatus(148);
+            fee.setCheckStatus("未对账");
             fee.setFee(total);
+
             feeDao.insert(fee);
         }
 
@@ -454,7 +480,7 @@ public class InspectionServiceImpl implements InspectionService {
 
             InspectMedReViewExample inspectmedreviewExample=new InspectMedReViewExample();
             InspectMedReViewExample.Criteria criteriaM=inspectmedreviewExample.createCriteria();
-            criteriaM.andMedicinesMaterialsIDEqualTo(ID);
+            criteriaM.andMedMatListIDEqualTo(ID);
             InspectMedReView inspectmedreview=inspectmedreviewDao.selectByExample(inspectmedreviewExample).get(0);
 
             InspectFormViewExample inspectformviewExample=new InspectFormViewExample();
@@ -463,20 +489,33 @@ public class InspectionServiceImpl implements InspectionService {
             InspectFormView inspectformview=inspectformviewDao.selectByExample(inspectformviewExample).get(0);
 
 
-            BigDecimal total=inspectmedreview.getDosage().multiply(inspectmedreview.getDrugsPrice());
+            BigDecimal total=inspectmedreview.getDosage().multiply(inspectmedreview.getDrugsPrice().multiply(inspectmedreview.getReimbursement()));
+
+            RegistrationInfoExample registrationInfoExample=new RegistrationInfoExample();
+            RegistrationInfoExample.Criteria criteriaR=registrationInfoExample.createCriteria();
+            criteriaR.andMedicalRecordIDEqualTo(inspectformview.getMedicalrecordId());
+
+            List<Registrationinfo> registrationinfoList=registrationInfoDao.selectByExample(registrationInfoExample);
+
+
+
             Fee fee=new Fee();
             fee.setMedicalRecordID(inspectformview.getMedicalrecordId());
-            fee.setChargeItemID(medicinesmaterialslist.getMedicinesMaterialsID());
-            if(medicinesmaterialslist.getMatOrMedType()=="0") {
+            fee.setFeeCategoryID(registrationinfoList.get(0).getPaymentCategoryID());
+            fee.setChargeItemID(inspectmedreview.getMedMatListID());
+            if(inspectmedreview.getMatOrMedType().equals("0")) {
                 fee.setExpID(22);
             }
-            if(medicinesmaterialslist.getMatOrMedType()=="1") {
+            if(inspectmedreview.getMatOrMedType().equals("1")) {
                 fee.setExpID(4);
             }
             fee.setAppearUserID(userID);
             fee.setFeeAppearDate(new Date());
             fee.setPayStatus(134);
             fee.setFee(total);
+            fee.setStatus("1");
+            fee.setDateStatus(148);
+            fee.setCheckStatus("未对账");
             feeDao.insert(fee);
         }
 
@@ -513,9 +552,9 @@ public class InspectionServiceImpl implements InspectionService {
         List<MedicinesMaterialsList> medMatList=medicinesmaterialslistDao.selectByExample(medicinesmaterialslistExample);
         for (MedicinesMaterialsList medicinesmaterialslist : medMatList) {
             if(medicinesmaterialslist.getIsPaid()==134) {
-                result = "药品材料未缴费";
+                result = "检查检验药品材料未缴费";
             }else if(medicinesmaterialslist.getIsChecked()==142){
-                result = "药品材料未通过审核";
+                result = "检查检验药品材料未通过审核";
             }
         }
         if(result.equals("可以登记")){
@@ -525,7 +564,7 @@ public class InspectionServiceImpl implements InspectionService {
             }
             inspectiondetails.setIsChecked(136);
             inspectiondetailsDao.updateByPrimaryKeySelective(inspectiondetails);
-            result="登记成功";
+            result="检查检验登记成功";
         }
         return result;
     }
@@ -538,20 +577,26 @@ public class InspectionServiceImpl implements InspectionService {
      * @param inspectionresultWithBLOBs 检查结果
      * @param userID 录入结果用户
      */
-    public void importInspectResult(InspectionResultWithBLOBs inspectionresultWithBLOBs, Integer userID) {
+    public InspectionResultWithBLOBs importInspectResult(InspectionResultWithBLOBs inspectionresultWithBLOBs, Integer userID) {
         inspectionresultWithBLOBs.setDoctorID(userID);
+        inspectionresultWithBLOBs.setAppearUserID(userID);
         inspectionresultWithBLOBs.setAppearDate(new Date());
         inspectionresultWithBLOBs.setStatus("1");
         inspectionresultDao.insert(inspectionresultWithBLOBs);
+        return inspectionresultWithBLOBs;
     }
 
     /**
-     * 删除检查结果表单
+     * 重新录入检查结果表单
      *
-     * @param  inspectionresultWithBLOBsID 检查结果编号
+     * @param  inspectionresultWithBLOBs 检查结果
+     * @param  userID 删除检查结果用户
      */
-    public void deleteInspectResult(Integer inspectionresultWithBLOBsID) {
-        inspectionresultDao.deleteByPrimaryKey(inspectionresultWithBLOBsID);
+    public InspectionResultWithBLOBs updateInspectResult(InspectionResultWithBLOBs inspectionresultWithBLOBs,Integer userID) {
+        inspectionresultWithBLOBs.setChangeUserID(userID);
+        inspectionresultWithBLOBs.setChangeDate(new Date());
+        inspectionresultDao.updateByPrimaryKeySelective(inspectionresultWithBLOBs);
+        return inspectionresultWithBLOBs;
     }
 
 
@@ -560,11 +605,8 @@ public class InspectionServiceImpl implements InspectionService {
      *
      * @param inspectionresultimage 结果图片信息
      * @param userID 导入图片用户
-     * @param catalog  图片名称
      */
-    public void importInspectResultImages(InspectionResultImage inspectionresultimage, Integer userID, String catalog) {
-
-        inspectionresultimage.setCatalog(catalog);
+    public void importInspectResultImages(InspectionResultImage inspectionresultimage, Integer userID) {
         inspectionresultimage.setStatus("1");
         inspectionresultimage.setAppearUserID(userID);
         inspectionresultimage.setAppearUserDate(new Date());
@@ -576,13 +618,16 @@ public class InspectionServiceImpl implements InspectionService {
      * 删除检查结果图片
      *
      * @param  catalog 图片名称
+     * @param  userID 删除检查结果图片用户编号
      */
-    public void deleteInspectResultImages(String catalog) {
+    public void deleteInspectResultImages(String catalog,Integer userID) {
         InspectionResultImageExample inspectionresultimageExample = new InspectionResultImageExample();
         InspectionResultImageExample.Criteria criteria = inspectionresultimageExample.createCriteria();
         InspectionResultImage inspectionresultimage;
         criteria.andCatalogEqualTo(catalog);
         inspectionresultimage = inspectionresultimageDao.selectByExample(inspectionresultimageExample).get(0);
+        inspectionresultimage.setChangeUserDate(new Date());
+        inspectionresultimage.setAppearUserID(userID);
         inspectionresultimage.setStatus("0");
         inspectionresultimageDao.updateByPrimaryKeySelective(inspectionresultimage);
     }

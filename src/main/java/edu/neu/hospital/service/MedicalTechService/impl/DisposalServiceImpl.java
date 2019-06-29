@@ -2,19 +2,13 @@ package edu.neu.hospital.service.MedicalTechService.impl;
 
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.bean.disposalBean.*;
-import edu.neu.hospital.bean.inspectionBean.InspectMatReView;
-import edu.neu.hospital.bean.inspectionBean.InspectMedReView;
+
 import edu.neu.hospital.config.CustomDateConverter;
 import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.dao.disposalDao.*;
 import edu.neu.hospital.dto.IdDTO;
-import edu.neu.hospital.example.basicTableExample.DrugsExample;
-import edu.neu.hospital.example.basicTableExample.FMedItemExample;
-import edu.neu.hospital.example.basicTableExample.MaterialsExample;
-import edu.neu.hospital.example.basicTableExample.MedicinesMaterialsListExample;
+import edu.neu.hospital.example.basicTableExample.*;
 import edu.neu.hospital.example.disposalExample.*;
-import edu.neu.hospital.example.inspectionExample.InspectMatReViewExample;
-import edu.neu.hospital.example.inspectionExample.InspectMedReViewExample;
 import edu.neu.hospital.service.MedicalTechService.DisposalService;
 import edu.neu.hospital.utils.RegexProcess;
 import org.springframework.stereotype.Service;
@@ -26,7 +20,7 @@ import java.util.List;
 
 @Service
 public class DisposalServiceImpl implements DisposalService {
-    RegexProcess regexProcess = new RegexProcess();
+    private RegexProcess regexProcess = new RegexProcess();
     @Resource
     private DisposalFormViewDao DisposalformviewDao;
     @Resource
@@ -51,6 +45,8 @@ public class DisposalServiceImpl implements DisposalService {
     private FeeDao feeDao;
     @Resource
     private FMedItemDao fMedItemDao;
+@Resource
+private  RegistrationInfoDao registrationInfoDao;
 
     /**
      * 处置搜索表单信息
@@ -276,12 +272,15 @@ public class DisposalServiceImpl implements DisposalService {
      * 删除药品材料表单信息
      *
      * @param medMatListID 药品材料关联编号
+     * @param userID 修改人编号
      */
-    public void deleteMedMat(Integer medMatListID) {
+    public void deleteMedMat(Integer medMatListID,Integer userID) {
 
         MedicinesMaterialsList medicinesmaterialslist = new MedicinesMaterialsList();
         medicinesmaterialslist.setId(medMatListID);
         medicinesmaterialslist.setStatus("0");
+        medicinesmaterialslist.setChangeUserID(userID);
+        medicinesmaterialslist.setChangeDate(new Date());
         medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
     }
 
@@ -289,13 +288,17 @@ public class DisposalServiceImpl implements DisposalService {
      * 批量删除药品材料表单信息
      *
      * @param medMatListIDs 药品材料关联编号列表
+     * @param userID 修改人编号
      */
-    public void deleteMedMatByList(IdDTO medMatListIDs) {
+    public void deleteMedMatByList(IdDTO medMatListIDs,Integer userID) {
         List<Integer> medMatListIDlist = medMatListIDs.getId();
         for (Integer ID : medMatListIDlist) {
             MedicinesMaterialsList medicinesmaterialslist = new MedicinesMaterialsList();
             medicinesmaterialslist.setId(ID);
             medicinesmaterialslist.setStatus("0");
+            medicinesmaterialslist.setChangeDate(new Date());
+            medicinesmaterialslist.setChangeUserID(userID);
+
             medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
         }
 
@@ -306,8 +309,11 @@ public class DisposalServiceImpl implements DisposalService {
      * 修改药品材料表单信息
      *
      * @param medicinesmaterialslist 药品材料表单信息
+     * @param userID 修改人编号
      */
-    public void updateMedMat(MedicinesMaterialsList medicinesmaterialslist) {
+    public void updateMedMat(MedicinesMaterialsList medicinesmaterialslist,Integer userID) {
+        medicinesmaterialslist.setChangeUserID(userID);
+        medicinesmaterialslist.setChangeDate(new Date());
         medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
     }
 
@@ -332,6 +338,9 @@ public class DisposalServiceImpl implements DisposalService {
             criteria2.andDrugsNameLike("%" + searchd + "%");
 
         }
+        criteria.andStatusEqualTo("1");
+        criteria1.andStatusEqualTo("1");
+        criteria2.andStatusEqualTo("1");
         drugsExample.or(criteria1);
         drugsExample.or(criteria2);
         return drugsDao.selectByExample(drugsExample);
@@ -353,9 +362,9 @@ public class DisposalServiceImpl implements DisposalService {
             //模糊匹配
             criteria.andNameLike("%" + searchd + "%");
             criteria1.andCodeLike("%" + searchd + "%");
-
-
         }
+        criteria.andStatusEqualTo("1");
+        criteria1.andStatusEqualTo("1");
         materialsExample.or(criteria1);
         return materialsDao.selectByExample(materialsExample);
     }
@@ -404,16 +413,27 @@ public class DisposalServiceImpl implements DisposalService {
             DisposalFormView Disposalformview = DisposalformviewDao.selectByExample(DisposalformviewExample).get(0);
 
 
+
+            RegistrationInfoExample registrationInfoExample=new RegistrationInfoExample();
+            RegistrationInfoExample.Criteria criteriaR=registrationInfoExample.createCriteria();
+            criteriaR.andMedicalRecordIDEqualTo(Disposalformview.getMedicalrecordId());
+
+            List<Registrationinfo> registrationInfoList=registrationInfoDao.selectByExample(registrationInfoExample);
+
             BigDecimal total = Disposalmatreview.getDosage().multiply(Disposalmatreview.getPrice());
             Fee fee = new Fee();
+            fee.setFeeCategoryID(registrationInfoList.get(0).getPaymentCategoryID());
             fee.setMedicalRecordID(Disposalformview.getMedicalrecordId());
             fee.setChargeItemID(medicinesmaterialslist.getMedicinesMaterialsID());
-            if (medicinesmaterialslist.getMatOrMedType() == "0") {
+            if (medicinesmaterialslist.getMatOrMedType().equals("0") ) {
                 fee.setExpID(23);
             }
-            if (medicinesmaterialslist.getMatOrMedType() == "1") {
+            if (medicinesmaterialslist.getMatOrMedType().equals("1")) {
                 fee.setExpID(17);
             }
+            fee.setStatus("1");
+            fee.setDateStatus(148);
+            fee.setCheckStatus("未对账");
             fee.setPayStatus(134);
             fee.setFee(total);
             fee.setAppearUserID(userID);
@@ -443,24 +463,36 @@ public class DisposalServiceImpl implements DisposalService {
             medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
 
 
-            DisposalMedReViewExample DisposalmedreviewExample = new DisposalMedReViewExample();
-            DisposalMedReViewExample.Criteria criteriaM = DisposalmedreviewExample.createCriteria();
+            DisposalMedReViewExample disposalmedreviewExample = new DisposalMedReViewExample();
+            DisposalMedReViewExample.Criteria criteriaM = disposalmedreviewExample.createCriteria();
             criteriaM.andMedicinesMaterialsIDEqualTo(ID);
-            DisposalMedReView Disposalmedreview = DisposalmedreviewDao.selectByExample(DisposalmedreviewExample).get(0);
+            DisposalMedReView disposalmedreview = DisposalmedreviewDao.selectByExample(disposalmedreviewExample).get(0);
 
-            DisposalFormViewExample DisposalformviewExample = new DisposalFormViewExample();
-            DisposalFormViewExample.Criteria criteriaF = DisposalformviewExample.createCriteria();
-            criteriaF.andDisposaldetailsIDEqualTo(Disposalmedreview.getItemsDetailID());
-            DisposalFormView Disposalformview = DisposalformviewDao.selectByExample(DisposalformviewExample).get(0);
+            DisposalFormViewExample disposalformviewExample = new DisposalFormViewExample();
+            DisposalFormViewExample.Criteria criteriaF = disposalformviewExample.createCriteria();
+            criteriaF.andDisposaldetailsIDEqualTo(disposalmedreview.getItemsDetailID());
+            DisposalFormView disposalformview = DisposalformviewDao.selectByExample(disposalformviewExample).get(0);
 
 
-            BigDecimal total = Disposalmedreview.getDosage().multiply(Disposalmedreview.getDrugsPrice());
+
+
+            RegistrationInfoExample registrationInfoExample=new RegistrationInfoExample();
+            RegistrationInfoExample.Criteria criteriaR=registrationInfoExample.createCriteria();
+            criteriaR.andMedicalRecordIDEqualTo(disposalformview.getMedicalrecordId());
+
+            List<Registrationinfo> registrationinfoList=registrationInfoDao.selectByExample(registrationInfoExample);
+
+            BigDecimal total = disposalmedreview.getDosage().multiply(disposalmedreview.getDrugsPrice());
             Fee fee = new Fee();
-            fee.setMedicalRecordID(Disposalformview.getMedicalrecordId());
+            fee.setMedicalRecordID(disposalformview.getMedicalrecordId());
+            fee.setFeeCategoryID(registrationinfoList.get(0).getPaymentCategoryID());
             fee.setExpID(4);
+            fee.setStatus("1");
+            fee.setPayStatus(134);
+            fee.setDateStatus(148);
+            fee.setCheckStatus("未对账");
             fee.setAppearUserID(userID);
             fee.setFeeAppearDate(new Date());
-            fee.setPayStatus(134);
             fee.setFee(total);
             feeDao.insert(fee);
         }
@@ -497,9 +529,9 @@ public class DisposalServiceImpl implements DisposalService {
         List<MedicinesMaterialsList> medMatList = medicinesmaterialslistDao.selectByExample(medicinesmaterialslistExample);
         for (MedicinesMaterialsList medicinesmaterialslist : medMatList) {
             if (medicinesmaterialslist.getIsPaid() == 134) {
-                result = "药品材料未缴费";
+                result = "处置药品材料未缴费";
             } else if (medicinesmaterialslist.getIsChecked() == 142) {
-                result = "药品材料未通过审核";
+                result = "处置药品材料未通过审核";
             }
         }
         if (result.equals("可以登记")) {
@@ -509,7 +541,7 @@ public class DisposalServiceImpl implements DisposalService {
             }
             disposaldetails.setIsChecked(136);
             disposaldetailsDao.updateByPrimaryKeySelective(disposaldetails);
-            result = "登记成功";
+            result = "处置登记成功";
         }
         return result;
     }

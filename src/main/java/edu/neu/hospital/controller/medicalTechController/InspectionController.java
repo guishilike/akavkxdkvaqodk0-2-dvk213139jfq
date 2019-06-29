@@ -186,10 +186,12 @@ public class InspectionController{
      * @param medMatListID  药品材料关联编号
      */
     @RequestMapping("/deleteMedMat")
-    public @ResponseBody ResultDTO deleteMedMat(Integer medMatListID){
+    public @ResponseBody ResultDTO deleteMedMat(Integer medMatListID,HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            inspectionService.deleteMedMat(medMatListID);
+            UserView user= (UserView) session.getAttribute("user");
+            Integer userID=user.getId();
+            inspectionService.deleteMedMat(medMatListID,userID);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功！");
         } catch (Exception e) {
@@ -206,10 +208,12 @@ public class InspectionController{
      * @param medMatListIDs  药品材料关联编号列表
      */
     @RequestMapping("/deleteMedMatByList")
-    public @ResponseBody ResultDTO deleteMedMatByList(IdDTO medMatListIDs){
+    public @ResponseBody ResultDTO deleteMedMatByList(@RequestBody IdDTO medMatListIDs,HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            inspectionService.deleteMedMatByList(medMatListIDs);
+            UserView user= (UserView) session.getAttribute("user");
+            Integer userID=user.getId();
+            inspectionService.deleteMedMatByList(medMatListIDs,userID);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功！");
         } catch (Exception e) {
@@ -227,10 +231,12 @@ public class InspectionController{
      * @param medicinesmaterialslist  药品材料表单信息
      */
     @RequestMapping("/updateMedMat")
-    public @ResponseBody ResultDTO updateMedMat(@RequestBody MedicinesMaterialsList medicinesmaterialslist){
+    public @ResponseBody ResultDTO updateMedMat(@RequestBody MedicinesMaterialsList medicinesmaterialslist,HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            inspectionService.updateMedMat(medicinesmaterialslist);
+            UserView user= (UserView) session.getAttribute("user");
+            Integer userID=user.getId();
+            inspectionService.updateMedMat(medicinesmaterialslist,userID);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功！");
         } catch (Exception e) {
@@ -318,7 +324,7 @@ public class InspectionController{
      */
     @RequestMapping("/approveMat")
     public @ResponseBody
-    ResultDTO approveMat(IdDTO matListIDs,HttpSession session){
+    ResultDTO approveMat(@RequestBody IdDTO matListIDs,HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
             UserView user= (UserView) session.getAttribute("user");
@@ -343,7 +349,7 @@ public class InspectionController{
      */
     @RequestMapping("/approveMed")
     public @ResponseBody
-    ResultDTO approveMed(IdDTO medListIDs, HttpSession session){
+    ResultDTO approveMed(@RequestBody IdDTO medListIDs, HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
             UserView user= (UserView) session.getAttribute("user");
@@ -360,6 +366,63 @@ public class InspectionController{
         return resultDTO;
     }
 
+
+
+    /**
+     * 完成审核检查项目表单信息
+     *
+     * @param inspectionDetailsID 药品材料关联编号列表
+     */
+    @RequestMapping("/approveInspectionDetails")
+    public @ResponseBody
+    ResultDTO approveInspectionDetails(Integer inspectionDetailsID){
+        ResultDTO resultDTO = new ResultDTO();
+        try {
+            inspectionService.approveInspectionDetails(inspectionDetailsID);
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("操作成功！");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus("NG");
+            resultDTO.setMsg("操作失败！");
+        }
+        return resultDTO;
+    }
+
+
+
+    /**
+     * 登记检查项目表单信息
+     *
+     * @param inspectionDetailsID 药品材料关联编号列表
+     * @return  登记结果
+     */
+    @RequestMapping("/registerInspectionDetails")
+    public @ResponseBody
+    ResultDTO registerInspectionDetails(Integer inspectionDetailsID){
+        ResultDTO resultDTO = new ResultDTO();
+        try {
+
+          String msg=inspectionService.registerInspectionDetails(inspectionDetailsID);
+          if (msg.equals("检查检验登记成功")) {
+              resultDTO.setStatus("OK");
+              resultDTO.setMsg(msg);
+          }else {
+              resultDTO.setStatus("NG");
+              resultDTO.setMsg(msg);
+          }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus("NG");
+            resultDTO.setMsg("操作失败！");
+        }
+        return resultDTO;
+    }
+
+
+
     /**
      * 导入检查结果表单
      *
@@ -368,14 +431,15 @@ public class InspectionController{
      */
     @RequestMapping("/importInspectResult")
     public @ResponseBody
-    ResultDTO  importInspectResult(@RequestBody InspectionResultWithBLOBs inspectionresultWithBLOBs, HttpSession session){
-        ResultDTO resultDTO = new ResultDTO();
+    ResultDTO<InspectionResultWithBLOBs>  importInspectResult(@RequestBody InspectionResultWithBLOBs inspectionresultWithBLOBs, HttpSession session){
+        ResultDTO<InspectionResultWithBLOBs> resultDTO = new ResultDTO<>();
         try {
             UserView user= (UserView) session.getAttribute("user");
             Integer userID=user.getId();
-            inspectionService.importInspectResult(inspectionresultWithBLOBs,userID);
+
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功！");
+            resultDTO.setData( inspectionService.importInspectResult(inspectionresultWithBLOBs,userID));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -387,18 +451,22 @@ public class InspectionController{
 
 
     /**
-     * 删除检查结果表单
+     * 重新录入检查结果表单
      *
-     * @param  inspectionresultWithBLOBsID 检查结果编号
+     * @param  inspectionresultWithBLOBs 检查结果编号
+     * @param  session 会话
      */
-    @RequestMapping("/deleteInspectResult")
+    @RequestMapping("/updateInspectResult")
     public @ResponseBody
-    ResultDTO deleteInspectResult(@RequestBody Integer inspectionresultWithBLOBsID){
-        ResultDTO resultDTO = new ResultDTO();
+    ResultDTO<InspectionResultWithBLOBs> deleteInspectResult(@RequestBody InspectionResultWithBLOBs inspectionresultWithBLOBs,HttpSession session){
+        ResultDTO<InspectionResultWithBLOBs> resultDTO = new ResultDTO<>();
         try {
-            inspectionService.deleteInspectResult(inspectionresultWithBLOBsID);
+            UserView user= (UserView) session.getAttribute("user");
+            Integer userID=user.getId();
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功！");
+            resultDTO.setData(inspectionService.updateInspectResult(inspectionresultWithBLOBs,userID));
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -407,28 +475,51 @@ public class InspectionController{
         }
         return resultDTO;
     }
+
 
     /**
      * 导入检查结果图片
      *
      * @param inspectionresultimage 结果图片信息
-     * @param pic 图片对象
      * @param session 会话
      */
     @RequestMapping("/importInspectResultImages")
-    public @ResponseBody ResultDTO<String> importInspectResultImages(@RequestBody InspectionResultImage inspectionresultimage, MultipartFile pic, HttpSession session){
+    public @ResponseBody ResultDTO importInspectResultImages(@RequestBody InspectionResultImage inspectionresultimage, HttpSession session){
+        ResultDTO resultDTO = new ResultDTO();
+        try {
+                UserView user= (UserView) session.getAttribute("user");
+                Integer userID=user.getId();
+                inspectionService.importInspectResultImages(inspectionresultimage,userID);
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("操作成功！");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus("NG");
+            resultDTO.setMsg("操作失败！");
+        }
+        return resultDTO;
+    }
+
+
+
+
+    /**
+     * 上传检查结果图片
+     *
+     * @param pic 图片对象
+     */
+    @RequestMapping("/uploadInspectResultImages")
+    public @ResponseBody ResultDTO<String> uploadInspectResultImages(MultipartFile pic){
         ResultDTO<String> resultDTO = new ResultDTO<>();
         try {
             if (!pic.isEmpty() && !Objects.requireNonNull(pic.getOriginalFilename()).isEmpty() && !pic.getOriginalFilename().equals("")) {
-                UserView user= (UserView) session.getAttribute("user");
-                Integer userID=user.getId();
                 String uuid = UUID.randomUUID().toString();
                 String fileName = pic.getOriginalFilename();
                 String suffixName = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
                 String newFileName = uuid + "." + suffixName;
                 File file = new File(ResourceUtils.getURL("classpath:").getPath() + "static/images/" + newFileName);
                 pic.transferTo(file);
-                inspectionService.importInspectResultImages(inspectionresultimage,userID,newFileName);
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("操作成功！");
                 resultDTO.setData(newFileName);
@@ -447,19 +538,36 @@ public class InspectionController{
         return resultDTO;
     }
 
+
+
+
+
+
     /**
      * 删除检查结果图片
      *
      * @param  catalog 图片名称
+     * @param  session 会话
      */
     @RequestMapping("/deleteInspectResultImages")
     public @ResponseBody
-    ResultDTO  deleteInspectResultImages(String catalog){
+    ResultDTO  deleteInspectResultImages(String catalog,HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            inspectionService.deleteInspectResultImages(catalog);
+            String url=ResourceUtils.getURL("classpath:").getPath() + "static/images/"+catalog;
+            File file=new File(url);
+
+            boolean delete = file.delete();
+            if(delete){
+            UserView user= (UserView) session.getAttribute("user");
+            Integer userID=user.getId();
+            inspectionService.deleteInspectResultImages(catalog,userID);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功！");
+            }else {
+                resultDTO.setStatus("NG");
+                resultDTO.setMsg("删除失败！");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

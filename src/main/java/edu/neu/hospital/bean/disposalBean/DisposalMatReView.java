@@ -1,5 +1,7 @@
 package edu.neu.hospital.bean.disposalBean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -49,6 +51,7 @@ public class DisposalMatReView implements Serializable {
     /**
      * 创建日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date appearDate;
 
     /**
@@ -59,6 +62,7 @@ public class DisposalMatReView implements Serializable {
     /**
      * 修改日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date changeDate;
 
     /**
