@@ -5,7 +5,10 @@ import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.UserNameAndPassDTO;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public interface UserService {
@@ -62,6 +65,39 @@ public interface UserService {
      */
     public List<UserView> findUserByName(String name);
 
+    /**
+     * 获取所有用户名和用户id
+     * @return
+     */
+
     public List<NameCodeDTO> getAllUserNamesAndUserIDs();
+
+    /**
+     * 获取所有用户类型的
+     * @return
+     */
+    public List<NameCodeDTO> getAllRankNamesAndCodes();
+
+    List<NameCodeDTO> getAllUserTypeNamesAndCodes();
+
+    /**
+     * 用Excle表导入到数据库
+     * @param file Excle文件
+     * @param errorHappenContinue 错误发生时是否继续
+     * @param repeatCoverage  遇到重复信息是否覆盖
+     * @throws IOException 抛出的 IO异常
+     * @return
+     */
+    public boolean uploadXls(MultipartFile file, Integer operateUserID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException;
+
+    /**
+     * 从数据库导出
+     */
+    public File createExcel() throws IOException;
+    /**
+     * 创建下载模板
+     * @return
+     */
+    public File createXLSTemplate() throws IOException;
 
 }

@@ -25,10 +25,10 @@ public interface RegistrationLevelViewDao {
     int updateByExample(@Param("record") RegistrationLevelView record, @Param("example") RegistrationLevelViewExample example);
 
     //根据id查找顺序号
-    @Select("select sequenceID from registrationview where id=#{id}")
+    @Select("select sequenceID from registrationlevelview where id=#{id}")
     int findSequenceIdById(Integer id);
 
     //根据顺序号查找id
-    @Select("select id from registrationview where sequenceID=#{id}")
+    @Select("select id from registrationlevelview where sequenceID=#{id}")
     int findIdBySequenceId(Integer id) ;
 }

@@ -6,10 +6,12 @@ import edu.neu.hospital.bean.baseBean.FmeditemView;
 import edu.neu.hospital.dao.basicTableDao.FMedItemDao;
 import edu.neu.hospital.dao.baseDao.FMedItemViewDao;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.example.basicTableExample.FMedItemExample;
 import edu.neu.hospital.example.baseExample.FMedItemViewExample;
 
 import edu.neu.hospital.service.baseService.FmeditemService;
+import edu.neu.hospital.utils.FileManage;
 import edu.neu.hospital.utils.XMLValidateAndSetting;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -20,6 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -124,6 +127,15 @@ public class FmeditemServiceImpl implements FmeditemService {
             return true;
     }
 
+    @Override
+    public List<NameCodeDTO> getAllFMedNamesAndDeptCodes() {
+        return fmeditemviewDao.selectAllFMedNamesAndCodes();
+    }
+
+
+
+
+
     /**
      * excle导入数据库
      * @param file Excle文件
@@ -131,10 +143,10 @@ public class FmeditemServiceImpl implements FmeditemService {
      * @throws IOException
      */
     @Override
-    public int uploadXls(MultipartFile file) throws IOException {
+    public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException {
         if (!XMLValidateAndSetting.validateType(file)) {
 
-            return -1;
+            return false;
         }
         List<FMedItem> FMedItemList = new ArrayList<FMedItem>();
         FMedItem fmeditem = null;
@@ -186,10 +198,10 @@ public class FmeditemServiceImpl implements FmeditemService {
 //			}
         }
         if (!FMedItemList.isEmpty()) {
-            return fmeditemDao.uploadFmeditemInfo(FMedItemList);
+            return false;
         }
 //		logger.debug("last row = " + sheet.getLastRowNum());
-        return 0;
+        return false;
     }
 
 
@@ -197,7 +209,7 @@ public class FmeditemServiceImpl implements FmeditemService {
      * 数据库导出Excle
      */
     @Override
-    public File createExcle() {
+    public File createExcel() {
         FMedItemExample fmeditemExample = new FMedItemExample();
         fmeditemExample.clear();
         FMedItemExample.Criteria criteria = fmeditemExample.createCriteria();
@@ -271,6 +283,15 @@ public class FmeditemServiceImpl implements FmeditemService {
 //            sheet.setColumnWidth(3, 8000);
 //        }
 //        return wb;
+    }
+
+    @Override
+    public File createXLSTemplate() throws IOException {
+        String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLSTemplate";
+        String fileName ="fMedItemTemplate.xls";
+        String[] title = {"编号", "项目名称", "规格", "价格","费用类型","执行科室","项目类别",};
+        XSSFWorkbook wb = FileManage.createXLSTemplate(title);
+        return FileManage.createXLSFile(wb, path, fileName);
     }
 
 

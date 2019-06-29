@@ -39,6 +39,9 @@ public class FmeditemView implements Serializable {
      */
     private Integer expClassID;
 
+    /**
+     * 费用科目名字
+     */
     private String expClassName;
 
     /**
@@ -71,7 +74,7 @@ public class FmeditemView implements Serializable {
     /**
      * 创建人
      */
-    private Integer appearUserId;
+    private Integer appearUserID;
 
     /**
      * 真名
@@ -81,7 +84,7 @@ public class FmeditemView implements Serializable {
     /**
      * 修改人ID
      */
-    private Integer changeUserId;
+    private Integer changeUserID;
 
     /**
      * 真名
@@ -92,6 +95,8 @@ public class FmeditemView implements Serializable {
      * 状态
      */
     private String status;
+
+    private Date changeDate;
 
     private static final long serialVersionUID = 1L;
 
@@ -199,12 +204,12 @@ public class FmeditemView implements Serializable {
         this.appearDate = appearDate;
     }
 
-    public Integer getAppearUserId() {
-        return appearUserId;
+    public Integer getAppearUserID() {
+        return appearUserID;
     }
 
-    public void setAppearUserId(Integer appearUserId) {
-        this.appearUserId = appearUserId;
+    public void setAppearUserID(Integer appearUserID) {
+        this.appearUserID = appearUserID;
     }
 
     public String getAppearUserName() {
@@ -215,12 +220,12 @@ public class FmeditemView implements Serializable {
         this.appearUserName = appearUserName;
     }
 
-    public Integer getChangeUserId() {
-        return changeUserId;
+    public Integer getChangeUserID() {
+        return changeUserID;
     }
 
-    public void setChangeUserId(Integer changeUserId) {
-        this.changeUserId = changeUserId;
+    public void setChangeUserID(Integer changeUserID) {
+        this.changeUserID = changeUserID;
     }
 
     public String getChangeUserName() {
@@ -237,6 +242,14 @@ public class FmeditemView implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Date getChangeDate() {
+        return changeDate;
+    }
+
+    public void setChangeDate(Date changeDate) {
+        this.changeDate = changeDate;
     }
 
     @Override
@@ -264,11 +277,12 @@ public class FmeditemView implements Serializable {
             && (this.getRecordType() == null ? other.getRecordType() == null : this.getRecordType().equals(other.getRecordType()))
             && (this.getTypeName() == null ? other.getTypeName() == null : this.getTypeName().equals(other.getTypeName()))
             && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
-            && (this.getAppearUserId() == null ? other.getAppearUserId() == null : this.getAppearUserId().equals(other.getAppearUserId()))
+            && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
             && (this.getAppearUserName() == null ? other.getAppearUserName() == null : this.getAppearUserName().equals(other.getAppearUserName()))
-            && (this.getChangeUserId() == null ? other.getChangeUserId() == null : this.getChangeUserId().equals(other.getChangeUserId()))
+            && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
             && (this.getChangeUserName() == null ? other.getChangeUserName() == null : this.getChangeUserName().equals(other.getChangeUserName()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()));
     }
 
     @Override
@@ -288,11 +302,12 @@ public class FmeditemView implements Serializable {
         result = prime * result + ((getRecordType() == null) ? 0 : getRecordType().hashCode());
         result = prime * result + ((getTypeName() == null) ? 0 : getTypeName().hashCode());
         result = prime * result + ((getAppearDate() == null) ? 0 : getAppearDate().hashCode());
-        result = prime * result + ((getAppearUserId() == null) ? 0 : getAppearUserId().hashCode());
+        result = prime * result + ((getAppearUserID() == null) ? 0 : getAppearUserID().hashCode());
         result = prime * result + ((getAppearUserName() == null) ? 0 : getAppearUserName().hashCode());
-        result = prime * result + ((getChangeUserId() == null) ? 0 : getChangeUserId().hashCode());
+        result = prime * result + ((getChangeUserID() == null) ? 0 : getChangeUserID().hashCode());
         result = prime * result + ((getChangeUserName() == null) ? 0 : getChangeUserName().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getChangeDate() == null) ? 0 : getChangeDate().hashCode());
         return result;
     }
 
@@ -315,11 +330,12 @@ public class FmeditemView implements Serializable {
         sb.append(", recordType=").append(recordType);
         sb.append(", typeName=").append(typeName);
         sb.append(", appearDate=").append(appearDate);
-        sb.append(", appearUserId=").append(appearUserId);
+        sb.append(", appearUserID=").append(appearUserID);
         sb.append(", appearUserName=").append(appearUserName);
-        sb.append(", changeUserId=").append(changeUserId);
+        sb.append(", changeUserID=").append(changeUserID);
         sb.append(", changeUserName=").append(changeUserName);
         sb.append(", status=").append(status);
+        sb.append(", changeDate=").append(changeDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -13,11 +13,13 @@ import edu.neu.hospital.service.baseService.ConstantService;
 import edu.neu.hospital.service.baseService.RegistrationLevelService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +70,7 @@ public class RegistrationLevelController {
      * @param session HttpSession会话
      * @return resultDTO
      */
-    @RequestMapping("/deleteById")
+    @RequestMapping("/deleteByID")
     public @ResponseBody
     ResultDTO deleteById(Integer id, HttpSession session) {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
@@ -95,7 +97,7 @@ public class RegistrationLevelController {
      */
     @RequestMapping("/deleteByChoose")
     public @ResponseBody
-    ResultDTO deleteByChoose(IdDTO ids, HttpSession session) {
+    ResultDTO deleteByChoose(@RequestBody IdDTO ids, HttpSession session) {
         ResultDTO<IdDTO> resultDTO = new ResultDTO<>();
         if (ids.getId() != null) {
             try {
@@ -168,42 +170,34 @@ public class RegistrationLevelController {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，修改挂号级别详情失败");
             resultDTO.setData(registrationLevelDetails);
+            e.printStackTrace();
         }
         return resultDTO;
     }
 
     /**
-     * 列出所有的挂号级别信息
-     *
+     * 列出所有挂号级别信息
+     * @param pageNum 第几页
+     * @param pageSize 页大小
      * @return resultDTO
      */
     @RequestMapping("/list")
     public @ResponseBody
-    ResultDTO findAll() {
-
-        System.out.println("url: /register/getDoctor");
+    ResultDTO findAll(Integer pageNum, Integer pageSize){
+        ResultDTO<PageInfo> resultDTO=new ResultDTO<>();
         try {
-
+            PageHelper.startPage(pageNum, pageSize);
             List<RegistrationLevelView> registrationLevelViews = registrationLevelService.findAll();
-            List<NameCodeDTO> nameCodeDTOS = new ArrayList<>();
-
-            for (RegistrationLevelView view : registrationLevelViews) {
-
-                NameCodeDTO nameCodeDTO = new NameCodeDTO();
-                nameCodeDTO.setId(view.getId());
-                nameCodeDTO.setCode(view.getRegisteredCode());
-                nameCodeDTO.setName(view.getRegisteredName());
-
-                nameCodeDTOS.add(nameCodeDTO);
-
-                System.out.println(nameCodeDTO.toString());
-            }
-
-            return new ResultDTO<>("OK", "操作成功", nameCodeDTOS);
-
-        } catch (Exception e) {
-            return new ResultDTO<>("FALSE", "发生异常，操作失败", null);
+            PageInfo<RegistrationLevelView> list = new PageInfo<>(registrationLevelViews);
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("操作成功");
+            resultDTO.setData(list);
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发生异常，操作失败");
         }
+        return resultDTO;
+
     }
 
     /**
@@ -234,6 +228,52 @@ public class RegistrationLevelController {
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，查找失败");
+        }
+        return resultDTO;
+    }
+
+    /**
+     * 获得所有结算类别名称和编码
+     * @return resultDTO
+     */
+    @RequestMapping("/findAllRegLevNamesAndCodes")
+    public @ResponseBody
+    ResultDTO getAllRegLevNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = registrationLevelService.getAllSetCatNamesAndCode();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得挂号级别搜索列表成功");
+
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得挂号级别搜索列表失败");
+        }
+        return resultDTO;
+
+    }
+
+
+    /**
+     * 创建xml文件
+     * @return resultDTO
+     */
+    @RequestMapping("/createXLS")
+    public @ResponseBody
+    ResultDTO createXLS() {
+        System.out.println("开始创建");
+        ResultDTO<String> resultDTO = new ResultDTO();
+        try {
+            File file = registrationLevelService.createExcel();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(file.getName());
+            resultDTO.setMsg("创建挂号级别XLS文件信息成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("创建挂号级别XLS文件信息失败");
+
         }
         return resultDTO;
     }

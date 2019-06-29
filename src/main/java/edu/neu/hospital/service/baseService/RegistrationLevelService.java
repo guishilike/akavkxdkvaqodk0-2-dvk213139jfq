@@ -4,7 +4,10 @@ import edu.neu.hospital.bean.baseBean.RegistrationLevelView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.RegistrationLevelDetails;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public interface RegistrationLevelService {
@@ -49,10 +52,19 @@ public interface RegistrationLevelService {
      */
     public void change(ConstantItem constantitem, Integer userID);
     /**
-     * 修改结算类别详情
+     * 修改挂号级别详情
      * @param details  修改挂号级别详情所需的信息
      * @param userID 用户id
      */
     public void changeDetails(RegistrationLevelDetails details, Integer userID);
+    /**
+     * 获得所有挂号级别的名称和编号
+     * @return
+     */
+    public List<NameCodeDTO> getAllSetCatNamesAndCode();
+    /**
+     * 从数据库导出
+     */
+    public File createExcel() throws IOException;
 
 }

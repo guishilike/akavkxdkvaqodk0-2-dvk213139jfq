@@ -1,17 +1,28 @@
 package edu.neu.hospital.service.baseService.impl;
 
 import edu.neu.hospital.bean.baseBean.RegistrationLevelView;
+import edu.neu.hospital.bean.baseBean.SettleCategoryView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.RegistrationLevelDetails;
 import edu.neu.hospital.dao.basicTableDao.ConstantItemDao;
 import edu.neu.hospital.dao.basicTableDao.RegistrationLevelDetailsDao;
 import edu.neu.hospital.dao.baseDao.RegistrationLevelViewDao;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.example.baseExample.RegistrationLevelViewExample;
+import edu.neu.hospital.example.baseExample.SettleCategoryViewExample;
 import edu.neu.hospital.service.baseService.RegistrationLevelService;
+import edu.neu.hospital.utils.FileManage;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +34,8 @@ public class RegistrationLevelServiceImpl implements RegistrationLevelService {
     RegistrationLevelDetailsDao registrationleveldetailsDao;
     @Resource
     ConstantItemDao constantitemDao;
+
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
     @Override
@@ -99,12 +112,52 @@ public class RegistrationLevelServiceImpl implements RegistrationLevelService {
 
     @Override
     public void changeDetails(RegistrationLevelDetails details, Integer userID) {
+        if(details.getIsDefault()!=null&&details.getIsDefault().equals("1"))
+            registrationleveldetailsDao.clearDefault();
         registrationleveldetailsDao.updateByPrimaryKeySelective(details);
         ConstantItem constantitem = new ConstantItem();
+        System.out.println(details.getId());
         constantitem.setId(registrationlevelviewDao.findIdBySequenceId(details.getId()));
         constantitem.setChangeDate(new Date());
         constantitem.setChangeUserID(userID);
         constantitemDao.updateByPrimaryKeySelective(constantitem);
+    }
+
+    @Override
+    public List<NameCodeDTO> getAllSetCatNamesAndCode() {
+        return constantitemDao.findAllNamesAndCodesByType(13);
+    }
+
+    @Override
+    public File createExcel() throws IOException {
+        String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLS";
+        String fileName ="registrationLevel.xls";
+        List<RegistrationLevelView> results =
+                registrationlevelviewDao.selectByExample(new RegistrationLevelViewExample());
+        String[] title = {"编号", "挂号级别编码", "挂号级别名称", "顺序号", "是否默认","挂号级别费用",
+               "创建时间", "创建人", "修改时间", "修改人"};
+        XSSFWorkbook wb = FileManage.createXLSTemplate(title);
+        XSSFSheet sheet = wb.getSheet("sheet1");
+        XSSFRow row;
+        // 写入正式数据
+        for (int i = 0; i < results.size(); i++) {
+            row = sheet.createRow(i + 1);
+            row.createCell(0).setCellValue(results.get(i).getId());
+            row.createCell(1).setCellValue(results.get(i).getRegisteredCode());
+            row.createCell(2).setCellValue(results.get(i).getRegisteredName());
+            row.createCell(3).setCellValue(results.get(i).getSequenceID());
+            row.createCell(4).setCellValue(results.get(i).getIsDefault());
+            row.createCell(5).setCellValue(results.get(i).getRegistrationFee()==null?
+                    "":results.get(i).getRegistrationFee().toString());
+            if (results.get(i).getAppearDate() != null)
+                row.createCell(6).setCellValue(simpleDateFormat.format(results.get(i).getAppearDate()));
+            row.createCell(7).setCellValue(results.get(i).getAppearUserName());
+            if (results.get(i).getChangeDate() != null)
+                row.createCell(8).setCellValue(simpleDateFormat.format(results.get(i).getChangeDate()));
+            row.createCell(9).setCellValue(results.get(i).getChangeUserName());
+        }
+        File file = FileManage.createXLSFile(wb, path, fileName);
+        return file;
     }
 
 

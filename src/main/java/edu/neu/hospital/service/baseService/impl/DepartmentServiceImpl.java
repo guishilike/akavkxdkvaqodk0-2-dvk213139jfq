@@ -12,6 +12,7 @@ import edu.neu.hospital.example.baseExample.DepartmentViewExample;
 import edu.neu.hospital.service.baseService.DepartmentService;
 import edu.neu.hospital.utils.FileManage;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -149,17 +150,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException {
         //标识文件内容是否有错
         Boolean state=true;
-        File file1 = new File(ResourceUtils.getURL("classpath:").getPath() + "static/images/" + file.getOriginalFilename());
-        file.transferTo(file1);
-        InputStream is = new FileInputStream(file1);
-
         Department department;
         Workbook book;
         try {
-            book = new XSSFWorkbook(is);
+            book = new XSSFWorkbook(file.getInputStream());
             System.out.println("success");
         } catch (Exception e) {
-            book = new HSSFWorkbook(is);
+            book = new HSSFWorkbook(file.getInputStream());
         }
         Sheet sheet = book.getSheetAt(0);
         System.out.println("开始写入信息");
@@ -167,7 +164,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             try {
                 department = new Department();
                 Row row = sheet.getRow(i);
-                System.out.println(row.getCell(2));
+                row.getCell(0).setCellType(CellType.STRING);
                 department.setDeptCode(row.getCell(0).toString());
                 department.setDeptName(row.getCell(1).toString());
                 String deptTypeName = row.getCell(2).toString();
@@ -179,12 +176,8 @@ public class DepartmentServiceImpl implements DepartmentService {
                 department.setStatus("1");
                 //遇到重复是否继续执行
                 if (checkContent(department, 0)) {
-                    department.setAppearDate(new Date());
-                    department.setAppearUserID(userID);
                     add(department, userID);
                 } else if (repeatCoverage) {
-                    department.setChangeDate(new Date());
-                    department.setChangeUserID(userID);
                     department.setId(departmentviewDao.getIDByName(row.getCell(1).toString()));
                     departmentDao.updateByPrimaryKeySelective(department);
                 }
@@ -199,6 +192,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             }
 
         }
+        file.getInputStream().close();
         return state;
     }
 

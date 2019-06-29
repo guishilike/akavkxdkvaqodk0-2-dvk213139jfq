@@ -1,5 +1,6 @@
 package edu.neu.hospital.service.baseService.impl;
 
+import edu.neu.hospital.bean.baseBean.DepartmentView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.SettleCategoryDetails;
 import edu.neu.hospital.bean.baseBean.SettleCategoryView;
@@ -7,11 +8,22 @@ import edu.neu.hospital.dao.basicTableDao.ConstantItemDao;
 import edu.neu.hospital.dao.basicTableDao.SettleCategoryDetailsDao;
 import edu.neu.hospital.dao.baseDao.SettleCategoryViewDao;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
+import edu.neu.hospital.example.baseExample.DepartmentViewExample;
 import edu.neu.hospital.example.baseExample.SettleCategoryViewExample;
 import edu.neu.hospital.service.baseService.SettlementCategoryService;
+import edu.neu.hospital.utils.FileManage;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +35,8 @@ public class SettlementCategoyServiceImpl implements SettlementCategoryService {
     SettleCategoryViewDao settlecategoryviewDao;
     @Resource
     SettleCategoryDetailsDao settlecategorydetailsDao;
+
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public void add(ConstantItem constantitem, Integer userID) {
@@ -106,6 +120,54 @@ public class SettlementCategoyServiceImpl implements SettlementCategoryService {
         constantitem.setChangeDate(new Date());
         constantitemDao.updateByPrimaryKeySelective(constantitem);
 
+    }
+
+    @Override
+    public List<NameCodeDTO> getAllSetCatNamesAndCode() {
+        return constantitemDao.findAllNamesAndCodesByType(12);
+    }
+
+    @Override
+    public File createExcel() throws IOException {
+        String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLS";
+        String fileName ="settleCategory.xls";
+        List<SettleCategoryView> results =
+                settlecategoryviewDao.selectByExample(new SettleCategoryViewExample());
+        String[] title = {"编号", "结算类别编码", "结算类别名称", "顺序号", "阙值1","阙值2","阙值3",
+                "比例1","比例2","比例3","比例4","创建时间", "创建人", "修改时间", "修改人"};
+        XSSFWorkbook wb = FileManage.createXLSTemplate(title);
+        XSSFSheet sheet = wb.getSheet("sheet1");
+        XSSFRow row;
+        // 写入正式数据
+        for (int i = 0; i < results.size(); i++) {
+            row = sheet.createRow(i + 1);
+            row.createCell(0).setCellValue(results.get(i).getId());
+            row.createCell(1).setCellValue(results.get(i).getSettleCategoryCode());
+            row.createCell(2).setCellValue(results.get(i).getSettleCategoryName());
+            row.createCell(3).setCellValue(results.get(i).getSequenceID());
+            row.createCell(4).setCellValue(results.get(i).getThresnold1()==null?
+                    "":results.get(i).getThresnold1().toString());
+            row.createCell(5).setCellValue(results.get(i).getThresnold2()==null?
+                    "":results.get(i).getThresnold2().toString());
+            row.createCell(6).setCellValue(results.get(i).getThresnold3()==null?
+                    "":results.get(i).getThresnold3().toString());
+
+            row.createCell(7).setCellValue(results.get(i).getProportion1()==null?
+                    "":results.get(i).getProportion1().toString());
+            row.createCell(8).setCellValue(results.get(i).getProportion2()==null?
+                    "":results.get(i).getProportion2().toString());
+            row.createCell(9).setCellValue(results.get(i).getProportion3()==null?
+                    "":results.get(i).getProportion3().toString());
+
+            if (results.get(i).getAppearDate() != null)
+                row.createCell(10).setCellValue(simpleDateFormat.format(results.get(i).getAppearDate()));
+            row.createCell(11).setCellValue(results.get(i).getAppearUserName());
+            if (results.get(i).getChangeDate() != null)
+                row.createCell(12).setCellValue(simpleDateFormat.format(results.get(i).getChangeDate()));
+            row.createCell(13).setCellValue(results.get(i).getChangeUserName());
+        }
+        File file = FileManage.createXLSFile(wb, path, fileName);
+        return file;
     }
 
 

@@ -7,16 +7,19 @@ import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.SettleCategoryDetails;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.ConstantService;
 import edu.neu.hospital.service.baseService.SettlementCategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.List;
 
 //结算类别控制
@@ -75,7 +78,7 @@ public class SettlementCategoryController {
                 resultDTO.setData(list);
             }
             else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("结算类别名称或编号不存在");
             }
         }catch (Exception e){
@@ -115,9 +118,9 @@ public class SettlementCategoryController {
      * @return resultDTO
      */
     @RequestMapping("/deleteByChoose")
-    public @ResponseBody ResultDTO deleteByChoose(IdDTO ids, HttpSession session){
+    public @ResponseBody ResultDTO deleteByChoose(@RequestBody IdDTO ids, HttpSession session){
         ResultDTO<IdDTO> resultDTO=new ResultDTO<>();
-        if(ids.getId()!=null){
+        if(ids.getId()!=null&&ids.getId().size()!=0){
             try{
                 UserView user = (UserView) session.getAttribute("user");
                 settlementCategoryService.deleteByChoose(ids,user.getId());
@@ -130,7 +133,7 @@ public class SettlementCategoryController {
             }
         }
         else{
-            resultDTO.setStatus("FALSE");
+            resultDTO.setStatus("WARN");
             resultDTO.setMsg("请先选择你要删除的结算类别");
         }
         return resultDTO;
@@ -155,12 +158,13 @@ public class SettlementCategoryController {
                 resultDTO.setData(constantitem);
             }
             else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("存在重复的结算类别名，添加结算类别失败");
             }
         }catch (Exception e){
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，添加结算类别失败");
+            e.printStackTrace();
         }
 
         return resultDTO;
@@ -184,7 +188,7 @@ public class SettlementCategoryController {
                 resultDTO.setData(constantitem);
             }
             else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("存在重复的结算类别名，修改结算类别失败");
                 resultDTO.setData(constantitem);
             }
@@ -198,14 +202,15 @@ public class SettlementCategoryController {
 
     /**
      * 修改结算类别详情
-     * @param settlecategorydetails
-     * @param session
-     * @return
+     * @param settlecategorydetails 结算类别详情
+     * @param session HttpSession会话
+     * @return resultDTO
      */
     @RequestMapping("/updateDetails")
     public @ResponseBody
     ResultDTO updateDetials(SettleCategoryDetails settlecategorydetails, HttpSession session){
         ResultDTO<SettleCategoryDetails> resultDTO=new ResultDTO<>();
+        System.out.println(settlecategorydetails);
         try {
             UserView user = (UserView) session.getAttribute("user");
             settlementCategoryService.changeDetails(settlecategorydetails,user.getId());
@@ -216,10 +221,57 @@ public class SettlementCategoryController {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，修改结算类别详情失败");
             resultDTO.setData(settlecategorydetails);
+            e.printStackTrace();
         }
 
         return resultDTO;
 
+    }
+
+    /**
+     * 获得所有结算类别名称和编码
+     * @return resultDTO
+     */
+    @RequestMapping("/findAllSetCatNamesAndCodes")
+    public @ResponseBody
+    ResultDTO getAllSetCatNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = settlementCategoryService.getAllSetCatNamesAndCode();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得结算类别搜索列表成功");
+
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得结算类别搜索列表失败");
+        }
+        return resultDTO;
+
+    }
+
+
+    /**
+     * 创建xml文件
+     * @return resultDTO
+     */
+    @RequestMapping("/createXLS")
+    public @ResponseBody
+    ResultDTO createXLS() {
+        System.out.println("开始创建");
+        ResultDTO<String> resultDTO = new ResultDTO();
+        try {
+            File file = settlementCategoryService.createExcel();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(file.getName());
+            resultDTO.setMsg("创建结算类别XLS文件信息成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("创建结算类别XLS文件信息失败");
+
+        }
+        return resultDTO;
     }
 
 }

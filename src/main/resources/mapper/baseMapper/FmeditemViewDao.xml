@@ -15,11 +15,12 @@
     <result column="recordType" jdbcType="INTEGER" property="recordType" />
     <result column="typeName" jdbcType="VARCHAR" property="typeName" />
     <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
-    <result column="appearUserId" jdbcType="INTEGER" property="appearUserId" />
+    <result column="appearUserID" jdbcType="INTEGER" property="appearUserID" />
     <result column="appearUserName" jdbcType="VARCHAR" property="appearUserName" />
-    <result column="changeUserId" jdbcType="INTEGER" property="changeUserId" />
+    <result column="changeUserID" jdbcType="INTEGER" property="changeUserID" />
     <result column="changeUserName" jdbcType="VARCHAR" property="changeUserName" />
     <result column="status" jdbcType="CHAR" property="status" />
+    <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -81,8 +82,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, code, `name`, format, price, expClassID, expClassName, deptID, deptName, mnemonicCode, 
-    recordType, typeName, appearDate, appearUserId, appearUserName, changeUserId, changeUserName, 
-    `status`
+    recordType, typeName, appearDate, appearUserID, appearUserName, changeUserID, changeUserName, 
+    `status`, changeDate
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.baseExample.FMedItemViewExample" resultMap="BaseResultMap">
     select
@@ -117,16 +118,16 @@
       format, price, expClassID, 
       expClassName, deptID, deptName, 
       mnemonicCode, recordType, typeName, 
-      appearDate, appearUserId, appearUserName, 
-      changeUserId, changeUserName, `status`
-      )
+      appearDate, appearUserID, appearUserName, 
+      changeUserID, changeUserName, `status`, 
+      changeDate)
     values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{format,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{expClassID,jdbcType=INTEGER}, 
       #{expClassName,jdbcType=VARCHAR}, #{deptID,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
       #{mnemonicCode,jdbcType=VARCHAR}, #{recordType,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, 
-      #{appearDate,jdbcType=TIMESTAMP}, #{appearUserId,jdbcType=INTEGER}, #{appearUserName,jdbcType=VARCHAR}, 
-      #{changeUserId,jdbcType=INTEGER}, #{changeUserName,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}
-      )
+      #{appearDate,jdbcType=TIMESTAMP}, #{appearUserID,jdbcType=INTEGER}, #{appearUserName,jdbcType=VARCHAR}, 
+      #{changeUserID,jdbcType=INTEGER}, #{changeUserName,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{changeDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="edu.neu.hospital.bean.baseBean.FmeditemView">
     insert into fmeditemview
@@ -170,20 +171,23 @@
       <if test="appearDate != null">
         appearDate,
       </if>
-      <if test="appearUserId != null">
-        appearUserId,
+      <if test="appearUserID != null">
+        appearUserID,
       </if>
       <if test="appearUserName != null">
         appearUserName,
       </if>
-      <if test="changeUserId != null">
-        changeUserId,
+      <if test="changeUserID != null">
+        changeUserID,
       </if>
       <if test="changeUserName != null">
         changeUserName,
       </if>
       <if test="status != null">
         `status`,
+      </if>
+      <if test="changeDate != null">
+        changeDate,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -226,20 +230,23 @@
       <if test="appearDate != null">
         #{appearDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="appearUserId != null">
-        #{appearUserId,jdbcType=INTEGER},
+      <if test="appearUserID != null">
+        #{appearUserID,jdbcType=INTEGER},
       </if>
       <if test="appearUserName != null">
         #{appearUserName,jdbcType=VARCHAR},
       </if>
-      <if test="changeUserId != null">
-        #{changeUserId,jdbcType=INTEGER},
+      <if test="changeUserID != null">
+        #{changeUserID,jdbcType=INTEGER},
       </if>
       <if test="changeUserName != null">
         #{changeUserName,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=CHAR},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -291,20 +298,23 @@
       <if test="record.appearDate != null">
         appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.appearUserId != null">
-        appearUserId = #{record.appearUserId,jdbcType=INTEGER},
+      <if test="record.appearUserID != null">
+        appearUserID = #{record.appearUserID,jdbcType=INTEGER},
       </if>
       <if test="record.appearUserName != null">
         appearUserName = #{record.appearUserName,jdbcType=VARCHAR},
       </if>
-      <if test="record.changeUserId != null">
-        changeUserId = #{record.changeUserId,jdbcType=INTEGER},
+      <if test="record.changeUserID != null">
+        changeUserID = #{record.changeUserID,jdbcType=INTEGER},
       </if>
       <if test="record.changeUserName != null">
         changeUserName = #{record.changeUserName,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.changeDate != null">
+        changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -326,11 +336,12 @@
       recordType = #{record.recordType,jdbcType=INTEGER},
       typeName = #{record.typeName,jdbcType=VARCHAR},
       appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
-      appearUserId = #{record.appearUserId,jdbcType=INTEGER},
+      appearUserID = #{record.appearUserID,jdbcType=INTEGER},
       appearUserName = #{record.appearUserName,jdbcType=VARCHAR},
-      changeUserId = #{record.changeUserId,jdbcType=INTEGER},
+      changeUserID = #{record.changeUserID,jdbcType=INTEGER},
       changeUserName = #{record.changeUserName,jdbcType=VARCHAR},
-      `status` = #{record.status,jdbcType=CHAR}
+      `status` = #{record.status,jdbcType=CHAR},
+      changeDate = #{record.changeDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

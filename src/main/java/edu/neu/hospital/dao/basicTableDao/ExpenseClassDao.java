@@ -5,7 +5,7 @@ import edu.neu.hospital.example.basicTableExample.ExpenseClassExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface ExpenseClassDao {
+public interface    ExpenseClassDao {
     long countByExample(ExpenseClassExample example);
 
     int deleteByExample(ExpenseClassExample example);

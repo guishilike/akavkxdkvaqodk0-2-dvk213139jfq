@@ -23,8 +23,6 @@ public class ConstantServiceImpl implements ConstantService {
         criteria.andConstantTypeIDEqualTo(typeID);
         if (state == 1)
             criteria.andIdNotEqualTo(constantitem.getId());
-
-        criteria.andConstantTypeIDEqualTo(12);
         if (constantitemDao.countByExample(example) > 0)
             return false;
         else

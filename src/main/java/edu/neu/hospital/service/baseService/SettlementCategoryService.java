@@ -4,8 +4,12 @@ import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.SettleCategoryDetails;
 import edu.neu.hospital.bean.baseBean.SettleCategoryView;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 /**
  * 结算类别管理服务
@@ -53,6 +57,17 @@ public interface SettlementCategoryService {
      * @param userID  用户id
      */
     public void changeDetails(SettleCategoryDetails details, Integer userID);
+
+    /**
+     * 获得所有结算类别的名称和编号
+     * @return
+     */
+    public List<NameCodeDTO> getAllSetCatNamesAndCode();
+    /**
+     * 从数据库导出
+     */
+    public File createExcel() throws IOException;
+
 
 
 }

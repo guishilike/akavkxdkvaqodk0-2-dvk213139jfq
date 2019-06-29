@@ -215,7 +215,6 @@ public class DepartmentController {
 
     /**
      * 获得所有科室名称和编码
-     *
      * @return resultDTO
      */
     @RequestMapping("/findAllDeptNamesAndCodes")
@@ -261,8 +260,7 @@ public class DepartmentController {
 
     /**
      * 获得所有科室分类名称和编码
-     *
-     * @return
+     * @return resultDTO
      */
     @RequestMapping("/findAllDeptCategoryNamesAndCodes")
     public @ResponseBody
@@ -284,6 +282,7 @@ public class DepartmentController {
 
     /**
      * 创建xml文件
+     * @return resultDTO
      */
     @RequestMapping("/createXLS")
     public @ResponseBody
@@ -304,6 +303,15 @@ public class DepartmentController {
         return resultDTO;
     }
 
+    /**
+     * 导入xls文件
+     * @param file 要导入的xls文件
+     * @param errorHappenContinue 错误发生是否继续
+     * @param repeatCoverage 遇到重复是否覆盖
+     * @param session HttpSession会话
+     * @return resultDTO
+     * @throws IOException
+     */
     @RequestMapping("/upload")
     public @ResponseBody
     ResultDTO upload(MultipartFile file, boolean errorHappenContinue,
@@ -336,6 +344,11 @@ public class DepartmentController {
         return resultDTO;
     }
 
+    /**
+     * 创建模板
+     * @return resultDTO
+     */
+
     @RequestMapping("/createTemplate")
     public @ResponseBody
     ResultDTO createTemplate() {
@@ -345,11 +358,11 @@ public class DepartmentController {
             File file = departmentService.createXLSTemplate();
             resultDTO.setStatus("OK");
             resultDTO.setData(file.getName());
-            resultDTO.setMsg("创建XLS文件模板成功");
+            resultDTO.setMsg("创建科室XLS文件模板成功");
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus("FALSE");
-            resultDTO.setMsg("创建XLS文件模板失败");
+            resultDTO.setMsg("创建科室XLS文件模板失败");
             e.printStackTrace();
 
         }

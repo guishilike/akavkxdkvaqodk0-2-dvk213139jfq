@@ -70,9 +70,9 @@ public interface DepartmentService {
     /**
      * 用Excle表导入到数据库
      * @param file Excle文件
-     * @param errorHappenContinue
-     * @param repeatCoverage
-     * @throws IOException
+     * @param errorHappenContinue 错误发生时是否继续
+     * @param repeatCoverage  遇到重复信息是否覆盖
+     * @throws IOException 抛出的 IO异常
      * @return
      */
     public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException;

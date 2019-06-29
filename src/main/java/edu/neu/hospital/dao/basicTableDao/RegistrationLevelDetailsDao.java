@@ -7,6 +7,8 @@ import java.util.List;
 import edu.neu.hospital.example.basicTableExample.RegistrationLevelDetailsExample;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
+
 @Mapper
 public interface RegistrationLevelDetailsDao {
     long countByExample(RegistrationLevelDetailsExample example);
@@ -30,4 +32,6 @@ public interface RegistrationLevelDetailsDao {
     int updateByPrimaryKeySelective(RegistrationLevelDetails record);
 
     int updateByPrimaryKey(RegistrationLevelDetails record);
+    @Update("update registrationleveldetails set isDefault=0 ")
+    public void clearDefault();
 }

@@ -23,6 +23,8 @@ public interface UserViewDao {
 
     int updateByExample(@Param("record") UserView record, @Param("example") UserViewExample example);
 
-    @Select("select id ,realName as name,typeCode as code from userview")
+    @Select("select id ,userName as name, realName as code from userview")
     List<NameCodeDTO> selectAllUserNamesAndUserIDs();
+    @Select("select id form userview where userName=#{userName}")
+    int getIDByName(String userName);
 }

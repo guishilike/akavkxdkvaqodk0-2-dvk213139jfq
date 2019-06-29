@@ -32,7 +32,7 @@ public class FmeditemController {
     public @ResponseBody ResultDTO<String> getExcel(){
         ResultDTO<String> resultDTO=new ResultDTO<>();
         try {
-            File file=fmeditemService.createExcle();
+            File file=fmeditemService.createExcel();
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功");
             resultDTO.setData(file.getName());
