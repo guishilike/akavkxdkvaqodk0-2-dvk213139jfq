@@ -3,21 +3,23 @@ package edu.neu.hospital.service.baseService.impl;
 
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.bean.baseBean.FmeditemView;
+import edu.neu.hospital.dao.baseDao.DepartmentViewDao;
+import edu.neu.hospital.dao.basicTableDao.ConstantItemDao;
 import edu.neu.hospital.dao.basicTableDao.FMedItemDao;
 import edu.neu.hospital.dao.baseDao.FMedItemViewDao;
+import edu.neu.hospital.dao.finaceDao.ExpenseClassViewDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.NameCodeDTO;
-import edu.neu.hospital.example.basicTableExample.FMedItemExample;
+
 import edu.neu.hospital.example.baseExample.FMedItemViewExample;
 
 import edu.neu.hospital.service.baseService.FmeditemService;
 import edu.neu.hospital.utils.FileManage;
-import edu.neu.hospital.utils.XMLValidateAndSetting;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -27,12 +29,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,10 +44,15 @@ public class FmeditemServiceImpl implements FmeditemService {
     FMedItemDao fmeditemDao;
     @Resource
     FMedItemViewDao fmeditemviewDao;
+    @Resource
+    ExpenseClassViewDao expenseClassViewDao;
+    @Resource
+    DepartmentViewDao departmentViewDao;
+    @Resource
+    ConstantItemDao constantItemDao;
 
 
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
 
 
     @Override
@@ -65,9 +71,9 @@ public class FmeditemServiceImpl implements FmeditemService {
     }
 
     @Override
-    public void deleteById(Integer id,Integer userID) {
+    public void deleteById(Integer id, Integer userID) {
         FMedItem fmeditem = fmeditemDao.selectByPrimaryKey(id);
-        if(fmeditem!=null) {
+        if (fmeditem != null) {
             fmeditem.setStatus("0");
             fmeditem.setChangeUserId(userID);
             fmeditem.setChangeDate(new Date());
@@ -77,9 +83,9 @@ public class FmeditemServiceImpl implements FmeditemService {
 
     @Override
     public void deleteByChoose(IdDTO ids, Integer userID) {
-        for(int i=0;i<ids.getId().size();i++){
+        for (int i = 0; i < ids.getId().size(); i++) {
             FMedItem fmeditem = fmeditemDao.selectByPrimaryKey(ids.getId().get(i));
-            if(fmeditem != null){
+            if (fmeditem != null) {
                 fmeditem.setStatus("0");
                 fmeditem.setChangeUserId(userID);
                 fmeditem.setChangeDate(new Date());
@@ -93,10 +99,10 @@ public class FmeditemServiceImpl implements FmeditemService {
         FMedItemViewExample fmeditemviewExample = new FMedItemViewExample();
         fmeditemviewExample.clear();
         FMedItemViewExample.Criteria criteria = fmeditemviewExample.createCriteria();
-        if(deptID != null){
+        if (deptID != null) {
             criteria.andDeptIDEqualTo(deptID);
         }
-        if(recordType != null){
+        if (recordType != null) {
             criteria.andRecordTypeEqualTo(recordType);
         }
         List<FmeditemView> list = fmeditemviewDao.selectByExample(fmeditemviewExample);
@@ -105,9 +111,9 @@ public class FmeditemServiceImpl implements FmeditemService {
 
     @Override
     public List<FmeditemView> findByNameOrCode(String nameOrCode) {
-        FMedItemViewExample example=new FMedItemViewExample();
-        FMedItemViewExample.Criteria criteria1=example.createCriteria();
-        FMedItemViewExample.Criteria criteria2=example.createCriteria();
+        FMedItemViewExample example = new FMedItemViewExample();
+        FMedItemViewExample.Criteria criteria1 = example.createCriteria();
+        FMedItemViewExample.Criteria criteria2 = example.createCriteria();
         criteria1.andNameEqualTo(nameOrCode);
         criteria2.andMnemonicCodeEqualTo(nameOrCode);
         example.or(criteria2);
@@ -116,12 +122,12 @@ public class FmeditemServiceImpl implements FmeditemService {
 
     @Override
     public boolean checkContent(FMedItem fmeditem, int state) {
-        FMedItemViewExample example=new FMedItemViewExample();
-        FMedItemViewExample.Criteria criteria=example.createCriteria();
+        FMedItemViewExample example = new FMedItemViewExample();
+        FMedItemViewExample.Criteria criteria = example.createCriteria();
         criteria.andCodeEqualTo(fmeditem.getCode());
-        if(state==1)
+        if (state == 1)
             criteria.andIdNotEqualTo(fmeditem.getId());
-        if(fmeditemviewDao.countByExample(example)>0)
+        if (fmeditemviewDao.countByExample(example) > 0)
             return false;
         else
             return true;
@@ -133,55 +139,58 @@ public class FmeditemServiceImpl implements FmeditemService {
     }
 
 
-
-
-
     /**
      * excle导入数据库
+     *
      * @param file Excle文件
      * @return 成功失败
      * @throws IOException
      */
     @Override
     public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException {
-        if (!XMLValidateAndSetting.validateType(file)) {
-
-            return false;
-        }
-        List<FMedItem> FMedItemList = new ArrayList<FMedItem>();
-        FMedItem fmeditem = null;
-        Workbook book = null;
+        //标识文件内容是否有错
+        Boolean state = true;
+        FMedItem fmeditem;
+        Workbook book;
         try {
             book = new XSSFWorkbook(file.getInputStream());
+            System.out.println("success");
         } catch (Exception e) {
             book = new HSSFWorkbook(file.getInputStream());
         }
         Sheet sheet = book.getSheetAt(0);
-        //for debug: show the name of sheet that we get
-//		logger.debug("sheet name = " + book.getSheetAt(0));
+
         for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getLastRowNum(); i++) {
-            fmeditem = new FMedItem();
-            FMedItemList.add(fmeditem);
-            Row row = sheet.getRow(i);
-            fmeditem.setId(Integer.valueOf(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(0))) );
-            fmeditem.setCode(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(1)));
-            fmeditem.setName(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(2)));
-//            XSSFCell cell3= (XSSFCell) row.getCell(3);
-//            cell3.setCellType(CellType.STRING);
-//            fmeditem.setFormat(cell3.getStringCellValue());
-//            XSSFCell cell4= (XSSFCell) row.getCell(4);
-//            cell4.setCellType(CellType.STRING);
-//            fmeditem.setPrice(cell4.getStringCellValue());
-            fmeditem.setFormat(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(3)));
-            fmeditem.setPrice(BigDecimal.valueOf(Double.valueOf(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(4)))));
-            fmeditem.setExpClassID(Integer.valueOf(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(5))));
-            fmeditem.setDeptID(Integer.valueOf(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(6))));
-            fmeditem.setMnemonicCode(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(7)));
-            fmeditem.setRecordType(Integer.valueOf(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(8))));
             try {
-                fmeditem.setAppearDate(simpleDateFormat.parse(XMLValidateAndSetting.getStringValueFromCell((XSSFCell)row.getCell(9))));
-            } catch (ParseException e) {
-                e.printStackTrace();
+                fmeditem = new FMedItem();
+                Row row = sheet.getRow(i);
+                fmeditem.setMnemonicCode(row.getCell(0).toString());
+                fmeditem.setName(row.getCell(1).toString());
+                fmeditem.setFormat(row.getCell(2).toString());
+                row.getCell(3).setCellType(CellType.STRING);
+                fmeditem.setPrice(BigDecimal.valueOf(Double.valueOf(row.getCell(3).toString())));
+                String expClassName=row.getCell(4).toString();
+                fmeditem.setExpClassID(expenseClassViewDao.getIDByName(expClassName));
+                String deptName=row.getCell(5).toString();
+                fmeditem.setDeptID(departmentViewDao.getIDByName(deptName));
+                String fMedItemType=row.getCell(6).toString();
+                fmeditem.setRecordType(constantItemDao.findIdByName(fMedItemType,20).getId());
+                //遇到重复是否继续执行
+                if (checkContent(fmeditem, 0)) {
+                    add(fmeditem, userID);
+                } else if (repeatCoverage) {
+                    fmeditem.setId(fmeditemviewDao.getIDByName(row.getCell(1).toString()));
+                    fmeditemDao.updateByPrimaryKeySelective(fmeditem);
+                }
+
+            } catch (Exception e) {
+                //遇到错误是否继续执行
+                state = false;
+                if (errorHappenContinue)
+                    continue;
+                else
+                    return false;
+
             }
 
 
@@ -197,11 +206,9 @@ public class FmeditemServiceImpl implements FmeditemService {
 //				}
 //			}
         }
-        if (!FMedItemList.isEmpty()) {
-            return false;
-        }
 //		logger.debug("last row = " + sheet.getLastRowNum());
-        return false;
+        file.getInputStream().close();
+        return state;
     }
 
 
@@ -209,62 +216,38 @@ public class FmeditemServiceImpl implements FmeditemService {
      * 数据库导出Excle
      */
     @Override
-    public File createExcel() {
-        FMedItemExample fmeditemExample = new FMedItemExample();
-        fmeditemExample.clear();
-        FMedItemExample.Criteria criteria = fmeditemExample.createCriteria();
-        List<FMedItem> listresult = fmeditemDao.selectByExample(fmeditemExample);
-        // 1.创建HSSFWorkbook，一个HSSFWorkbook对应一个Excel文件
-        XSSFWorkbook wb = new XSSFWorkbook();
-        // 2.在workbook中添加一个sheet,对应Excel文件中的sheet
-        XSSFSheet sheet = wb.createSheet("sheet1");
-        // 3.设置表头，即每个列的列名
-        String[] titel = {"id","Code","Name","Format","Price","ExpClassID","DeptID","MnemonicCode","RecordType","CreationDate"};
-        // 3.1创建第一行
-        XSSFRow row = sheet.createRow(0);
-        // 将列名写入
-        for (int i = 0; i < titel.length; i++) {
-            // 给列写入数据,创建单元格，写入数据
-            row.createCell(i).setCellValue(titel[i]);
-        }
-        // 写入正式数据
-        for (int i = 0; i < listresult.size(); i++) {
+    public File createExcel() throws IOException {
+        String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLS";
+        String fileName = "fMedItem.xls";
+        List<FmeditemView> results = fmeditemviewDao.selectByExample(new FMedItemViewExample());
+        String[] title = {"编号", "项目编码", "项目名称", "项目规格", "单价", "所属费用科目", "执行科室",
+                "项目类型", "创建时间", "创建人", "修改时间", "修改人"};
+        XSSFWorkbook wb = FileManage.createXLSTemplate(title);
+        XSSFSheet sheet = wb.getSheet("sheet1");
+        XSSFRow row;
+        for (int i = 0; i < results.size(); i++) {
             // 创建行
-            row = sheet.createRow(i+1);
+            row = sheet.createRow(i + 1);
             // 序号
-            row.createCell(0).setCellValue(listresult.get(i).getId().toString());
-            row.createCell(1).setCellValue(listresult.get(i).getCode());
-            row.createCell(2).setCellValue(listresult.get(i).getName());
-            row.createCell(3).setCellValue(listresult.get(i).getFormat());
-            row.createCell(4).setCellValue(listresult.get(i).getPrice().toString());
-            row.createCell(5).setCellValue(listresult.get(i).getExpClassID().toString());
-            row.createCell(6).setCellValue(listresult.get(i).getDeptID().toString());
-            row.createCell(7).setCellValue(listresult.get(i).getMnemonicCode());
-            row.createCell(8).setCellValue(listresult.get(i).getRecordType());
-            row.createCell(9).setCellValue(simpleDateFormat.format(listresult.get(i).getAppearDate()));
+            row.createCell(0).setCellValue(results.get(i).getId().toString());
+            row.createCell(1).setCellValue(results.get(i).getMnemonicCode());
+            row.createCell(2).setCellValue(results.get(i).getName());
+            row.createCell(3).setCellValue(results.get(i).getFormat());
+            row.createCell(4).setCellValue(results.get(i).getPrice().toString());
+            row.createCell(5).setCellValue(results.get(i).getExpClassName());
+            row.createCell(6).setCellValue(results.get(i).getDeptName());
+            row.createCell(7).setCellValue(results.get(i).getTypeName());
+            if (results.get(i).getAppearDate() != null)
+                row.createCell(8).setCellValue(simpleDateFormat.format(results.get(i).getAppearDate()));
+            row.createCell(9).setCellValue(results.get(i).getAppearUserName());
+            if (results.get(i).getChangeDate() != null)
+                row.createCell(10).setCellValue(simpleDateFormat.format(results.get(i).getChangeDate()));
+            row.createCell(11).setCellValue(results.get(i).getChangeUserName());
 
-            // 医院名称
-//            row.createCell(1).setCellValue(listresult.get(i).get("rowKey1").toString());
-//            sheet.autoSizeColumn(1, true);
-//            // 业务类型
-//            row.createCell(2).setCellValue(listresult.get(i).get("rowKey2").toString());
-//            // 异常信息
-//            row.createCell(3).setCellValue(listresult.get(i).get("rowKey3").toString());
-//            // 数量
-//            row.createCell(4).setCellValue(listresult.get(i).get("rowKey4").toString());
         }
 
-
-        try {
-            File file=new File("fmeditem.xlsx");
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            wb.write(fileOutputStream);
-            fileOutputStream.close();
-            return  file;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        File file = FileManage.createXLSFile(wb, path, fileName);
+        return file;
 //        /**
 //         * 上面的操作已经是生成一个完整的文件了，只需要将生成的流转换成文件即可；
 //         * 下面的设置宽度可有可无，对整体影响不大
@@ -285,15 +268,15 @@ public class FmeditemServiceImpl implements FmeditemService {
 //        return wb;
     }
 
+
     @Override
     public File createXLSTemplate() throws IOException {
         String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLSTemplate";
-        String fileName ="fMedItemTemplate.xls";
-        String[] title = {"编号", "项目名称", "规格", "价格","费用类型","执行科室","项目类别",};
+        String fileName = "fMedItemTemplate.xls";
+        String[] title = { "编码", "项目名称", "规格", "价格", "费用类型", "执行科室", "项目类别"};
         XSSFWorkbook wb = FileManage.createXLSTemplate(title);
         return FileManage.createXLSFile(wb, path, fileName);
     }
-
 
 
 }

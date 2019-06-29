@@ -4,6 +4,7 @@ import edu.neu.hospital.bean.finaceBean.ExpenseClassView;
 import edu.neu.hospital.example.finaceExample.ExpenseClassViewExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface ExpenseClassViewDao {
     long countByExample(ExpenseClassViewExample example);
@@ -19,4 +20,6 @@ public interface ExpenseClassViewDao {
     int updateByExampleSelective(@Param("record") ExpenseClassView record, @Param("example") ExpenseClassViewExample example);
 
     int updateByExample(@Param("record") ExpenseClassView record, @Param("example") ExpenseClassViewExample example);
+    @Select("select id from expenseclassview where name=#{name}")
+    int getIDByName(String name);
 }

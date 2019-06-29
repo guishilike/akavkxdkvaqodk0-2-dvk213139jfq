@@ -24,4 +24,6 @@ public interface FMedItemViewDao {
 
     @Select("select id,mnemonicCode as code, name from fmeditemview")
     List<NameCodeDTO> selectAllFMedNamesAndCodes();
+    @Select("select id fmeditemview where name=#{name}")
+    int getIDByName(String name);
 }
