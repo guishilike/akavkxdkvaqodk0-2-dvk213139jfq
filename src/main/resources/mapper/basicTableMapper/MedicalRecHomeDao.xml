@@ -1,412 +1,421 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace = "edu.neu.hospital.dao.basicTableDao.MedicalRecHomeDao">
-    <resultMap id = "BaseResultMap" type = "edu.neu.hospital.bean.basicTableBean.MedicalRecHome">
-        <id column = "id" jdbcType = "INTEGER" property = "id"/>
-        <result column = "medicalRecId" jdbcType = "INTEGER" property = "medicalRecId"/>
-        <result column = "doctorId" jdbcType = "INTEGER" property = "doctorId"/>
-        <result column = "chiefComplaint" jdbcType = "VARCHAR" property = "chiefComplaint"/>
-        <result column = "currentMedicalHistory" jdbcType = "VARCHAR" property = "currentMedicalHistory"/>
-        <result column = "currentTreatmentSituation" jdbcType = "VARCHAR" property = "currentTreatmentSituation"/>
-        <result column = "pastMedicalHistory" jdbcType = "VARCHAR" property = "pastMedicalHistory"/>
-        <result column = "allergies" jdbcType = "VARCHAR" property = "allergies"/>
-        <result column = "physicalExamination" jdbcType = "VARCHAR" property = "physicalExamination"/>
-        <result column = "initialDiagnosis" jdbcType = "VARCHAR" property = "initialDiagnosis"/>
-        <result column = "initialDiagnosisType" jdbcType = "CHAR" property = "initialDiagnosisType"/>
-        <result column = "inspectRecommend" jdbcType = "VARCHAR" property = "inspectRecommend"/>
-        <result column = "attention" jdbcType = "VARCHAR" property = "attention"/>
-        <result column = "status" jdbcType = "CHAR" property = "status"/>
-        <result column = "appearDate" jdbcType = "TIMESTAMP" property = "appearDate"/>
-        <result column = "changeDate" jdbcType = "TIMESTAMP" property = "changeDate"/>
-        <result column = "reserve3" jdbcType = "VARCHAR" property = "reserve3"/>
-    </resultMap>
-    <sql id = "Example_Where_Clause">
-        <where>
-            <foreach collection = "oredCriteria" item = "criteria" separator = "or">
-                <if test = "criteria.valid">
-                    <trim prefix = "(" prefixOverrides = "and" suffix = ")">
-                        <foreach collection = "criteria.criteria" item = "criterion">
-                            <choose>
-                                <when test = "criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test = "criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test = "criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test = "criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close = ")" collection = "criterion.value" item = "listItem" open = "("
-                                             separator = ",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
+<mapper namespace="edu.neu.hospital.dao.basicTableDao.MedicalRecHomeDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.basicTableBean.MedicalRecHome">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="medicalRecId" jdbcType="INTEGER" property="medicalRecId" />
+    <result column="doctorId" jdbcType="INTEGER" property="doctorId" />
+    <result column="chiefComplaint" jdbcType="VARCHAR" property="chiefComplaint" />
+    <result column="currentMedicalHistory" jdbcType="VARCHAR" property="currentMedicalHistory" />
+    <result column="currentTreatmentSituation" jdbcType="VARCHAR" property="currentTreatmentSituation" />
+    <result column="pastMedicalHistory" jdbcType="VARCHAR" property="pastMedicalHistory" />
+    <result column="allergies" jdbcType="VARCHAR" property="allergies" />
+    <result column="physicalExamination" jdbcType="VARCHAR" property="physicalExamination" />
+    <result column="assistantExamination" jdbcType="VARCHAR" property="assistantExamination" />
+    <result column="initialDiagnosis" jdbcType="VARCHAR" property="initialDiagnosis" />
+    <result column="initialDiagnosisType" jdbcType="CHAR" property="initialDiagnosisType" />
+    <result column="inspectRecommend" jdbcType="VARCHAR" property="inspectRecommend" />
+    <result column="attention" jdbcType="VARCHAR" property="attention" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
+    <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
+    <result column="reserve3" jdbcType="VARCHAR" property="reserve3" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-    <sql id = "Update_By_Example_Where_Clause">
-        <where>
-            <foreach collection = "example.oredCriteria" item = "criteria" separator = "or">
-                <if test = "criteria.valid">
-                    <trim prefix = "(" prefixOverrides = "and" suffix = ")">
-                        <foreach collection = "criteria.criteria" item = "criterion">
-                            <choose>
-                                <when test = "criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test = "criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test = "criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test = "criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close = ")" collection = "criterion.value" item = "listItem" open = "("
-                                             separator = ",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-    <sql id = "Base_Column_List">
-        id, medicalRecId, doctorId, chiefComplaint, currentMedicalHistory, currentTreatmentSituation,
-        pastMedicalHistory, allergies, physicalExamination, initialDiagnosis, initialDiagnosisType,
-        inspectRecommend, attention, `status`, appearDate, changeDate, reserve3
-    </sql>
-    <select id = "selectByExample" parameterType = "edu.neu.hospital.example.basicTableExample.MedicalRecHomeExample"
-            resultMap = "BaseResultMap">
-        select
-        <if test = "distinct">
-            distinct
+          </trim>
         </if>
-        <include refid = "Base_Column_List"/>
-        from medicalrechome
-        <if test = "_parameter != null">
-            <include refid = "Example_Where_Clause"/>
-        </if>
-        <if test = "orderByClause != null">
-            order by ${orderByClause}
-        </if>
-        <if test = "limit != null">
-            <if test = "offset != null">
-                limit ${offset}, ${limit}
-            </if>
-            <if test = "offset == null">
-                limit ${limit}
-            </if>
-        </if>
-    </select>
-    <select id = "selectByPrimaryKey" parameterType = "java.lang.Integer" resultMap = "BaseResultMap">
-        select
-        <include refid = "Base_Column_List"/>
-        from medicalrechome
-        where id = #{id,jdbcType=INTEGER}
-    </select>
-    <delete id = "deleteByPrimaryKey" parameterType = "java.lang.Integer">
-        delete
-        from medicalrechome
-        where id = #{id,jdbcType=INTEGER}
-    </delete>
-    <delete id = "deleteByExample" parameterType = "edu.neu.hospital.example.basicTableExample.MedicalRecHomeExample">
-        delete from medicalrechome
-        <if test = "_parameter != null">
-            <include refid = "Example_Where_Clause"/>
-        </if>
-    </delete>
-    <insert id = "insert" keyColumn = "id" keyProperty = "id" parameterType = "edu.neu.hospital.bean.basicTableBean.MedicalRecHome"
-            useGeneratedKeys = "true">
-        insert into medicalrechome (medicalRecId, doctorId, chiefComplaint,
-                                    currentMedicalHistory, currentTreatmentSituation,
-                                    pastMedicalHistory, allergies, physicalExamination,
-                                    initialDiagnosis, initialDiagnosisType, inspectRecommend,
-                                    attention, `status`, appearDate,
-                                    changeDate, reserve3)
-        values (#{medicalRecId,jdbcType=INTEGER}, #{doctorId,jdbcType=INTEGER}, #{chiefComplaint,jdbcType=VARCHAR},
-                #{currentMedicalHistory,jdbcType=VARCHAR}, #{currentTreatmentSituation,jdbcType=VARCHAR},
-                #{pastMedicalHistory,jdbcType=VARCHAR}, #{allergies,jdbcType=VARCHAR},
-                #{physicalExamination,jdbcType=VARCHAR},
-                #{initialDiagnosis,jdbcType=VARCHAR}, #{initialDiagnosisType,jdbcType=CHAR},
-                #{inspectRecommend,jdbcType=VARCHAR},
-                #{attention,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{appearDate,jdbcType=TIMESTAMP},
-                #{changeDate,jdbcType=TIMESTAMP}, #{reserve3,jdbcType=VARCHAR})
-    </insert>
-    <insert id = "insertSelective" keyColumn = "id" keyProperty = "id"
-            parameterType = "edu.neu.hospital.bean.basicTableBean.MedicalRecHome" useGeneratedKeys = "true">
-        insert into medicalrechome
-        <trim prefix = "(" suffix = ")" suffixOverrides = ",">
-            <if test = "medicalRecId != null">
-                medicalRecId,
-            </if>
-            <if test = "doctorId != null">
-                doctorId,
-            </if>
-            <if test = "chiefComplaint != null">
-                chiefComplaint,
-            </if>
-            <if test = "currentMedicalHistory != null">
-                currentMedicalHistory,
-            </if>
-            <if test = "currentTreatmentSituation != null">
-                currentTreatmentSituation,
-            </if>
-            <if test = "pastMedicalHistory != null">
-                pastMedicalHistory,
-            </if>
-            <if test = "allergies != null">
-                allergies,
-            </if>
-            <if test = "physicalExamination != null">
-                physicalExamination,
-            </if>
-            <if test = "initialDiagnosis != null">
-                initialDiagnosis,
-            </if>
-            <if test = "initialDiagnosisType != null">
-                initialDiagnosisType,
-            </if>
-            <if test = "inspectRecommend != null">
-                inspectRecommend,
-            </if>
-            <if test = "attention != null">
-                attention,
-            </if>
-            <if test = "status != null">
-                `status`,
-            </if>
-            <if test = "appearDate != null">
-                appearDate,
-            </if>
-            <if test = "changeDate != null">
-                changeDate,
-            </if>
-            <if test = "reserve3 != null">
-                reserve3,
-            </if>
-        </trim>
-        <trim prefix = "values (" suffix = ")" suffixOverrides = ",">
-            <if test = "medicalRecId != null">
-                #{medicalRecId,jdbcType=INTEGER},
-            </if>
-            <if test = "doctorId != null">
-                #{doctorId,jdbcType=INTEGER},
-            </if>
-            <if test = "chiefComplaint != null">
-                #{chiefComplaint,jdbcType=VARCHAR},
-            </if>
-            <if test = "currentMedicalHistory != null">
-                #{currentMedicalHistory,jdbcType=VARCHAR},
-            </if>
-            <if test = "currentTreatmentSituation != null">
-                #{currentTreatmentSituation,jdbcType=VARCHAR},
-            </if>
-            <if test = "pastMedicalHistory != null">
-                #{pastMedicalHistory,jdbcType=VARCHAR},
-            </if>
-            <if test = "allergies != null">
-                #{allergies,jdbcType=VARCHAR},
-            </if>
-            <if test = "physicalExamination != null">
-                #{physicalExamination,jdbcType=VARCHAR},
-            </if>
-            <if test = "initialDiagnosis != null">
-                #{initialDiagnosis,jdbcType=VARCHAR},
-            </if>
-            <if test = "initialDiagnosisType != null">
-                #{initialDiagnosisType,jdbcType=CHAR},
-            </if>
-            <if test = "inspectRecommend != null">
-                #{inspectRecommend,jdbcType=VARCHAR},
-            </if>
-            <if test = "attention != null">
-                #{attention,jdbcType=VARCHAR},
-            </if>
-            <if test = "status != null">
-                #{status,jdbcType=CHAR},
-            </if>
-            <if test = "appearDate != null">
-                #{appearDate,jdbcType=TIMESTAMP},
-            </if>
-            <if test = "changeDate != null">
-                #{changeDate,jdbcType=TIMESTAMP},
-            </if>
-            <if test = "reserve3 != null">
-                #{reserve3,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-    <select id = "countByExample" parameterType = "edu.neu.hospital.example.basicTableExample.MedicalRecHomeExample"
-            resultType = "java.lang.Long">
-        select count(*) from medicalrechome
-        <if test = "_parameter != null">
-            <include refid = "Example_Where_Clause"/>
-        </if>
-    </select>
-    <update id = "updateByExampleSelective" parameterType = "map">
-        update medicalrechome
-        <set>
-            <if test = "record.id != null">
-                id = #{record.id,jdbcType=INTEGER},
-            </if>
-            <if test = "record.medicalRecId != null">
-                medicalRecId = #{record.medicalRecId,jdbcType=INTEGER},
-            </if>
-            <if test = "record.doctorId != null">
-                doctorId = #{record.doctorId,jdbcType=INTEGER},
-            </if>
-            <if test = "record.chiefComplaint != null">
-                chiefComplaint = #{record.chiefComplaint,jdbcType=VARCHAR},
-            </if>
-            <if test = "record.currentMedicalHistory != null">
-                currentMedicalHistory = #{record.currentMedicalHistory,jdbcType=VARCHAR},
-            </if>
-            <if test = "record.currentTreatmentSituation != null">
-                currentTreatmentSituation = #{record.currentTreatmentSituation,jdbcType=VARCHAR},
-            </if>
-            <if test = "record.pastMedicalHistory != null">
-                pastMedicalHistory = #{record.pastMedicalHistory,jdbcType=VARCHAR},
-            </if>
-            <if test = "record.allergies != null">
-                allergies = #{record.allergies,jdbcType=VARCHAR},
-            </if>
-            <if test = "record.physicalExamination != null">
-                physicalExamination = #{record.physicalExamination,jdbcType=VARCHAR},
-            </if>
-            <if test = "record.initialDiagnosis != null">
-                initialDiagnosis = #{record.initialDiagnosis,jdbcType=VARCHAR},
-            </if>
-            <if test = "record.initialDiagnosisType != null">
-                initialDiagnosisType = #{record.initialDiagnosisType,jdbcType=CHAR},
-            </if>
-            <if test = "record.inspectRecommend != null">
-                inspectRecommend = #{record.inspectRecommend,jdbcType=VARCHAR},
-            </if>
-            <if test = "record.attention != null">
-                attention = #{record.attention,jdbcType=VARCHAR},
-            </if>
-            <if test = "record.status != null">
-                `status` = #{record.status,jdbcType=CHAR},
-            </if>
-            <if test = "record.appearDate != null">
-                appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
-            </if>
-            <if test = "record.changeDate != null">
-                changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
-            </if>
-            <if test = "record.reserve3 != null">
-                reserve3 = #{record.reserve3,jdbcType=VARCHAR},
-            </if>
-        </set>
-        <if test = "_parameter != null">
-            <include refid = "Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id = "updateByExample" parameterType = "map">
-        update medicalrechome
-        set id = #{record.id,jdbcType=INTEGER},
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, medicalRecId, doctorId, chiefComplaint, currentMedicalHistory, currentTreatmentSituation, 
+    pastMedicalHistory, allergies, physicalExamination, assistantExamination, initialDiagnosis, 
+    initialDiagnosisType, inspectRecommend, attention, `status`, appearDate, changeDate, 
+    reserve3
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.basicTableExample.MedicalRecHomeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from medicalrechome
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from medicalrechome
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from medicalrechome
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.basicTableExample.MedicalRecHomeExample">
+    delete from medicalrechome
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.basicTableBean.MedicalRecHome" useGeneratedKeys="true">
+    insert into medicalrechome (medicalRecId, doctorId, chiefComplaint, 
+      currentMedicalHistory, currentTreatmentSituation, 
+      pastMedicalHistory, allergies, physicalExamination, 
+      assistantExamination, initialDiagnosis, 
+      initialDiagnosisType, inspectRecommend, attention, 
+      `status`, appearDate, changeDate, 
+      reserve3)
+    values (#{medicalRecId,jdbcType=INTEGER}, #{doctorId,jdbcType=INTEGER}, #{chiefComplaint,jdbcType=VARCHAR}, 
+      #{currentMedicalHistory,jdbcType=VARCHAR}, #{currentTreatmentSituation,jdbcType=VARCHAR}, 
+      #{pastMedicalHistory,jdbcType=VARCHAR}, #{allergies,jdbcType=VARCHAR}, #{physicalExamination,jdbcType=VARCHAR}, 
+      #{assistantExamination,jdbcType=VARCHAR}, #{initialDiagnosis,jdbcType=VARCHAR}, 
+      #{initialDiagnosisType,jdbcType=CHAR}, #{inspectRecommend,jdbcType=VARCHAR}, #{attention,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{appearDate,jdbcType=TIMESTAMP}, #{changeDate,jdbcType=TIMESTAMP}, 
+      #{reserve3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.basicTableBean.MedicalRecHome" useGeneratedKeys="true">
+    insert into medicalrechome
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="medicalRecId != null">
+        medicalRecId,
+      </if>
+      <if test="doctorId != null">
+        doctorId,
+      </if>
+      <if test="chiefComplaint != null">
+        chiefComplaint,
+      </if>
+      <if test="currentMedicalHistory != null">
+        currentMedicalHistory,
+      </if>
+      <if test="currentTreatmentSituation != null">
+        currentTreatmentSituation,
+      </if>
+      <if test="pastMedicalHistory != null">
+        pastMedicalHistory,
+      </if>
+      <if test="allergies != null">
+        allergies,
+      </if>
+      <if test="physicalExamination != null">
+        physicalExamination,
+      </if>
+      <if test="assistantExamination != null">
+        assistantExamination,
+      </if>
+      <if test="initialDiagnosis != null">
+        initialDiagnosis,
+      </if>
+      <if test="initialDiagnosisType != null">
+        initialDiagnosisType,
+      </if>
+      <if test="inspectRecommend != null">
+        inspectRecommend,
+      </if>
+      <if test="attention != null">
+        attention,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="appearDate != null">
+        appearDate,
+      </if>
+      <if test="changeDate != null">
+        changeDate,
+      </if>
+      <if test="reserve3 != null">
+        reserve3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="medicalRecId != null">
+        #{medicalRecId,jdbcType=INTEGER},
+      </if>
+      <if test="doctorId != null">
+        #{doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="chiefComplaint != null">
+        #{chiefComplaint,jdbcType=VARCHAR},
+      </if>
+      <if test="currentMedicalHistory != null">
+        #{currentMedicalHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="currentTreatmentSituation != null">
+        #{currentTreatmentSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="pastMedicalHistory != null">
+        #{pastMedicalHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="allergies != null">
+        #{allergies,jdbcType=VARCHAR},
+      </if>
+      <if test="physicalExamination != null">
+        #{physicalExamination,jdbcType=VARCHAR},
+      </if>
+      <if test="assistantExamination != null">
+        #{assistantExamination,jdbcType=VARCHAR},
+      </if>
+      <if test="initialDiagnosis != null">
+        #{initialDiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="initialDiagnosisType != null">
+        #{initialDiagnosisType,jdbcType=CHAR},
+      </if>
+      <if test="inspectRecommend != null">
+        #{inspectRecommend,jdbcType=VARCHAR},
+      </if>
+      <if test="attention != null">
+        #{attention,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="appearDate != null">
+        #{appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserve3 != null">
+        #{reserve3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.basicTableExample.MedicalRecHomeExample" resultType="java.lang.Long">
+    select count(*) from medicalrechome
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update medicalrechome
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.medicalRecId != null">
         medicalRecId = #{record.medicalRecId,jdbcType=INTEGER},
+      </if>
+      <if test="record.doctorId != null">
         doctorId = #{record.doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.chiefComplaint != null">
         chiefComplaint = #{record.chiefComplaint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentMedicalHistory != null">
         currentMedicalHistory = #{record.currentMedicalHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentTreatmentSituation != null">
         currentTreatmentSituation = #{record.currentTreatmentSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pastMedicalHistory != null">
         pastMedicalHistory = #{record.pastMedicalHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allergies != null">
         allergies = #{record.allergies,jdbcType=VARCHAR},
+      </if>
+      <if test="record.physicalExamination != null">
         physicalExamination = #{record.physicalExamination,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assistantExamination != null">
+        assistantExamination = #{record.assistantExamination,jdbcType=VARCHAR},
+      </if>
+      <if test="record.initialDiagnosis != null">
         initialDiagnosis = #{record.initialDiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.initialDiagnosisType != null">
         initialDiagnosisType = #{record.initialDiagnosisType,jdbcType=CHAR},
+      </if>
+      <if test="record.inspectRecommend != null">
         inspectRecommend = #{record.inspectRecommend,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attention != null">
         attention = #{record.attention,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
         `status` = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.appearDate != null">
         appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeDate != null">
         changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
-        reserve3 = #{record.reserve3,jdbcType=VARCHAR}
-        <if test = "_parameter != null">
-            <include refid = "Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id = "updateByPrimaryKeySelective" parameterType = "edu.neu.hospital.bean.basicTableBean.MedicalRecHome">
-        update medicalrechome
-        <set>
-            <if test = "medicalRecId != null">
-                medicalRecId = #{medicalRecId,jdbcType=INTEGER},
-            </if>
-            <if test = "doctorId != null">
-                doctorId = #{doctorId,jdbcType=INTEGER},
-            </if>
-            <if test = "chiefComplaint != null">
-                chiefComplaint = #{chiefComplaint,jdbcType=VARCHAR},
-            </if>
-            <if test = "currentMedicalHistory != null">
-                currentMedicalHistory = #{currentMedicalHistory,jdbcType=VARCHAR},
-            </if>
-            <if test = "currentTreatmentSituation != null">
-                currentTreatmentSituation = #{currentTreatmentSituation,jdbcType=VARCHAR},
-            </if>
-            <if test = "pastMedicalHistory != null">
-                pastMedicalHistory = #{pastMedicalHistory,jdbcType=VARCHAR},
-            </if>
-            <if test = "allergies != null">
-                allergies = #{allergies,jdbcType=VARCHAR},
-            </if>
-            <if test = "physicalExamination != null">
-                physicalExamination = #{physicalExamination,jdbcType=VARCHAR},
-            </if>
-            <if test = "initialDiagnosis != null">
-                initialDiagnosis = #{initialDiagnosis,jdbcType=VARCHAR},
-            </if>
-            <if test = "initialDiagnosisType != null">
-                initialDiagnosisType = #{initialDiagnosisType,jdbcType=CHAR},
-            </if>
-            <if test = "inspectRecommend != null">
-                inspectRecommend = #{inspectRecommend,jdbcType=VARCHAR},
-            </if>
-            <if test = "attention != null">
-                attention = #{attention,jdbcType=VARCHAR},
-            </if>
-            <if test = "status != null">
-                `status` = #{status,jdbcType=CHAR},
-            </if>
-            <if test = "appearDate != null">
-                appearDate = #{appearDate,jdbcType=TIMESTAMP},
-            </if>
-            <if test = "changeDate != null">
-                changeDate = #{changeDate,jdbcType=TIMESTAMP},
-            </if>
-            <if test = "reserve3 != null">
-                reserve3 = #{reserve3,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id = "updateByPrimaryKey" parameterType = "edu.neu.hospital.bean.basicTableBean.MedicalRecHome">
-        update medicalrechome
-        set medicalRecId              = #{medicalRecId,jdbcType=INTEGER},
-            doctorId                  = #{doctorId,jdbcType=INTEGER},
-            chiefComplaint            = #{chiefComplaint,jdbcType=VARCHAR},
-            currentMedicalHistory     = #{currentMedicalHistory,jdbcType=VARCHAR},
-            currentTreatmentSituation = #{currentTreatmentSituation,jdbcType=VARCHAR},
-            pastMedicalHistory        = #{pastMedicalHistory,jdbcType=VARCHAR},
-            allergies                 = #{allergies,jdbcType=VARCHAR},
-            physicalExamination       = #{physicalExamination,jdbcType=VARCHAR},
-            initialDiagnosis          = #{initialDiagnosis,jdbcType=VARCHAR},
-            initialDiagnosisType      = #{initialDiagnosisType,jdbcType=CHAR},
-            inspectRecommend          = #{inspectRecommend,jdbcType=VARCHAR},
-            attention                 = #{attention,jdbcType=VARCHAR},
-            `status`                  = #{status,jdbcType=CHAR},
-            appearDate                = #{appearDate,jdbcType=TIMESTAMP},
-            changeDate                = #{changeDate,jdbcType=TIMESTAMP},
-            reserve3                  = #{reserve3,jdbcType=VARCHAR}
-        where id = #{id,jdbcType=INTEGER}
-    </update>
+      </if>
+      <if test="record.reserve3 != null">
+        reserve3 = #{record.reserve3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update medicalrechome
+    set id = #{record.id,jdbcType=INTEGER},
+      medicalRecId = #{record.medicalRecId,jdbcType=INTEGER},
+      doctorId = #{record.doctorId,jdbcType=INTEGER},
+      chiefComplaint = #{record.chiefComplaint,jdbcType=VARCHAR},
+      currentMedicalHistory = #{record.currentMedicalHistory,jdbcType=VARCHAR},
+      currentTreatmentSituation = #{record.currentTreatmentSituation,jdbcType=VARCHAR},
+      pastMedicalHistory = #{record.pastMedicalHistory,jdbcType=VARCHAR},
+      allergies = #{record.allergies,jdbcType=VARCHAR},
+      physicalExamination = #{record.physicalExamination,jdbcType=VARCHAR},
+      assistantExamination = #{record.assistantExamination,jdbcType=VARCHAR},
+      initialDiagnosis = #{record.initialDiagnosis,jdbcType=VARCHAR},
+      initialDiagnosisType = #{record.initialDiagnosisType,jdbcType=CHAR},
+      inspectRecommend = #{record.inspectRecommend,jdbcType=VARCHAR},
+      attention = #{record.attention,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=CHAR},
+      appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+      reserve3 = #{record.reserve3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.neu.hospital.bean.basicTableBean.MedicalRecHome">
+    update medicalrechome
+    <set>
+      <if test="medicalRecId != null">
+        medicalRecId = #{medicalRecId,jdbcType=INTEGER},
+      </if>
+      <if test="doctorId != null">
+        doctorId = #{doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="chiefComplaint != null">
+        chiefComplaint = #{chiefComplaint,jdbcType=VARCHAR},
+      </if>
+      <if test="currentMedicalHistory != null">
+        currentMedicalHistory = #{currentMedicalHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="currentTreatmentSituation != null">
+        currentTreatmentSituation = #{currentTreatmentSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="pastMedicalHistory != null">
+        pastMedicalHistory = #{pastMedicalHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="allergies != null">
+        allergies = #{allergies,jdbcType=VARCHAR},
+      </if>
+      <if test="physicalExamination != null">
+        physicalExamination = #{physicalExamination,jdbcType=VARCHAR},
+      </if>
+      <if test="assistantExamination != null">
+        assistantExamination = #{assistantExamination,jdbcType=VARCHAR},
+      </if>
+      <if test="initialDiagnosis != null">
+        initialDiagnosis = #{initialDiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="initialDiagnosisType != null">
+        initialDiagnosisType = #{initialDiagnosisType,jdbcType=CHAR},
+      </if>
+      <if test="inspectRecommend != null">
+        inspectRecommend = #{inspectRecommend,jdbcType=VARCHAR},
+      </if>
+      <if test="attention != null">
+        attention = #{attention,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
+      <if test="appearDate != null">
+        appearDate = #{appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeDate != null">
+        changeDate = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserve3 != null">
+        reserve3 = #{reserve3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.neu.hospital.bean.basicTableBean.MedicalRecHome">
+    update medicalrechome
+    set medicalRecId = #{medicalRecId,jdbcType=INTEGER},
+      doctorId = #{doctorId,jdbcType=INTEGER},
+      chiefComplaint = #{chiefComplaint,jdbcType=VARCHAR},
+      currentMedicalHistory = #{currentMedicalHistory,jdbcType=VARCHAR},
+      currentTreatmentSituation = #{currentTreatmentSituation,jdbcType=VARCHAR},
+      pastMedicalHistory = #{pastMedicalHistory,jdbcType=VARCHAR},
+      allergies = #{allergies,jdbcType=VARCHAR},
+      physicalExamination = #{physicalExamination,jdbcType=VARCHAR},
+      assistantExamination = #{assistantExamination,jdbcType=VARCHAR},
+      initialDiagnosis = #{initialDiagnosis,jdbcType=VARCHAR},
+      initialDiagnosisType = #{initialDiagnosisType,jdbcType=CHAR},
+      inspectRecommend = #{inspectRecommend,jdbcType=VARCHAR},
+      attention = #{attention,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=CHAR},
+      appearDate = #{appearDate,jdbcType=TIMESTAMP},
+      changeDate = #{changeDate,jdbcType=TIMESTAMP},
+      reserve3 = #{reserve3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

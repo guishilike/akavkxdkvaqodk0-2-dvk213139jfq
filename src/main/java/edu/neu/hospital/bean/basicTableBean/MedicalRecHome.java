@@ -5,49 +5,67 @@ import java.util.Date;
 
 /**
  * medicalrechome
- *
- * @author
+ * @author 
  */
 public class MedicalRecHome implements Serializable {
-    private static final long serialVersionUID = 1L;
     private Integer id;
+
     private Integer medicalRecId;
+
     private Integer doctorId;
+
     private String chiefComplaint;
+
     private String currentMedicalHistory;
+
     private String currentTreatmentSituation;
+
     /**
      * 病史
      */
     private String pastMedicalHistory;
+
     private String allergies;
+
     private String physicalExamination;
+
+    private String assistantExamination;
+
     private String initialDiagnosis;
+
     private String initialDiagnosisType;
+
     /**
      * 检查建议
      */
     private String inspectRecommend;
+
     /**
      * 注意事项
      */
     private String attention;
+
     /**
      * 状态
      */
     private String status;
+
     /**
      * 生成时间
      */
     private Date appearDate;
+
     /**
      * 修改时间
      */
     private Date changeDate;
+
     /**
      * 保留3
      */
     private String reserve3;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
@@ -119,6 +137,14 @@ public class MedicalRecHome implements Serializable {
 
     public void setPhysicalExamination(String physicalExamination) {
         this.physicalExamination = physicalExamination;
+    }
+
+    public String getAssistantExamination() {
+        return assistantExamination;
+    }
+
+    public void setAssistantExamination(String assistantExamination) {
+        this.assistantExamination = assistantExamination;
     }
 
     public String getInitialDiagnosis() {
@@ -198,22 +224,23 @@ public class MedicalRecHome implements Serializable {
         }
         MedicalRecHome other = (MedicalRecHome) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-                && (this.getMedicalRecId() == null ? other.getMedicalRecId() == null : this.getMedicalRecId().equals(other.getMedicalRecId()))
-                && (this.getDoctorId() == null ? other.getDoctorId() == null : this.getDoctorId().equals(other.getDoctorId()))
-                && (this.getChiefComplaint() == null ? other.getChiefComplaint() == null : this.getChiefComplaint().equals(other.getChiefComplaint()))
-                && (this.getCurrentMedicalHistory() == null ? other.getCurrentMedicalHistory() == null : this.getCurrentMedicalHistory().equals(other.getCurrentMedicalHistory()))
-                && (this.getCurrentTreatmentSituation() == null ? other.getCurrentTreatmentSituation() == null : this.getCurrentTreatmentSituation().equals(other.getCurrentTreatmentSituation()))
-                && (this.getPastMedicalHistory() == null ? other.getPastMedicalHistory() == null : this.getPastMedicalHistory().equals(other.getPastMedicalHistory()))
-                && (this.getAllergies() == null ? other.getAllergies() == null : this.getAllergies().equals(other.getAllergies()))
-                && (this.getPhysicalExamination() == null ? other.getPhysicalExamination() == null : this.getPhysicalExamination().equals(other.getPhysicalExamination()))
-                && (this.getInitialDiagnosis() == null ? other.getInitialDiagnosis() == null : this.getInitialDiagnosis().equals(other.getInitialDiagnosis()))
-                && (this.getInitialDiagnosisType() == null ? other.getInitialDiagnosisType() == null : this.getInitialDiagnosisType().equals(other.getInitialDiagnosisType()))
-                && (this.getInspectRecommend() == null ? other.getInspectRecommend() == null : this.getInspectRecommend().equals(other.getInspectRecommend()))
-                && (this.getAttention() == null ? other.getAttention() == null : this.getAttention().equals(other.getAttention()))
-                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-                && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
-                && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
-                && (this.getReserve3() == null ? other.getReserve3() == null : this.getReserve3().equals(other.getReserve3()));
+            && (this.getMedicalRecId() == null ? other.getMedicalRecId() == null : this.getMedicalRecId().equals(other.getMedicalRecId()))
+            && (this.getDoctorId() == null ? other.getDoctorId() == null : this.getDoctorId().equals(other.getDoctorId()))
+            && (this.getChiefComplaint() == null ? other.getChiefComplaint() == null : this.getChiefComplaint().equals(other.getChiefComplaint()))
+            && (this.getCurrentMedicalHistory() == null ? other.getCurrentMedicalHistory() == null : this.getCurrentMedicalHistory().equals(other.getCurrentMedicalHistory()))
+            && (this.getCurrentTreatmentSituation() == null ? other.getCurrentTreatmentSituation() == null : this.getCurrentTreatmentSituation().equals(other.getCurrentTreatmentSituation()))
+            && (this.getPastMedicalHistory() == null ? other.getPastMedicalHistory() == null : this.getPastMedicalHistory().equals(other.getPastMedicalHistory()))
+            && (this.getAllergies() == null ? other.getAllergies() == null : this.getAllergies().equals(other.getAllergies()))
+            && (this.getPhysicalExamination() == null ? other.getPhysicalExamination() == null : this.getPhysicalExamination().equals(other.getPhysicalExamination()))
+            && (this.getAssistantExamination() == null ? other.getAssistantExamination() == null : this.getAssistantExamination().equals(other.getAssistantExamination()))
+            && (this.getInitialDiagnosis() == null ? other.getInitialDiagnosis() == null : this.getInitialDiagnosis().equals(other.getInitialDiagnosis()))
+            && (this.getInitialDiagnosisType() == null ? other.getInitialDiagnosisType() == null : this.getInitialDiagnosisType().equals(other.getInitialDiagnosisType()))
+            && (this.getInspectRecommend() == null ? other.getInspectRecommend() == null : this.getInspectRecommend().equals(other.getInspectRecommend()))
+            && (this.getAttention() == null ? other.getAttention() == null : this.getAttention().equals(other.getAttention()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
+            && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
+            && (this.getReserve3() == null ? other.getReserve3() == null : this.getReserve3().equals(other.getReserve3()));
     }
 
     @Override
@@ -229,6 +256,7 @@ public class MedicalRecHome implements Serializable {
         result = prime * result + ((getPastMedicalHistory() == null) ? 0 : getPastMedicalHistory().hashCode());
         result = prime * result + ((getAllergies() == null) ? 0 : getAllergies().hashCode());
         result = prime * result + ((getPhysicalExamination() == null) ? 0 : getPhysicalExamination().hashCode());
+        result = prime * result + ((getAssistantExamination() == null) ? 0 : getAssistantExamination().hashCode());
         result = prime * result + ((getInitialDiagnosis() == null) ? 0 : getInitialDiagnosis().hashCode());
         result = prime * result + ((getInitialDiagnosisType() == null) ? 0 : getInitialDiagnosisType().hashCode());
         result = prime * result + ((getInspectRecommend() == null) ? 0 : getInspectRecommend().hashCode());
@@ -255,6 +283,7 @@ public class MedicalRecHome implements Serializable {
         sb.append(", pastMedicalHistory=").append(pastMedicalHistory);
         sb.append(", allergies=").append(allergies);
         sb.append(", physicalExamination=").append(physicalExamination);
+        sb.append(", assistantExamination=").append(assistantExamination);
         sb.append(", initialDiagnosis=").append(initialDiagnosis);
         sb.append(", initialDiagnosisType=").append(initialDiagnosisType);
         sb.append(", inspectRecommend=").append(inspectRecommend);

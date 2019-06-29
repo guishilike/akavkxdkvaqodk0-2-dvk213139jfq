@@ -725,6 +725,76 @@ public class MedicalRecHomeExample {
             return (Criteria) this;
         }
 
+        public Criteria andAssistantExaminationIsNull() {
+            addCriterion("assistantExamination is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantExaminationIsNotNull() {
+            addCriterion("assistantExamination is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantExaminationEqualTo(String value) {
+            addCriterion("assistantExamination =", value, "assistantExamination");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantExaminationNotEqualTo(String value) {
+            addCriterion("assistantExamination <>", value, "assistantExamination");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantExaminationGreaterThan(String value) {
+            addCriterion("assistantExamination >", value, "assistantExamination");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantExaminationGreaterThanOrEqualTo(String value) {
+            addCriterion("assistantExamination >=", value, "assistantExamination");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantExaminationLessThan(String value) {
+            addCriterion("assistantExamination <", value, "assistantExamination");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantExaminationLessThanOrEqualTo(String value) {
+            addCriterion("assistantExamination <=", value, "assistantExamination");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantExaminationLike(String value) {
+            addCriterion("assistantExamination like", value, "assistantExamination");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantExaminationNotLike(String value) {
+            addCriterion("assistantExamination not like", value, "assistantExamination");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantExaminationIn(List<String> values) {
+            addCriterion("assistantExamination in", values, "assistantExamination");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantExaminationNotIn(List<String> values) {
+            addCriterion("assistantExamination not in", values, "assistantExamination");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantExaminationBetween(String value1, String value2) {
+            addCriterion("assistantExamination between", value1, value2, "assistantExamination");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantExaminationNotBetween(String value1, String value2) {
+            addCriterion("assistantExamination not between", value1, value2, "assistantExamination");
+            return (Criteria) this;
+        }
+
         public Criteria andInitialDiagnosisIsNull() {
             addCriterion("initialDiagnosis is null");
             return (Criteria) this;
