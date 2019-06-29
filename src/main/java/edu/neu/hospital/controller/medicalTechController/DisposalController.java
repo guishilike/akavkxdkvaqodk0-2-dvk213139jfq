@@ -8,8 +8,6 @@ import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.bean.basicTableBean.Materials;
 import edu.neu.hospital.bean.basicTableBean.MedicinesMaterialsList;
 import edu.neu.hospital.bean.disposalBean.*;
-import edu.neu.hospital.bean.inspectionBean.InspectMatReView;
-import edu.neu.hospital.bean.inspectionBean.InspectMedReView;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.MedicalTechService.DisposalService;
@@ -82,8 +80,8 @@ public class DisposalController {
         public @ResponseBody ResultDTO<List<FMedItem>> searchFMedItem(){
             ResultDTO<List<FMedItem>> resultDTO = new ResultDTO<>();
             try {
-                resultDTO.setStatus("OK");
                 resultDTO.setMsg("操作成功！");
+                resultDTO.setStatus("OK");
                 resultDTO.setData(disposalService.searchFMedItem());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -192,12 +190,14 @@ public class DisposalController {
          */
         @RequestMapping("/deleteMedMat")
         public @ResponseBody
-        ResultDTO deleteMedMat(Integer medMatListID) {
+        ResultDTO deleteMedMat(Integer medMatListID,HttpSession session) {
             ResultDTO resultDTO = new ResultDTO();
             try {
-                disposalService.deleteMedMat(medMatListID);
-                resultDTO.setStatus("OK");
+                UserView user= (UserView) session.getAttribute("user");
+                Integer userID=user.getId();
+                disposalService.deleteMedMat(medMatListID,userID);
                 resultDTO.setMsg("操作成功！");
+                resultDTO.setStatus("OK");
             } catch (Exception e) {
                 e.printStackTrace();
                 resultDTO.setStatus("NG");
@@ -213,12 +213,14 @@ public class DisposalController {
          */
         @RequestMapping("/deleteMedMatByList")
         public @ResponseBody
-        ResultDTO deleteMedMatByList(IdDTO medMatListIDs) {
+        ResultDTO deleteMedMatByList(@RequestBody IdDTO medMatListIDs,HttpSession session) {
             ResultDTO resultDTO = new ResultDTO();
             try {
-                disposalService.deleteMedMatByList(medMatListIDs);
-                resultDTO.setStatus("OK");
+                UserView user= (UserView) session.getAttribute("user");
+                Integer userID=user.getId();
+                disposalService.deleteMedMatByList(medMatListIDs,userID);
                 resultDTO.setMsg("操作成功！");
+                resultDTO.setStatus("OK");
             } catch (Exception e) {
                 e.printStackTrace();
                 resultDTO.setStatus("NG");
@@ -235,12 +237,14 @@ public class DisposalController {
          */
         @RequestMapping("/updateMedMat")
         public @ResponseBody
-        ResultDTO updateMedMat(@RequestBody MedicinesMaterialsList medicinesmaterialslist) {
+        ResultDTO updateMedMat(@RequestBody MedicinesMaterialsList medicinesmaterialslist,HttpSession session) {
             ResultDTO resultDTO = new ResultDTO();
             try {
-                disposalService.updateMedMat(medicinesmaterialslist);
-                resultDTO.setStatus("OK");
+                UserView user= (UserView) session.getAttribute("user");
+                Integer userID=user.getId();
+                disposalService.updateMedMat(medicinesmaterialslist,userID);
                 resultDTO.setMsg("操作成功！");
+                resultDTO.setStatus("OK");
             } catch (Exception e) {
                 e.printStackTrace();
                 resultDTO.setStatus("NG");
@@ -260,8 +264,9 @@ public class DisposalController {
         ResultDTO<List<Drugs>> searchDrugs(String search) {
             ResultDTO<List<Drugs>> resultDTO = new ResultDTO<>();
             try {
-                resultDTO.setStatus("OK");
+
                 resultDTO.setMsg("操作成功！");
+                resultDTO.setStatus("OK");
                 resultDTO.setData(disposalService.searchDrugs(search));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -282,8 +287,9 @@ public class DisposalController {
         ResultDTO<List<Materials>> searchMaterials(String search) {
             ResultDTO<List<Materials>> resultDTO = new ResultDTO<>();
             try {
-                resultDTO.setStatus("OK");
+
                 resultDTO.setMsg("操作成功！");
+                resultDTO.setStatus("OK");
                 resultDTO.setData(disposalService.searchMaterials(search));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -308,8 +314,9 @@ public class DisposalController {
                 UserView user = (UserView) session.getAttribute("user");
                 Integer userID = user.getId();
                 disposalService.insertMedMat(userID, medicinesmaterialslist);
-                resultDTO.setStatus("OK");
+
                 resultDTO.setMsg("操作成功！");
+                resultDTO.setStatus("OK");
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -327,14 +334,15 @@ public class DisposalController {
          */
         @RequestMapping("/approveMat")
         public @ResponseBody
-        ResultDTO approveMat(IdDTO matListIDs, HttpSession session) {
+        ResultDTO approveMat(@RequestBody IdDTO matListIDs, HttpSession session) {
             ResultDTO resultDTO = new ResultDTO();
             try {
                 UserView user = (UserView) session.getAttribute("user");
                 Integer userID = user.getId();
                 disposalService.approveMat(matListIDs, userID);
-                resultDTO.setStatus("OK");
+
                 resultDTO.setMsg("操作成功！");
+                resultDTO.setStatus("OK");
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -352,12 +360,35 @@ public class DisposalController {
          */
         @RequestMapping("/approveMed")
         public @ResponseBody
-        ResultDTO approveMed(IdDTO medListIDs, HttpSession session) {
+        ResultDTO approveMed(@RequestBody IdDTO medListIDs, HttpSession session) {
             ResultDTO resultDTO = new ResultDTO();
             try {
                 UserView user = (UserView) session.getAttribute("user");
                 Integer userID = user.getId();
                 disposalService.approveMed(medListIDs, userID);
+                resultDTO.setMsg("操作成功！");
+                resultDTO.setStatus("OK");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                resultDTO.setStatus("NG");
+                resultDTO.setMsg("操作失败！");
+            }
+            return resultDTO;
+        }
+
+
+        /**
+         * 完成审核处置项目表单信息
+         *
+         * @param disposalDetailsID 药品材料关联编号列表
+         */
+        @RequestMapping("/approveInspectionDetails")
+        public @ResponseBody
+        ResultDTO approveInspectionDetails(Integer disposalDetailsID){
+            ResultDTO resultDTO = new ResultDTO();
+            try {
+                disposalService.approvedisposalDetails(disposalDetailsID);
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("操作成功！");
 
@@ -371,10 +402,39 @@ public class DisposalController {
 
 
         /**
-         * 完成处置
+         * 登记处置项目表单信息
          *
-         * @param disposalDetailsID 处置详情ID
+         * @param disposalDetailsID 药品材料关联编号列表
+         * @return  登记结果
          */
+        @RequestMapping("/registerdisposalDetails")
+        public @ResponseBody
+        ResultDTO registerdisposalDetails(Integer disposalDetailsID){
+            ResultDTO resultDTO = new ResultDTO();
+            try {
+                String msg=disposalService.registerdisposalDetails(disposalDetailsID);
+                if (msg.equals("处置登记成功")) {
+                    resultDTO.setStatus("OK");
+                    resultDTO.setMsg(msg);
+                }else {
+                    resultDTO.setStatus("NG");
+                    resultDTO.setMsg(msg);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                resultDTO.setStatus("NG");
+                resultDTO.setMsg("操作失败！");
+            }
+            return resultDTO;
+        }
+
+
+
+
+
+
+
         @RequestMapping("/finishDisposal")
         public @ResponseBody
         ResultDTO finishDisposal(Integer disposalDetailsID) {

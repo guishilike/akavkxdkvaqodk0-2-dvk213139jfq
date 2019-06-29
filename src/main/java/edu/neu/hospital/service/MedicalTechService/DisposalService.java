@@ -1,12 +1,9 @@
 package edu.neu.hospital.service.MedicalTechService;
 
-import edu.neu.hospital.bean.basicTableBean.Drugs;
-import edu.neu.hospital.bean.basicTableBean.FMedItem;
-import edu.neu.hospital.bean.basicTableBean.Materials;
-import edu.neu.hospital.bean.basicTableBean.MedicinesMaterialsList;
+import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.bean.disposalBean.*;
 import edu.neu.hospital.dto.IdDTO;
-import edu.neu.hospital.example.disposalExample.DisposalMatReViewExample;
+
 
 import java.util.Date;
 import java.util.List;
@@ -79,14 +76,14 @@ public interface DisposalService {
      *
      * @param medMatListID  药品材料关联编号
      */
-    void deleteMedMat(Integer medMatListID);
+    void deleteMedMat(Integer medMatListID,Integer userID);
 
     /**
      *批量删除药品材料表单信息
      *
      * @param medMatListIDs  药品材料关联编号列表
      */
-    void deleteMedMatByList(IdDTO medMatListIDs);
+    void deleteMedMatByList(IdDTO medMatListIDs,Integer userID);
 
 
     /**
@@ -94,7 +91,7 @@ public interface DisposalService {
      *
      * @param medicinesmaterialslist  药品材料表单信息
      */
-    void updateMedMat(MedicinesMaterialsList medicinesmaterialslist);
+    void updateMedMat(MedicinesMaterialsList medicinesmaterialslist,Integer userID);
 
     /**
      *搜索药品信息
@@ -130,7 +127,20 @@ public interface DisposalService {
      */
     void approveMed(IdDTO medListIDs, Integer userID);
 
+    /**
+     * 完成审核处置项目表单信息
+     *
+     * @param disposalDetailsID 药品材料关联编号列表
+     */
+    void approvedisposalDetails(Integer disposalDetailsID);
 
+
+    /**
+     * 登记处置项目表单信息
+     *
+     * @param disposalDetailsID 药品材料关联编号列表
+     */
+     String registerdisposalDetails(Integer disposalDetailsID);
 
     /**
      * 完成处置

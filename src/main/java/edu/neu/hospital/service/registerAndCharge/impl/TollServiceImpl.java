@@ -129,7 +129,7 @@ public class TollServiceImpl implements TollService {
      */
 
     public List<TollDisposalView> tolldisposal(String search, Date startDate, Date endDate, Integer payStatus) {
-        List<TollDisposalView> tollDisposalViewList = new ArrayList<TollDisposalView>();
+        List<TollDisposalView> tollDisposalViewList = new ArrayList<>();
 
         FeeExample feeExample = new FeeExample();
         FeeExample.Criteria criteria = feeExample.createCriteria();
@@ -162,7 +162,7 @@ public class TollServiceImpl implements TollService {
      */
 
     public List<TollPresView> tollpres(String search, Date startDate, Date endDate, Integer payStatus) {
-        List<TollPresView> tollPresViewList = new ArrayList<TollPresView>();
+        List<TollPresView> tollPresViewList = new ArrayList<>();
 
         FeeExample feeExample = new FeeExample();
         FeeExample.Criteria criteria = feeExample.createCriteria();
@@ -194,7 +194,7 @@ public class TollServiceImpl implements TollService {
      */
 
     public List<TollMatView> tollmat(String search, Date startDate, Date endDate, Integer payStatus) {
-        List<TollMatView> tollMatViewList = new ArrayList<TollMatView>();
+        List<TollMatView> tollMatViewList = new ArrayList<>();
 
         FeeExample feeExample = new FeeExample();
         FeeExample.Criteria criteria = feeExample.createCriteria();
@@ -258,7 +258,7 @@ public class TollServiceImpl implements TollService {
      */
 
     public List<TollRegView> tollreg(String search, Date startDate, Date endDate, Integer payStatus) {
-        List<TollRegView> tollRegViewList = new ArrayList<TollRegView>();
+        List<TollRegView> tollRegViewList = new ArrayList<>();
 
         FeeExample feeExample = new FeeExample();
         FeeExample.Criteria criteria = feeExample.createCriteria();

@@ -1,5 +1,7 @@
 package edu.neu.hospital.bean.inspectionBean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -47,6 +49,7 @@ public class InspectReView implements Serializable {
     /**
      * 出生日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date patientBirthday;
 
     /**
@@ -98,7 +101,7 @@ public class InspectReView implements Serializable {
     private String abolishedName;
 
     private String executedName;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date appearDate;
 
     /**
