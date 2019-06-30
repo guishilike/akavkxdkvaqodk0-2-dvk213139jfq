@@ -11,6 +11,7 @@ import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.FmeditemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,24 +28,6 @@ import java.util.List;
 public class FMedItemController {
     @Resource
     FmeditemService fmeditemService;
-    /**
-     * 获取excel文件
-     * @return resultDTO
-     */
-    @RequestMapping("/getExcel")
-    public @ResponseBody ResultDTO<String> getExcel(){
-        ResultDTO<String> resultDTO=new ResultDTO<>();
-        try {
-            File file=fmeditemService.createExcel();
-            resultDTO.setStatus("OK");
-            resultDTO.setMsg("操作成功");
-            resultDTO.setData(file.getName());
-        }catch (Exception e){
-            resultDTO.setStatus("FALSE");
-            resultDTO.setMsg("发生异常，操作失败");
-        }
-        return resultDTO;
-    }
 
     /**
      * 添加非药品项目
@@ -56,6 +39,8 @@ public class FMedItemController {
     @RequestMapping("/add")
     public @ResponseBody
     ResultDTO<FMedItem> add(FMedItem fmeditem, HttpSession session){
+        System.out.println(fmeditem);
+
         ResultDTO<FMedItem> resultDTO=new ResultDTO();
         try{
             if(fmeditemService.checkContent(fmeditem,0)) {
@@ -73,6 +58,7 @@ public class FMedItemController {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，添加非药品项目失败");
             resultDTO.setData(fmeditem);
+            e.printStackTrace();
         }
         return resultDTO;
     }
@@ -83,7 +69,7 @@ public class FMedItemController {
      * @param session  HttpSession会话
      * @return resultDIO 返回结果
      */
-    @RequestMapping("/delete")
+    @RequestMapping("/deleteByID")
     public @ResponseBody ResultDTO<Integer> delete(Integer id,HttpSession session){
         ResultDTO<Integer> resultDTO=new ResultDTO();
         try{
@@ -108,7 +94,7 @@ public class FMedItemController {
      */
     @RequestMapping("/deleteByChoose")
     public @ResponseBody ResultDTO<IdDTO>
-    deleteByChoose(IdDTO ids, HttpSession session){
+    deleteByChoose(@RequestBody IdDTO ids, HttpSession session){
         ResultDTO<IdDTO> resultDTO=new ResultDTO();
         if(ids.getId()!=null) {
             try {
@@ -169,7 +155,7 @@ public class FMedItemController {
      * @param pageSize  页大小
      * @eturn resultDIO 返回结果
      */
-    @RequestMapping("/find")
+    @RequestMapping("/list")
     public @ResponseBody ResultDTO<PageInfo>
     find(Integer deptID,Integer recordType,Integer pageNum,Integer pageSize){
         ResultDTO<PageInfo> resultDTO=new ResultDTO();
@@ -227,7 +213,7 @@ public class FMedItemController {
     ResultDTO getAllFMedItemNamesAndCodes() {
         ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
         try {
-            List<NameCodeDTO> list = fmeditemService.getAllFMedNamesAndDeptCodes();
+            List<NameCodeDTO> list = fmeditemService.getAllFMedItemNamesAndCodes();
             resultDTO.setStatus("OK");
             resultDTO.setData(list);
             resultDTO.setMsg("获得项目搜索列表成功");
@@ -239,6 +225,73 @@ public class FMedItemController {
         return resultDTO;
 
     }
+
+    /**
+     * 获得所有非药品项目的名称和编码
+     * @return resultDTO
+     */
+    @RequestMapping("/findAllFMedItemTypeNamesAndCodes")
+    public @ResponseBody
+    ResultDTO getAllFMedItemTypeNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = fmeditemService.getAllFMedItemTypeNamesAndCodes();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得项目类型搜索列表成功");
+
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得项目类型搜索列表失败");
+        }
+        return resultDTO;
+
+    }
+
+    /**
+     * 获得项目所需的所有科室类型名称和编码
+     * @return
+     */
+    @RequestMapping("/findAllDeptNamesAndCodes")
+    public @ResponseBody
+    ResultDTO getAllDeptNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = fmeditemService.getAllDeptNamesAndDeptCodes();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得科室搜索列表成功");
+
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得科室搜索列表失败");
+        }
+        return resultDTO;
+
+    }
+
+    /**
+     * 获得所有的费用类型
+     * @return
+     */
+    @RequestMapping("/findAllExpClassNamesAndCodes")
+    public @ResponseBody
+    ResultDTO getAllExpClassNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = fmeditemService.getAllExpClassNamesAndDeptCodes();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得费用科目搜索列表成功");
+
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得费用科目搜索列表失败");
+        }
+        return resultDTO;
+
+    }
+
 
     /**
      * 创建xml文件

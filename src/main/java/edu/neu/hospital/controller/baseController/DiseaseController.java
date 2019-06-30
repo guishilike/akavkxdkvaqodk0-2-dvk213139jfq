@@ -8,6 +8,7 @@ import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.Disease;
 import edu.neu.hospital.bean.basicTableBean.DiseaseCategory;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.ConstantService;
 import edu.neu.hospital.service.baseService.DiseaseService;
@@ -16,9 +17,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -38,13 +42,13 @@ public class DiseaseController {
      * @param pageSize          页大小
      * @return resultDTO
      */
-    @RequestMapping("/findByCategory")
+    @RequestMapping("/list")
     public @ResponseBody
-    ResultDTO findDiseasesByCategory(Integer diseaseCategoryID, int pageNum, int pageSize) {
+    ResultDTO findDiseasesByCategoryAndDicaType(Integer diseaseCategoryID,Integer dicaTypeID, int pageNum, int pageSize) {
         ResultDTO<PageInfo> resultDTO = new ResultDTO<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            List<DiseaseView> diseaseviews = diseaseService.findDiseasesByCategory(diseaseCategoryID);
+            List<DiseaseView> diseaseviews = diseaseService.findDiseasesByCategory(diseaseCategoryID,dicaTypeID);
             PageInfo<DiseaseView> list = new PageInfo<DiseaseView>(diseaseviews);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功");
@@ -96,7 +100,7 @@ public class DiseaseController {
      * @param session HttpSession会话
      * @return resultDTO
      */
-    @RequestMapping("/deleteById")
+    @RequestMapping("/deleteByID")
     public @ResponseBody
     ResultDTO
     deleteById(Integer id, HttpSession session) {
@@ -154,7 +158,8 @@ public class DiseaseController {
      */
     @RequestMapping("/update")
     public @ResponseBody
-    ResultDTO update(@RequestBody Disease disease, HttpSession session) {
+    ResultDTO update(Disease disease, HttpSession session) {
+        System.out.println(disease);
         ResultDTO<Disease> resultDTO = new ResultDTO<>();
         try {
             if (diseaseService.checkDiseaseContent(disease, 1)) {
@@ -185,7 +190,8 @@ public class DiseaseController {
      */
     @RequestMapping("/add")
     public  @ResponseBody ResultDTO
-    add(@RequestBody Disease disease, HttpSession session) {
+    add( Disease disease, HttpSession session) {
+        System.out.println(disease);
         ResultDTO<Disease> resultDTO=new ResultDTO<>();
         try {
             if (diseaseService.checkDiseaseContent(disease, 0)) {
@@ -216,19 +222,20 @@ public class DiseaseController {
     @RequestMapping("/findCategoriesByDicaTypeID")
     public @ResponseBody
     ResultDTO findAllCategoryByDicaTypeID(Integer id) {
-        ResultDTO<List<DiseaseCategory>> resultDTO=new ResultDTO<>();
+        ResultDTO<List<NameCodeDTO>> resultDTO=new ResultDTO<>();
+        System.out.println(id);
         try {
-            List<DiseaseCategory> diseasecategories = diseaseService.findAllDiseaseCategoryByDicaTypeID(id);
+            List<NameCodeDTO> diseasecategories = diseaseService.findAllDiseaseCategoryByDicaTypeID(id);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功");
             resultDTO.setData(diseasecategories);
         }catch (Exception e){
             resultDTO.setStatus("FALSE");
-            resultDTO.setMsg("操作成功");
+            resultDTO.setMsg("操作失败");
+            e.printStackTrace();
         }
         return resultDTO;
     }
-
 
     /**
      * 添加一级目录
@@ -238,7 +245,7 @@ public class DiseaseController {
      */
     @RequestMapping("/addDicaType")
     public @ResponseBody
-    ResultDTO addDicaType(@RequestBody ConstantItem constantitem, HttpSession session) {
+    ResultDTO addDicaType( ConstantItem constantitem, HttpSession session) {
         ResultDTO<ConstantItem> resultDTO=new ResultDTO<>();
         try {
             if (constantService.checkContent(constantitem, 0, 22)) {
@@ -294,7 +301,7 @@ public class DiseaseController {
      */
     @RequestMapping("/updateDicaType")
     public @ResponseBody
-    ResultDTO changeDicaType(@RequestBody ConstantItem constantitem, HttpSession session) {
+    ResultDTO changeDicaType( ConstantItem constantitem, HttpSession session) {
         ResultDTO<ConstantItem> resultDTO=new ResultDTO<>();
         try {
             if (constantService.checkContent(constantitem, 1, 22)) {
@@ -325,7 +332,7 @@ public class DiseaseController {
      */
     @RequestMapping("/addDiseaseCategory")
     public @ResponseBody
-    ResultDTO addDiseaseCategory(@RequestBody DiseaseCategory diseasecategory, HttpSession session) {
+    ResultDTO addDiseaseCategory(DiseaseCategory diseasecategory, HttpSession session) {
         ResultDTO<DiseaseCategory> resultDTO=new ResultDTO<>();
         try {
             if (diseaseService.checkDiseaseCategoryContent(diseasecategory, 0)) {
@@ -357,7 +364,7 @@ public class DiseaseController {
      */
     @RequestMapping("/updateDiseaseCategory")
     public @ResponseBody
-    ResultDTO updateDiseaseCategory(@RequestBody DiseaseCategory diseasecategory, HttpSession session) {
+    ResultDTO updateDiseaseCategory(DiseaseCategory diseasecategory, HttpSession session) {
         ResultDTO<DiseaseCategory> resultDTO=new ResultDTO<>();
         try {
             if (diseaseService.checkDiseaseCategoryContent(diseasecategory, 1)) {
@@ -403,5 +410,160 @@ public class DiseaseController {
         }
         return resultDTO;
     }
+
+    /**
+     * 获得所有疾病的名称和编码
+     * @return resultDTO
+     */
+    @RequestMapping("/findAllDiseaseNamesAndCodes")
+    public @ResponseBody
+    ResultDTO getAllDiseaseNamesAndCodes() {
+        System.out.println("start");
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = diseaseService.getAllDiseaseNamesAndDeptCodes();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得疾病搜索列表成功");
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得疾病搜索列表失败");
+            e.printStackTrace();
+        }
+        return resultDTO;
+
+    }
+
+    /**
+     * 获得所有疾病分类类别的名称和编码
+     * @return resultDTO
+     */
+    @RequestMapping("/findAllDicaTypeNamesAndCodes")
+    public @ResponseBody
+    ResultDTO getAllDicaTypeNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = diseaseService.findALLDicaType();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得疾病分类类别搜索列表成功");
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得疾病分类类别搜索列表失败");
+        }
+        return resultDTO;
+
+    }
+
+    /**
+     * 获得所有疾病分类的名称和编码
+     * @return resultDTO
+     */
+    @RequestMapping("/findAllDiseaseCategoryNamesAndCodes")
+    public @ResponseBody
+    ResultDTO getAllDiseaseCategoryNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = diseaseService.findALLDiseaseCategory();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得疾病分类搜索列表成功");
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得疾病分类搜索列表失败");
+        }
+        return resultDTO;
+
+    }
+
+    /**
+     * 创建xml文件
+     * @return resultDTO
+     */
+    @RequestMapping("/createXLS")
+    public @ResponseBody
+    ResultDTO createXLS() {
+        System.out.println("开始创建");
+        ResultDTO<String> resultDTO = new ResultDTO();
+        try {
+            File file = diseaseService.createExcel();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(file.getName());
+            resultDTO.setMsg("创建疾病XLS文件信息成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("创建疾病XLS文件信息失败");
+
+        }
+        return resultDTO;
+    }
+
+    /**
+     * 导入xls文件
+     * @param file 要导入的xls文件
+     * @param errorHappenContinue 错误发生是否继续
+     * @param repeatCoverage 遇到重复是否覆盖
+     * @param session HttpSession会话
+     * @return resultDTO
+     * @throws IOException
+     */
+    @RequestMapping("/upload")
+    public @ResponseBody
+    ResultDTO upload(MultipartFile file, boolean errorHappenContinue,
+                     boolean repeatCoverage, HttpSession session) throws IOException {
+
+        ResultDTO resultDTO = new ResultDTO();
+        if (!file.isEmpty()) {
+            try {
+                System.out.println("tset");
+                UserView user = (UserView) session.getAttribute("adminUser");
+                System.out.println(user.getId());
+                if(diseaseService.uploadXls(file, user.getId(),errorHappenContinue,repeatCoverage)){
+                    resultDTO.setStatus("OK");
+                    resultDTO.setMsg("上传疾病信息成功");
+                }else{
+                    resultDTO.setStatus("WARN");
+                    resultDTO.setMsg("文件部分内容出错");
+                }
+
+            } catch (Exception e) {
+                resultDTO.setStatus("FALSE");
+                resultDTO.setMsg("上传疾病信息失败");
+                e.printStackTrace();
+            }
+
+        } else {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("上传疾病信息失败");
+        }
+        return resultDTO;
+    }
+
+    /**
+     * 创建模板
+     * @return resultDTO
+     */
+
+    @RequestMapping("/createTemplate")
+    public @ResponseBody
+    ResultDTO createTemplate() {
+        System.out.println("开始创建模板");
+        ResultDTO<String> resultDTO = new ResultDTO();
+        try {
+            File file = diseaseService.createXLSTemplate();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(file.getName());
+            resultDTO.setMsg("创建疾病XLS文件模板成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("创建疾病XLS文件模板失败");
+            e.printStackTrace();
+
+        }
+        return resultDTO;
+    }
+
 
 }

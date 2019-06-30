@@ -5,7 +5,11 @@ import edu.neu.hospital.bean.basicTableBean.Disease;
 import edu.neu.hospital.bean.basicTableBean.DiseaseCategory;
 import edu.neu.hospital.bean.baseBean.DiseaseView;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public interface DiseaseService {
@@ -14,7 +18,7 @@ public interface DiseaseService {
      * @param diseaseCategoryID 疾病类型ID
      * @return List<DiseaseView>
      */
-    public List<DiseaseView> findDiseasesByCategory(Integer diseaseCategoryID);
+    public List<DiseaseView> findDiseasesByCategory(Integer diseaseCategoryID,Integer dicaTypeID);
     /**
      * 删除id对应的疾病
      * @param id 要删除的疾病的id
@@ -31,13 +35,17 @@ public interface DiseaseService {
      * 列出所有疾病一级分类
      * @return List<ConstantItem>
      */
-    public List<ConstantItem> findALLDicaType();
+    public List<NameCodeDTO> findALLDicaType();
+    /**
+     * 列出所有疾病二级分类
+     */
+    public List<NameCodeDTO> findALLDiseaseCategory();
     /**
      * 列出所有根据一级分类id列出所有疾病类型
      * @param id 一级分类的id
      * @return  List<DiseaseCategory>
      */
-    public List<DiseaseCategory> findAllDiseaseCategoryByDicaTypeID(Integer id);
+    public List<NameCodeDTO> findAllDiseaseCategoryByDicaTypeID(Integer id);
 
     /**
      *  添加新的疾病
@@ -109,6 +117,32 @@ public interface DiseaseService {
      * @return boolean
      */
     public boolean checkDiseaseCategoryContent(DiseaseCategory diseasecategory, int state);
+    /**
+     * 获取所有疾病的名称和编号
+     * @return
+     */
+    public List<NameCodeDTO> getAllDiseaseNamesAndDeptCodes();
+    /**
+     * 用Excle表导入到数据库
+     * @param file Excle文件
+     * @param errorHappenContinue 错误发生时是否继续
+     * @param repeatCoverage  遇到重复信息是否覆盖
+     * @throws IOException 抛出的 IO异常
+     * @return
+     */
+    public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException;
 
-
+    /**
+     * 从数据库导出
+     */
+    public File createExcel() throws IOException;
+    /**
+     * 创建下载模板
+     * @return
+     */
+    public File createXLSTemplate() throws IOException;
 }
+
+
+
+

@@ -32,7 +32,6 @@ import java.io.File;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -58,6 +57,7 @@ public class FmeditemServiceImpl implements FmeditemService {
     @Override
     public void add(FMedItem fmeditem, Integer userID) {
         fmeditem.setStatus("1");
+        fmeditem.setCode(new Date().toString());
         fmeditem.setAppearUserId(userID);
         fmeditem.setAppearDate(new Date());
         fmeditemDao.insert(fmeditem);
@@ -124,7 +124,7 @@ public class FmeditemServiceImpl implements FmeditemService {
     public boolean checkContent(FMedItem fmeditem, int state) {
         FMedItemViewExample example = new FMedItemViewExample();
         FMedItemViewExample.Criteria criteria = example.createCriteria();
-        criteria.andCodeEqualTo(fmeditem.getCode());
+        criteria.andNameEqualTo(fmeditem.getName());
         if (state == 1)
             criteria.andIdNotEqualTo(fmeditem.getId());
         if (fmeditemviewDao.countByExample(example) > 0)
@@ -134,8 +134,24 @@ public class FmeditemServiceImpl implements FmeditemService {
     }
 
     @Override
-    public List<NameCodeDTO> getAllFMedNamesAndDeptCodes() {
+    public List<NameCodeDTO> getAllFMedItemNamesAndCodes() {
+
         return fmeditemviewDao.selectAllFMedNamesAndCodes();
+    }
+
+    @Override
+    public List<NameCodeDTO> getAllFMedItemTypeNamesAndCodes() {
+        return constantItemDao.findAllNamesAndCodesByType(20);
+    }
+
+    @Override
+    public List<NameCodeDTO> getAllDeptNamesAndDeptCodes() {
+        return departmentViewDao.selectAllDeptNamesAndCodesByDeptType(121);
+    }
+
+    @Override
+    public List<NameCodeDTO> getAllExpClassNamesAndDeptCodes() {
+        return expenseClassViewDao.selectAllExpClass();
     }
 
 
@@ -220,7 +236,7 @@ public class FmeditemServiceImpl implements FmeditemService {
         String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLS";
         String fileName = "fMedItem.xls";
         List<FmeditemView> results = fmeditemviewDao.selectByExample(new FMedItemViewExample());
-        String[] title = {"编号", "项目编码", "项目名称", "项目规格", "单价", "所属费用科目", "执行科室",
+        String[] title = {"编号", "项目编码", "项目名称", "项目规格", "价格", "所属费用科目", "执行科室",
                 "项目类型", "创建时间", "创建人", "修改时间", "修改人"};
         XSSFWorkbook wb = FileManage.createXLSTemplate(title);
         XSSFSheet sheet = wb.getSheet("sheet1");

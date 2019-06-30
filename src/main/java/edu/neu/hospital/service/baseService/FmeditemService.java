@@ -59,7 +59,25 @@ public interface FmeditemService {
      * 获取所有项目名称和项目编号
      * @return
      */
-    public List<NameCodeDTO> getAllFMedNamesAndDeptCodes();
+
+    public List<NameCodeDTO> getAllFMedItemNamesAndCodes();
+
+    /**
+     * 获得所有项目类型的名称或编号
+     * @return
+     */
+
+    public List<NameCodeDTO> getAllFMedItemTypeNamesAndCodes();
+    /**
+     * 获取所有科室名称和科室编号
+     * @return
+     */
+    public List<NameCodeDTO> getAllDeptNamesAndDeptCodes();
+    /**
+     * 获取所有费用科目的名称和编号
+     * @return
+     */
+    public List<NameCodeDTO> getAllExpClassNamesAndDeptCodes();
     /**
      * 用Excle表导入到数据库
      * @param file Excle文件
