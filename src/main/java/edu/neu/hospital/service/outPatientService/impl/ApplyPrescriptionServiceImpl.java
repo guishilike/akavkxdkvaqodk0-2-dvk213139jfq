@@ -247,4 +247,10 @@ public class ApplyPrescriptionServiceImpl implements ApplyPrescriptionService {
     public CommonDrugs useCommonDrugs(Integer commonDrugsID) {
         return commonDrugsDao.selectByPrimaryKey(commonDrugsID);
     }
+
+    public   List<Drugs> listDrugs(){
+        DrugsExample drugsExample = new DrugsExample();
+        DrugsExample.Criteria criteria = drugsExample.createCriteria();
+        return drugsDao.selectByExample(drugsExample);
+    }
 }

@@ -262,7 +262,7 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("outpatientUser");
             System.out.println(user.getId());
             projectTempService.deleteProjectTmpDetailsList(idDTO ,user.getId());
 

@@ -252,4 +252,14 @@ public class ApplyDisposalServiceImpl implements ApplyDisposalService {
 
         return null;
     }
+
+    @Override
+    public List<FMedItem> listDisposal() {
+        FMedItemExample fMedItemExample = new FMedItemExample();
+        FMedItemExample.Criteria criteria = fMedItemExample.createCriteria();
+
+        criteria.andRecordTypeEqualTo(119);
+
+        return fMedItemDao.selectByExample(fMedItemExample);
+    }
 }

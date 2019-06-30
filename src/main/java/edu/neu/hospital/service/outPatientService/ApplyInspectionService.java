@@ -39,5 +39,8 @@ public interface ApplyInspectionService {
     public Fee addProjectFee(  Integer inspectionDetailID  , Integer userID);
 
 
+    public   List<FMedItem> listInspection();
+
+
 
 }

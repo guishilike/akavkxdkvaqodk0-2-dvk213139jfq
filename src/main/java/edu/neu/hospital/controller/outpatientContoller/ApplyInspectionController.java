@@ -28,7 +28,7 @@ public class ApplyInspectionController {
         //新建该患者的inspection
     //首先判断Inspection表里是否已经有该病例的检查了
     public boolean checkIsHaven( Integer medicalRecordID );
-    public boolean newInspection( Inspection inspection , Integer userID);
+    public boolean newInspection( Inspection inspection , Integer outpatientUserID);
     */
     @RequestMapping("/newInspection")
     public @ResponseBody
@@ -36,9 +36,9 @@ public class ApplyInspectionController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
         try {
 
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            applyInspectionService.newInspection(inspection, user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            applyInspectionService.newInspection(inspection, outpatientUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加处置成功");
             resultDTO.setData(inspection);
@@ -58,9 +58,9 @@ public class ApplyInspectionController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        UserView user = (UserView) session.getAttribute("user");
-        System.out.println(user.getId());
-        applyInspectionService.addInspectionDetailsList(inspection, inspectionDetailsList, user.getId());
+        UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+        System.out.println(outpatientUser.getId());
+        applyInspectionService.addInspectionDetailsList(inspection, inspectionDetailsList, outpatientUser.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处置详细成功");
         resultDTO.setData(inspection);
@@ -75,9 +75,9 @@ public class ApplyInspectionController {
         ResultDTO<Inspection> resultDTO = new ResultDTO<>();
 
 
-        UserView user = (UserView) session.getAttribute("user");
-        System.out.println(user.getId());
-        applyInspectionService.addInspectionDetails(inspection, inspectionDetails, user.getId());
+        UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+        System.out.println(outpatientUser.getId());
+        applyInspectionService.addInspectionDetails(inspection, inspectionDetails, outpatientUser.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处置详细成功");
         resultDTO.setData(inspection);
@@ -114,15 +114,15 @@ public class ApplyInspectionController {
         ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
             List<InspectionDetails> list = dataListDTO.getData();
             List<InspectionDetails> res = new LinkedList<>();
 
             for (int i = 0; i < list.size(); i++) {
                 InspectionDetails inspectionDetails = list.get(i);
                 inspectionDetails.setAppearDate(new Date());
-                inspectionDetails.setAppearUserID(user.getId());
+                inspectionDetails.setAppearUserID(outpatientUser.getId());
                 res.add(inspectionDetails);
 
             }
@@ -150,9 +150,9 @@ public class ApplyInspectionController {
         ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            List<InspectionDetails> inspectionDetailsList = applyInspectionService.drawInspectionDetails(inspectionDetailsIdList, user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            List<InspectionDetails> inspectionDetailsList = applyInspectionService.drawInspectionDetails(inspectionDetailsIdList, outpatientUser.getId());
             PageInfo<InspectionDetails> list = new PageInfo<>(inspectionDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("开立成功");
@@ -175,9 +175,9 @@ public class ApplyInspectionController {
         try {
 
            //
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            Fee fee = applyInspectionService.addProjectFee(inspectionDetailID , user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            Fee fee = applyInspectionService.addProjectFee(inspectionDetailID , outpatientUser.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("插入成功");
@@ -199,9 +199,9 @@ public class ApplyInspectionController {
         ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            List<InspectionDetails> inspectionDetailsList = applyInspectionService.deleteInspectionDetails(inspectionDetailsIdList, user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            List<InspectionDetails> inspectionDetailsList = applyInspectionService.deleteInspectionDetails(inspectionDetailsIdList, outpatientUser.getId());
             PageInfo<InspectionDetails> list = new PageInfo<>(inspectionDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
@@ -220,9 +220,9 @@ public class ApplyInspectionController {
         ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            List<InspectionDetails> inspectionDetailsList = applyInspectionService.abolishInspectionDetails(inspectionDetailsIdList, user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            List<InspectionDetails> inspectionDetailsList = applyInspectionService.abolishInspectionDetails(inspectionDetailsIdList, outpatientUser.getId());
             PageInfo<InspectionDetails> list = new PageInfo<>(inspectionDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("废除成功");
@@ -242,8 +242,8 @@ public class ApplyInspectionController {
         ResultDTO<CommonInspection> resultDTO = new ResultDTO<>();
         try {
             //
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
             CommonInspection commonInspection = applyInspectionService.useCommonInspection(commonInspectionID);
 
             resultDTO.setStatus("OK");
@@ -265,9 +265,9 @@ public class ApplyInspectionController {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
         try{
 
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            Integer id = applyInspectionService.saveTemplate(projectTemplate , user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            Integer id = applyInspectionService.saveTemplate(projectTemplate , outpatientUser.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("存为模板");
@@ -286,9 +286,9 @@ public class ApplyInspectionController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            applyInspectionService.saveTemplateDetails(lists, user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            applyInspectionService.saveTemplateDetails(lists, outpatientUser.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("模板详细存储成功");
@@ -308,8 +308,8 @@ public class ApplyInspectionController {
         ResultDTO<ProjectTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
             ProjectTemplate p = applyInspectionService.use_Check(projectTemplateID);
 
             resultDTO.setStatus("OK");
@@ -346,13 +346,50 @@ public class ApplyInspectionController {
     }
     /*
     //6.	存为组套
-    public Integer saveTemplate(ProjectTemplate  projectTemplate , Integer userID);
-    public boolean  saveTemplateDetails(DataListDTO lists, Integer userID);
+    public Integer saveTemplate(ProjectTemplate  projectTemplate , Integer outpatientUserID);
+    public boolean  saveTemplateDetails(DataListDTO lists, Integer outpatientUserID);
     //7.	引用组套
     public ProjectTemplate use_Check(Integer projectTemplateID);
     //8.	查看检查结果
     public List<InspectionResult>    lookInspectionRes(Integer inspectionDetailsID);
      */
+
+    @RequestMapping("/listInspection")
+    public @ResponseBody
+    ResultDTO<PageInfo<FMedItem>> listInspection(Integer pageNum , Integer pageSize){
+        ResultDTO<PageInfo<FMedItem>> resultDTO = new ResultDTO<>();
+
+        try {
+            PageHelper.startPage(pageNum, pageSize);
+            System.out.println("1");
+            List<FMedItem> fMedItemList = applyInspectionService.listInspection();
+            resultDTO.setMsg("listInspection操作成功");
+            System.out.println("1");
+            PageInfo<FMedItem> list = new PageInfo<>(fMedItemList);
+            resultDTO.setData(list);
+            System.out.println("1");
+            for (int i = 0; i < fMedItemList.size(); i++) {
+                System.out.println(fMedItemList.get(i).toString());
+                System.out.println("2");
+            }
+            resultDTO.setStatus("OK");
+
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+
+            resultDTO.setMsg("listPatientNoDiagnosis失败");
+
+            System.out.println(e);
+        }
+
+        return resultDTO;
+
+    }
+
+
+
+
+
 
 }
 

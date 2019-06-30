@@ -29,9 +29,9 @@ public class DiagnosisController {
         ResultDTO<Diagnosis> resultDTO = new ResultDTO<>();
         try{
 
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            diagnoseService.addDiagnosis(diagnosis , user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            diagnoseService.addDiagnosis(diagnosis , outpatientUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加诊断成功");
             resultDTO.setData(diagnosis);
@@ -53,10 +53,10 @@ public class DiagnosisController {
 
        // try{
         PageHelper.startPage(pageNum, pageSize);
-        UserView user = (UserView) session.getAttribute("user");
-        System.out.println(user.getId());
+        UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+        System.out.println(outpatientUser.getId());
             System.out.println("wai-----");
-            diagnoseService.addDiagnosisList(diagnosisList , user.getId());
+            diagnoseService.addDiagnosisList(diagnosisList , outpatientUser.getId());
             System.out.println("-----");
             PageInfo<Diagnosis> list = new PageInfo<>(diagnosisList.getData());
             resultDTO.setStatus("OK");
@@ -102,9 +102,9 @@ public class DiagnosisController {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
         try{
 
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            diagnoseService.deleteDiagnosis(diagnosisID , user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            diagnoseService.deleteDiagnosis(diagnosisID , outpatientUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除诊断成功");
             resultDTO.setData(diagnosisID);
@@ -124,11 +124,11 @@ public class DiagnosisController {
 
         // try{
 
-        UserView user = (UserView) session.getAttribute("user");
-        System.out.println(user.getId());
+        UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+        System.out.println(outpatientUser.getId());
         System.out.println("wai-----");
 
-        diagnoseService.deleteDiagnosisList(ids , user.getId());
+        diagnoseService.deleteDiagnosisList(ids , outpatientUser.getId());
         System.out.println("-----");
 
 
@@ -152,9 +152,9 @@ public class DiagnosisController {
         ResultDTO<Diagnosis> resultDTO = new ResultDTO<>();
     try{
 
-        UserView user = (UserView) session.getAttribute("user");
-        System.out.println(user.getId());
-            diagnoseService.updateDiagnosis(diagnosis , user.getId());
+        UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+        System.out.println(outpatientUser.getId());
+            diagnoseService.updateDiagnosis(diagnosis , outpatientUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("更新诊断成功");
             resultDTO.setData(diagnosis);
@@ -196,11 +196,11 @@ public class DiagnosisController {
     /*
     //删
 
-    public  boolean deleteDiagnosis( Integer diagnosisID,Integer userID);
-    public boolean deleteDiagnosisList(IdDTO diagnosisIDs , Integer userID);
+    public  boolean deleteDiagnosis( Integer diagnosisID,Integer outpatientUserID);
+    public boolean deleteDiagnosisList(IdDTO diagnosisIDs , Integer outpatientUserID);
     //改
     //主诊、疑似等都在此处设置
-    public boolean updateDiagnosis( Diagnosis diagnosis,Integer userID);
+    public boolean updateDiagnosis( Diagnosis diagnosis,Integer outpatientUserID);
 
     //查
     public  Diagnosis searchDiagnosis( Integer diagnosisID);
@@ -238,9 +238,9 @@ public class DiagnosisController {
 
         try {
 
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            diagnoseService.defineDiagnose(diagnosisID , user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            diagnoseService.defineDiagnose(diagnosisID , outpatientUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("确诊成功");
             resultDTO.setData(diagnosisID);

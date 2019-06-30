@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Service
+
 public class ApplyInspectionServiceImpl implements ApplyInspectionService {
 
     @Resource
@@ -356,6 +357,19 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
 
 
         return null;
+    }
+
+    @Override
+    public List<FMedItem> listInspection() {
+        FMedItemExample fMedItemExample = new FMedItemExample();
+        FMedItemExample.Criteria criteria = fMedItemExample.createCriteria();
+        FMedItemExample.Criteria criteria1 = fMedItemExample.createCriteria();
+        criteria.andRecordTypeEqualTo(117);
+        criteria1.andRecordTypeEqualTo(118);
+        fMedItemExample.or(criteria1);
+
+
+        return fMedItemDao.selectByExample(fMedItemExample);
     }
 
 

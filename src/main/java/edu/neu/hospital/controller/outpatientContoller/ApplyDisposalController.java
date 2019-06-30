@@ -29,16 +29,16 @@ public class ApplyDisposalController {
         //新建该患者的disposal
     //首先判断Disposal表里是否已经有该病例的检查了
     public boolean checkIsHaven( Integer medicalRecordID );
-    public boolean newDisposal( Disposal disposal , Integer userID);
+    public boolean newDisposal( Disposal disposal , Integer outpatientUserID);
     */
     @RequestMapping("/newDisposal")
     public @ResponseBody
     ResultDTO newDisposal(Disposal disposal, HttpSession session) {
         ResultDTO<Disposal> resultDTO = new ResultDTO<>();
         try {
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            applyDisposalService.newDisposal(disposal, user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            applyDisposalService.newDisposal(disposal, outpatientUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("增加处置成功");
             resultDTO.setData(disposal);
@@ -58,9 +58,9 @@ public class ApplyDisposalController {
         ResultDTO<Disposal> resultDTO = new ResultDTO<>();
 
 
-        UserView user = (UserView) session.getAttribute("user");
-        System.out.println(user.getId());
-        applyDisposalService.addDisposalDetailsList(disposal, disposalDetialsList, user.getId());
+        UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+        System.out.println(outpatientUser.getId());
+        applyDisposalService.addDisposalDetailsList(disposal, disposalDetialsList, outpatientUser.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处置详细成功");
         resultDTO.setData(disposal);
@@ -75,9 +75,9 @@ public class ApplyDisposalController {
         ResultDTO<Disposal> resultDTO = new ResultDTO<>();
 
 
-        UserView user = (UserView) session.getAttribute("user");
-        System.out.println(user.getId());
-        applyDisposalService.addDisposalDetails(disposal, disposalDetails, user.getId());
+        UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+        System.out.println(outpatientUser.getId());
+        applyDisposalService.addDisposalDetails(disposal, disposalDetails, outpatientUser.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处置详细成功");
         resultDTO.setData(disposal);
@@ -114,15 +114,15 @@ public class ApplyDisposalController {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
             List<DisposalDetails> list = dataListDTO.getData();
             List<DisposalDetails> res = new LinkedList<>();
 
             for (int i = 0; i < list.size(); i++) {
                 DisposalDetails disposalDetails = list.get(i);
                 disposalDetails.setAppearDate(new Date());
-                disposalDetails.setAppearUserID(user.getId());
+                disposalDetails.setAppearUserID(outpatientUser.getId());
                 res.add(disposalDetails);
 
             }
@@ -150,9 +150,9 @@ public class ApplyDisposalController {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            List<DisposalDetails> disposalDetailsList = applyDisposalService.drawDisposalDetails(disposalDetailsIdList, user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            List<DisposalDetails> disposalDetailsList = applyDisposalService.drawDisposalDetails(disposalDetailsIdList, outpatientUser.getId());
             PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("开立成功");
@@ -172,9 +172,9 @@ public class ApplyDisposalController {
         try {
 
             //
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            Fee fee = applyDisposalService.addProjectFee(disposalDetailID , user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            Fee fee = applyDisposalService.addProjectFee(disposalDetailID , outpatientUser.getId());
 
             resultDTO.setStatus("OK");
             resultDTO.setMsg("插入成功");
@@ -195,9 +195,9 @@ public class ApplyDisposalController {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            List<DisposalDetails> disposalDetailsList = applyDisposalService.deleteDisposalDetails(disposalDetailsIdList, user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            List<DisposalDetails> disposalDetailsList = applyDisposalService.deleteDisposalDetails(disposalDetailsIdList, outpatientUser.getId());
             PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
@@ -216,9 +216,9 @@ public class ApplyDisposalController {
         ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
-            UserView user = (UserView) session.getAttribute("user");
-            System.out.println(user.getId());
-            List<DisposalDetails> disposalDetailsList = applyDisposalService.abolishDisposalDetails(disposalDetailsIdList, user.getId());
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            List<DisposalDetails> disposalDetailsList = applyDisposalService.abolishDisposalDetails(disposalDetailsIdList, outpatientUser.getId());
             PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("废除成功");
@@ -237,8 +237,8 @@ public class ApplyDisposalController {
     ResultDTO useCommonDisposal(Integer commonDisposalID , HttpSession session) {
         ResultDTO<CommonDiposals> resultDTO = new ResultDTO<>();
         try {
-            UserView user = (UserView) session.getAttribute("user");
-            Integer userID = user.getId();
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            Integer outpatientUserID = outpatientUser.getId();
             CommonDiposals commonDisposal = applyDisposalService.useCommonDisposal(commonDisposalID);
 
             resultDTO.setStatus("OK");
@@ -254,5 +254,35 @@ public class ApplyDisposalController {
 
     }
 
+    @RequestMapping("/listDisposal")
+    public @ResponseBody
+    ResultDTO<PageInfo<FMedItem>> listDisposal(Integer pageNum , Integer pageSize){
+        ResultDTO<PageInfo<FMedItem>> resultDTO = new ResultDTO<>();
 
+        try {
+            PageHelper.startPage(pageNum, pageSize);
+            System.out.println("1");
+            List<FMedItem> fMedItemList = applyDisposalService.listDisposal();
+            resultDTO.setMsg("listDisposal操作成功");
+            System.out.println("1");
+            PageInfo<FMedItem> list = new PageInfo<>(fMedItemList);
+            resultDTO.setData(list);
+            System.out.println("1");
+            for (int i = 0; i < fMedItemList.size(); i++) {
+                System.out.println(fMedItemList.get(i).toString());
+                System.out.println("2");
+            }
+            resultDTO.setStatus("OK");
+
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+
+            resultDTO.setMsg("listPatientNoDiagnosis失败");
+
+            System.out.println(e);
+        }
+
+        return resultDTO;
+
+    }
 }

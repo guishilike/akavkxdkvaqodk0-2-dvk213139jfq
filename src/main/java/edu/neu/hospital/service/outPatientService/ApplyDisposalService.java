@@ -32,5 +32,6 @@ public interface ApplyDisposalService {
     public CommonDiposals useCommonDisposal(Integer commonDisposalID);
     //开立时向fee中插一条未缴费的记录
     public Fee addProjectFee(Integer inspectionDetailID  , Integer userID);
+    public   List<FMedItem> listDisposal();
 
 }
