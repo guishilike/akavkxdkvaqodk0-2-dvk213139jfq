@@ -1394,6 +1394,146 @@ public class ScheduleRuleViewExample {
             addCriterion("deptTypeID not between", value1, value2, "deptTypeID");
             return (Criteria) this;
         }
+
+        public Criteria andAppearUserNameIsNull() {
+            addCriterion("appearUserName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserNameIsNotNull() {
+            addCriterion("appearUserName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserNameEqualTo(String value) {
+            addCriterion("appearUserName =", value, "appearUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserNameNotEqualTo(String value) {
+            addCriterion("appearUserName <>", value, "appearUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserNameGreaterThan(String value) {
+            addCriterion("appearUserName >", value, "appearUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserNameGreaterThanOrEqualTo(String value) {
+            addCriterion("appearUserName >=", value, "appearUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserNameLessThan(String value) {
+            addCriterion("appearUserName <", value, "appearUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserNameLessThanOrEqualTo(String value) {
+            addCriterion("appearUserName <=", value, "appearUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserNameLike(String value) {
+            addCriterion("appearUserName like", value, "appearUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserNameNotLike(String value) {
+            addCriterion("appearUserName not like", value, "appearUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserNameIn(List<String> values) {
+            addCriterion("appearUserName in", values, "appearUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserNameNotIn(List<String> values) {
+            addCriterion("appearUserName not in", values, "appearUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserNameBetween(String value1, String value2) {
+            addCriterion("appearUserName between", value1, value2, "appearUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppearUserNameNotBetween(String value1, String value2) {
+            addCriterion("appearUserName not between", value1, value2, "appearUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameIsNull() {
+            addCriterion("changeUserName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameIsNotNull() {
+            addCriterion("changeUserName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameEqualTo(String value) {
+            addCriterion("changeUserName =", value, "changeUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameNotEqualTo(String value) {
+            addCriterion("changeUserName <>", value, "changeUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameGreaterThan(String value) {
+            addCriterion("changeUserName >", value, "changeUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameGreaterThanOrEqualTo(String value) {
+            addCriterion("changeUserName >=", value, "changeUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameLessThan(String value) {
+            addCriterion("changeUserName <", value, "changeUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameLessThanOrEqualTo(String value) {
+            addCriterion("changeUserName <=", value, "changeUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameLike(String value) {
+            addCriterion("changeUserName like", value, "changeUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameNotLike(String value) {
+            addCriterion("changeUserName not like", value, "changeUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameIn(List<String> values) {
+            addCriterion("changeUserName in", values, "changeUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameNotIn(List<String> values) {
+            addCriterion("changeUserName not in", values, "changeUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameBetween(String value1, String value2) {
+            addCriterion("changeUserName between", value1, value2, "changeUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserNameNotBetween(String value1, String value2) {
+            addCriterion("changeUserName not between", value1, value2, "changeUserName");
+            return (Criteria) this;
+        }
     }
 
     /**

@@ -4,7 +4,11 @@ import edu.neu.hospital.bean.basicTableBean.Schedule;
 import edu.neu.hospital.bean.basicTableBean.Schedulerule;
 import edu.neu.hospital.bean.baseBean.ScheduleRuleView;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -60,6 +64,36 @@ public interface ScheduleRuleService {
      * @return Schedule 返回的排班信息
      */
     public Schedule getScheduleByRule(Schedulerule schedulerule);
+    /**
+     * 获取所有医生的名称和编号
+     * @return
+     */
+    public List<NameCodeDTO> getAllDoctors();
+    /**
+     * 根据科室获取所有医生的名称和编号
+     * @return
+     */
+    public List<NameCodeDTO> getAllDoctorsByDeptID(Integer deptID);
+
+    /**
+     * 用Excle表导入到数据库
+     * @param file Excle文件
+     * @param errorHappenContinue 错误发生时是否继续
+     * @param repeatCoverage  遇到重复信息是否覆盖
+     * @throws IOException 抛出的 IO异常
+     * @return
+     */
+    public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException;
+
+    /**
+     * 从数据库导出
+     */
+    public File createExcel() throws IOException;
+    /**
+     * 创建下载模板
+     * @return
+     */
+    public File createXLSTemplate() throws IOException;
 
 
 

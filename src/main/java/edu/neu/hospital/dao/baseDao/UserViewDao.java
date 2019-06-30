@@ -27,4 +27,14 @@ public interface UserViewDao {
     List<NameCodeDTO> selectAllUserNamesAndUserIDs();
     @Select("select id form userview where userName=#{userName}")
     int getIDByName(String userName);
+    //根据用户id获取用户科室
+    @Select("select departmentID form userview where id=#{id}")
+    int getDeptIDByDoctorID(Integer id);
+    //列出所有排班医生
+    @Select("select id ,userName as name, realName as code from userview where (typeID=108 or typeID=109) and isSchedule=1")
+    List<NameCodeDTO> selectAllDoctor();
+    //列出所有排班医生
+    @Select("select id ,userName as name, realName as code from userview where (typeID=108 or typeID=109) and isSchedule=1 and" +
+            "departmentID=#{deptID}")
+    List<NameCodeDTO> selectAllDoctorByDeptID(Integer deptID);
 }

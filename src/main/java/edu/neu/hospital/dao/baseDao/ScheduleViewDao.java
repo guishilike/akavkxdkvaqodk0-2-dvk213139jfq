@@ -4,6 +4,7 @@ import edu.neu.hospital.bean.baseBean.ScheduleView;
 import edu.neu.hospital.example.baseExample.ScheduleViewExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface ScheduleViewDao {
     long countByExample(ScheduleViewExample example);
@@ -19,4 +20,6 @@ public interface ScheduleViewDao {
     int updateByExampleSelective(@Param("record") ScheduleView record, @Param("example") ScheduleViewExample example);
 
     int updateByExample(@Param("record") ScheduleView record, @Param("example") ScheduleViewExample example);
+
+
 }

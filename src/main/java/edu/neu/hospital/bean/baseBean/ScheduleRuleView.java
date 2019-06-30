@@ -81,6 +81,16 @@ public class ScheduleRuleView implements Serializable {
      */
     private Integer deptTypeID;
 
+    /**
+     * 登录名
+     */
+    private String appearUserName;
+
+    /**
+     * 登录名
+     */
+    private String changeUserName;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -243,6 +253,22 @@ public class ScheduleRuleView implements Serializable {
         this.deptTypeID = deptTypeID;
     }
 
+    public String getAppearUserName() {
+        return appearUserName;
+    }
+
+    public void setAppearUserName(String appearUserName) {
+        this.appearUserName = appearUserName;
+    }
+
+    public String getChangeUserName() {
+        return changeUserName;
+    }
+
+    public void setChangeUserName(String changeUserName) {
+        this.changeUserName = changeUserName;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -274,7 +300,9 @@ public class ScheduleRuleView implements Serializable {
             && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
             && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
             && (this.getDeptCategoryID() == null ? other.getDeptCategoryID() == null : this.getDeptCategoryID().equals(other.getDeptCategoryID()))
-            && (this.getDeptTypeID() == null ? other.getDeptTypeID() == null : this.getDeptTypeID().equals(other.getDeptTypeID()));
+            && (this.getDeptTypeID() == null ? other.getDeptTypeID() == null : this.getDeptTypeID().equals(other.getDeptTypeID()))
+            && (this.getAppearUserName() == null ? other.getAppearUserName() == null : this.getAppearUserName().equals(other.getAppearUserName()))
+            && (this.getChangeUserName() == null ? other.getChangeUserName() == null : this.getChangeUserName().equals(other.getChangeUserName()));
     }
 
     @Override
@@ -301,6 +329,8 @@ public class ScheduleRuleView implements Serializable {
         result = prime * result + ((getChangeDate() == null) ? 0 : getChangeDate().hashCode());
         result = prime * result + ((getDeptCategoryID() == null) ? 0 : getDeptCategoryID().hashCode());
         result = prime * result + ((getDeptTypeID() == null) ? 0 : getDeptTypeID().hashCode());
+        result = prime * result + ((getAppearUserName() == null) ? 0 : getAppearUserName().hashCode());
+        result = prime * result + ((getChangeUserName() == null) ? 0 : getChangeUserName().hashCode());
         return result;
     }
 
@@ -330,6 +360,8 @@ public class ScheduleRuleView implements Serializable {
         sb.append(", changeDate=").append(changeDate);
         sb.append(", deptCategoryID=").append(deptCategoryID);
         sb.append(", deptTypeID=").append(deptTypeID);
+        sb.append(", appearUserName=").append(appearUserName);
+        sb.append(", changeUserName=").append(changeUserName);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
