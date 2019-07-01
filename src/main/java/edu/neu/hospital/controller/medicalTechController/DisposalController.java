@@ -385,9 +385,14 @@ public class DisposalController {
         ResultDTO approveInspectionDetails(Integer disposalDetailsID){
             ResultDTO resultDTO = new ResultDTO();
             try {
-                disposalService.approvedisposalDetails(disposalDetailsID);
-                resultDTO.setStatus("OK");
-                resultDTO.setMsg("操作成功！");
+                String msg=disposalService.approvedisposalDetails(disposalDetailsID);
+                if(msg.equals("完成审核")) {
+                    resultDTO.setStatus("OK");
+                    resultDTO.setMsg(msg);
+                }else{
+                    resultDTO.setStatus("WARN");
+                    resultDTO.setMsg(msg);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();

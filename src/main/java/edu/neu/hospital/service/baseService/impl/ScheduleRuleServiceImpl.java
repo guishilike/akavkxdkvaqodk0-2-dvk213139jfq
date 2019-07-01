@@ -63,6 +63,7 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
         schedulerule.setAppearDate(new Date());
         schedulerule.setAppearUserID(userID);
         schedulerule.setStatus("1");
+        System.out.println("用户id"+schedulerule.getOnDutyDoctorID());
         schedulerule.setDeptID(userViewDao.getDeptIDByDoctorID(schedulerule.getOnDutyDoctorID()));
         scheduleruleDao.insert(schedulerule);
         //当前日期30天后的日期
@@ -145,7 +146,7 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
         ScheduleRuleExample example = new ScheduleRuleExample();
         ScheduleRuleExample.Criteria criteria = example.createCriteria();
         criteria.andWeekEqualTo(schedulerule.getWeek());
-        criteria.andOnDutyDoctorIDEqualTo(schedulerule.getOnDutyTimeID());
+        criteria.andOnDutyDoctorIDEqualTo(schedulerule.getOnDutyDoctorID());
         if (state == 1)
             criteria.andIdNotEqualTo(schedulerule.getId());
         if (scheduleruleDao.countByExample(example) > 0)
@@ -155,13 +156,13 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
     }
 
     @Override
-    public List<ScheduleRuleView> find(Integer week, Integer deptCategoryID, Integer onDutyDoctorID) {
+    public List<ScheduleRuleView> find(Integer week, Integer deptID, Integer onDutyDoctorID) {
         ScheduleRuleViewExample example = new ScheduleRuleViewExample();
         ScheduleRuleViewExample.Criteria criteria = example.createCriteria();
         if (week != null)
             criteria.andWeekEqualTo(week);
-        if (deptCategoryID != null)
-            criteria.andDeptCategoryIDEqualTo(deptCategoryID);
+        if (deptID != null)
+            criteria.andDeptIDEqualTo(deptID);
         if (onDutyDoctorID != null)
             criteria.andOnDutyDoctorIDEqualTo(onDutyDoctorID);
         return scheduleruleviewDao.selectByExample(example);
@@ -197,6 +198,11 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
     }
 
     @Override
+    public List<NameCodeDTO> getAllOnDutyTimeNamesAndCodes() {
+        return constantItemDao.findAllNamesAndCodesByType(15);
+    }
+
+    @Override
     public List<NameCodeDTO> getAllDoctors() {
         return userViewDao.selectAllDoctor();
     }
@@ -224,16 +230,20 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
             try {
                 scheduleRule = new Schedulerule();
                 Row row = sheet.getRow(i);
-                for(int k=0;i<weekDay.length;i++){
+                for(int k=0;k<weekDay.length;k++){
                     if(row.getCell(0).toString().equals(weekDay[k])) {
+                        System.out.println("成功"+k);
                         scheduleRule.setWeek(k);
                         break;
                     }
                 }
+                System.out.println("onDutyDoctor:"+row.getCell(1).toString());
+                System.out.println(userViewDao.getIDByName(row.getCell(1).toString()));
                 scheduleRule.setOnDutyDoctorID(userViewDao.getIDByName(row.getCell(1).toString()));
                 scheduleRule.setLevelNameID(constantItemDao.findIdByName(row.getCell(2).toString(),13).getId());
                 scheduleRule.setDeptID(userViewDao.getDeptIDByDoctorID(scheduleRule.getOnDutyDoctorID()));
-                scheduleRule.setLevelNameID(constantItemDao.findIdByName(row.getCell(3).toString(),15).getId());
+                scheduleRule.setOnDutyTimeID(constantItemDao.findIdByName(row.getCell(3).toString(),15).getId());
+                row.getCell(4).setCellType(CellType.STRING);
                 scheduleRule.setLimitNumber(Integer.parseInt(row.getCell(4).toString()));
 
                 //遇到重复是否继续执行
@@ -244,6 +254,7 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
                     scheduleruleDao.updateByPrimaryKeySelective(scheduleRule);
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 //遇到错误是否继续执行
                 state = false;
                 if (errorHappenContinue)
@@ -263,7 +274,7 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
         String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLS";
         String fileName = "scheduleRule.xls";
         List<ScheduleRuleView> results =scheduleruleviewDao.selectByExample(new ScheduleRuleViewExample());
-        String[] title = {"编号", "星期几", "科室名称", "号别", "值班医生","排班限额",
+        String[] title = {"编号", "排班日", "科室名称", "号别", "值班医生","排班限额",
                 "创建时间", "创建人", "修改时间", "修改人"};
         XSSFWorkbook wb = FileManage.createXLSTemplate(title);
         XSSFSheet sheet = wb.getSheet("sheet1");
@@ -295,7 +306,7 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
     public File createXLSTemplate() throws IOException {
         String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLSTemplate";
         String fileName = "scheduleRuleTemplate.xls";
-        String[] title = { "星期几", "值班医生", "号别", "午别", "排班限额"};
+        String[] title = { "排班日", "值班医生", "号别", "午别", "排班限额"};
         XSSFWorkbook wb = FileManage.createXLSTemplate(title);
         return FileManage.createXLSFile(wb, path, fileName);
     }

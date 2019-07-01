@@ -1,5 +1,7 @@
 package edu.neu.hospital.bean.baseBean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -26,11 +28,11 @@ public class RegistrationLevelView implements Serializable {
      * 挂号费
      */
     private BigDecimal registrationFee;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date appearDate;
 
     private Integer apearUserID;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date changeDate;
 
     private Integer changeUserID;

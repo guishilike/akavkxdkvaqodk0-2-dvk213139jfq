@@ -27,6 +27,6 @@ public interface DiseaseViewDao {
     int updateByExample(@Param("record") DiseaseView record, @Param("example") DiseaseViewExample example);
     @Select("select id,code, name from diseaseview")
     List<NameCodeDTO> selectAllDiseaseNamesAndCodes();
-    @Select("select id diseaseview where name=#{name}")
+    @Select("select id from diseaseview where name=#{name}")
     int getIDByName(String name);
 }

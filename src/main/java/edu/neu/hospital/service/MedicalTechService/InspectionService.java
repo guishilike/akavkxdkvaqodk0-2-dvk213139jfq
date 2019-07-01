@@ -131,8 +131,9 @@ public interface InspectionService {
      * 完成审核检查项目表单信息
      *
      * @param inspectionDetailsID 药品材料关联编号列表
+     * @return 审核结果
      */
-    void approveInspectionDetails(Integer inspectionDetailsID);
+    String approveInspectionDetails(Integer inspectionDetailsID);
 
 
     /**

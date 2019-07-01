@@ -357,7 +357,6 @@ public class InspectionController{
             inspectionService.approveMed(medListIDs,userID);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功！");
-
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus("NG");
@@ -378,9 +377,14 @@ public class InspectionController{
     ResultDTO approveInspectionDetails(Integer inspectionDetailsID){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            inspectionService.approveInspectionDetails(inspectionDetailsID);
+            String msg=inspectionService.approveInspectionDetails(inspectionDetailsID);
+            if(msg.equals("完成审核")){
             resultDTO.setStatus("OK");
-            resultDTO.setMsg("操作成功！");
+            resultDTO.setMsg(msg);
+            }else {
+                resultDTO.setStatus("WARN");
+                resultDTO.setMsg(msg);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

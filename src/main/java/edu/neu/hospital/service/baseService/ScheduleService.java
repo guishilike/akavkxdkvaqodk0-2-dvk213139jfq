@@ -4,7 +4,10 @@ import edu.neu.hospital.bean.baseBean.ScheduleRuleView;
 import edu.neu.hospital.bean.baseBean.ScheduleView;
 import edu.neu.hospital.bean.basicTableBean.Schedule;
 import edu.neu.hospital.dto.IdDTO;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,7 +49,7 @@ public interface ScheduleService {
      * @param schedule 要进行查重的排班信息
      * @param state    查重状态，state=0表示添加时查重，state=1表示修改时查重
      */
-    public boolean checkContent(Schedule schedule, int state);
+    public boolean checkContent(Schedule schedule, int state) throws ParseException;
 
     /**
      * 通过星期,科室分类id和科室类型id来查找排班信息
@@ -76,4 +79,25 @@ public interface ScheduleService {
      * @return Date 返回的日期
      */
     public Date getDateRemoveTime(Date date) throws ParseException;
+
+    /**
+     * 用Excle表导入到数据库
+     * @param file Excle文件
+     * @param errorHappenContinue 错误发生时是否继续
+     * @param repeatCoverage  遇到重复信息是否覆盖
+     * @throws IOException 抛出的 IO异常
+     * @return
+     */
+    public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException;
+
+    /**
+     * 从数据库导出
+     */
+    public File createExcel() throws IOException;
+    /**
+     * 创建下载模板
+     * @return
+     */
+    public File createXLSTemplate() throws IOException;
+
 }

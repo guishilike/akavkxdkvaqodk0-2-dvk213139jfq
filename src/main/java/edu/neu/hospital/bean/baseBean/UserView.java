@@ -1,5 +1,7 @@
 package edu.neu.hospital.bean.baseBean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -69,9 +71,9 @@ public class UserView implements Serializable {
     private Integer appearUserID;
 
     private Integer changeUserID;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date appearDate;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date changeDate;
 
     private String photoLocation;

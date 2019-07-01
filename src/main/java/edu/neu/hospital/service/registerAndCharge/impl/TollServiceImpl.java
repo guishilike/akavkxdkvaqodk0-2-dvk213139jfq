@@ -2,6 +2,7 @@ package edu.neu.hospital.service.registerAndCharge.impl;
 
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.bean.tollBean.*;
+import edu.neu.hospital.config.CustomDateConverter;
 import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.dao.tollDao.*;
 import edu.neu.hospital.dto.IdDTO;
@@ -519,10 +520,17 @@ public class TollServiceImpl implements TollService {
         criteria.andUserIDEqualTo(tollManID);
         dailysettleviewExample.getOrderByClause("endTime asc");
         List<DailySettleView> dailySettleViewList = dailysettleviewDao.selectByExample(dailysettleviewExample);
-        Date startDate= dailySettleViewList.get(0).getEndTime();
-        if(endDate.compareTo(startDate)<0){
-            return "已日结";
+        Date startDate;
+        if(dailySettleViewList.size()==0){
+            CustomDateConverter customDateConverter=new CustomDateConverter();
+            startDate=customDateConverter.getLastDay(new Date());
+        }else {
+            startDate= dailySettleViewList.get(0).getEndTime();
+            if(endDate.compareTo(startDate)<0){
+                return "已日结";
+            }
         }
+        System.out.println(startDate);
         BigDecimal amount=new BigDecimal("0");
         List<FeeView> feeViewList =dailySettleFee(tollManID,startDate,endDate);
         for(FeeView feeview: feeViewList){

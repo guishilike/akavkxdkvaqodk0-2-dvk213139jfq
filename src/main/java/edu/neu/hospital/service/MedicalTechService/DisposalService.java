@@ -131,8 +131,9 @@ public interface DisposalService {
      * 完成审核处置项目表单信息
      *
      * @param disposalDetailsID 药品材料关联编号列表
+     * @return 审核结果
      */
-    void approvedisposalDetails(Integer disposalDetailsID);
+    String approvedisposalDetails(Integer disposalDetailsID);
 
 
     /**

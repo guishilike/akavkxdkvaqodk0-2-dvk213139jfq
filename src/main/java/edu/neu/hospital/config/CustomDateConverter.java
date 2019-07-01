@@ -76,4 +76,19 @@ public class CustomDateConverter implements Converter<String,Date>{
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         return calendar.getTime();
     }
+
+    /**
+     * 日期减一天
+     * @param date Date 日期
+     * @return Date 日期
+     */
+    public  Date getLastDay(Date date)
+    {
+        if (date == null)
+            return null;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        return calendar.getTime();
+    }
 }
