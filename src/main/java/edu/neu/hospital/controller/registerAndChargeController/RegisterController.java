@@ -1,17 +1,20 @@
 package edu.neu.hospital.controller.registerAndChargeController;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.DepartmentView;
+import edu.neu.hospital.bean.baseBean.RegistrationListView;
 import edu.neu.hospital.bean.baseBean.ScheduleView;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.Patient;
 import edu.neu.hospital.bean.basicTableBean.Registrationinfo;
+import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
-import edu.neu.hospital.service.baseService.ConstantService;
-import edu.neu.hospital.service.baseService.DepartmentService;
-import edu.neu.hospital.service.baseService.ScheduleService;
+import edu.neu.hospital.service.baseService.*;
 import edu.neu.hospital.service.registerAndCharge.RegisterService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,10 +42,16 @@ public class RegisterController {
     ConstantService constantService;
 
     @Resource
+    RegistrationLevelService registrationLevelService;
+
+    @Resource
     DepartmentService departmentService;
 
     @Resource
     RegisterService regService;
+
+    @Resource
+    UserService userService;
 
     /**
      * 挂号
@@ -144,7 +153,10 @@ public class RegisterController {
 
                     NameCodeDTO nameCodeDTO = new NameCodeDTO();
                     nameCodeDTO.setId(view.getOnDutyDoctorID());
-                    nameCodeDTO.setName(view.getUserName());
+
+                    nameCodeDTO.setCode(view.getUserName());
+                    User user = regService.findUserByID(view.getOnDutyDoctorID());
+                    nameCodeDTO.setName(user.getRealName());
 
                     nameCodeDTOS.add(nameCodeDTO);
 
@@ -247,6 +259,28 @@ public class RegisterController {
 
         } catch (Exception e) {
             return new ResultDTO<>("error", "发生异常，获取失败", null);
+        }
+    }
+
+    @RequestMapping("/allInfo")
+    public @ResponseBody
+    ResultDTO<PageInfo> getAllInfo(@DateTimeFormat(pattern = "yyyy-MM-dd") Date start,
+                                   @DateTimeFormat(pattern = "yyyy-MM-dd") Date end,
+                                   Integer pageNum, Integer pageSize) {
+
+        System.out.println("/register/allInfo");
+
+        try {
+
+            PageHelper.startPage(pageNum, pageSize);
+            List<RegistrationListView> regInfoList = regService.find(start,end);
+            PageInfo<RegistrationListView> list = new PageInfo<>(regInfoList);
+
+            return new ResultDTO<>("OK", "获取成功", list);
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return new ResultDTO<>("error", "发生异常，获取挂号列表失败", null);
         }
     }
 }

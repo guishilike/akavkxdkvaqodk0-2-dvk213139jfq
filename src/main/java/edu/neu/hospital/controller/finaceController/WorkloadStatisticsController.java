@@ -16,8 +16,12 @@ package edu.neu.hospital.controller.finaceController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.finaceBean.DepartmentWorkCharts;
+import edu.neu.hospital.bean.finaceBean.UserWorkCharts;
 import edu.neu.hospital.bean.finaceBean.WorkLoadStatistics;
 import edu.neu.hospital.dto.ResultDTO;
+import edu.neu.hospital.service.finaceService.DepartmentWorkChartsService;
+import edu.neu.hospital.service.finaceService.UserWorkChartsService;
 import edu.neu.hospital.service.finaceService.WorkloadStatisticsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,7 +38,75 @@ import java.util.List;
 public class WorkloadStatisticsController {
     @Resource
     WorkloadStatisticsService workloadStatisticsService;
+    @Resource
+    DepartmentWorkChartsService workloadStatisticsChartsService;
+    @Resource
+    UserWorkChartsService userWorkChartsService;
 
+    /**
+     * 查找用户工作量统计的图表
+     * @return 用户工作量统计数组
+     */
+    @RequestMapping("/userWorkCharts")
+    public @ResponseBody
+    ResultDTO<List<UserWorkCharts>> getUserWorkCharts(){
+        ResultDTO <List<UserWorkCharts>> resultDTO = new ResultDTO<>();
+        try {
+            List<UserWorkCharts> list = userWorkChartsService.list();
+            if (list != null){
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("个人工作量检查成功！可以显示");
+                resultDTO.setData(list);
+            }else {
+                resultDTO.setStatus("NG");
+                resultDTO.setMsg("个人工作量检查失败！");
+                resultDTO.setData(list);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultDTO.setStatus("NG");
+            resultDTO.setMsg("个人工作量检查出现错误！");
+        }
+        return resultDTO;
+    }
+
+    /**
+     * 查找科室工作量统计的图表
+     * @return 科室工作量统计的图表
+     */
+    @RequestMapping("/departmentWorkCharts")
+    public @ResponseBody
+    ResultDTO<List<DepartmentWorkCharts>> getDepartmentWorkCharts(){
+        ResultDTO<List<DepartmentWorkCharts>> resultDTO = new ResultDTO<>();
+        try {
+            List<DepartmentWorkCharts> list = workloadStatisticsChartsService.list();
+            if (list != null){
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("科室工作量检查成功！可以显示");
+                resultDTO.setData(list);
+            }else {
+                resultDTO.setStatus("NG");
+                resultDTO.setMsg("科室工作量检查失败！");
+                resultDTO.setData(list);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultDTO.setStatus("NG");
+            resultDTO.setMsg("科室工作量检查出现错误！");
+        }
+        return resultDTO;
+    }
+
+    /**
+     * 根据信息查找对应的工作量
+     * @param realName 医生真实姓名
+     * @param deptName 部门名称
+     * @param dateStart 开始日期
+     * @param dateEnd 结束日期
+     * @param pageNum 第几页
+     * @param pageSize 页大小
+     * @return pageinfo类型的ResultDTO
+     */
     @RequestMapping("/findByInfo")
     public @ResponseBody
     ResultDTO<PageInfo> findByInfo(String realName, String deptName, Date dateStart, Date dateEnd,Integer pageNum,Integer pageSize){

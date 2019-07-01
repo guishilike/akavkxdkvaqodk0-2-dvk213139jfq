@@ -1,7 +1,10 @@
 package edu.neu.hospital.service.registerAndCharge.impl;
 
+import edu.neu.hospital.bean.baseBean.RegistrationListView;
 import edu.neu.hospital.bean.basicTableBean.*;
+import edu.neu.hospital.dao.baseDao.RegistrationListViewDao;
 import edu.neu.hospital.dao.basicTableDao.*;
+import edu.neu.hospital.example.baseExample.RegistrationListViewExample;
 import edu.neu.hospital.service.registerAndCharge.RegisterService;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +35,12 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Resource
     RegistrationInfoDao regInfoDao;
+
+    @Resource
+    RegistrationListViewDao regListViewDao;
+
+    @Resource
+    UserDao userDao;
 
     @Override
     public int addRegisteredInfo(String isHaveCard, Patient patient, String passwd,
@@ -104,5 +113,26 @@ public class RegisterServiceImpl implements RegisterService {
         System.out.println(regInfo.toString() + "\n");
 
         return regInfoDao.insertSelective(regInfo);
+    }
+
+    @Override
+    public List<RegistrationListView> find(Date start, Date end) {
+
+        RegistrationListViewExample example = new RegistrationListViewExample();
+        RegistrationListViewExample.Criteria criteria = example.createCriteria();
+
+        if (start != null)
+            criteria.andRegistrationDateGreaterThanOrEqualTo(start);
+        if (end != null)
+            criteria.andRegistrationDateLessThanOrEqualTo(end);
+
+        example.setOrderByClause("registrationDate asc");
+
+        return regListViewDao.selectByExample(example);
+    }
+
+    @Override
+    public User findUserByID(Integer id) {
+        return userDao.selectByPrimaryKey(id);
     }
 }

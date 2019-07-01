@@ -1,7 +1,12 @@
 package edu.neu.hospital.service.registerAndCharge;
 
+import edu.neu.hospital.bean.baseBean.RegistrationListView;
 import edu.neu.hospital.bean.basicTableBean.Patient;
 import edu.neu.hospital.bean.basicTableBean.Registrationinfo;
+import edu.neu.hospital.bean.basicTableBean.User;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * 挂号服务
@@ -35,5 +40,10 @@ public interface RegisterService {
      */
     int addRegisteredInfo(String isHaveCard, Patient patient, String passwd,
                           Registrationinfo regInfo, Integer appearUserID);
+
+
+    List<RegistrationListView> find(Date start, Date end);
+
+    User findUserByID(Integer id);
 
 }

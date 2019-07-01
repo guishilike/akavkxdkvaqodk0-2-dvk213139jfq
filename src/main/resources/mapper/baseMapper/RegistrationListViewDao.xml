@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.baseDao.RegistrationListViewDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.baseBean.RegistrationListView">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="patientName" jdbcType="VARCHAR" property="patientName" />
+    <result column="regLevel" jdbcType="VARCHAR" property="regLevel" />
+    <result column="registrationDate" jdbcType="TIMESTAMP" property="registrationDate" />
+    <result column="seeDoctorDate" jdbcType="DATE" property="seeDoctorDate" />
+    <result column="deptName" jdbcType="VARCHAR" property="deptName" />
+    <result column="doctorName" jdbcType="VARCHAR" property="doctorName" />
+    <result column="regSource" jdbcType="VARCHAR" property="regSource" />
+    <result column="payCategory" jdbcType="VARCHAR" property="payCategory" />
+    <result column="isSeenDoctor" jdbcType="CHAR" property="isSeenDoctor" />
+    <result column="expense" jdbcType="DECIMAL" property="expense" />
+    <result column="appearUserID" jdbcType="INTEGER" property="appearUserID" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
+    <result column="appearUser" jdbcType="VARCHAR" property="appearUser" />
+    <result column="regStatus" jdbcType="CHAR" property="regStatus" />
+    <result column="medicalRecordNo" jdbcType="CHAR" property="medicalRecordNo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, patientName, regLevel, registrationDate, seeDoctorDate, deptName, doctorName, 
+    regSource, payCategory, isSeenDoctor, expense, appearUserID, appearDate, appearUser, 
+    regStatus, medicalRecordNo
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.baseExample.RegistrationListViewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from registrationlistview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.baseExample.RegistrationListViewExample">
+    delete from registrationlistview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.baseBean.RegistrationListView" useGeneratedKeys="true">
+    insert into registrationlistview (patientName, regLevel, registrationDate, 
+      seeDoctorDate, deptName, doctorName, 
+      regSource, payCategory, isSeenDoctor, 
+      expense, appearUserID, appearDate, 
+      appearUser, regStatus, medicalRecordNo
+      )
+    values (#{patientName,jdbcType=VARCHAR}, #{regLevel,jdbcType=VARCHAR}, #{registrationDate,jdbcType=TIMESTAMP}, 
+      #{seeDoctorDate,jdbcType=DATE}, #{deptName,jdbcType=VARCHAR}, #{doctorName,jdbcType=VARCHAR}, 
+      #{regSource,jdbcType=VARCHAR}, #{payCategory,jdbcType=VARCHAR}, #{isSeenDoctor,jdbcType=CHAR}, 
+      #{expense,jdbcType=DECIMAL}, #{appearUserID,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, 
+      #{appearUser,jdbcType=VARCHAR}, #{regStatus,jdbcType=CHAR}, #{medicalRecordNo,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.baseBean.RegistrationListView" useGeneratedKeys="true">
+    insert into registrationlistview
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="patientName != null">
+        patientName,
+      </if>
+      <if test="regLevel != null">
+        regLevel,
+      </if>
+      <if test="registrationDate != null">
+        registrationDate,
+      </if>
+      <if test="seeDoctorDate != null">
+        seeDoctorDate,
+      </if>
+      <if test="deptName != null">
+        deptName,
+      </if>
+      <if test="doctorName != null">
+        doctorName,
+      </if>
+      <if test="regSource != null">
+        regSource,
+      </if>
+      <if test="payCategory != null">
+        payCategory,
+      </if>
+      <if test="isSeenDoctor != null">
+        isSeenDoctor,
+      </if>
+      <if test="expense != null">
+        expense,
+      </if>
+      <if test="appearUserID != null">
+        appearUserID,
+      </if>
+      <if test="appearDate != null">
+        appearDate,
+      </if>
+      <if test="appearUser != null">
+        appearUser,
+      </if>
+      <if test="regStatus != null">
+        regStatus,
+      </if>
+      <if test="medicalRecordNo != null">
+        medicalRecordNo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="patientName != null">
+        #{patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="regLevel != null">
+        #{regLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationDate != null">
+        #{registrationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seeDoctorDate != null">
+        #{seeDoctorDate,jdbcType=DATE},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorName != null">
+        #{doctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="regSource != null">
+        #{regSource,jdbcType=VARCHAR},
+      </if>
+      <if test="payCategory != null">
+        #{payCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="isSeenDoctor != null">
+        #{isSeenDoctor,jdbcType=CHAR},
+      </if>
+      <if test="expense != null">
+        #{expense,jdbcType=DECIMAL},
+      </if>
+      <if test="appearUserID != null">
+        #{appearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="appearDate != null">
+        #{appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appearUser != null">
+        #{appearUser,jdbcType=VARCHAR},
+      </if>
+      <if test="regStatus != null">
+        #{regStatus,jdbcType=CHAR},
+      </if>
+      <if test="medicalRecordNo != null">
+        #{medicalRecordNo,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.baseExample.RegistrationListViewExample" resultType="java.lang.Long">
+    select count(*) from registrationlistview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update registrationlistview
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.patientName != null">
+        patientName = #{record.patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regLevel != null">
+        regLevel = #{record.regLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registrationDate != null">
+        registrationDate = #{record.registrationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.seeDoctorDate != null">
+        seeDoctorDate = #{record.seeDoctorDate,jdbcType=DATE},
+      </if>
+      <if test="record.deptName != null">
+        deptName = #{record.deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.doctorName != null">
+        doctorName = #{record.doctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regSource != null">
+        regSource = #{record.regSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payCategory != null">
+        payCategory = #{record.payCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSeenDoctor != null">
+        isSeenDoctor = #{record.isSeenDoctor,jdbcType=CHAR},
+      </if>
+      <if test="record.expense != null">
+        expense = #{record.expense,jdbcType=DECIMAL},
+      </if>
+      <if test="record.appearUserID != null">
+        appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="record.appearDate != null">
+        appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.appearUser != null">
+        appearUser = #{record.appearUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regStatus != null">
+        regStatus = #{record.regStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.medicalRecordNo != null">
+        medicalRecordNo = #{record.medicalRecordNo,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update registrationlistview
+    set id = #{record.id,jdbcType=INTEGER},
+      patientName = #{record.patientName,jdbcType=VARCHAR},
+      regLevel = #{record.regLevel,jdbcType=VARCHAR},
+      registrationDate = #{record.registrationDate,jdbcType=TIMESTAMP},
+      seeDoctorDate = #{record.seeDoctorDate,jdbcType=DATE},
+      deptName = #{record.deptName,jdbcType=VARCHAR},
+      doctorName = #{record.doctorName,jdbcType=VARCHAR},
+      regSource = #{record.regSource,jdbcType=VARCHAR},
+      payCategory = #{record.payCategory,jdbcType=VARCHAR},
+      isSeenDoctor = #{record.isSeenDoctor,jdbcType=CHAR},
+      expense = #{record.expense,jdbcType=DECIMAL},
+      appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+      appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      appearUser = #{record.appearUser,jdbcType=VARCHAR},
+      regStatus = #{record.regStatus,jdbcType=CHAR},
+      medicalRecordNo = #{record.medicalRecordNo,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -30,7 +30,6 @@ public class ExpenseclassController {
 
     /**
      * 创建excel文件
-     *
      * @return resultDTO
      */
     @RequestMapping("/createXLS")
@@ -49,6 +48,15 @@ public class ExpenseclassController {
         return resultDTO;
     }
 
+    /**
+     * 导入方法
+     * @param file 导入的文件
+     * @param errorHappenContinue 遇到错误时是否继续
+     * @param repeatCoverage 是否覆盖
+     * @param session session会话
+     * @return String类型的ResultDTO
+     * @throws IOException
+     */
     @RequestMapping("/upload")
     public @ResponseBody
     ResultDTO<String> upload(MultipartFile file, boolean errorHappenContinue,
@@ -77,6 +85,10 @@ public class ExpenseclassController {
         return resultDTO;
     }
 
+    /**
+     * 创建excle模板
+     * @return
+     */
     @RequestMapping("/createTemplate")
     public @ResponseBody
     ResultDTO createTemplate() {
@@ -99,9 +111,9 @@ public class ExpenseclassController {
 
     /**
      * 添加
-     * @param expenseclass
-     * @param session
-     * @return
+     * @param expenseclass 费用类型
+     * @param session session会话
+     * @return Expenseclass类型的ResultDTO
      */
     @RequestMapping("/add")
     public @ResponseBody
@@ -131,9 +143,9 @@ public class ExpenseclassController {
 
     /**
      * 删除收费类型
-     * @param id
-     * @param session
-     * @return
+     * @param id 收费类型ID
+     * @param session session会话
+     * @return int类型的ResultDTO
      */
     @RequestMapping("/deleteById")
     public @ResponseBody ResultDTO<Integer> delete(Integer id,HttpSession session){
@@ -154,9 +166,9 @@ public class ExpenseclassController {
 
     /**
      * 批量删除
-     * @param id
-     * @param session
-     * @return
+     * @param id 批量删除的ID数组
+     * @param session session会话
+     * @return idDTO类型的ResultDTO
      */
     @RequestMapping("/deleteByChoose")
     public @ResponseBody ResultDTO<IdDTO>
@@ -186,9 +198,9 @@ public class ExpenseclassController {
 
     /**
      * 更新
-     * @param expenseclass
-     * @param session
-     * @return
+     * @param expenseclass 费用类型对象
+     * @param session session会话
+     * @return Expenseclass类型的resultDTO
      */
     @RequestMapping("/update")
     public @ResponseBody ResultDTO<ExpenseClass>
@@ -217,8 +229,8 @@ public class ExpenseclassController {
 
     /**
      * 按名称或code模糊查找
-     * @param code
-     * @param name
+     * @param code 费用类型编码
+     * @param name 费用类型名称
      * @param pageNum 第几页
      * @param pageSize 页大小
      * @return
