@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class RegistrationlistviewExample {
+public class RegistrationListViewExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -17,7 +17,7 @@ public class RegistrationlistviewExample {
 
     private Long offset;
 
-    public RegistrationlistviewExample() {
+    public RegistrationListViewExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

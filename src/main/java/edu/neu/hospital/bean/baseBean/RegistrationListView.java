@@ -8,7 +8,7 @@ import java.util.Date;
  * registrationlistview
  * @author 
  */
-public class Registrationlistview implements Serializable {
+public class RegistrationListView implements Serializable {
     /**
      *  挂号信息编号
      */
@@ -205,7 +205,7 @@ public class Registrationlistview implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Registrationlistview other = (Registrationlistview) that;
+        RegistrationListView other = (RegistrationListView) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getMedRecID() == null ? other.getMedRecID() == null : this.getMedRecID().equals(other.getMedRecID()))
             && (this.getPatientName() == null ? other.getPatientName() == null : this.getPatientName().equals(other.getPatientName()))
