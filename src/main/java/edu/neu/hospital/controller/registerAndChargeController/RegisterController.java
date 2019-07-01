@@ -1,6 +1,9 @@
 package edu.neu.hospital.controller.registerAndChargeController;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.DepartmentView;
+import edu.neu.hospital.bean.baseBean.RegistrationListView;
 import edu.neu.hospital.bean.baseBean.ScheduleView;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
@@ -260,18 +263,21 @@ public class RegisterController {
 
     @RequestMapping("/allInfo")
     public @ResponseBody
-    ResultDTO<List<Registrationinfo>> getAllInfo() {
+    ResultDTO<PageInfo> getAllInfo(Integer pageNum, Integer pageSize) {
 
         System.out.println("/register/allInfo");
+
         try {
 
-            List<Registrationinfo> regInfoList = regService.getAll();
+            PageHelper.startPage(pageNum, pageSize);
+            List<RegistrationListView> regInfoList = regService.getAll();
+            PageInfo<RegistrationListView> list = new PageInfo<>(regInfoList);
 
-            return new ResultDTO<>("OK", "获取成功", regInfoList);
+            return new ResultDTO<>("OK", "获取成功", list);
 
         } catch (Exception e) {
             System.out.println(e.toString());
-            return new ResultDTO<>("error", "发生异常，获取失败", null);
+            return new ResultDTO<>("error", "发生异常，获取挂号列表失败", null);
         }
     }
 }

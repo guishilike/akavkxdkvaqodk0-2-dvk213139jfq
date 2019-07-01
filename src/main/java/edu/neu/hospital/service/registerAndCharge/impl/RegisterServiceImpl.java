@@ -1,14 +1,16 @@
 package edu.neu.hospital.service.registerAndCharge.impl;
 
+import edu.neu.hospital.bean.baseBean.RegistrationListView;
 import edu.neu.hospital.bean.basicTableBean.*;
+import edu.neu.hospital.dao.baseDao.RegistrationListViewDao;
 import edu.neu.hospital.dao.basicTableDao.*;
-import edu.neu.hospital.example.basicTableExample.RegistrationInfoExample;
 import edu.neu.hospital.service.registerAndCharge.RegisterService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +35,9 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Resource
     RegistrationInfoDao regInfoDao;
+
+    @Resource
+    RegistrationListViewDao regListViewDao;
 
     @Resource
     UserDao userDao;
@@ -111,8 +116,16 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
-    public List<Registrationinfo> getAll() {
-        return regInfoDao.selectByExample(new RegistrationInfoExample());
+    public List<RegistrationListView> getAll() {
+
+        List<RegistrationListView> temp = regListViewDao.selectByExample(new RegistrationListViewExample());
+        List<RegistrationListView> list = new ArrayList<>();
+
+        for (int i = temp.size() - 1; i >= 0; i--) {
+            list.add(temp.get(i));
+        }
+
+        return list;
     }
 
     @Override

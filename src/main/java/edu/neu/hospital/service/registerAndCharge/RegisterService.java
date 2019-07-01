@@ -1,5 +1,6 @@
 package edu.neu.hospital.service.registerAndCharge;
 
+import edu.neu.hospital.bean.baseBean.RegistrationListView;
 import edu.neu.hospital.bean.basicTableBean.Patient;
 import edu.neu.hospital.bean.basicTableBean.Registrationinfo;
 import edu.neu.hospital.bean.basicTableBean.User;
@@ -40,7 +41,7 @@ public interface RegisterService {
                           Registrationinfo regInfo, Integer appearUserID);
 
 
-    List<Registrationinfo> getAll();
+    List<RegistrationListView> getAll();
 
     User findUserByID(Integer id);
 

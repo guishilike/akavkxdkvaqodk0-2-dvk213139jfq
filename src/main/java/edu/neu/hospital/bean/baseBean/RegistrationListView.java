@@ -72,6 +72,11 @@ public class RegistrationListView implements Serializable {
      */
     private String appearUser;
 
+    /**
+     * 挂号状态：01挂号02退号
+     */
+    private String regStatus;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -194,6 +199,14 @@ public class RegistrationListView implements Serializable {
         this.appearUser = appearUser;
     }
 
+    public String getRegStatus() {
+        return regStatus;
+    }
+
+    public void setRegStatus(String regStatus) {
+        this.regStatus = regStatus;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -220,7 +233,8 @@ public class RegistrationListView implements Serializable {
             && (this.getExpense() == null ? other.getExpense() == null : this.getExpense().equals(other.getExpense()))
             && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
             && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
-            && (this.getAppearUser() == null ? other.getAppearUser() == null : this.getAppearUser().equals(other.getAppearUser()));
+            && (this.getAppearUser() == null ? other.getAppearUser() == null : this.getAppearUser().equals(other.getAppearUser()))
+            && (this.getRegStatus() == null ? other.getRegStatus() == null : this.getRegStatus().equals(other.getRegStatus()));
     }
 
     @Override
@@ -242,6 +256,7 @@ public class RegistrationListView implements Serializable {
         result = prime * result + ((getAppearUserID() == null) ? 0 : getAppearUserID().hashCode());
         result = prime * result + ((getAppearDate() == null) ? 0 : getAppearDate().hashCode());
         result = prime * result + ((getAppearUser() == null) ? 0 : getAppearUser().hashCode());
+        result = prime * result + ((getRegStatus() == null) ? 0 : getRegStatus().hashCode());
         return result;
     }
 
@@ -266,6 +281,7 @@ public class RegistrationListView implements Serializable {
         sb.append(", appearUserID=").append(appearUserID);
         sb.append(", appearDate=").append(appearDate);
         sb.append(", appearUser=").append(appearUser);
+        sb.append(", regStatus=").append(regStatus);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
