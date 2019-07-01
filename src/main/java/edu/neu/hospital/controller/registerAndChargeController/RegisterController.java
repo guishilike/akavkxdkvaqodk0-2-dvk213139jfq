@@ -249,4 +249,21 @@ public class RegisterController {
             return new ResultDTO<>("error", "发生异常，获取失败", null);
         }
     }
+
+    @RequestMapping("/allInfo")
+    public @ResponseBody
+    ResultDTO<List<Registrationinfo>> getAllInfo() {
+
+        System.out.println("/register/allInfo");
+        try {
+
+            List<Registrationinfo> regInfoList = regService.getAll();
+
+            return new ResultDTO<>("OK", "获取成功", regInfoList);
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return new ResultDTO<>("error", "发生异常，获取失败", null);
+        }
+    }
 }

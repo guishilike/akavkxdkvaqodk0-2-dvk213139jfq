@@ -2,6 +2,7 @@ package edu.neu.hospital.service.registerAndCharge.impl;
 
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dao.basicTableDao.*;
+import edu.neu.hospital.example.basicTableExample.RegistrationInfoExample;
 import edu.neu.hospital.service.registerAndCharge.RegisterService;
 import org.springframework.stereotype.Service;
 
@@ -104,5 +105,10 @@ public class RegisterServiceImpl implements RegisterService {
         System.out.println(regInfo.toString() + "\n");
 
         return regInfoDao.insertSelective(regInfo);
+    }
+
+    @Override
+    public List<Registrationinfo> getAll() {
+        return regInfoDao.selectByExample(new RegistrationInfoExample());
     }
 }
