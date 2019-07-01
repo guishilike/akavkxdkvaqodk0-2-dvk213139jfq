@@ -16,8 +16,12 @@ package edu.neu.hospital.controller.finaceController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.finaceBean.DepartmentWorkCharts;
+import edu.neu.hospital.bean.finaceBean.UserWorkCharts;
 import edu.neu.hospital.bean.finaceBean.WorkLoadStatistics;
 import edu.neu.hospital.dto.ResultDTO;
+import edu.neu.hospital.service.finaceService.DepartmentWorkChartsService;
+import edu.neu.hospital.service.finaceService.UserWorkChartsService;
 import edu.neu.hospital.service.finaceService.WorkloadStatisticsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,6 +38,56 @@ import java.util.List;
 public class WorkloadStatisticsController {
     @Resource
     WorkloadStatisticsService workloadStatisticsService;
+    @Resource
+    DepartmentWorkChartsService workloadStatisticsChartsService;
+    @Resource
+    UserWorkChartsService userWorkChartsService;
+
+    @RequestMapping("/userWorkCharts")
+    public @ResponseBody
+    ResultDTO<List<UserWorkCharts>> getUserWorkCharts(){
+        ResultDTO <List<UserWorkCharts>> resultDTO = new ResultDTO<>();
+        try {
+            List<UserWorkCharts> list = userWorkChartsService.list();
+            if (list != null){
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("个人工作量检查成功！可以显示");
+                resultDTO.setData(list);
+            }else {
+                resultDTO.setStatus("NG");
+                resultDTO.setMsg("个人工作量检查失败！");
+                resultDTO.setData(list);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultDTO.setStatus("NG");
+            resultDTO.setMsg("个人工作量检查出现错误！");
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping("/departmentWorkCharts")
+    public @ResponseBody
+    ResultDTO<List<DepartmentWorkCharts>> getDepartmentWorkCharts(){
+        ResultDTO<List<DepartmentWorkCharts>> resultDTO = new ResultDTO<>();
+        try {
+            List<DepartmentWorkCharts> list = workloadStatisticsChartsService.list();
+            if (list != null){
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("科室工作量检查成功！可以显示");
+                resultDTO.setData(list);
+            }else {
+                resultDTO.setStatus("NG");
+                resultDTO.setMsg("科室工作量检查失败！");
+                resultDTO.setData(list);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultDTO.setStatus("NG");
+            resultDTO.setMsg("科室工作量检查出现错误！");
+        }
+        return resultDTO;
+    }
 
     @RequestMapping("/findByInfo")
     public @ResponseBody
