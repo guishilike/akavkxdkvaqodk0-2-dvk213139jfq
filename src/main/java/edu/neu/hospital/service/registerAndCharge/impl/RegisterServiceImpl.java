@@ -4,6 +4,7 @@ import edu.neu.hospital.bean.baseBean.RegistrationListView;
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dao.baseDao.RegistrationListViewDao;
 import edu.neu.hospital.dao.basicTableDao.*;
+import edu.neu.hospital.example.baseExample.RegistrationListViewExample;
 import edu.neu.hospital.service.registerAndCharge.RegisterService;
 import org.springframework.stereotype.Service;
 
