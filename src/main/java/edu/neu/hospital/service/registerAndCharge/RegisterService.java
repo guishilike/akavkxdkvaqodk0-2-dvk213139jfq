@@ -5,6 +5,7 @@ import edu.neu.hospital.bean.basicTableBean.Patient;
 import edu.neu.hospital.bean.basicTableBean.Registrationinfo;
 import edu.neu.hospital.bean.basicTableBean.User;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public interface RegisterService {
                           Registrationinfo regInfo, Integer appearUserID);
 
 
-    List<RegistrationListView> getAll();
+    List<RegistrationListView> find(Date start, Date end);
 
     User findUserByID(Integer id);
 

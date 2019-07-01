@@ -14,6 +14,7 @@ import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.*;
 import edu.neu.hospital.service.registerAndCharge.RegisterService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -263,14 +264,16 @@ public class RegisterController {
 
     @RequestMapping("/allInfo")
     public @ResponseBody
-    ResultDTO<PageInfo> getAllInfo(Integer pageNum, Integer pageSize) {
+    ResultDTO<PageInfo> getAllInfo(@DateTimeFormat(pattern = "yyyy-MM-dd") Date start,
+                                   @DateTimeFormat(pattern = "yyyy-MM-dd") Date end,
+                                   Integer pageNum, Integer pageSize) {
 
         System.out.println("/register/allInfo");
 
         try {
 
             PageHelper.startPage(pageNum, pageSize);
-            List<RegistrationListView> regInfoList = regService.getAll();
+            List<RegistrationListView> regInfoList = regService.find(start,end);
             PageInfo<RegistrationListView> list = new PageInfo<>(regInfoList);
 
             return new ResultDTO<>("OK", "获取成功", list);

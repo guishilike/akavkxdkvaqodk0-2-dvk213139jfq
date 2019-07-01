@@ -1,5 +1,7 @@
 package edu.neu.hospital.bean.baseBean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,11 +26,13 @@ public class RegistrationListView implements Serializable {
     /**
      * 挂号日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registrationDate;
 
     /**
      * 看诊日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date seeDoctorDate;
 
     /**
@@ -60,6 +64,7 @@ public class RegistrationListView implements Serializable {
      */
     private Integer appearUserID;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date appearDate;
 
     /**

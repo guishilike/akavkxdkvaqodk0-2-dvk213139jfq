@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -117,16 +116,19 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
-    public List<RegistrationListView> getAll() {
+    public List<RegistrationListView> find(Date start, Date end) {
 
-        List<RegistrationListView> temp = regListViewDao.selectByExample(new RegistrationListViewExample());
-        List<RegistrationListView> list = new ArrayList<>();
+        RegistrationListViewExample example = new RegistrationListViewExample();
+        RegistrationListViewExample.Criteria criteria = example.createCriteria();
 
-        for (int i = temp.size() - 1; i >= 0; i--) {
-            list.add(temp.get(i));
-        }
+        if (start != null)
+            criteria.andRegistrationDateGreaterThanOrEqualTo(start);
+        if (end != null)
+            criteria.andRegistrationDateLessThanOrEqualTo(end);
 
-        return list;
+        example.setOrderByClause("registrationDate asc");
+
+        return regListViewDao.selectByExample(example);
     }
 
     @Override
