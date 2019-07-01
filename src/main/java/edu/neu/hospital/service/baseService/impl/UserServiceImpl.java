@@ -249,8 +249,4 @@ public class UserServiceImpl implements UserService {
         return FileManage.createXLSFile(wb, path, fileName);
     }
 
-    @Override
-    public User findUserByID(Integer id) {
-        return userDao.selectByPrimaryKey(id);
-    }
 }

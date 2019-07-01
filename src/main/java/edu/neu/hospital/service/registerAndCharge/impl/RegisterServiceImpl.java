@@ -34,6 +34,9 @@ public class RegisterServiceImpl implements RegisterService {
     @Resource
     RegistrationInfoDao regInfoDao;
 
+    @Resource
+    UserDao userDao;
+
     @Override
     public int addRegisteredInfo(String isHaveCard, Patient patient, String passwd,
                                  Registrationinfo regInfo, Integer appearUserID) {
@@ -110,5 +113,10 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public List<Registrationinfo> getAll() {
         return regInfoDao.selectByExample(new RegistrationInfoExample());
+    }
+
+    @Override
+    public User findUserByID(Integer id) {
+        return userDao.selectByPrimaryKey(id);
     }
 }
