@@ -43,6 +43,10 @@ public class WorkloadStatisticsController {
     @Resource
     UserWorkChartsService userWorkChartsService;
 
+    /**
+     * 查找用户工作量统计的图表
+     * @return 用户工作量统计数组
+     */
     @RequestMapping("/userWorkCharts")
     public @ResponseBody
     ResultDTO<List<UserWorkCharts>> getUserWorkCharts(){
@@ -66,6 +70,10 @@ public class WorkloadStatisticsController {
         return resultDTO;
     }
 
+    /**
+     * 查找科室工作量统计的图表
+     * @return 科室工作量统计的图表
+     */
     @RequestMapping("/departmentWorkCharts")
     public @ResponseBody
     ResultDTO<List<DepartmentWorkCharts>> getDepartmentWorkCharts(){
@@ -89,6 +97,16 @@ public class WorkloadStatisticsController {
         return resultDTO;
     }
 
+    /**
+     * 根据信息查找对应的工作量
+     * @param realName 医生真实姓名
+     * @param deptName 部门名称
+     * @param dateStart 开始日期
+     * @param dateEnd 结束日期
+     * @param pageNum 第几页
+     * @param pageSize 页大小
+     * @return pageinfo类型的ResultDTO
+     */
     @RequestMapping("/findByInfo")
     public @ResponseBody
     ResultDTO<PageInfo> findByInfo(String realName, String deptName, Date dateStart, Date dateEnd,Integer pageNum,Integer pageSize){

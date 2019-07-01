@@ -27,7 +27,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     WorkLoadStatisticsDao workloadstatisticsDao;
 
     /**
-     *
+     *查找用户信息
      * @param userID 传入一个int类型的userID
      * @return 返回根据用户ID查找到的user对象找不到为null
      */
@@ -46,7 +46,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     /**
-     *
+     *更新用户信息
      * @param user2 User类型的user，根据这个user的属性更新数据库送对应的user
      * @return 返回更新后的user对象
      */
@@ -76,6 +76,13 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
     }
 
+    /**
+            * 更新用户密码
+     * @param userID 用户ID
+     * @param oldPasswd 旧密码
+     * @param newPasswd 新密码
+     * @return 是否更新密码成功
+     */
     @Override
     public int updatePasswd(int userID ,String oldPasswd,String newPasswd) {
         Date date = new Date();
@@ -154,7 +161,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 
     /**
-     *
+     * 显示用户工作量
      * @param realName 用户的真实姓名
      * @return 根据用户姓名查找到的用户工作量统计的list
      */

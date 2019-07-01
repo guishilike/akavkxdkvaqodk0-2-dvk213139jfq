@@ -14,6 +14,10 @@ public class UserWorkChartsServiceImpl implements UserWorkChartsService {
     @Resource
     UserWorkChartsDao userWorkChartsDao;
 
+    /**
+     * 查找个人工作量统计图表的数组
+     * @return 个人工作量统计的图表数组
+     */
     @Override
     public List<UserWorkCharts> list() {
         UserWorkChartsExample userWorkChartsExample = new UserWorkChartsExample();

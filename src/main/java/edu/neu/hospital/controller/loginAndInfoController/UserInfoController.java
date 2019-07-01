@@ -54,6 +54,11 @@ public class UserInfoController {
     @Resource
     UserInfoService userInfoService;
 
+    /**
+     * 显示用户信息
+     * @param request 用于构建session会话
+     * @return 用户信息的ResultDTO
+     */
     @RequestMapping("/show")
     public @ResponseBody
 //    ResultDTO<User> show(int userID){
@@ -81,6 +86,12 @@ public class UserInfoController {
         return resultDTO;
     }
 
+    /**
+     * 更新用户头像
+     * @param pic 图片文件
+     * @param session session会话
+     * @return String类型的ResultDTO
+     */
     @RequestMapping("/updatePic")
     public @ResponseBody
     ResultDTO<String> updatePic(MultipartFile pic,HttpSession session){
@@ -122,6 +133,14 @@ public class UserInfoController {
         }
         return resultDTO;
     }
+
+    /**
+     * 更新密码
+     * @param oldPasswd 旧密码，用于验证
+     * @param newPasswd 新秘密
+     * @param session session会话
+     * @return int类型的ResultDTO
+     */
     @RequestMapping("/updatePasswd")
     public @ResponseBody
     ResultDTO<Integer> updatePasswd(String oldPasswd, String newPasswd,HttpSession session){
@@ -147,6 +166,13 @@ public class UserInfoController {
         }
         return resultDTO;
     }
+
+    /**
+     * 更新用户信息
+     * @param user user对象
+     * @param session session会话
+     * @return userview用户信息类型的ResultDTO
+     */
     @RequestMapping("/updateUserInfo")
     public @ResponseBody
 //    ResultDTO<User> update(int id, String userName, String realName, String passwd){
@@ -189,6 +215,13 @@ public class UserInfoController {
         return resultDTO;
     }
 
+    /**
+     * 显示自己的工作量统计
+     * @param request 用于构建session会话
+     * @param pageNum 第几页
+     * @param pageSize 页大小
+     * @return pageinfo类型的ResultDTO
+     */
     @RequestMapping("/showMyWorkload")
     public @ResponseBody
 //    ResultDTO<List<WorkLoadStatistics>> showMyWorkload(String realName) {

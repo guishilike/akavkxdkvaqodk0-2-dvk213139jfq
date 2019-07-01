@@ -50,6 +50,15 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
     Logger logger = LoggerFactory.getLogger(this.getClass());
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+    /**
+     * 上传excle文件
+     * @param file excle文件
+     * @param userID 用户ID （修改人）
+     * @param errorHappenContinue 遇到作物时是否继续
+     * @param repeatCoverage 有重复是否覆盖
+     * @return 是否更新成功
+     * @throws IOException
+     */
     @Override
     public boolean uploadXls(MultipartFile file,int userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException {
         Boolean state=true;
@@ -94,6 +103,11 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
         return state;
     }
 
+    /**
+     * 创建excl文件
+     * @return 文件类型的excle文件
+     * @throws IOException
+     */
     @Override
     public File createExcle() throws IOException{
         String path = ResourceUtils.getURL("classpath:").getPath() + "static/financeExcle";
@@ -121,6 +135,11 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
 
     }
 
+    /**
+     * 创建excle模板
+     * @return file类型的excle模板
+     * @throws IOException
+     */
     @Override
     public File createXLSTemplate() throws IOException {
         String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLSTemplate";
@@ -130,6 +149,10 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
         return FileManage.createXLSFile(wb, path, fileName);
     }
 
+    /**
+     *  增加
+     * @param expenseclass 费用类型对象
+     */
     @Override
     public void add(ExpenseClass expenseclass, Integer userID) {
         System.out.println("进入impl");
@@ -140,6 +163,10 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
         expenseclassDao.insert(expenseclass);
     }
 
+    /**
+     * 修改
+     * @param expenseclass 新的费用类型对象
+     */
     @Override
     public void change(ExpenseClass expenseclass, Integer userID) {
         expenseclass.setChangeDate(new Date());
@@ -147,6 +174,10 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
         expenseclassDao.updateByPrimaryKeySelective(expenseclass);
     }
 
+    /**
+     * 根据ID删除
+     * @param id 费用类型ID
+     */
     @Override
     public void deleteById(Integer id,Integer userID) {
         ExpenseClassExample expenseclassExample = new ExpenseClassExample();
@@ -163,6 +194,10 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
         }
     }
 
+    /**
+     * 根据选择的ID删除
+     * @param ids 前端返回的选择的费用类型ID数组
+     */
     @Override
     public void deleteByChoose(IdDTO ids, Integer userID) {
         for(int i=0;i<ids.getId().size();i++){
@@ -176,6 +211,12 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
         }
     }
 
+    /**
+     * 查找费用类型的方法
+     * @param code 费用类型编码
+     * @param name 费用类型名称
+     * @return List<ExpenseClassView>类型的ResultDTO 费用类型信息
+     */
     @Override
     public List<ExpenseClassView> find(String code, String name) {
         ExpenseClassViewExample expenseclassviewExample = new ExpenseClassViewExample();
@@ -195,6 +236,12 @@ public class ExpenseclassServiceImpl implements ExpenseclassService {
         return list;
     }
 
+    /**
+     * 查重
+     * @param expenseclass 费用类型对象
+     * @param state 查重状态
+     * @return 是否有重复
+     */
     @Override
     public boolean checkContent(ExpenseClass expenseclass, int state) {
         ExpenseClassViewExample expenseclassviewExample = new ExpenseClassViewExample();

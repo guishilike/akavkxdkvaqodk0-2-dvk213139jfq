@@ -39,7 +39,16 @@ public class CheckworkController {
     @Resource
     CheckworkService checkworkService;
 
-
+    /**
+     * 根据传入信息查找核对信息
+     * @param realName 医生真实姓名
+     * @param deptName 部门名称
+     * @param dateStart 开始日期
+     * @param dateEnd 结束日期
+     * @param pageNum 第几页
+     * @param pageSize 页面大小
+     * @return pageinfo类型
+     */
     @RequestMapping("/findByInfo")
     public @ResponseBody
     ResultDTO<PageInfo> findByInfo(String realName, String deptName, Date dateStart, Date dateEnd,Integer pageNum,Integer pageSize){
@@ -66,6 +75,12 @@ public class CheckworkController {
         return resultDTO;
     }
 
+    /**
+     * 通过id修改核对状态
+     * @param feeID 费用ID
+     * @param session session会话
+     * @return int类型的resultdto
+     */
     @RequestMapping("updateById")
     public @ResponseBody
     ResultDTO
@@ -90,10 +105,9 @@ public class CheckworkController {
 
     /**
      * 批量删除所选的科室
-     *
      * @param feeIDs     批量删除所选科室的idDTO
      * @param session HttpSession会话
-     * @return resultDTO
+     * @return IdDTO
      */
     @RequestMapping("updateByChoose")
     public @ResponseBody

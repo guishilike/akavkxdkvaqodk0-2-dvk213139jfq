@@ -13,6 +13,11 @@ import java.util.List;
 public class DepartmentWorkChartsServiceImpl implements DepartmentWorkChartsService {
     @Resource
     DepartmentWorkChartsDao departmentWorkChartsDao;
+
+    /**
+     * 查找科室工作量统计图表的数组
+     * @return 科室工作量统计的图表数组
+     */
     @Override
     public List<DepartmentWorkCharts> list() {
         DepartmentWorkChartsExample departmentWorkChartsExample = new DepartmentWorkChartsExample();

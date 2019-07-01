@@ -35,6 +35,12 @@ public class LoginController {
     @Resource
     UserInfoService userInfoService;
 
+    /**
+     * 登录检查
+     * @param request 用于构建session会话
+     * @param user user对象
+     * @return 如果登录检查成功返回一些用户信息用于前端
+     */
     @RequestMapping("/check")
     public @ResponseBody
     ResultDTO<UserView> check(HttpServletRequest request, @RequestBody User user){
