@@ -151,7 +151,7 @@ public class RegisterController {
                     nameCodeDTO.setId(view.getOnDutyDoctorID());
 
                     nameCodeDTO.setCode(view.getUserName());
-                    User user = userService.findUserByID(view.getOnDutyDoctorID());
+                    User user = regService.findUserByID(view.getOnDutyDoctorID());
                     nameCodeDTO.setName(user.getRealName());
 
                     nameCodeDTOS.add(nameCodeDTO);
