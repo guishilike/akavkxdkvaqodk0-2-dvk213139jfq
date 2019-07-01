@@ -126,7 +126,7 @@ public class RegisterServiceImpl implements RegisterService {
         if (end != null)
             criteria.andRegistrationDateLessThanOrEqualTo(end);
 
-        example.setOrderByClause("registrationDate asc");
+        example.setOrderByClause("registrationDate desc");
 
         return regListViewDao.selectByExample(example);
     }

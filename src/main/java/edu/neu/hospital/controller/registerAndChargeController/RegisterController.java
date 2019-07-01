@@ -273,11 +273,34 @@ public class RegisterController {
         try {
 
             PageHelper.startPage(pageNum, pageSize);
-            List<RegistrationListView> regInfoList = regService.find(start,end);
+            List<RegistrationListView> regInfoList = regService.find(start, end);
             PageInfo<RegistrationListView> list = new PageInfo<>(regInfoList);
 
             return new ResultDTO<>("OK", "获取成功", list);
 
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return new ResultDTO<>("error", "发生异常，获取挂号列表失败", null);
+        }
+    }
+
+    @RequestMapping("/todayWorkload")
+    public @ResponseBody
+    ResultDTO<Integer> getTodayWorkload() {
+
+        System.out.println("/register/todayWorkload");
+        try {
+
+            List<RegistrationListView> regInfoList = regService.find(null, null);
+            SimpleDateFormat simp = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = simp.parse(simp.format(new Date()));
+            int count = 0;
+            for (RegistrationListView view : regInfoList) {
+                if (date.equals(view.getRegistrationDate()))
+                    count++;
+            }
+            System.out.println(count);
+            return new ResultDTO<>("OK", "获取成功", count);
         } catch (Exception e) {
             System.out.println(e.toString());
             return new ResultDTO<>("error", "发生异常，获取挂号列表失败", null);
