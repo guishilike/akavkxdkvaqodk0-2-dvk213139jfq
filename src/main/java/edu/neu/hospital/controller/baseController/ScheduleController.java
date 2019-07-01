@@ -50,7 +50,7 @@ public class ScheduleController {
                 resultDTO.setData(schedule);
             }
             else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("排班信息重复，添加排班信息失败");
             }
         }catch (Exception e){
@@ -92,7 +92,7 @@ public class ScheduleController {
     @RequestMapping("/deleteByChoose")
     public @ResponseBody ResultDTO deleteByChoose(@RequestBody IdDTO ids, HttpSession session){
         ResultDTO<IdDTO> resultDTO=new ResultDTO<>();
-        if(ids.getId()!=null) {
+        if(ids.getId()!=null&&ids.getId().size()!=0) {
             try {
                 UserView loginUser=(UserView) session.getAttribute("user");
                 scheduleService.deleteByChoose(ids,loginUser.getId());
@@ -105,7 +105,7 @@ public class ScheduleController {
                 resultDTO.setData(ids);
             }
         }else{
-            resultDTO.setStatus("FALSE");
+            resultDTO.setStatus("WARN");
             resultDTO.setMsg("请选择你要批量删除的排班信息");
             resultDTO.setData(ids);
         }
@@ -132,7 +132,7 @@ public class ScheduleController {
                 resultDTO.setMsg("修改排班信息成功");
                 resultDTO.setData(schedule);
             }else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("存在重复的排班信息，修改排班信息失败");
                 resultDTO.setData(schedule);
             }

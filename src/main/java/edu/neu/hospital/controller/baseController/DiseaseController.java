@@ -82,7 +82,7 @@ public class DiseaseController {
                 resultDTO.setMsg("查找成功");
                 resultDTO.setData(list);
             } else {
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("疾病名或编号不存在，查找失败");
             }
         } catch (Exception e) {
@@ -130,7 +130,7 @@ public class DiseaseController {
     public @ResponseBody
     ResultDTO deleteByChoose(@RequestBody IdDTO ids, HttpSession session) {
         ResultDTO<IdDTO> resultDTO = new ResultDTO<>();
-        if (ids.getId() != null) {
+        if (ids.getId() != null&&ids.getId().size()!=0) {
             try {
                 UserView loginUser = (UserView) session.getAttribute("user");
                 diseaseService.deleteByChoose(ids, loginUser.getId());
@@ -143,7 +143,7 @@ public class DiseaseController {
                 resultDTO.setData(ids);
             }
         } else {
-            resultDTO.setStatus("FALSE");
+            resultDTO.setStatus("WARN");
             resultDTO.setMsg("请先选择你要删除的疾病");
             resultDTO.setData(ids);
         }
@@ -170,7 +170,7 @@ public class DiseaseController {
                 resultDTO.setData(disease);
             }
             else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("存在重复的疾病，修改疾病失败");
                 resultDTO.setData(disease);
             }
@@ -202,7 +202,7 @@ public class DiseaseController {
                 resultDTO.setData(disease);
             }
             else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("存在重复的疾病，添加疾病失败");
                 resultDTO.setData(disease);
             }
@@ -256,7 +256,7 @@ public class DiseaseController {
                 resultDTO.setData(constantitem);
             }
             else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("存在重复的目录名，添加疾病一级目录失败");
                 resultDTO.setData(constantitem);
             }
@@ -312,7 +312,7 @@ public class DiseaseController {
                 resultDTO.setData(constantitem);
             }
             else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("一级目录名重复，修改一级目录失败");
                 resultDTO.setData(constantitem);
             }
@@ -343,7 +343,7 @@ public class DiseaseController {
                 resultDTO.setData(diseasecategory);
             }
             else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("二级目录名重复，添加二级目录失败");
                 resultDTO.setData(diseasecategory);
             }
@@ -375,7 +375,7 @@ public class DiseaseController {
                 resultDTO.setData(diseasecategory);
             }
             else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("二级目录名重复，修改二级目录失败");
                 resultDTO.setData(diseasecategory);
             }
