@@ -64,6 +64,9 @@ public interface ScheduleRuleService {
      * @return Schedule 返回的排班信息
      */
     public Schedule getScheduleByRule(Schedulerule schedulerule);
+
+    public List<NameCodeDTO> getAllOnDutyTimeNamesAndCodes();
+
     /**
      * 获取所有医生的名称和编号
      * @return

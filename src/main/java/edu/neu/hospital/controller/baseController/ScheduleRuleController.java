@@ -11,6 +11,7 @@ import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.baseService.ScheduleRuleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,6 +39,7 @@ public class ScheduleRuleController {
     public @ResponseBody
     ResultDTO add(Schedulerule schedulerule, HttpSession session){
         ResultDTO<Schedulerule> resultDTO=new ResultDTO<>();
+        System.out.println(schedulerule);
         try{
             if(scheduleRuleService.checkContent(schedulerule,0)){
                 UserView loginUser=(UserView) session.getAttribute("user");
@@ -56,6 +58,7 @@ public class ScheduleRuleController {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，添加排班规则失败");
             resultDTO.setData(schedulerule);
+            e.printStackTrace();
         }
         return resultDTO;
     }
@@ -89,7 +92,7 @@ public class ScheduleRuleController {
      * @return resultDTO
      */
    @RequestMapping("/deleteByChoose")
-    public @ResponseBody ResultDTO deleteByChoose(IdDTO ids, HttpSession session){
+    public @ResponseBody ResultDTO deleteByChoose(@RequestBody IdDTO ids, HttpSession session){
         ResultDTO<IdDTO> resultDTO=new ResultDTO<>();
         if(ids.getId()!=null){
             try{
@@ -104,7 +107,7 @@ public class ScheduleRuleController {
                 resultDTO.setData(ids);
             }
         }else{
-            resultDTO.setStatus("FALSE");
+            resultDTO.setStatus("WARN");
             resultDTO.setMsg("请先选中你要哦删除的排班规则");
             resultDTO.setData(ids);
         }
@@ -119,6 +122,7 @@ public class ScheduleRuleController {
      */
     @RequestMapping("/update")
     public @ResponseBody ResultDTO update(Schedulerule schedulerule,HttpSession session){
+        System.out.println(schedulerule);
        ResultDTO<Schedulerule> resultDTO=new ResultDTO<>();
        try{
            if(scheduleRuleService.checkContent(schedulerule,1)) {
@@ -144,28 +148,50 @@ public class ScheduleRuleController {
     /**
      * 列出排班规则
      * @param week 星期几，0是星期天，1是星期一.....
-     * @param deptCategoryID 科室分类ID
-     * @param onDutyDoctorID 排班医生ID
+     * @param deptID 科室ID
+     * @param doctorID 排班医生ID
      * @param pageNum 第几页
      * @param pageSize 页大小
      * @return resultDTO
      */
     @RequestMapping("/list")
     public @ResponseBody
-    ResultDTO find(Integer week,Integer deptCategoryID,Integer onDutyDoctorID,Integer pageNum,Integer pageSize){
+    ResultDTO find(Integer week,Integer deptID,Integer doctorID,Integer pageNum,Integer pageSize){
         ResultDTO<PageInfo> resultDTO=new ResultDTO<>();
         try{
             PageHelper.startPage(pageNum,pageSize);
-            List<ScheduleRuleView> scheduleRuleViews =scheduleRuleService.find(week,deptCategoryID,onDutyDoctorID);
+            List<ScheduleRuleView> scheduleRuleViews =scheduleRuleService.find(week,deptID,doctorID);
             PageInfo<ScheduleRuleView> list=new PageInfo<>(scheduleRuleViews);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功");
             resultDTO.setData(list);
+            System.out.println(list);
         }catch (Exception e){
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，操作成功");
         }
         return resultDTO;
+    }
+
+    /**
+     * 获得所有午别
+     * @return resultDTO
+     */
+    @RequestMapping("/findAllOnDutyTimeNamesAndCodes")
+    public @ResponseBody
+    ResultDTO getAllOnDutyTimeNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = scheduleRuleService.getAllOnDutyTimeNamesAndCodes();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得午别列表成功");
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得午别列表失败");
+        }
+        return resultDTO;
+
     }
 
     /**
@@ -197,6 +223,7 @@ public class ScheduleRuleController {
     public @ResponseBody
     ResultDTO getAllDoctorsByDeptID(Integer id) {
         ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        System.out.println(id);
         try {
             List<NameCodeDTO> list = scheduleRuleService.getAllDoctorsByDeptID(id);
             resultDTO.setStatus("OK");
@@ -205,6 +232,7 @@ public class ScheduleRuleController {
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("获得排班医生列表失败");
+            e.printStackTrace();
         }
         return resultDTO;
 
@@ -228,6 +256,7 @@ public class ScheduleRuleController {
             e.printStackTrace();
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("创建排班规则XLS文件信息失败");
+            e.printStackTrace();
 
         }
         return resultDTO;

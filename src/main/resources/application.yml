@@ -31,6 +31,8 @@ spring:
     host: 192.168.220.132
     password: 123456
     port: 6379
+  jackson:
+    time-zone: "GMT+8"
 #配置Mybatis
 mybatis:
   type-aliases-package: edu.neu.hospital.bean

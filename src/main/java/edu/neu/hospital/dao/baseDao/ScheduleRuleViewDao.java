@@ -21,6 +21,6 @@ public interface ScheduleRuleViewDao {
 
     int updateByExample(@Param("record") ScheduleRuleView record, @Param("example") ScheduleRuleViewExample example);
 
-    @Select("select id scheduleruleview where userName=#{userName} and week={week}")
+    @Select("select id from scheduleruleview where userName=#{userName} and week={week}")
     int getIDByUserNameAndWeek(String userName,Integer week);
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import javax.xml.crypto.Data;
+
 public interface ScheduleViewDao {
     long countByExample(ScheduleViewExample example);
 
@@ -20,6 +22,8 @@ public interface ScheduleViewDao {
     int updateByExampleSelective(@Param("record") ScheduleView record, @Param("example") ScheduleViewExample example);
 
     int updateByExample(@Param("record") ScheduleView record, @Param("example") ScheduleViewExample example);
-
-
+    @Select("select id from scheduleview where onDutyDate=#{onDutyDate} and onDutyDoctorID=#{userID}")
+    Integer getIDByDateAndUserName(String onDutyDate, Integer userID);
+    @Select("select id from scheduleview where onDutyDate=#{onDutyDate} and onDutyDoctorID=#{userID} and id !=#{id}")
+    Integer getIDByDateAndUserNameExceptID(String onDutyDate, Integer userID,Integer id);
 }

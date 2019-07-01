@@ -192,6 +192,7 @@ public class RegistrationLevelController {
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功");
             resultDTO.setData(list);
+            System.out.println(resultDTO);
         }catch (Exception e){
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，操作失败");
