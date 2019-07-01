@@ -398,6 +398,13 @@ public class InspectionServiceImpl implements InspectionService {
      * @param medicinesmaterialslist 药品材料表单信息
      */
     public void insertMedMat(Integer userID, MedicinesMaterialsList medicinesmaterialslist) {
+
+        medicinesmaterialslist.setIsDrawn(131);
+        medicinesmaterialslist.setIsPaid(134);
+        medicinesmaterialslist.setIsChecked(142);
+        medicinesmaterialslist.setIsAbolished(150);
+        medicinesmaterialslist.setIsRegistered(137);
+        medicinesmaterialslist.setIsExecuted(146);
         medicinesmaterialslist.setAppearUserID(userID);
         medicinesmaterialslist.setAppearDate(new Date());
         medicinesmaterialslist.setStatus("1");
@@ -522,12 +529,26 @@ public class InspectionServiceImpl implements InspectionService {
      * 完成审核检查项目表单信息
      *
      * @param inspectionDetailsID 药品材料关联编号列表
+     * @return 审核结果
      */
-    public void approveInspectionDetails(Integer inspectionDetailsID) {
+    public String approveInspectionDetails(Integer inspectionDetailsID) {
+        String result="完成审核";
+        MedicinesMaterialsListExample medicinesmaterialslistExample=new MedicinesMaterialsListExample();
+        MedicinesMaterialsListExample.Criteria criteria=medicinesmaterialslistExample.createCriteria();
+        criteria.andItemsTypeNotEqualTo(119);
+        criteria.andItemsDetailIDEqualTo(inspectionDetailsID);
+        List<MedicinesMaterialsList> medMatList=medicinesmaterialslistDao.selectByExample(medicinesmaterialslistExample);
+        for (MedicinesMaterialsList medicinesmaterialslist : medMatList) {
+              if(medicinesmaterialslist.getIsChecked()!=141){
+                result = "检查检验药品材料未通过审核";
+                return result;
+            }
+        }
             InspectionDetails inspectiondetails=new InspectionDetails();
             inspectiondetails.setId(inspectionDetailsID);
             inspectiondetails.setIsChecked(141);
             inspectiondetailsDao.updateByPrimaryKeySelective(inspectiondetails);
+            return  result;
     }
 
 
@@ -538,7 +559,7 @@ public class InspectionServiceImpl implements InspectionService {
      * @return  登记结果
      */
     public String registerInspectionDetails(Integer inspectionDetailsID) {
-        String result="可以登记";
+        String result;
         InspectionDetails inspectiondetails=inspectiondetailsDao.selectByPrimaryKey(inspectionDetailsID);
 
         MedicinesMaterialsListExample medicinesmaterialslistExample=new MedicinesMaterialsListExample();
