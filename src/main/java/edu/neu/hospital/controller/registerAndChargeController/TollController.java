@@ -1,5 +1,6 @@
 package edu.neu.hospital.controller.registerAndChargeController;
 
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
@@ -9,6 +10,7 @@ import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.registerAndCharge.TollService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -178,20 +180,26 @@ public class TollController {
      * 缴费
      *
      * @param feeIDs 缴费编号
-     * @param patientCardID 就诊卡编号
      * @param session 收费员编号
      * @return 缴费结果
      */
     @RequestMapping("/toll")
     public @ResponseBody
-    ResultDTO<String> toll(IdDTO feeIDs, Integer patientCardID, HttpSession session){
-        ResultDTO<String> resultDTO = new ResultDTO<>();
+    ResultDTO toll(@RequestBody IdDTO feeIDs, HttpSession session){
+        ResultDTO resultDTO = new ResultDTO();
         try {
             UserView user=(UserView) session.getAttribute("user");
             Integer tollManID=user.getId();
-            resultDTO.setStatus("OK");
-            resultDTO.setMsg("操作成功！");
-            resultDTO.setData(tollService.toll(feeIDs,patientCardID,tollManID));
+
+            String msg=tollService.toll(feeIDs,tollManID);
+            if (msg.equals("缴费成功")){
+               resultDTO.setStatus("OK");
+               resultDTO.setMsg(msg);
+            }
+            else{
+                resultDTO.setStatus("WARN");
+                resultDTO.setMsg(msg);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus("NG");
@@ -206,20 +214,25 @@ public class TollController {
      * 退费
      *
      * @param feeIDs 退费编号
-     * @param patientCardID 医疗卡编号
      * @param session 收费员编号
      * @return 退费结果
      */
     @RequestMapping("/refund")
     public @ResponseBody
-    ResultDTO<String> refund(IdDTO feeIDs, Integer patientCardID, HttpSession session){
+    ResultDTO<String> refund(@RequestBody IdDTO feeIDs, HttpSession session){
         ResultDTO<String> resultDTO = new ResultDTO<>();
         try {
             UserView user=(UserView) session.getAttribute("user");
             Integer tollManID=user.getId();
+            String msg=tollService.refund(feeIDs,tollManID);
+            if(msg.equals("退费成功")){
             resultDTO.setStatus("OK");
-            resultDTO.setMsg("操作成功！");
-            resultDTO.setData(tollService.refund(feeIDs,patientCardID,tollManID));
+            resultDTO.setMsg("msg");
+            }
+            else{
+                resultDTO.setStatus("WARN");
+                resultDTO.setMsg("msg");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus("NG");
@@ -235,15 +248,23 @@ public class TollController {
      * @param session 日结员编号
      * @param endDate 日结日期
      */
+    @RequestMapping("/dailySettle")
     public  @ResponseBody
-    ResultDTO dailySettle(HttpSession session,@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date endDate){
-        ResultDTO resultDTO = new ResultDTO();
+    ResultDTO<String> dailySettle(HttpSession session,@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date endDate){
+        ResultDTO<String> resultDTO = new ResultDTO<>();
         try {
             UserView user=(UserView) session.getAttribute("user");
             Integer tollManID=user.getId();
-            tollService.dailySettle(tollManID,endDate);
+            String msg=tollService.dailySettle(tollManID,endDate);
+            if(msg.equals("日结成功")){
             resultDTO.setStatus("OK");
-            resultDTO.setMsg("操作成功！");
+            resultDTO.setMsg(msg);
+            }
+            else{
+                resultDTO.setStatus("WARN");
+                resultDTO.setMsg(msg);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus("NG");
@@ -260,15 +281,19 @@ public class TollController {
      * @param startDate 开始日期
      * @param endDate 结束日期
      */
+    @RequestMapping("/dailySettleSearch")
     public  @ResponseBody
-    ResultDTO<List<DailySettleView>>  dailySettleSearch(HttpSession session, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date endDate){
-        ResultDTO<List<DailySettleView>> resultDTO = new ResultDTO<>();
+    ResultDTO<PageInfo<DailySettleView>>  dailySettleSearch(HttpSession session, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date endDate,Integer pageNum, Integer pageSize){
+        ResultDTO<PageInfo<DailySettleView>> resultDTO = new ResultDTO<>();
         try {
             UserView user=(UserView) session.getAttribute("user");
             Integer tollManID=user.getId();
+            PageHelper.startPage(pageNum, pageSize);
+            List<DailySettleView> dailySettleViewList=tollService.dailySettleSearch(tollManID,startDate,endDate);
+            PageInfo<DailySettleView> dailySettleViewPageInfo = new PageInfo<>(dailySettleViewList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功！");
-            resultDTO.setData(tollService.dailySettleSearch(tollManID,startDate,endDate));
+            resultDTO.setData(dailySettleViewPageInfo);
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus("NG");
@@ -285,6 +310,7 @@ public class TollController {
      * @param startDate 开始日期
      * @param endDate 结束日期
      */
+    @RequestMapping("/dailySettleFee")
     public @ResponseBody
     ResultDTO<List<FeeView>> dailySettleFee (HttpSession session, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date endDate){
         ResultDTO<List<FeeView>> resultDTO = new ResultDTO<>();

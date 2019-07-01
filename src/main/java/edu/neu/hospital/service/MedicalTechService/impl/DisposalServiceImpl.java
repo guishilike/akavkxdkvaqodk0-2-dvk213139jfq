@@ -53,12 +53,12 @@ private  RegistrationInfoDao registrationInfoDao;
      *
      * @param search   处置搜索表单搜索框的内容
      * @param date     处置搜索表单限制日期
-     * @param itemName 处置搜索表单项目名称
+     * @param itemID 处置搜索表单项目编号
      * @param mark     处置表单项目标识
      * @return 处置搜索结果表单信息
      */
 
-    public List<DisposalFormView> disposalformview(String search, Date date, String itemName, Integer mark) {
+    public List<DisposalFormView> disposalformview(String search, Date date, Integer itemID, Integer mark) {
         DisposalFormViewExample disposalformviewExample = new DisposalFormViewExample();
         //默认按时间升序显示
         disposalformviewExample.getOrderByClause("disposalAppearDate asc");
@@ -68,6 +68,7 @@ private  RegistrationInfoDao registrationInfoDao;
         DisposalFormViewExample.Criteria criteria3 = disposalformviewExample.createCriteria();
         DisposalFormViewExample.Criteria criteria4 = disposalformviewExample.createCriteria();
         DisposalFormViewExample.Criteria criteria5 = disposalformviewExample.createCriteria();
+        DisposalFormViewExample.Criteria criteria6 = disposalformviewExample.createCriteria();
         //查询匹配限制日期、项目名称、标识的项目
         criteria.andIsAbolishedEqualTo(150);
         criteria1.andIsAbolishedEqualTo(150);
@@ -75,12 +76,14 @@ private  RegistrationInfoDao registrationInfoDao;
         criteria3.andIsAbolishedEqualTo(150);
         criteria4.andIsAbolishedEqualTo(150);
         criteria5.andIsAbolishedEqualTo(150);
+        criteria6.andIsAbolishedEqualTo(150);
         criteria.andIsDrawnEqualTo(131);
         criteria1.andIsDrawnEqualTo(131);
         criteria2.andIsDrawnEqualTo(131);
         criteria3.andIsDrawnEqualTo(131);
         criteria4.andIsDrawnEqualTo(131);
         criteria5.andIsDrawnEqualTo(131);
+        criteria6.andIsDrawnEqualTo(131);
 
         if (mark != null) {
             if (mark == 134) {
@@ -90,6 +93,7 @@ private  RegistrationInfoDao registrationInfoDao;
                 criteria3.andIsPaidEqualTo(mark);
                 criteria4.andIsPaidEqualTo(mark);
                 criteria5.andIsPaidEqualTo(mark);
+                criteria6.andIsPaidEqualTo(mark);
             } else if (mark == 137) {
                 criteria.andIsRegisteredEqualTo(mark);
                 criteria1.andIsRegisteredEqualTo(mark);
@@ -97,13 +101,14 @@ private  RegistrationInfoDao registrationInfoDao;
                 criteria3.andIsRegisteredEqualTo(mark);
                 criteria4.andIsRegisteredEqualTo(mark);
                 criteria5.andIsRegisteredEqualTo(mark);
+                criteria6.andIsRegisteredEqualTo(mark);
                 criteria.andIsCheckedEqualTo(141);
                 criteria1.andIsCheckedEqualTo(141);
                 criteria2.andIsCheckedEqualTo(141);
                 criteria3.andIsCheckedEqualTo(141);
                 criteria4.andIsCheckedEqualTo(141);
                 criteria5.andIsCheckedEqualTo(141);
-
+                criteria6.andIsCheckedEqualTo(141);
             } else if (mark == 142) {
 
                 criteria.andIsCheckedEqualTo(mark);
@@ -112,12 +117,14 @@ private  RegistrationInfoDao registrationInfoDao;
                 criteria3.andIsCheckedEqualTo(mark);
                 criteria4.andIsCheckedEqualTo(mark);
                 criteria5.andIsCheckedEqualTo(mark);
+                criteria6.andIsCheckedEqualTo(mark);
                 criteria.andIsPaidEqualTo(133);
                 criteria1.andIsPaidEqualTo(133);
                 criteria2.andIsPaidEqualTo(133);
                 criteria3.andIsPaidEqualTo(133);
                 criteria4.andIsPaidEqualTo(133);
                 criteria5.andIsPaidEqualTo(133);
+                criteria6.andIsPaidEqualTo(133);
             } else if (mark == 144 || mark == 145) {
                 criteria.andIsExecutedEqualTo(mark);
                 criteria1.andIsExecutedEqualTo(mark);
@@ -125,13 +132,14 @@ private  RegistrationInfoDao registrationInfoDao;
                 criteria3.andIsExecutedEqualTo(mark);
                 criteria4.andIsExecutedEqualTo(mark);
                 criteria5.andIsExecutedEqualTo(mark);
+                criteria6.andIsExecutedEqualTo(mark);
                 criteria.andIsRegisteredEqualTo(136);
                 criteria1.andIsRegisteredEqualTo(136);
                 criteria2.andIsRegisteredEqualTo(136);
                 criteria3.andIsRegisteredEqualTo(136);
                 criteria4.andIsRegisteredEqualTo(136);
                 criteria5.andIsRegisteredEqualTo(136);
-
+                criteria6.andIsRegisteredEqualTo(136);
             }
         }
 
@@ -143,35 +151,51 @@ private  RegistrationInfoDao registrationInfoDao;
             criteria3.andDisposalAppearDateBetween(date, nextDay);
             criteria4.andDisposalAppearDateBetween(date, nextDay);
             criteria5.andDisposalAppearDateBetween(date, nextDay);
+            criteria6.andDisposalAppearDateBetween(date, nextDay);
+
         }
-        if (itemName != null) {
-            criteria.andFmeditemNameEqualTo(itemName);
-            criteria1.andFmeditemNameEqualTo(itemName);
-            criteria2.andFmeditemNameEqualTo(itemName);
-            criteria3.andFmeditemNameEqualTo(itemName);
-            criteria4.andFmeditemNameEqualTo(itemName);
-            criteria5.andFmeditemNameEqualTo(itemName);
+        if (itemID != null) {
+
+            criteria.andFmeditemIdEqualTo(itemID);
+            criteria1.andFmeditemIdEqualTo(itemID);
+            criteria2.andFmeditemIdEqualTo(itemID);
+            criteria3.andFmeditemIdEqualTo(itemID);
+            criteria4.andFmeditemIdEqualTo(itemID);
+            criteria5.andFmeditemIdEqualTo(itemID);
+            criteria6.andFmeditemIdEqualTo(itemID);
         }
         //返回表单搜索内容作搜索关联匹配查询
         if (search != null) {
             //去除空格
             String searchd = regexProcess.regexProcess02(search);
 
+            criteria.andFmeditemCodeLike("%" + searchd + "%");
+            criteria1.andFmeditemMnemonicCodeLike("%" + searchd + "%");
+            criteria2.andPatientNameLike("%" + searchd + "%");
+            criteria3.andRealNameLike("%" + searchd + "%");
+            criteria4.andFmeditemNameLike("%" + searchd + "%");
             if (regexProcess.regexProcess03(search)) {
-                criteria.andDisposalIdEqualTo(Integer.valueOf(search));
+                criteria5.andDisposalIdEqualTo(Integer.valueOf(search));
             }
             if (regexProcess.regexProcess03(search)) {
-                criteria1.andFmeditemIdEqualTo(Integer.valueOf(search));
+                criteria6.andFmeditemIdEqualTo(Integer.valueOf(search));
             }
-            criteria2.andFmeditemCodeLike("%" + searchd + "%");
-            criteria3.andFmeditemMnemonicCodeLike("%" + searchd + "%");
-            criteria4.andPatientNameLike("%" + searchd + "%");
-            criteria5.andRealNameLike("%" + searchd + "%");
 
         }
+
+
         disposalformviewExample.or(criteria1);
         disposalformviewExample.or(criteria2);
+
         disposalformviewExample.or(criteria3);
+        disposalformviewExample.or(criteria4);
+        if(search!=null&&regexProcess.regexProcess03(regexProcess.regexProcess02(search))){
+            disposalformviewExample.or(criteria5);
+        }
+        if(search!=null&&regexProcess.regexProcess03(regexProcess.regexProcess02(search))) {
+            disposalformviewExample.or(criteria6);
+        }
+
 
         return DisposalformviewDao.selectByExample(disposalformviewExample);
     }
@@ -393,7 +417,7 @@ private  RegistrationInfoDao registrationInfoDao;
         for (Integer ID : medMatListIDlist) {
             MedicinesMaterialsList medicinesmaterialslist = new MedicinesMaterialsList();
             medicinesmaterialslist.setId(ID);
-            medicinesmaterialslist.setIsDrawn(136);
+            medicinesmaterialslist.setIsDrawn(131);
             medicinesmaterialslist.setIsPaid(134);
             medicinesmaterialslist.setIsAbolished(150);
             medicinesmaterialslist.setIsChecked(141);
@@ -404,14 +428,13 @@ private  RegistrationInfoDao registrationInfoDao;
 
             DisposalMatReViewExample DisposalmatreviewExample = new DisposalMatReViewExample();
             DisposalMatReViewExample.Criteria criteriaM = DisposalmatreviewExample.createCriteria();
-            criteriaM.andMedicinesMaterialsIDEqualTo(ID);
-            DisposalMatReView Disposalmatreview = DisposalmatreviewDao.selectByExample(DisposalmatreviewExample).get(0);
+            criteriaM.andMedMatListIDEqualTo(ID);
+            DisposalMatReView disposalmatreview = DisposalmatreviewDao.selectByExample(DisposalmatreviewExample).get(0);
 
-            DisposalFormViewExample DisposalformviewExample = new DisposalFormViewExample();
-            DisposalFormViewExample.Criteria criteriaF = DisposalformviewExample.createCriteria();
-            criteriaF.andDisposaldetailsIDEqualTo(Disposalmatreview.getItemsDetailID());
-            DisposalFormView Disposalformview = DisposalformviewDao.selectByExample(DisposalformviewExample).get(0);
-
+            DisposalFormViewExample disposalformviewExample = new DisposalFormViewExample();
+            DisposalFormViewExample.Criteria criteriaF = disposalformviewExample.createCriteria();
+            criteriaF.andDisposaldetailsIDEqualTo(disposalmatreview.getItemsDetailID());
+            DisposalFormView Disposalformview = DisposalformviewDao.selectByExample(disposalformviewExample).get(0);
 
 
             RegistrationInfoExample registrationInfoExample=new RegistrationInfoExample();
@@ -420,17 +443,12 @@ private  RegistrationInfoDao registrationInfoDao;
 
             List<Registrationinfo> registrationInfoList=registrationInfoDao.selectByExample(registrationInfoExample);
 
-            BigDecimal total = Disposalmatreview.getDosage().multiply(Disposalmatreview.getPrice());
+            BigDecimal total = disposalmatreview.getDosage().multiply(disposalmatreview.getPrice());
             Fee fee = new Fee();
             fee.setFeeCategoryID(registrationInfoList.get(0).getPaymentCategoryID());
             fee.setMedicalRecordID(Disposalformview.getMedicalrecordId());
-            fee.setChargeItemID(medicinesmaterialslist.getMedicinesMaterialsID());
-            if (medicinesmaterialslist.getMatOrMedType().equals("0") ) {
-                fee.setExpID(23);
-            }
-            if (medicinesmaterialslist.getMatOrMedType().equals("1")) {
-                fee.setExpID(17);
-            }
+            fee.setChargeItemID(disposalmatreview.getMedMatListID());
+            fee.setExpID(17);
             fee.setStatus("1");
             fee.setDateStatus(148);
             fee.setCheckStatus("未对账");
@@ -454,7 +472,7 @@ private  RegistrationInfoDao registrationInfoDao;
             MedicinesMaterialsList medicinesmaterialslist = new MedicinesMaterialsList();
             medicinesmaterialslist.setId(ID);
 
-            medicinesmaterialslist.setIsDrawn(136);
+            medicinesmaterialslist.setIsDrawn(131);
             medicinesmaterialslist.setIsAbolished(150);
             medicinesmaterialslist.setIsPaid(134);
             medicinesmaterialslist.setIsChecked(141);
@@ -465,7 +483,7 @@ private  RegistrationInfoDao registrationInfoDao;
 
             DisposalMedReViewExample disposalmedreviewExample = new DisposalMedReViewExample();
             DisposalMedReViewExample.Criteria criteriaM = disposalmedreviewExample.createCriteria();
-            criteriaM.andMedicinesMaterialsIDEqualTo(ID);
+            criteriaM.andMedMatListIDEqualTo(ID);
             DisposalMedReView disposalmedreview = DisposalmedreviewDao.selectByExample(disposalmedreviewExample).get(0);
 
             DisposalFormViewExample disposalformviewExample = new DisposalFormViewExample();
@@ -486,7 +504,8 @@ private  RegistrationInfoDao registrationInfoDao;
             Fee fee = new Fee();
             fee.setMedicalRecordID(disposalformview.getMedicalrecordId());
             fee.setFeeCategoryID(registrationinfoList.get(0).getPaymentCategoryID());
-            fee.setExpID(4);
+            fee.setChargeItemID(disposalmedreview.getMedMatListID());
+            fee.setExpID(23);
             fee.setStatus("1");
             fee.setPayStatus(134);
             fee.setDateStatus(148);
@@ -525,36 +544,52 @@ private  RegistrationInfoDao registrationInfoDao;
         MedicinesMaterialsListExample medicinesmaterialslistExample = new MedicinesMaterialsListExample();
         MedicinesMaterialsListExample.Criteria criteria = medicinesmaterialslistExample.createCriteria();
         criteria.andIsAbolishedEqualTo(150);
+        criteria.andItemsTypeEqualTo(119);
         criteria.andItemsDetailIDEqualTo(disposalDetailsID);
         List<MedicinesMaterialsList> medMatList = medicinesmaterialslistDao.selectByExample(medicinesmaterialslistExample);
         for (MedicinesMaterialsList medicinesmaterialslist : medMatList) {
+            System.out.println(medicinesmaterialslist.getId());
             if (medicinesmaterialslist.getIsPaid() == 134) {
                 result = "处置药品材料未缴费";
+                return result;
             } else if (medicinesmaterialslist.getIsChecked() == 142) {
                 result = "处置药品材料未通过审核";
+                return result;
             }
         }
-        if (result.equals("可以登记")) {
-            for (MedicinesMaterialsList medicinesmaterialslist : medMatList) {
-                medicinesmaterialslist.setIsRegistered(136);
-                medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
-            }
-            disposaldetails.setIsChecked(136);
-            disposaldetailsDao.updateByPrimaryKeySelective(disposaldetails);
-            result = "处置登记成功";
+        for (MedicinesMaterialsList medicinesmaterialslist : medMatList) {
+            medicinesmaterialslist.setIsRegistered(136);
+            medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
         }
+        disposaldetails.setIsRegistered(136);
+        disposaldetailsDao.updateByPrimaryKeySelective(disposaldetails);
+        result = "处置登记成功";
         return result;
     }
 
 
     /**
      * 完成处置
+     * @param disposalDetailsID 处置详情编号
      */
     public void finishDisposal(Integer disposalDetailsID) {
         DisposalDetails disposaldetails = new DisposalDetails();
         disposaldetails.setId(disposalDetailsID);
         disposaldetails.setIsExecuted(145);
         disposaldetailsDao.updateByPrimaryKeySelective(disposaldetails);
+
+        MedicinesMaterialsListExample medicinesmaterialslistExample = new MedicinesMaterialsListExample();
+        MedicinesMaterialsListExample.Criteria criteria = medicinesmaterialslistExample.createCriteria();
+        criteria.andIsAbolishedEqualTo(150);
+        criteria.andItemsTypeEqualTo(119);
+        criteria.andItemsDetailIDEqualTo(disposalDetailsID);
+        List<MedicinesMaterialsList> medMatList = medicinesmaterialslistDao.selectByExample(medicinesmaterialslistExample);
+        for (MedicinesMaterialsList medicinesmaterialslist : medMatList) {
+            medicinesmaterialslist.setIsExecuted(145);
+            medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
+        }
+
+
     }
 
 }

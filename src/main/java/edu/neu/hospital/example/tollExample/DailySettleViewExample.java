@@ -1,4 +1,4 @@
-package edu.neu.hospital.bean.tollBean;
+package edu.neu.hospital.example.tollExample;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

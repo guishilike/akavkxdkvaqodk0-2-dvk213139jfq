@@ -26,22 +26,19 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/disposal")
+@RequestMapping("disposal")
 public class DisposalController {
 
-
-
-    public class disposalController {
         @Resource
         private DisposalService disposalService;
 
         @RequestMapping("/disposalformview")
         public @ResponseBody
-        ResultDTO<PageInfo> disposalformview(String search, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date, String itemName, Integer mark,Integer pageNum,Integer pageSize) {
+        ResultDTO<PageInfo> disposalformview(String search, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date, Integer itemID, Integer mark,Integer pageNum,Integer pageSize) {
             ResultDTO<PageInfo> resultDTO = new ResultDTO<>();
             try {
                 PageHelper.startPage(pageNum, pageSize);
-                List<DisposalFormView> disposalFormViewList =disposalService.disposalformview(search, date, itemName, mark);
+                List<DisposalFormView> disposalFormViewList =disposalService.disposalformview(search, date,itemID, mark);
                 PageInfo<DisposalFormView> disposalformviewPageInfo = new PageInfo<>(disposalFormViewList);
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("操作成功！");
@@ -121,9 +118,9 @@ public class DisposalController {
          * @param itemsDetailID 项目详情编号
          * @return 材料列表
          */
-        @RequestMapping("/Disposalmatreview")
+        @RequestMapping("/disposalmatreview")
         public @ResponseBody
-        ResultDTO<List<DisposalMatReView>> Disposalmatreview(Integer itemsDetailID ){
+        ResultDTO<List<DisposalMatReView>> disposalmatreview(Integer itemsDetailID ){
             ResultDTO<List<DisposalMatReView>> resultDTO = new ResultDTO<>();
             try {
                 resultDTO.setStatus("OK");
@@ -142,9 +139,9 @@ public class DisposalController {
          * @param itemsDetailID 项目详情编号
          * @return 材料列表
          */
-        @RequestMapping("/Disposalmedreview")
+        @RequestMapping("/disposalmedreview")
         public @ResponseBody
-        ResultDTO<List<DisposalMedReView>> Disposalmedreview(Integer itemsDetailID ){
+        ResultDTO<List<DisposalMedReView>> disposalmedreview(Integer itemsDetailID ){
             ResultDTO<List<DisposalMedReView>> resultDTO = new ResultDTO<>();
             try {
                 resultDTO.setStatus("OK");
@@ -383,7 +380,7 @@ public class DisposalController {
          *
          * @param disposalDetailsID 药品材料关联编号列表
          */
-        @RequestMapping("/approveInspectionDetails")
+        @RequestMapping("/approveDisposalDetails")
         public @ResponseBody
         ResultDTO approveInspectionDetails(Integer disposalDetailsID){
             ResultDTO resultDTO = new ResultDTO();
@@ -407,7 +404,7 @@ public class DisposalController {
          * @param disposalDetailsID 药品材料关联编号列表
          * @return  登记结果
          */
-        @RequestMapping("/registerdisposalDetails")
+        @RequestMapping("/registerDisposalDetails")
         public @ResponseBody
         ResultDTO registerdisposalDetails(Integer disposalDetailsID){
             ResultDTO resultDTO = new ResultDTO();
@@ -452,6 +449,4 @@ public class DisposalController {
             return resultDTO;
         }
 
-
-    }
 }

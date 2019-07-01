@@ -1646,76 +1646,6 @@ public class TakeMedDetailsViewExample {
             return (Criteria) this;
         }
 
-        public Criteria andARealNameIsNull() {
-            addCriterion("aRealName is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andARealNameIsNotNull() {
-            addCriterion("aRealName is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andARealNameEqualTo(String value) {
-            addCriterion("aRealName =", value, "aRealName");
-            return (Criteria) this;
-        }
-
-        public Criteria andARealNameNotEqualTo(String value) {
-            addCriterion("aRealName <>", value, "aRealName");
-            return (Criteria) this;
-        }
-
-        public Criteria andARealNameGreaterThan(String value) {
-            addCriterion("aRealName >", value, "aRealName");
-            return (Criteria) this;
-        }
-
-        public Criteria andARealNameGreaterThanOrEqualTo(String value) {
-            addCriterion("aRealName >=", value, "aRealName");
-            return (Criteria) this;
-        }
-
-        public Criteria andARealNameLessThan(String value) {
-            addCriterion("aRealName <", value, "aRealName");
-            return (Criteria) this;
-        }
-
-        public Criteria andARealNameLessThanOrEqualTo(String value) {
-            addCriterion("aRealName <=", value, "aRealName");
-            return (Criteria) this;
-        }
-
-        public Criteria andARealNameLike(String value) {
-            addCriterion("aRealName like", value, "aRealName");
-            return (Criteria) this;
-        }
-
-        public Criteria andARealNameNotLike(String value) {
-            addCriterion("aRealName not like", value, "aRealName");
-            return (Criteria) this;
-        }
-
-        public Criteria andARealNameIn(List<String> values) {
-            addCriterion("aRealName in", values, "aRealName");
-            return (Criteria) this;
-        }
-
-        public Criteria andARealNameNotIn(List<String> values) {
-            addCriterion("aRealName not in", values, "aRealName");
-            return (Criteria) this;
-        }
-
-        public Criteria andARealNameBetween(String value1, String value2) {
-            addCriterion("aRealName between", value1, value2, "aRealName");
-            return (Criteria) this;
-        }
-
-        public Criteria andARealNameNotBetween(String value1, String value2) {
-            addCriterion("aRealName not between", value1, value2, "aRealName");
-            return (Criteria) this;
-        }
-
         public Criteria andDrawnNameIsNull() {
             addCriterion("drawnName is null");
             return (Criteria) this;
@@ -2323,6 +2253,76 @@ public class TakeMedDetailsViewExample {
 
         public Criteria andCRealNameNotBetween(String value1, String value2) {
             addCriterion("cRealName not between", value1, value2, "cRealName");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameIsNull() {
+            addCriterion("aRealName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameIsNotNull() {
+            addCriterion("aRealName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameEqualTo(String value) {
+            addCriterion("aRealName =", value, "aRealName");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameNotEqualTo(String value) {
+            addCriterion("aRealName <>", value, "aRealName");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameGreaterThan(String value) {
+            addCriterion("aRealName >", value, "aRealName");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameGreaterThanOrEqualTo(String value) {
+            addCriterion("aRealName >=", value, "aRealName");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameLessThan(String value) {
+            addCriterion("aRealName <", value, "aRealName");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameLessThanOrEqualTo(String value) {
+            addCriterion("aRealName <=", value, "aRealName");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameLike(String value) {
+            addCriterion("aRealName like", value, "aRealName");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameNotLike(String value) {
+            addCriterion("aRealName not like", value, "aRealName");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameIn(List<String> values) {
+            addCriterion("aRealName in", values, "aRealName");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameNotIn(List<String> values) {
+            addCriterion("aRealName not in", values, "aRealName");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameBetween(String value1, String value2) {
+            addCriterion("aRealName between", value1, value2, "aRealName");
+            return (Criteria) this;
+        }
+
+        public Criteria andARealNameNotBetween(String value1, String value2) {
+            addCriterion("aRealName not between", value1, value2, "aRealName");
             return (Criteria) this;
         }
     }

@@ -70,7 +70,7 @@
   <sql id="Base_Column_List">
     id, userID, startTime, endTime, amount, tollManName
   </sql>
-  <select id="selectByExample" parameterType="edu.neu.hospital.bean.tollBean.DailySettleViewExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.tollExample.DailySettleViewExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -92,7 +92,7 @@
       </if>
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="edu.neu.hospital.bean.tollBean.DailySettleViewExample">
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.tollExample.DailySettleViewExample">
     delete from dailysettleview
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -149,7 +149,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="edu.neu.hospital.bean.tollBean.DailySettleViewExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="edu.neu.hospital.example.tollExample.DailySettleViewExample" resultType="java.lang.Long">
     select count(*) from dailysettleview
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

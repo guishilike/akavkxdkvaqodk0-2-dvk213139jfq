@@ -2,13 +2,13 @@ package edu.neu.hospital.service.MedicalTechService.impl;
 
 
 import edu.neu.hospital.bean.basicTableBean.PrescriptionDetail;
+
 import edu.neu.hospital.bean.takeMedicineBean.TakeMedDetailsView;
 import edu.neu.hospital.bean.takeMedicineBean.TakeMedicineFormView;
-
 import edu.neu.hospital.config.CustomDateConverter;
-import edu.neu.hospital.dao.basicTableDao.PrescriptionDetailDao;
 import edu.neu.hospital.dao.TakeMedicineDao.TakeMedDetailsViewDao;
 import edu.neu.hospital.dao.TakeMedicineDao.TakeMedicineFormViewDao;
+import edu.neu.hospital.dao.basicTableDao.PrescriptionDetailDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.takeMedicineExample.TakeMedDetailsViewExample;
 import edu.neu.hospital.example.takeMedicineExample.TakeMedicineFormViewExample;
@@ -31,16 +31,17 @@ public class TakeMedicineServiceImpl implements TakeMedicineService {
     @Resource
     private PrescriptionDetailDao prescriptiondetailDao;
 
+
     /**
      * 取药搜索表单信息
      *
      * @param search 取药搜索表单搜索框的内容
-     * @param date   取药搜索表单限制日期
-     * @param mark   取药表单项目标识
+     * @param startDate 取药搜索表单限制开始日期
+     * @param endDate 取药搜索表单限制结束日期
      * @return 取药搜索结果表单信息
      */
 
-    public List<TakeMedicineFormView> takemedicineformview(String search, Date date, Integer mark) {
+    public List<TakeMedicineFormView> takemedicineformview(String search, Date startDate,Date endDate) {
         TakeMedicineFormViewExample takemedicineformviewExample = new TakeMedicineFormViewExample();
         //默认按时间升序显示
         takemedicineformviewExample.getOrderByClause("appearDate asc");
@@ -53,37 +54,11 @@ public class TakeMedicineServiceImpl implements TakeMedicineService {
         criteria.andMarkEqualTo(151);
         criteria1.andMarkEqualTo(151);
         criteria2.andMarkEqualTo(151);
-        criteria.andIsDrawnEqualTo(131);
-        criteria1.andIsDrawnEqualTo(131);
-        criteria2.andIsDrawnEqualTo(131);
-        criteria.andIsAbolishedEqualTo(150);
-        criteria1.andIsAbolishedEqualTo(150);
-        criteria2.andIsAbolishedEqualTo(150);
-        if (mark != null) {
-            if (mark == 134) {
-                criteria.andIsPaidEqualTo(mark);
-                criteria1.andIsPaidEqualTo(mark);
-                criteria2.andIsPaidEqualTo(mark);
-            } else if (mark == 139) {
-                criteria.andIsGotDrugsEqualTo(mark);
-                criteria1.andIsGotDrugsEqualTo(mark);
-                criteria2.andIsGotDrugsEqualTo(mark);
-            } else if (mark == 138) {
-                criteria.andIsGotDrugsEqualTo(138);
-                criteria1.andIsGotDrugsEqualTo(138);
-                criteria2.andIsGotDrugsEqualTo(138);
-            } else if (mark == 140) {
-                criteria.andIsGotDrugsEqualTo(mark);
-                criteria1.andIsGotDrugsEqualTo(mark);
-                criteria2.andIsGotDrugsEqualTo(mark);
-            }
-        }
 
-        if (date != null) {
-            Date nextDay = new CustomDateConverter().getNextDay(date);
-            criteria.andAppearDateBetween(date, nextDay);
-            criteria1.andAppearDateBetween(date, nextDay);
-            criteria2.andAppearDateBetween(date, nextDay);
+        if (startDate != null&&endDate!=null) {
+            criteria.andAppearDateBetween(startDate, endDate);
+            criteria1.andAppearDateBetween(startDate, endDate);
+            criteria2.andAppearDateBetween(startDate, endDate);
         }
         //返回表单搜索内容作搜索关联匹配查询
         if (search != null) {
@@ -92,12 +67,14 @@ public class TakeMedicineServiceImpl implements TakeMedicineService {
             criteria.andPatientNameLike("%" + searchd + "%");
             if (regexProcess.regexProcess03(search)) {
                 criteria1.andIdEqualTo(Integer.valueOf(search));
+                takemedicineformviewExample.or(criteria1);
             }
             if (regexProcess.regexProcess03(search)) {
                 criteria2.andMedicalRecordIDEqualTo(Integer.valueOf(search));
+                takemedicineformviewExample.or(criteria2);
             }
         }
-        takemedicineformviewExample.or(criteria1);
+
         return takemedicineformviewDao.selectByExample(takemedicineformviewExample);
 
     }
@@ -106,13 +83,22 @@ public class TakeMedicineServiceImpl implements TakeMedicineService {
     /**
      * 显示处方详情
      *
-     * @param prescriptionDetailID 处方ID
+     * @param prescriptionID 处方ID
+     * @param mark 取药标记
      * @return 处方详情
      */
-    public List<TakeMedDetailsView> takemeddetailsview(Integer prescriptionDetailID) {
+    public List<TakeMedDetailsView> takemeddetailsview(Integer prescriptionID,Integer mark) {
+
         TakeMedDetailsViewExample takemeddetailsviewExample = new TakeMedDetailsViewExample();
         TakeMedDetailsViewExample.Criteria criteria = takemeddetailsviewExample.createCriteria();
-        criteria.andIdEqualTo(prescriptionDetailID);
+        if(mark==138||mark==139||mark==140){
+            criteria.andIsPaidEqualTo(133);
+            criteria.andIsGotDrugsEqualTo(mark);
+        }
+        else if(mark==134){
+            criteria.andIsPaidEqualTo(mark);
+        }
+        criteria.andPrescriptionIDEqualTo(prescriptionID);
         return takemeddetailsviewDao.selectByExample(takemeddetailsviewExample);
     }
 
@@ -127,8 +113,8 @@ public class TakeMedicineServiceImpl implements TakeMedicineService {
         for (Integer ID : presdetailsIDList) {
             PrescriptionDetail prescriptiondetail = prescriptiondetailDao.selectByPrimaryKey(ID);
             prescriptiondetail.setIsGotDrugs(138);
-            prescriptiondetail.setAppearUserID(userID);
-            prescriptiondetail.setAppearDate(new Date());
+            prescriptiondetail.setChangeUserID(userID);
+            prescriptiondetail.setChangeDate(new Date());
             prescriptiondetailDao.updateByPrimaryKeySelective(prescriptiondetail);
         }
     }
@@ -146,8 +132,8 @@ public class TakeMedicineServiceImpl implements TakeMedicineService {
         for (Integer ID : presdetailsIDList) {
             PrescriptionDetail prescriptiondetail = prescriptiondetailDao.selectByPrimaryKey(ID);
             prescriptiondetail.setIsGotDrugs(140);
-            prescriptiondetail.setAppearUserID(userID);
-            prescriptiondetail.setAppearDate(new Date());
+            prescriptiondetail.setChangeUserID(userID);
+            prescriptiondetail.setChangeDate(new Date());
             prescriptiondetailDao.updateByPrimaryKeySelective(prescriptiondetail);
         }
     }

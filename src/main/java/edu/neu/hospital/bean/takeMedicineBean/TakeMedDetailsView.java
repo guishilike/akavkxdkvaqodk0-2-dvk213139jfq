@@ -114,11 +114,6 @@ public class TakeMedDetailsView implements Serializable {
      */
     private BigDecimal reimbursement;
 
-    /**
-     * 真名
-     */
-    private String aRealName;
-
     private String drawnName;
 
     private String paidName;
@@ -139,6 +134,11 @@ public class TakeMedDetailsView implements Serializable {
      * 真名
      */
     private String cRealName;
+
+    /**
+     * 真名
+     */
+    private String aRealName;
 
     private static final long serialVersionUID = 1L;
 
@@ -334,14 +334,6 @@ public class TakeMedDetailsView implements Serializable {
         this.reimbursement = reimbursement;
     }
 
-    public String getaRealName() {
-        return aRealName;
-    }
-
-    public void setaRealName(String aRealName) {
-        this.aRealName = aRealName;
-    }
-
     public String getDrawnName() {
         return drawnName;
     }
@@ -414,6 +406,14 @@ public class TakeMedDetailsView implements Serializable {
         this.cRealName = cRealName;
     }
 
+    public String getaRealName() {
+        return aRealName;
+    }
+
+    public void setaRealName(String aRealName) {
+        this.aRealName = aRealName;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -450,7 +450,6 @@ public class TakeMedDetailsView implements Serializable {
             && (this.getDrugsPrice() == null ? other.getDrugsPrice() == null : this.getDrugsPrice().equals(other.getDrugsPrice()))
             && (this.getMnemonicCode() == null ? other.getMnemonicCode() == null : this.getMnemonicCode().equals(other.getMnemonicCode()))
             && (this.getReimbursement() == null ? other.getReimbursement() == null : this.getReimbursement().equals(other.getReimbursement()))
-            && (this.getaRealName() == null ? other.getaRealName() == null : this.getaRealName().equals(other.getaRealName()))
             && (this.getDrawnName() == null ? other.getDrawnName() == null : this.getDrawnName().equals(other.getDrawnName()))
             && (this.getPaidName() == null ? other.getPaidName() == null : this.getPaidName().equals(other.getPaidName()))
             && (this.getAbolishedName() == null ? other.getAbolishedName() == null : this.getAbolishedName().equals(other.getAbolishedName()))
@@ -459,7 +458,8 @@ public class TakeMedDetailsView implements Serializable {
             && (this.getDrugsTypeName() == null ? other.getDrugsTypeName() == null : this.getDrugsTypeName().equals(other.getDrugsTypeName()))
             && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
             && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
-            && (this.getcRealName() == null ? other.getcRealName() == null : this.getcRealName().equals(other.getcRealName()));
+            && (this.getcRealName() == null ? other.getcRealName() == null : this.getcRealName().equals(other.getcRealName()))
+            && (this.getaRealName() == null ? other.getaRealName() == null : this.getaRealName().equals(other.getaRealName()));
     }
 
     @Override
@@ -490,7 +490,6 @@ public class TakeMedDetailsView implements Serializable {
         result = prime * result + ((getDrugsPrice() == null) ? 0 : getDrugsPrice().hashCode());
         result = prime * result + ((getMnemonicCode() == null) ? 0 : getMnemonicCode().hashCode());
         result = prime * result + ((getReimbursement() == null) ? 0 : getReimbursement().hashCode());
-        result = prime * result + ((getaRealName() == null) ? 0 : getaRealName().hashCode());
         result = prime * result + ((getDrawnName() == null) ? 0 : getDrawnName().hashCode());
         result = prime * result + ((getPaidName() == null) ? 0 : getPaidName().hashCode());
         result = prime * result + ((getAbolishedName() == null) ? 0 : getAbolishedName().hashCode());
@@ -500,6 +499,7 @@ public class TakeMedDetailsView implements Serializable {
         result = prime * result + ((getChangeDate() == null) ? 0 : getChangeDate().hashCode());
         result = prime * result + ((getChangeUserID() == null) ? 0 : getChangeUserID().hashCode());
         result = prime * result + ((getcRealName() == null) ? 0 : getcRealName().hashCode());
+        result = prime * result + ((getaRealName() == null) ? 0 : getaRealName().hashCode());
         return result;
     }
 
@@ -533,7 +533,6 @@ public class TakeMedDetailsView implements Serializable {
         sb.append(", drugsPrice=").append(drugsPrice);
         sb.append(", mnemonicCode=").append(mnemonicCode);
         sb.append(", reimbursement=").append(reimbursement);
-        sb.append(", aRealName=").append(aRealName);
         sb.append(", drawnName=").append(drawnName);
         sb.append(", paidName=").append(paidName);
         sb.append(", abolishedName=").append(abolishedName);
@@ -543,6 +542,7 @@ public class TakeMedDetailsView implements Serializable {
         sb.append(", changeDate=").append(changeDate);
         sb.append(", changeUserID=").append(changeUserID);
         sb.append(", cRealName=").append(cRealName);
+        sb.append(", aRealName=").append(aRealName);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

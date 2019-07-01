@@ -84,11 +84,10 @@ public interface TollService {
      * 缴费
      *
      * @param feeIDs 缴费编号
-     * @param patientCardID 就诊卡编号
      * @param tollManID 收费员编号
      * @return 缴费结果
      */
-    String toll(IdDTO feeIDs, Integer patientCardID, Integer tollManID);
+    String toll(IdDTO feeIDs, Integer tollManID);
 
 
 
@@ -96,11 +95,10 @@ public interface TollService {
      * 退费
      *
      * @param feeIDs 退费编号
-     * @param patientCardID 医疗卡编号
      * @param tollManID 收费员编号
      * @return 退费结果
      */
-    String refund(IdDTO feeIDs, Integer patientCardID, Integer tollManID);
+    String refund(IdDTO feeIDs, Integer tollManID);
 
 
     /**
@@ -109,7 +107,7 @@ public interface TollService {
      * @param tollManID 日结员编号
      * @param endDate 日结日期
      */
-     void  dailySettle(Integer tollManID, Date endDate);
+     String  dailySettle(Integer tollManID, Date endDate);
 
 
     /**

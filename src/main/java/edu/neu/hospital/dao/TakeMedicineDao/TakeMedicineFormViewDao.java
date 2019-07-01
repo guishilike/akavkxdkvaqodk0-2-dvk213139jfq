@@ -1,8 +1,9 @@
 package edu.neu.hospital.dao.TakeMedicineDao;
 
+import java.util.List;
+
 import edu.neu.hospital.bean.takeMedicineBean.TakeMedicineFormView;
 import edu.neu.hospital.example.takeMedicineExample.TakeMedicineFormViewExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TakeMedicineFormViewDao {

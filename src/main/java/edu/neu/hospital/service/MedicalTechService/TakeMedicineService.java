@@ -12,20 +12,21 @@ public interface TakeMedicineService {
      * 取药搜索表单信息
      *
      * @param search 取药搜索表单搜索框的内容
-     * @param date   取药搜索表单限制日期
-     * @param mark   取药表单项目标识
+     * @param startDate   取药搜索表单限制开始日期
+     * @param endDate 取药搜索表单限制结束日期
      * @return 取药搜索结果表单信息
      */
 
-    List<TakeMedicineFormView> takemedicineformview(String search, Date date, Integer mark);
+    List<TakeMedicineFormView> takemedicineformview(String search, Date startDate,Date endDate);
 
     /**
      * 显示处方详情
      *
-     * @param prescriptionDetailID 处方ID
+     * @param prescriptionID 处方ID
+     * @param mark 取药标记
      * @return 处方详情
      */
-    List<TakeMedDetailsView> takemeddetailsview(Integer prescriptionDetailID);
+    List<TakeMedDetailsView> takemeddetailsview(Integer prescriptionID,Integer mark);
 
     /**
      * 批量取药

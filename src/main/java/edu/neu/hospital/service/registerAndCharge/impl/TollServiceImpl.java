@@ -6,6 +6,7 @@ import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.dao.tollDao.*;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.basicTableExample.FeeExample;
+import edu.neu.hospital.example.basicTableExample.PatientCardExample;
 import edu.neu.hospital.example.tollExample.*;
 import edu.neu.hospital.service.registerAndCharge.TollService;
 import edu.neu.hospital.utils.RegexProcess;
@@ -57,6 +58,8 @@ public class TollServiceImpl implements TollService {
     private RegistrationInfoDao registrationinfoDao;
     @Resource
     private DailySettlementDao dailysettlementDao;
+    @Resource
+    private MedicalRecordDao medicalRecordDao;
 
 
 
@@ -282,21 +285,32 @@ public class TollServiceImpl implements TollService {
      * 缴费
      *
      * @param feeIDs 缴费编号
-     * @param patientCardID 就诊卡编号
      * @param tollManID 收费员编号
      * @return 缴费结果
      */
-    public String toll(IdDTO feeIDs, Integer patientCardID, Integer tollManID) {
+    public String toll(IdDTO feeIDs, Integer tollManID) {
         String result = "缴费成功";
-        PatientCard patientcard = patientcardDao.selectByPrimaryKey(patientCardID);
+
 
         List<Integer> feeIDList = feeIDs.getId();
+        Fee feeSearch = feeDao.selectByPrimaryKey(feeIDList.get(0));
+        Integer patientID=medicalRecordDao.selectByPrimaryKey(feeSearch.getMedicalRecordID()).getPatientID();
+
+        PatientCardExample patientCardExample=new PatientCardExample();
+        PatientCardExample.Criteria criteria=patientCardExample.createCriteria();
+        criteria.andPatientIDEqualTo(patientID);
+
+        PatientCard patientcard = patientcardDao.selectByExample(patientCardExample).get(0);
+
+
         BigDecimal feeExpected = new BigDecimal(0);
         for (Integer feeID : feeIDList) {
             Fee fee = feeDao.selectByPrimaryKey(feeID);
-            feeExpected.add(fee.getFee());
+            feeExpected=feeExpected.add(fee.getFee());
         }
-        if (feeExpected.compareTo(patientcard.getMoney()) == 1) {
+
+
+        if (feeExpected.compareTo(patientcard.getMoney()) > 0) {
             result = "余额不足";
             return result;
         }
@@ -307,51 +321,56 @@ public class TollServiceImpl implements TollService {
                 fee.setTollManID(tollManID);
                 fee.setTollDate(new Date());
                 fee.setPayStatus(133);
+                feeDao.updateByPrimaryKeySelective(fee);
                 InspectionDetails inspectiondetails = inspectiondetailsDao.selectByPrimaryKey(fee.getChargeItemID());
                 inspectiondetails.setIsPaid(133);
                 inspectiondetailsDao.updateByPrimaryKeySelective(inspectiondetails);
-                feeTotal.add(fee.getFee());
+                feeTotal=feeTotal.add(fee.getFee());
             }
             else if(fee.getExpID() == 16){
                 fee.setTollManID(tollManID);
                 fee.setTollDate(new Date());
                 fee.setPayStatus(133);
+                feeDao.updateByPrimaryKeySelective(fee);
                 DisposalDetails disposaldetials= disposalDetailsDao.selectByPrimaryKey(fee.getChargeItemID());
                 disposaldetials.setIsPaid(133);
                 disposalDetailsDao.updateByPrimaryKeySelective(disposaldetials);
-                feeTotal.add(fee.getFee());
+                feeTotal=feeTotal.add(fee.getFee());
             }
             else if(fee.getExpID() == 13||fee.getExpID() == 14||fee.getExpID() == 15){
                 fee.setTollManID(tollManID);
                 fee.setTollDate(new Date());
                 fee.setPayStatus(133);
+                feeDao.updateByPrimaryKeySelective(fee);
                 PrescriptionDetail prescriptiondetail=prescriptiondetailDao.selectByPrimaryKey(fee.getChargeItemID());
                 prescriptiondetail.setIsPaid(133);
                 prescriptiondetailDao.updateByPrimaryKeySelective(prescriptiondetail);
-                feeTotal.add(fee.getFee());
+                feeTotal=feeTotal.add(fee.getFee());
             }
             else if(fee.getExpID() == 4||fee.getExpID() == 6||fee.getExpID() == 8||fee.getExpID() == 10||fee.getExpID() == 12||fee.getExpID() == 17
                     ||fee.getExpID() == 22||fee.getExpID() == 23){
                 fee.setTollManID(tollManID);
                 fee.setTollDate(new Date());
                 fee.setPayStatus(133);
+                feeDao.updateByPrimaryKeySelective(fee);
                 MedicinesMaterialsList medicinesmaterialslist=medicinesmaterialslistDao.selectByPrimaryKey(fee.getChargeItemID());
                 medicinesmaterialslist.setIsPaid(133);
                 medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
-                feeTotal.add(fee.getFee());
+                feeTotal=feeTotal.add(fee.getFee());
             }
             else if(fee.getExpID() == 1){
                 fee.setTollManID(tollManID);
                 fee.setTollDate(new Date());
                 fee.setPayStatus(133);
+                feeDao.updateByPrimaryKeySelective(fee);
                 PrescriptionDetail prescriptiondetail=prescriptiondetailDao.selectByPrimaryKey(fee.getChargeItemID());
                 prescriptiondetail.setIsPaid(133);
                 prescriptiondetailDao.updateByPrimaryKeySelective(prescriptiondetail);
-                feeTotal.add(fee.getFee());
+                feeTotal=feeTotal.add(fee.getFee());
             }
         }
         PatientCardFeeRecord patientcardfeerecord=new PatientCardFeeRecord();
-        setPatientFeeRecord(patientcardfeerecord,patientcard,"1",feeTotal,tollManID);
+        setPatientFeeRecord(patientcardfeerecord,patientcard,"0",feeTotal,tollManID);
         patientcard.setMoney(patientcard.getMoney().subtract(feeTotal));
         patientcardDao.updateByPrimaryKeySelective(patientcard);
         return result;
@@ -363,14 +382,22 @@ public class TollServiceImpl implements TollService {
      * 退费
      *
      * @param feeIDs 退费编号
-     * @param patientCardID 医疗卡编号
      * @param tollManID 收费员编号
      * @return 退费结果
      */
-    public String refund(IdDTO feeIDs, Integer patientCardID, Integer tollManID) {
+    public String refund(IdDTO feeIDs, Integer tollManID) {
         String result = "退费成功";
-        PatientCard patientcard = patientcardDao.selectByPrimaryKey(patientCardID);
+
+
         List<Integer> feeIDList = feeIDs.getId();
+        Fee feeSearch = feeDao.selectByPrimaryKey(feeIDList.get(0));
+        Integer patientID=medicalRecordDao.selectByPrimaryKey(feeSearch.getMedicalRecordID()).getPatientID();
+
+        PatientCardExample patientCardExample=new PatientCardExample();
+        PatientCardExample.Criteria criteria=patientCardExample.createCriteria();
+        criteria.andPatientIDEqualTo(patientID);
+        PatientCard patientcard = patientcardDao.selectByExample(patientCardExample).get(0);
+
         BigDecimal feeTotal = new BigDecimal(0);
         for (Integer feeID : feeIDList) {
             Fee fee = feeDao.selectByPrimaryKey(feeID);
@@ -380,12 +407,12 @@ public class TollServiceImpl implements TollService {
                 fee.setTollManID(tollManID);
                 fee.setTollDate(new Date());
                 fee.setPayStatus(135);
-
+                feeDao.updateByPrimaryKeySelective(fee);
                 inspectiondetails.setIsPaid(135);
                 inspectiondetailsDao.updateByPrimaryKeySelective(inspectiondetails);
-                feeTotal.add(fee.getFee());
+                    feeTotal=feeTotal.add(fee.getFee());
                 }else if(inspectiondetails.getIsChecked()==136){
-                     result="已登记";
+                     result="检查已登记";
                      return result;
                 }
             }
@@ -395,12 +422,13 @@ public class TollServiceImpl implements TollService {
                     fee.setTollManID(tollManID);
                     fee.setTollDate(new Date());
                     fee.setPayStatus(135);
+                    feeDao.updateByPrimaryKeySelective(fee);
                     disposaldetials.setIsPaid(135);
                     disposalDetailsDao.updateByPrimaryKeySelective(disposaldetials);
-                    feeTotal.add(fee.getFee());
+                    feeTotal=feeTotal.add(fee.getFee());
                 }
                 else if(disposaldetials.getIsRegistered()==136){
-                    result="已登记";
+                    result="处置已登记";
                     return result;
                 }
             }
@@ -410,10 +438,11 @@ public class TollServiceImpl implements TollService {
                     fee.setTollManID(tollManID);
                     fee.setTollDate(new Date());
                     fee.setPayStatus(135);
+                    feeDao.updateByPrimaryKeySelective(fee);
                     prescriptiondetail.setIsPaid(135);
                     prescriptiondetailDao.updateByPrimaryKeySelective(prescriptiondetail);
-                    feeTotal.add(fee.getFee());
-                }else if(prescriptiondetail.getIsGotDrugs()==139){
+                    feeTotal=feeTotal.add(fee.getFee());
+                }else if(prescriptiondetail.getIsGotDrugs()==138){
                     result="未退药";
                     return  result;
                 }
@@ -421,48 +450,54 @@ public class TollServiceImpl implements TollService {
             }
             else if(fee.getExpID() == 4||fee.getExpID() == 6||fee.getExpID() == 8||fee.getExpID() == 10||fee.getExpID() == 12||fee.getExpID() == 17
                     ||fee.getExpID() == 22||fee.getExpID() == 23){
+                System.out.println(fee.getChargeItemID());
                 MedicinesMaterialsList medicinesmaterialslist=medicinesmaterialslistDao.selectByPrimaryKey(fee.getChargeItemID());
                 if(medicinesmaterialslist.getIsRegistered()==137) {
                     fee.setTollManID(tollManID);
                     fee.setTollDate(new Date());
                     fee.setPayStatus(135);
+                    feeDao.updateByPrimaryKeySelective(fee);
                     medicinesmaterialslist.setIsPaid(135);
                     medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
-                    feeTotal.add(fee.getFee());
+                    feeTotal=feeTotal.add(fee.getFee());
                 }else if(medicinesmaterialslist.getIsRegistered()==136){
-
+                    result="药品材料已登记";
+                    return  result;
                 }
             }
             else if(fee.getExpID() == 1){
+                System.out.println(fee.getChargeItemID());
                 Registrationinfo registrationinfo=registrationinfoDao.selectByPrimaryKey(fee.getChargeItemID());
-                if(registrationinfo.getRegistrationStatus()=="02")
-                fee.setTollManID(tollManID);
-                fee.setTollDate(new Date());
-                fee.setPayStatus(135);
-                PrescriptionDetail prescriptiondetail=prescriptiondetailDao.selectByPrimaryKey(fee.getChargeItemID());
-                prescriptiondetail.setIsPaid(135);
-                prescriptiondetailDao.updateByPrimaryKeySelective(prescriptiondetail);
-                feeTotal.add(fee.getFee());
+                if(registrationinfo.getRegistrationStatus().equals("2")) {
+                    fee.setTollManID(tollManID);
+                    fee.setTollDate(new Date());
+                    fee.setPayStatus(135);
+                    feeDao.updateByPrimaryKeySelective(fee);
+                    feeTotal = feeTotal.add(fee.getFee());
+                }else {
+                    result="未退号";
+                    return  result;
+                }
             }
         }
         PatientCardFeeRecord patientcardfeerecord=new PatientCardFeeRecord();
         setPatientFeeRecord(patientcardfeerecord,patientcard,"1",feeTotal,tollManID);
         patientcard.setMoney(patientcard.getMoney().add(feeTotal));
         patientcardDao.updateByPrimaryKeySelective(patientcard);
+
         return result;
     }
 
 
     /**
      * 添加病人费用记录
-     *
-     * @param patientcardfeerecord  病人费用记录
+     *  @param patientcardfeerecord  病人费用记录
      * @param patientcard   就诊卡
      * @param type  费用类型：支付或充值
      * @param feeTotal 总费用
      * @param tollManID 收费员编号
      */
-    public void setPatientFeeRecord(PatientCardFeeRecord patientcardfeerecord, PatientCard patientcard, String type, BigDecimal feeTotal, Integer tollManID){
+    private void setPatientFeeRecord(PatientCardFeeRecord patientcardfeerecord, PatientCard patientcard, String type, BigDecimal feeTotal, Integer tollManID){
         patientcardfeerecord.setCardID(patientcard.getId());
         patientcardfeerecord.setAmount(feeTotal);
         patientcardfeerecord.setType(type);
@@ -478,18 +513,21 @@ public class TollServiceImpl implements TollService {
      * @param tollManID 日结员编号
      * @param endDate 日结日期
      */
-    public  void  dailySettle(Integer tollManID,Date endDate){
+    public  String  dailySettle(Integer tollManID,Date endDate){
         DailySettleViewExample dailysettleviewExample=new DailySettleViewExample();
         DailySettleViewExample.Criteria criteria=dailysettleviewExample.createCriteria();
         criteria.andUserIDEqualTo(tollManID);
         dailysettleviewExample.getOrderByClause("endTime asc");
         List<DailySettleView> dailySettleViewList = dailysettleviewDao.selectByExample(dailysettleviewExample);
         Date startDate= dailySettleViewList.get(0).getEndTime();
+        if(endDate.compareTo(startDate)<0){
+            return "已日结";
+        }
         BigDecimal amount=new BigDecimal("0");
         List<FeeView> feeViewList =dailySettleFee(tollManID,startDate,endDate);
         for(FeeView feeview: feeViewList){
             if(feeview.getPayStatus()==133) {
-                amount.add(feeview.getFee());
+                amount=amount.add(feeview.getFee());
             }
         }
         DailySettlement dailysettlement=new DailySettlement();
@@ -497,7 +535,9 @@ public class TollServiceImpl implements TollService {
         dailysettlement.setStartTime(startDate);
         dailysettlement.setEndTime(endDate);
         dailysettlement.setUserID(tollManID);
+        dailysettlement.setStatus("1");
         dailysettlementDao.insert(dailysettlement);
+        return "日结成功";
     }
 
     /**
@@ -510,8 +550,10 @@ public class TollServiceImpl implements TollService {
     public  List<DailySettleView>  dailySettleSearch(Integer tollManID, Date startDate, Date endDate){
         DailySettleViewExample dailysettleviewExample=new DailySettleViewExample();
         DailySettleViewExample.Criteria criteria=dailysettleviewExample.createCriteria();
-        criteria.andStartTimeBetween(startDate,endDate);
-        criteria.andEndTimeBetween(startDate,endDate);
+        if(startDate!=null&&endDate!=null) {
+            criteria.andStartTimeBetween(startDate, endDate);
+            criteria.andEndTimeBetween(startDate, endDate);
+        }
         criteria.andUserIDEqualTo(tollManID);
         dailysettleviewExample.getOrderByClause("endTime asc");
         return dailysettleviewDao.selectByExample(dailysettleviewExample);
@@ -528,8 +570,8 @@ public class TollServiceImpl implements TollService {
        public List<FeeView> dailySettleFee (Integer tollManID, Date startDate, Date endDate){
            FeeViewExample feeviewExample = new FeeViewExample();
            FeeViewExample.Criteria criteriaF = feeviewExample.createCriteria();
-           criteriaF.andAppearUserIDEqualTo(tollManID);
-           criteriaF.andFeeAppearDateBetween(startDate,endDate);
+           criteriaF.andTollManIDEqualTo(tollManID);
+           criteriaF.andTollDateBetween(startDate,endDate);
            return feeviewDao.selectByExample(feeviewExample);
        }
 

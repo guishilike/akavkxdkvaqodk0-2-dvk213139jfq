@@ -26,7 +26,6 @@
     <result column="drugsPrice" jdbcType="DECIMAL" property="drugsPrice" />
     <result column="mnemonicCode" jdbcType="VARCHAR" property="mnemonicCode" />
     <result column="reimbursement" jdbcType="DECIMAL" property="reimbursement" />
-    <result column="aRealName" jdbcType="VARCHAR" property="aRealName" />
     <result column="drawnName" jdbcType="VARCHAR" property="drawnName" />
     <result column="PaidName" jdbcType="VARCHAR" property="paidName" />
     <result column="abolishedName" jdbcType="VARCHAR" property="abolishedName" />
@@ -36,6 +35,7 @@
     <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
     <result column="changeUserID" jdbcType="INTEGER" property="changeUserID" />
     <result column="cRealName" jdbcType="VARCHAR" property="cRealName" />
+    <result column="aRealName" jdbcType="VARCHAR" property="aRealName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -99,8 +99,8 @@
     id, drugID, `usage`, dosage, frequency, quantity, medication, isDrawn, isPaid, isAbolished, 
     isGotDrugs, appearDate, appearUserID, prescriptionID, drugsCode, drugsName, drugsFormat, 
     drugsUnit, manufacturer, drugsDosageID, drugsTypeID, drugsPrice, mnemonicCode, reimbursement, 
-    aRealName, drawnName, PaidName, abolishedName, gotDrugsName, DrugsDosageName, DrugsTypeName, 
-    changeDate, changeUserID, cRealName
+    drawnName, PaidName, abolishedName, gotDrugsName, DrugsDosageName, DrugsTypeName, 
+    changeDate, changeUserID, cRealName, aRealName
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.takeMedicineExample.TakeMedDetailsViewExample" resultMap="BaseResultMap">
     select
@@ -139,10 +139,10 @@
       drugsName, drugsFormat, drugsUnit, 
       manufacturer, drugsDosageID, drugsTypeID, 
       drugsPrice, mnemonicCode, reimbursement, 
-      aRealName, drawnName, PaidName, 
-      abolishedName, gotDrugsName, DrugsDosageName, 
-      DrugsTypeName, changeDate, changeUserID, 
-      cRealName)
+      drawnName, PaidName, abolishedName, 
+      gotDrugsName, DrugsDosageName, DrugsTypeName, 
+      changeDate, changeUserID, cRealName, 
+      aRealName)
     values (#{id,jdbcType=INTEGER}, #{drugID,jdbcType=INTEGER}, #{usage,jdbcType=VARCHAR}, 
       #{dosage,jdbcType=DECIMAL}, #{frequency,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, 
       #{medication,jdbcType=VARCHAR}, #{isDrawn,jdbcType=INTEGER}, #{isPaid,jdbcType=INTEGER}, 
@@ -151,10 +151,10 @@
       #{drugsName,jdbcType=VARCHAR}, #{drugsFormat,jdbcType=VARCHAR}, #{drugsUnit,jdbcType=VARCHAR}, 
       #{manufacturer,jdbcType=VARCHAR}, #{drugsDosageID,jdbcType=INTEGER}, #{drugsTypeID,jdbcType=INTEGER}, 
       #{drugsPrice,jdbcType=DECIMAL}, #{mnemonicCode,jdbcType=VARCHAR}, #{reimbursement,jdbcType=DECIMAL}, 
-      #{aRealName,jdbcType=VARCHAR}, #{drawnName,jdbcType=VARCHAR}, #{paidName,jdbcType=VARCHAR}, 
-      #{abolishedName,jdbcType=VARCHAR}, #{gotDrugsName,jdbcType=VARCHAR}, #{drugsDosageName,jdbcType=VARCHAR}, 
-      #{drugsTypeName,jdbcType=VARCHAR}, #{changeDate,jdbcType=TIMESTAMP}, #{changeUserID,jdbcType=INTEGER}, 
-      #{cRealName,jdbcType=VARCHAR})
+      #{drawnName,jdbcType=VARCHAR}, #{paidName,jdbcType=VARCHAR}, #{abolishedName,jdbcType=VARCHAR}, 
+      #{gotDrugsName,jdbcType=VARCHAR}, #{drugsDosageName,jdbcType=VARCHAR}, #{drugsTypeName,jdbcType=VARCHAR}, 
+      #{changeDate,jdbcType=TIMESTAMP}, #{changeUserID,jdbcType=INTEGER}, #{cRealName,jdbcType=VARCHAR}, 
+      #{aRealName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="edu.neu.hospital.bean.takeMedicineBean.TakeMedDetailsView">
     insert into takemeddetailsview
@@ -231,9 +231,6 @@
       <if test="reimbursement != null">
         reimbursement,
       </if>
-      <if test="aRealName != null">
-        aRealName,
-      </if>
       <if test="drawnName != null">
         drawnName,
       </if>
@@ -260,6 +257,9 @@
       </if>
       <if test="cRealName != null">
         cRealName,
+      </if>
+      <if test="aRealName != null">
+        aRealName,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -335,9 +335,6 @@
       <if test="reimbursement != null">
         #{reimbursement,jdbcType=DECIMAL},
       </if>
-      <if test="aRealName != null">
-        #{aRealName,jdbcType=VARCHAR},
-      </if>
       <if test="drawnName != null">
         #{drawnName,jdbcType=VARCHAR},
       </if>
@@ -364,6 +361,9 @@
       </if>
       <if test="cRealName != null">
         #{cRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="aRealName != null">
+        #{aRealName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -448,9 +448,6 @@
       <if test="record.reimbursement != null">
         reimbursement = #{record.reimbursement,jdbcType=DECIMAL},
       </if>
-      <if test="record.aRealName != null">
-        aRealName = #{record.aRealName,jdbcType=VARCHAR},
-      </if>
       <if test="record.drawnName != null">
         drawnName = #{record.drawnName,jdbcType=VARCHAR},
       </if>
@@ -477,6 +474,9 @@
       </if>
       <if test="record.cRealName != null">
         cRealName = #{record.cRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aRealName != null">
+        aRealName = #{record.aRealName,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -509,7 +509,6 @@
       drugsPrice = #{record.drugsPrice,jdbcType=DECIMAL},
       mnemonicCode = #{record.mnemonicCode,jdbcType=VARCHAR},
       reimbursement = #{record.reimbursement,jdbcType=DECIMAL},
-      aRealName = #{record.aRealName,jdbcType=VARCHAR},
       drawnName = #{record.drawnName,jdbcType=VARCHAR},
       PaidName = #{record.paidName,jdbcType=VARCHAR},
       abolishedName = #{record.abolishedName,jdbcType=VARCHAR},
@@ -518,7 +517,8 @@
       DrugsTypeName = #{record.drugsTypeName,jdbcType=VARCHAR},
       changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
       changeUserID = #{record.changeUserID,jdbcType=INTEGER},
-      cRealName = #{record.cRealName,jdbcType=VARCHAR}
+      cRealName = #{record.cRealName,jdbcType=VARCHAR},
+      aRealName = #{record.aRealName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
