@@ -6,11 +6,10 @@ import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.Patient;
 import edu.neu.hospital.bean.basicTableBean.Registrationinfo;
+import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
-import edu.neu.hospital.service.baseService.ConstantService;
-import edu.neu.hospital.service.baseService.DepartmentService;
-import edu.neu.hospital.service.baseService.ScheduleService;
+import edu.neu.hospital.service.baseService.*;
 import edu.neu.hospital.service.registerAndCharge.RegisterService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,10 +38,16 @@ public class RegisterController {
     ConstantService constantService;
 
     @Resource
+    RegistrationLevelService registrationLevelService;
+
+    @Resource
     DepartmentService departmentService;
 
     @Resource
     RegisterService regService;
+
+    @Resource
+    UserService userService;
 
     /**
      * 挂号
@@ -144,7 +149,10 @@ public class RegisterController {
 
                     NameCodeDTO nameCodeDTO = new NameCodeDTO();
                     nameCodeDTO.setId(view.getOnDutyDoctorID());
-                    nameCodeDTO.setName(view.getUserName());
+
+                    nameCodeDTO.setCode(view.getUserName());
+                    User user = userService.findUserByID(view.getOnDutyDoctorID());
+                    nameCodeDTO.setName(user.getRealName());
 
                     nameCodeDTOS.add(nameCodeDTO);
 

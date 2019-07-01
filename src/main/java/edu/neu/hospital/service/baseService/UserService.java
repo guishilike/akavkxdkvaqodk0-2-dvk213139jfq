@@ -100,4 +100,6 @@ public interface UserService {
      */
     public File createXLSTemplate() throws IOException;
 
+    User findUserByID(Integer id);
+
 }
