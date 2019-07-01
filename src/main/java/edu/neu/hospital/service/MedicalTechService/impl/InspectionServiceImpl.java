@@ -415,7 +415,7 @@ public class InspectionServiceImpl implements InspectionService {
         for (Integer ID : medMatListIDlist) {
             MedicinesMaterialsList medicinesmaterialslist = new MedicinesMaterialsList();
 
-            medicinesmaterialslist.setIsDrawn(136);
+            medicinesmaterialslist.setIsDrawn(131);
             medicinesmaterialslist.setIsPaid(134);
             medicinesmaterialslist.setIsChecked(141);
             medicinesmaterialslist.setIsAbolished(150);
@@ -445,6 +445,7 @@ public class InspectionServiceImpl implements InspectionService {
             Fee fee=new Fee();
             fee.setMedicalRecordID(inspectformview.getMedicalrecordId());
             fee.setFeeCategoryID(registrationinfoList.get(0).getPaymentCategoryID());
+            fee.setChargeItemID(inspectmatreview.getMedMatListID());
             fee.setExpID(4);
             fee.setAppearUserID(userID);
             fee.setFeeAppearDate(new Date());
@@ -469,7 +470,7 @@ public class InspectionServiceImpl implements InspectionService {
         for (Integer ID : medListIDlist) {
             MedicinesMaterialsList medicinesmaterialslist = new MedicinesMaterialsList();
             medicinesmaterialslist.setId(ID);
-            medicinesmaterialslist.setIsDrawn(136);
+            medicinesmaterialslist.setIsDrawn(131);
             medicinesmaterialslist.setIsPaid(134);
             medicinesmaterialslist.setIsChecked(141);
             medicinesmaterialslist.setIsAbolished(150);
@@ -503,12 +504,7 @@ public class InspectionServiceImpl implements InspectionService {
             fee.setMedicalRecordID(inspectformview.getMedicalrecordId());
             fee.setFeeCategoryID(registrationinfoList.get(0).getPaymentCategoryID());
             fee.setChargeItemID(inspectmedreview.getMedMatListID());
-            if(inspectmedreview.getMatOrMedType().equals("0")) {
-                fee.setExpID(22);
-            }
-            if(inspectmedreview.getMatOrMedType().equals("1")) {
-                fee.setExpID(4);
-            }
+            fee.setExpID(22);
             fee.setAppearUserID(userID);
             fee.setFeeAppearDate(new Date());
             fee.setPayStatus(134);
@@ -547,25 +543,26 @@ public class InspectionServiceImpl implements InspectionService {
 
         MedicinesMaterialsListExample medicinesmaterialslistExample=new MedicinesMaterialsListExample();
         MedicinesMaterialsListExample.Criteria criteria=medicinesmaterialslistExample.createCriteria();
+        criteria.andItemsTypeNotEqualTo(119);
         criteria.andItemsDetailIDEqualTo(inspectionDetailsID);
         criteria.andIsAbolishedEqualTo(150);
         List<MedicinesMaterialsList> medMatList=medicinesmaterialslistDao.selectByExample(medicinesmaterialslistExample);
         for (MedicinesMaterialsList medicinesmaterialslist : medMatList) {
             if(medicinesmaterialslist.getIsPaid()==134) {
                 result = "检查检验药品材料未缴费";
+                return result;
             }else if(medicinesmaterialslist.getIsChecked()==142){
                 result = "检查检验药品材料未通过审核";
+                return result;
             }
         }
-        if(result.equals("可以登记")){
-            for (MedicinesMaterialsList medicinesmaterialslist : medMatList){
-              medicinesmaterialslist.setIsRegistered(136);
-              medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
-            }
-            inspectiondetails.setIsChecked(136);
-            inspectiondetailsDao.updateByPrimaryKeySelective(inspectiondetails);
-            result="检查检验登记成功";
+        for (MedicinesMaterialsList medicinesmaterialslist : medMatList){
+          medicinesmaterialslist.setIsRegistered(136);
+          medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
         }
+        inspectiondetails.setIsRegistered(136);
+        inspectiondetailsDao.updateByPrimaryKeySelective(inspectiondetails);
+        result="检查检验登记成功";
         return result;
     }
 
@@ -642,6 +639,17 @@ public class InspectionServiceImpl implements InspectionService {
         inspectiondetails.setId(inspectionDetailsID);
         inspectiondetails.setIsExecuted(145);
         inspectiondetailsDao.updateByPrimaryKeySelective( inspectiondetails);
+
+        MedicinesMaterialsListExample medicinesmaterialslistExample=new MedicinesMaterialsListExample();
+        MedicinesMaterialsListExample.Criteria criteria=medicinesmaterialslistExample.createCriteria();
+        criteria.andItemsTypeNotEqualTo(119);
+        criteria.andItemsDetailIDEqualTo(inspectionDetailsID);
+        criteria.andIsAbolishedEqualTo(150);
+        List<MedicinesMaterialsList> medMatList=medicinesmaterialslistDao.selectByExample(medicinesmaterialslistExample);
+        for (MedicinesMaterialsList medicinesmaterialslist : medMatList){
+            medicinesmaterialslist.setIsExecuted(145);
+            medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
+        }
     }
 }
 

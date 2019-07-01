@@ -1,7 +1,7 @@
 package edu.neu.hospital.dao.tollDao;
 
 import edu.neu.hospital.bean.tollBean.DailySettleView;
-import edu.neu.hospital.bean.tollBean.DailySettleViewExample;
+import edu.neu.hospital.example.tollExample.DailySettleViewExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

@@ -73,28 +73,6 @@ public class TakeMedicineFormView implements Serializable {
      */
     private String diagnosisStatus;
 
-    /**
-     * 保留字段2
-     */
-    private Integer isDrawn;
-
-    /**
-     * 保留字段3
-     */
-    private Integer isPaid;
-
-    private Integer isAbolished;
-
-    private Integer isGotDrugs;
-
-    private String drawmName;
-
-    private String paidName;
-
-    private String abolishedName;
-
-    private String gotDrugsName;
-
     private Date appearDate;
 
     private Date changeDate;
@@ -129,11 +107,6 @@ public class TakeMedicineFormView implements Serializable {
     private String deptCategoryName;
 
     private Integer mark;
-
-    /**
-     * 处方明细编号
-     */
-    private Integer prescriptionDetailID;
 
     private static final long serialVersionUID = 1L;
 
@@ -241,70 +214,6 @@ public class TakeMedicineFormView implements Serializable {
         this.diagnosisStatus = diagnosisStatus;
     }
 
-    public Integer getIsDrawn() {
-        return isDrawn;
-    }
-
-    public void setIsDrawn(Integer isDrawn) {
-        this.isDrawn = isDrawn;
-    }
-
-    public Integer getIsPaid() {
-        return isPaid;
-    }
-
-    public void setIsPaid(Integer isPaid) {
-        this.isPaid = isPaid;
-    }
-
-    public Integer getIsAbolished() {
-        return isAbolished;
-    }
-
-    public void setIsAbolished(Integer isAbolished) {
-        this.isAbolished = isAbolished;
-    }
-
-    public Integer getIsGotDrugs() {
-        return isGotDrugs;
-    }
-
-    public void setIsGotDrugs(Integer isGotDrugs) {
-        this.isGotDrugs = isGotDrugs;
-    }
-
-    public String getDrawmName() {
-        return drawmName;
-    }
-
-    public void setDrawmName(String drawmName) {
-        this.drawmName = drawmName;
-    }
-
-    public String getPaidName() {
-        return paidName;
-    }
-
-    public void setPaidName(String paidName) {
-        this.paidName = paidName;
-    }
-
-    public String getAbolishedName() {
-        return abolishedName;
-    }
-
-    public void setAbolishedName(String abolishedName) {
-        this.abolishedName = abolishedName;
-    }
-
-    public String getGotDrugsName() {
-        return gotDrugsName;
-    }
-
-    public void setGotDrugsName(String gotDrugsName) {
-        this.gotDrugsName = gotDrugsName;
-    }
-
     public Date getAppearDate() {
         return appearDate;
     }
@@ -385,14 +294,6 @@ public class TakeMedicineFormView implements Serializable {
         this.mark = mark;
     }
 
-    public Integer getPrescriptionDetailID() {
-        return prescriptionDetailID;
-    }
-
-    public void setPrescriptionDetailID(Integer prescriptionDetailID) {
-        this.prescriptionDetailID = prescriptionDetailID;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -418,14 +319,6 @@ public class TakeMedicineFormView implements Serializable {
             && (this.getBirthday() == null ? other.getBirthday() == null : this.getBirthday().equals(other.getBirthday()))
             && (this.getFamilyAddress() == null ? other.getFamilyAddress() == null : this.getFamilyAddress().equals(other.getFamilyAddress()))
             && (this.getDiagnosisStatus() == null ? other.getDiagnosisStatus() == null : this.getDiagnosisStatus().equals(other.getDiagnosisStatus()))
-            && (this.getIsDrawn() == null ? other.getIsDrawn() == null : this.getIsDrawn().equals(other.getIsDrawn()))
-            && (this.getIsPaid() == null ? other.getIsPaid() == null : this.getIsPaid().equals(other.getIsPaid()))
-            && (this.getIsAbolished() == null ? other.getIsAbolished() == null : this.getIsAbolished().equals(other.getIsAbolished()))
-            && (this.getIsGotDrugs() == null ? other.getIsGotDrugs() == null : this.getIsGotDrugs().equals(other.getIsGotDrugs()))
-            && (this.getDrawmName() == null ? other.getDrawmName() == null : this.getDrawmName().equals(other.getDrawmName()))
-            && (this.getPaidName() == null ? other.getPaidName() == null : this.getPaidName().equals(other.getPaidName()))
-            && (this.getAbolishedName() == null ? other.getAbolishedName() == null : this.getAbolishedName().equals(other.getAbolishedName()))
-            && (this.getGotDrugsName() == null ? other.getGotDrugsName() == null : this.getGotDrugsName().equals(other.getGotDrugsName()))
             && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
             && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
             && (this.getDepartmentID() == null ? other.getDepartmentID() == null : this.getDepartmentID().equals(other.getDepartmentID()))
@@ -435,8 +328,7 @@ public class TakeMedicineFormView implements Serializable {
             && (this.getDeptCode() == null ? other.getDeptCode() == null : this.getDeptCode().equals(other.getDeptCode()))
             && (this.getDeptTypeName() == null ? other.getDeptTypeName() == null : this.getDeptTypeName().equals(other.getDeptTypeName()))
             && (this.getDeptCategoryName() == null ? other.getDeptCategoryName() == null : this.getDeptCategoryName().equals(other.getDeptCategoryName()))
-            && (this.getMark() == null ? other.getMark() == null : this.getMark().equals(other.getMark()))
-            && (this.getPrescriptionDetailID() == null ? other.getPrescriptionDetailID() == null : this.getPrescriptionDetailID().equals(other.getPrescriptionDetailID()));
+            && (this.getMark() == null ? other.getMark() == null : this.getMark().equals(other.getMark()));
     }
 
     @Override
@@ -456,14 +348,6 @@ public class TakeMedicineFormView implements Serializable {
         result = prime * result + ((getBirthday() == null) ? 0 : getBirthday().hashCode());
         result = prime * result + ((getFamilyAddress() == null) ? 0 : getFamilyAddress().hashCode());
         result = prime * result + ((getDiagnosisStatus() == null) ? 0 : getDiagnosisStatus().hashCode());
-        result = prime * result + ((getIsDrawn() == null) ? 0 : getIsDrawn().hashCode());
-        result = prime * result + ((getIsPaid() == null) ? 0 : getIsPaid().hashCode());
-        result = prime * result + ((getIsAbolished() == null) ? 0 : getIsAbolished().hashCode());
-        result = prime * result + ((getIsGotDrugs() == null) ? 0 : getIsGotDrugs().hashCode());
-        result = prime * result + ((getDrawmName() == null) ? 0 : getDrawmName().hashCode());
-        result = prime * result + ((getPaidName() == null) ? 0 : getPaidName().hashCode());
-        result = prime * result + ((getAbolishedName() == null) ? 0 : getAbolishedName().hashCode());
-        result = prime * result + ((getGotDrugsName() == null) ? 0 : getGotDrugsName().hashCode());
         result = prime * result + ((getAppearDate() == null) ? 0 : getAppearDate().hashCode());
         result = prime * result + ((getChangeDate() == null) ? 0 : getChangeDate().hashCode());
         result = prime * result + ((getDepartmentID() == null) ? 0 : getDepartmentID().hashCode());
@@ -474,7 +358,6 @@ public class TakeMedicineFormView implements Serializable {
         result = prime * result + ((getDeptTypeName() == null) ? 0 : getDeptTypeName().hashCode());
         result = prime * result + ((getDeptCategoryName() == null) ? 0 : getDeptCategoryName().hashCode());
         result = prime * result + ((getMark() == null) ? 0 : getMark().hashCode());
-        result = prime * result + ((getPrescriptionDetailID() == null) ? 0 : getPrescriptionDetailID().hashCode());
         return result;
     }
 
@@ -497,14 +380,6 @@ public class TakeMedicineFormView implements Serializable {
         sb.append(", birthday=").append(birthday);
         sb.append(", familyAddress=").append(familyAddress);
         sb.append(", diagnosisStatus=").append(diagnosisStatus);
-        sb.append(", isDrawn=").append(isDrawn);
-        sb.append(", isPaid=").append(isPaid);
-        sb.append(", isAbolished=").append(isAbolished);
-        sb.append(", isGotDrugs=").append(isGotDrugs);
-        sb.append(", drawmName=").append(drawmName);
-        sb.append(", paidName=").append(paidName);
-        sb.append(", abolishedName=").append(abolishedName);
-        sb.append(", gotDrugsName=").append(gotDrugsName);
         sb.append(", appearDate=").append(appearDate);
         sb.append(", changeDate=").append(changeDate);
         sb.append(", departmentID=").append(departmentID);
@@ -515,7 +390,6 @@ public class TakeMedicineFormView implements Serializable {
         sb.append(", deptTypeName=").append(deptTypeName);
         sb.append(", deptCategoryName=").append(deptCategoryName);
         sb.append(", mark=").append(mark);
-        sb.append(", prescriptionDetailID=").append(prescriptionDetailID);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

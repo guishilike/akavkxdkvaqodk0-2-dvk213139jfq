@@ -15,14 +15,6 @@
     <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
     <result column="familyAddress" jdbcType="VARCHAR" property="familyAddress" />
     <result column="diagnosisStatus" jdbcType="CHAR" property="diagnosisStatus" />
-    <result column="isDrawn" jdbcType="INTEGER" property="isDrawn" />
-    <result column="isPaid" jdbcType="INTEGER" property="isPaid" />
-    <result column="isAbolished" jdbcType="INTEGER" property="isAbolished" />
-    <result column="isGotDrugs" jdbcType="INTEGER" property="isGotDrugs" />
-    <result column="drawmName" jdbcType="VARCHAR" property="drawmName" />
-    <result column="PaidName" jdbcType="VARCHAR" property="paidName" />
-    <result column="AbolishedName" jdbcType="VARCHAR" property="abolishedName" />
-    <result column="gotDrugsName" jdbcType="VARCHAR" property="gotDrugsName" />
     <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
     <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
     <result column="departmentID" jdbcType="INTEGER" property="departmentID" />
@@ -33,7 +25,6 @@
     <result column="deptTypeName" jdbcType="VARCHAR" property="deptTypeName" />
     <result column="deptCategoryName" jdbcType="VARCHAR" property="deptCategoryName" />
     <result column="mark" jdbcType="INTEGER" property="mark" />
-    <result column="prescriptionDetailID" jdbcType="INTEGER" property="prescriptionDetailID" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -95,10 +86,9 @@
   </sql>
   <sql id="Base_Column_List">
     id, medicalRecordID, medicalRecordNo, doctorID, realName, patientName, patientID, 
-    IdentityCardNo, age, gender, birthday, familyAddress, diagnosisStatus, isDrawn, isPaid, 
-    isAbolished, isGotDrugs, drawmName, PaidName, AbolishedName, gotDrugsName, appearDate, 
+    IdentityCardNo, age, gender, birthday, familyAddress, diagnosisStatus, appearDate, 
     changeDate, departmentID, deptName, deptCategoryID, deptTypeID, deptCode, deptTypeName, 
-    deptCategoryName, mark, prescriptionDetailID
+    deptCategoryName, mark
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.takeMedicineExample.TakeMedicineFormViewExample" resultMap="BaseResultMap">
     select
@@ -133,24 +123,18 @@
       doctorID, realName, patientName, 
       patientID, IdentityCardNo, age, 
       gender, birthday, familyAddress, 
-      diagnosisStatus, isDrawn, isPaid, 
-      isAbolished, isGotDrugs, drawmName, 
-      PaidName, AbolishedName, gotDrugsName, 
-      appearDate, changeDate, departmentID, 
-      deptName, deptCategoryID, deptTypeID, 
-      deptCode, deptTypeName, deptCategoryName, 
-      mark, prescriptionDetailID)
+      diagnosisStatus, appearDate, changeDate, 
+      departmentID, deptName, deptCategoryID, 
+      deptTypeID, deptCode, deptTypeName, 
+      deptCategoryName, mark)
     values (#{id,jdbcType=INTEGER}, #{medicalRecordID,jdbcType=INTEGER}, #{medicalRecordNo,jdbcType=CHAR}, 
       #{doctorID,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{patientName,jdbcType=VARCHAR}, 
       #{patientID,jdbcType=INTEGER}, #{identityCardNo,jdbcType=CHAR}, #{age,jdbcType=INTEGER}, 
       #{gender,jdbcType=CHAR}, #{birthday,jdbcType=TIMESTAMP}, #{familyAddress,jdbcType=VARCHAR}, 
-      #{diagnosisStatus,jdbcType=CHAR}, #{isDrawn,jdbcType=INTEGER}, #{isPaid,jdbcType=INTEGER}, 
-      #{isAbolished,jdbcType=INTEGER}, #{isGotDrugs,jdbcType=INTEGER}, #{drawmName,jdbcType=VARCHAR}, 
-      #{paidName,jdbcType=VARCHAR}, #{abolishedName,jdbcType=VARCHAR}, #{gotDrugsName,jdbcType=VARCHAR}, 
-      #{appearDate,jdbcType=TIMESTAMP}, #{changeDate,jdbcType=TIMESTAMP}, #{departmentID,jdbcType=INTEGER}, 
-      #{deptName,jdbcType=VARCHAR}, #{deptCategoryID,jdbcType=INTEGER}, #{deptTypeID,jdbcType=INTEGER}, 
-      #{deptCode,jdbcType=VARCHAR}, #{deptTypeName,jdbcType=VARCHAR}, #{deptCategoryName,jdbcType=VARCHAR}, 
-      #{mark,jdbcType=INTEGER}, #{prescriptionDetailID,jdbcType=INTEGER})
+      #{diagnosisStatus,jdbcType=CHAR}, #{appearDate,jdbcType=TIMESTAMP}, #{changeDate,jdbcType=TIMESTAMP}, 
+      #{departmentID,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{deptCategoryID,jdbcType=INTEGER}, 
+      #{deptTypeID,jdbcType=INTEGER}, #{deptCode,jdbcType=VARCHAR}, #{deptTypeName,jdbcType=VARCHAR}, 
+      #{deptCategoryName,jdbcType=VARCHAR}, #{mark,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="edu.neu.hospital.bean.takeMedicineBean.TakeMedicineFormView">
     insert into takemedicineformview
@@ -194,30 +178,6 @@
       <if test="diagnosisStatus != null">
         diagnosisStatus,
       </if>
-      <if test="isDrawn != null">
-        isDrawn,
-      </if>
-      <if test="isPaid != null">
-        isPaid,
-      </if>
-      <if test="isAbolished != null">
-        isAbolished,
-      </if>
-      <if test="isGotDrugs != null">
-        isGotDrugs,
-      </if>
-      <if test="drawmName != null">
-        drawmName,
-      </if>
-      <if test="paidName != null">
-        PaidName,
-      </if>
-      <if test="abolishedName != null">
-        AbolishedName,
-      </if>
-      <if test="gotDrugsName != null">
-        gotDrugsName,
-      </if>
       <if test="appearDate != null">
         appearDate,
       </if>
@@ -247,9 +207,6 @@
       </if>
       <if test="mark != null">
         mark,
-      </if>
-      <if test="prescriptionDetailID != null">
-        prescriptionDetailID,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -292,30 +249,6 @@
       <if test="diagnosisStatus != null">
         #{diagnosisStatus,jdbcType=CHAR},
       </if>
-      <if test="isDrawn != null">
-        #{isDrawn,jdbcType=INTEGER},
-      </if>
-      <if test="isPaid != null">
-        #{isPaid,jdbcType=INTEGER},
-      </if>
-      <if test="isAbolished != null">
-        #{isAbolished,jdbcType=INTEGER},
-      </if>
-      <if test="isGotDrugs != null">
-        #{isGotDrugs,jdbcType=INTEGER},
-      </if>
-      <if test="drawmName != null">
-        #{drawmName,jdbcType=VARCHAR},
-      </if>
-      <if test="paidName != null">
-        #{paidName,jdbcType=VARCHAR},
-      </if>
-      <if test="abolishedName != null">
-        #{abolishedName,jdbcType=VARCHAR},
-      </if>
-      <if test="gotDrugsName != null">
-        #{gotDrugsName,jdbcType=VARCHAR},
-      </if>
       <if test="appearDate != null">
         #{appearDate,jdbcType=TIMESTAMP},
       </if>
@@ -345,9 +278,6 @@
       </if>
       <if test="mark != null">
         #{mark,jdbcType=INTEGER},
-      </if>
-      <if test="prescriptionDetailID != null">
-        #{prescriptionDetailID,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -399,30 +329,6 @@
       <if test="record.diagnosisStatus != null">
         diagnosisStatus = #{record.diagnosisStatus,jdbcType=CHAR},
       </if>
-      <if test="record.isDrawn != null">
-        isDrawn = #{record.isDrawn,jdbcType=INTEGER},
-      </if>
-      <if test="record.isPaid != null">
-        isPaid = #{record.isPaid,jdbcType=INTEGER},
-      </if>
-      <if test="record.isAbolished != null">
-        isAbolished = #{record.isAbolished,jdbcType=INTEGER},
-      </if>
-      <if test="record.isGotDrugs != null">
-        isGotDrugs = #{record.isGotDrugs,jdbcType=INTEGER},
-      </if>
-      <if test="record.drawmName != null">
-        drawmName = #{record.drawmName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.paidName != null">
-        PaidName = #{record.paidName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.abolishedName != null">
-        AbolishedName = #{record.abolishedName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.gotDrugsName != null">
-        gotDrugsName = #{record.gotDrugsName,jdbcType=VARCHAR},
-      </if>
       <if test="record.appearDate != null">
         appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
       </if>
@@ -453,9 +359,6 @@
       <if test="record.mark != null">
         mark = #{record.mark,jdbcType=INTEGER},
       </if>
-      <if test="record.prescriptionDetailID != null">
-        prescriptionDetailID = #{record.prescriptionDetailID,jdbcType=INTEGER},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -476,14 +379,6 @@
       birthday = #{record.birthday,jdbcType=TIMESTAMP},
       familyAddress = #{record.familyAddress,jdbcType=VARCHAR},
       diagnosisStatus = #{record.diagnosisStatus,jdbcType=CHAR},
-      isDrawn = #{record.isDrawn,jdbcType=INTEGER},
-      isPaid = #{record.isPaid,jdbcType=INTEGER},
-      isAbolished = #{record.isAbolished,jdbcType=INTEGER},
-      isGotDrugs = #{record.isGotDrugs,jdbcType=INTEGER},
-      drawmName = #{record.drawmName,jdbcType=VARCHAR},
-      PaidName = #{record.paidName,jdbcType=VARCHAR},
-      AbolishedName = #{record.abolishedName,jdbcType=VARCHAR},
-      gotDrugsName = #{record.gotDrugsName,jdbcType=VARCHAR},
       appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
       changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
       departmentID = #{record.departmentID,jdbcType=INTEGER},
@@ -493,8 +388,7 @@
       deptCode = #{record.deptCode,jdbcType=VARCHAR},
       deptTypeName = #{record.deptTypeName,jdbcType=VARCHAR},
       deptCategoryName = #{record.deptCategoryName,jdbcType=VARCHAR},
-      mark = #{record.mark,jdbcType=INTEGER},
-      prescriptionDetailID = #{record.prescriptionDetailID,jdbcType=INTEGER}
+      mark = #{record.mark,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

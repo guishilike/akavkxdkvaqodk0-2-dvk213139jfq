@@ -14,11 +14,11 @@ public interface DisposalService {
      *
      * @param search   处置搜索表单搜索框的内容
      * @param date  处置搜索表单限制日期
-     * @param itemName  处置搜索表单项目名称
+     * @param itemID 处置搜索表单项目编号
      * @param mark      处置表单项目标识
      * @return 处置搜索结果表单信息
      */
-    List<DisposalFormView> disposalformview(String search, Date date, String itemName, Integer mark);
+    List<DisposalFormView> disposalformview(String search, Date date, Integer itemID, Integer mark);
 
 
     /**
