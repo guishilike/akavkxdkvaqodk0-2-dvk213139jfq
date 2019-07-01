@@ -213,66 +213,6 @@ public class RegistrationListViewExample {
             return (Criteria) this;
         }
 
-        public Criteria andMedRecIDIsNull() {
-            addCriterion("medRecID is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMedRecIDIsNotNull() {
-            addCriterion("medRecID is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMedRecIDEqualTo(Integer value) {
-            addCriterion("medRecID =", value, "medRecID");
-            return (Criteria) this;
-        }
-
-        public Criteria andMedRecIDNotEqualTo(Integer value) {
-            addCriterion("medRecID <>", value, "medRecID");
-            return (Criteria) this;
-        }
-
-        public Criteria andMedRecIDGreaterThan(Integer value) {
-            addCriterion("medRecID >", value, "medRecID");
-            return (Criteria) this;
-        }
-
-        public Criteria andMedRecIDGreaterThanOrEqualTo(Integer value) {
-            addCriterion("medRecID >=", value, "medRecID");
-            return (Criteria) this;
-        }
-
-        public Criteria andMedRecIDLessThan(Integer value) {
-            addCriterion("medRecID <", value, "medRecID");
-            return (Criteria) this;
-        }
-
-        public Criteria andMedRecIDLessThanOrEqualTo(Integer value) {
-            addCriterion("medRecID <=", value, "medRecID");
-            return (Criteria) this;
-        }
-
-        public Criteria andMedRecIDIn(List<Integer> values) {
-            addCriterion("medRecID in", values, "medRecID");
-            return (Criteria) this;
-        }
-
-        public Criteria andMedRecIDNotIn(List<Integer> values) {
-            addCriterion("medRecID not in", values, "medRecID");
-            return (Criteria) this;
-        }
-
-        public Criteria andMedRecIDBetween(Integer value1, Integer value2) {
-            addCriterion("medRecID between", value1, value2, "medRecID");
-            return (Criteria) this;
-        }
-
-        public Criteria andMedRecIDNotBetween(Integer value1, Integer value2) {
-            addCriterion("medRecID not between", value1, value2, "medRecID");
-            return (Criteria) this;
-        }
-
         public Criteria andPatientNameIsNull() {
             addCriterion("patientName is null");
             return (Criteria) this;
@@ -1200,6 +1140,76 @@ public class RegistrationListViewExample {
 
         public Criteria andRegStatusNotBetween(String value1, String value2) {
             addCriterion("regStatus not between", value1, value2, "regStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoIsNull() {
+            addCriterion("medicalRecordNo is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoIsNotNull() {
+            addCriterion("medicalRecordNo is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoEqualTo(String value) {
+            addCriterion("medicalRecordNo =", value, "medicalRecordNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoNotEqualTo(String value) {
+            addCriterion("medicalRecordNo <>", value, "medicalRecordNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoGreaterThan(String value) {
+            addCriterion("medicalRecordNo >", value, "medicalRecordNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoGreaterThanOrEqualTo(String value) {
+            addCriterion("medicalRecordNo >=", value, "medicalRecordNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoLessThan(String value) {
+            addCriterion("medicalRecordNo <", value, "medicalRecordNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoLessThanOrEqualTo(String value) {
+            addCriterion("medicalRecordNo <=", value, "medicalRecordNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoLike(String value) {
+            addCriterion("medicalRecordNo like", value, "medicalRecordNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoNotLike(String value) {
+            addCriterion("medicalRecordNo not like", value, "medicalRecordNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoIn(List<String> values) {
+            addCriterion("medicalRecordNo in", values, "medicalRecordNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoNotIn(List<String> values) {
+            addCriterion("medicalRecordNo not in", values, "medicalRecordNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoBetween(String value1, String value2) {
+            addCriterion("medicalRecordNo between", value1, value2, "medicalRecordNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalRecordNoNotBetween(String value1, String value2) {
+            addCriterion("medicalRecordNo not between", value1, value2, "medicalRecordNo");
             return (Criteria) this;
         }
     }

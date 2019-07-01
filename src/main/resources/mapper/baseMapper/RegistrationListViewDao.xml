@@ -3,7 +3,6 @@
 <mapper namespace="edu.neu.hospital.dao.baseDao.RegistrationListViewDao">
   <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.baseBean.RegistrationListView">
     <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="medRecID" jdbcType="INTEGER" property="medRecID" />
     <result column="patientName" jdbcType="VARCHAR" property="patientName" />
     <result column="regLevel" jdbcType="VARCHAR" property="regLevel" />
     <result column="registrationDate" jdbcType="TIMESTAMP" property="registrationDate" />
@@ -18,6 +17,7 @@
     <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
     <result column="appearUser" jdbcType="VARCHAR" property="appearUser" />
     <result column="regStatus" jdbcType="CHAR" property="regStatus" />
+    <result column="medicalRecordNo" jdbcType="CHAR" property="medicalRecordNo" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,9 +78,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, medRecID, patientName, regLevel, registrationDate, seeDoctorDate, deptName, doctorName, 
+    id, patientName, regLevel, registrationDate, seeDoctorDate, deptName, doctorName, 
     regSource, payCategory, isSeenDoctor, expense, appearUserID, appearDate, appearUser, 
-    regStatus
+    regStatus, medicalRecordNo
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.baseExample.RegistrationListViewExample" resultMap="BaseResultMap">
     select
@@ -111,25 +111,22 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.baseBean.RegistrationListView" useGeneratedKeys="true">
-    insert into registrationlistview (medRecID, patientName, regLevel, 
-      registrationDate, seeDoctorDate, deptName, 
-      doctorName, regSource, payCategory, 
-      isSeenDoctor, expense, appearUserID, 
-      appearDate, appearUser, regStatus
+    insert into registrationlistview (patientName, regLevel, registrationDate, 
+      seeDoctorDate, deptName, doctorName, 
+      regSource, payCategory, isSeenDoctor, 
+      expense, appearUserID, appearDate, 
+      appearUser, regStatus, medicalRecordNo
       )
-    values (#{medRecID,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, #{regLevel,jdbcType=VARCHAR}, 
-      #{registrationDate,jdbcType=TIMESTAMP}, #{seeDoctorDate,jdbcType=DATE}, #{deptName,jdbcType=VARCHAR}, 
-      #{doctorName,jdbcType=VARCHAR}, #{regSource,jdbcType=VARCHAR}, #{payCategory,jdbcType=VARCHAR}, 
-      #{isSeenDoctor,jdbcType=CHAR}, #{expense,jdbcType=DECIMAL}, #{appearUserID,jdbcType=INTEGER}, 
-      #{appearDate,jdbcType=TIMESTAMP}, #{appearUser,jdbcType=VARCHAR}, #{regStatus,jdbcType=CHAR}
+    values (#{patientName,jdbcType=VARCHAR}, #{regLevel,jdbcType=VARCHAR}, #{registrationDate,jdbcType=TIMESTAMP}, 
+      #{seeDoctorDate,jdbcType=DATE}, #{deptName,jdbcType=VARCHAR}, #{doctorName,jdbcType=VARCHAR}, 
+      #{regSource,jdbcType=VARCHAR}, #{payCategory,jdbcType=VARCHAR}, #{isSeenDoctor,jdbcType=CHAR}, 
+      #{expense,jdbcType=DECIMAL}, #{appearUserID,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, 
+      #{appearUser,jdbcType=VARCHAR}, #{regStatus,jdbcType=CHAR}, #{medicalRecordNo,jdbcType=CHAR}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.neu.hospital.bean.baseBean.RegistrationListView" useGeneratedKeys="true">
     insert into registrationlistview
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="medRecID != null">
-        medRecID,
-      </if>
       <if test="patientName != null">
         patientName,
       </if>
@@ -172,11 +169,11 @@
       <if test="regStatus != null">
         regStatus,
       </if>
+      <if test="medicalRecordNo != null">
+        medicalRecordNo,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="medRecID != null">
-        #{medRecID,jdbcType=INTEGER},
-      </if>
       <if test="patientName != null">
         #{patientName,jdbcType=VARCHAR},
       </if>
@@ -219,6 +216,9 @@
       <if test="regStatus != null">
         #{regStatus,jdbcType=CHAR},
       </if>
+      <if test="medicalRecordNo != null">
+        #{medicalRecordNo,jdbcType=CHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="edu.neu.hospital.example.baseExample.RegistrationListViewExample" resultType="java.lang.Long">
@@ -232,9 +232,6 @@
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.medRecID != null">
-        medRecID = #{record.medRecID,jdbcType=INTEGER},
       </if>
       <if test="record.patientName != null">
         patientName = #{record.patientName,jdbcType=VARCHAR},
@@ -278,6 +275,9 @@
       <if test="record.regStatus != null">
         regStatus = #{record.regStatus,jdbcType=CHAR},
       </if>
+      <if test="record.medicalRecordNo != null">
+        medicalRecordNo = #{record.medicalRecordNo,jdbcType=CHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -286,7 +286,6 @@
   <update id="updateByExample" parameterType="map">
     update registrationlistview
     set id = #{record.id,jdbcType=INTEGER},
-      medRecID = #{record.medRecID,jdbcType=INTEGER},
       patientName = #{record.patientName,jdbcType=VARCHAR},
       regLevel = #{record.regLevel,jdbcType=VARCHAR},
       registrationDate = #{record.registrationDate,jdbcType=TIMESTAMP},
@@ -300,7 +299,8 @@
       appearUserID = #{record.appearUserID,jdbcType=INTEGER},
       appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
       appearUser = #{record.appearUser,jdbcType=VARCHAR},
-      regStatus = #{record.regStatus,jdbcType=CHAR}
+      regStatus = #{record.regStatus,jdbcType=CHAR},
+      medicalRecordNo = #{record.medicalRecordNo,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

@@ -15,11 +15,6 @@ public class RegistrationListView implements Serializable {
     private Integer id;
 
     /**
-     * 病历号（2019052012345）
-     */
-    private Integer medRecID;
-
-    /**
      * 患者姓名
      */
     private String patientName;
@@ -77,6 +72,11 @@ public class RegistrationListView implements Serializable {
      */
     private String regStatus;
 
+    /**
+     * 病历号
+     */
+    private String medicalRecordNo;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -85,14 +85,6 @@ public class RegistrationListView implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getMedRecID() {
-        return medRecID;
-    }
-
-    public void setMedRecID(Integer medRecID) {
-        this.medRecID = medRecID;
     }
 
     public String getPatientName() {
@@ -207,6 +199,14 @@ public class RegistrationListView implements Serializable {
         this.regStatus = regStatus;
     }
 
+    public String getMedicalRecordNo() {
+        return medicalRecordNo;
+    }
+
+    public void setMedicalRecordNo(String medicalRecordNo) {
+        this.medicalRecordNo = medicalRecordNo;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -220,7 +220,6 @@ public class RegistrationListView implements Serializable {
         }
         RegistrationListView other = (RegistrationListView) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getMedRecID() == null ? other.getMedRecID() == null : this.getMedRecID().equals(other.getMedRecID()))
             && (this.getPatientName() == null ? other.getPatientName() == null : this.getPatientName().equals(other.getPatientName()))
             && (this.getRegLevel() == null ? other.getRegLevel() == null : this.getRegLevel().equals(other.getRegLevel()))
             && (this.getRegistrationDate() == null ? other.getRegistrationDate() == null : this.getRegistrationDate().equals(other.getRegistrationDate()))
@@ -234,7 +233,8 @@ public class RegistrationListView implements Serializable {
             && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
             && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
             && (this.getAppearUser() == null ? other.getAppearUser() == null : this.getAppearUser().equals(other.getAppearUser()))
-            && (this.getRegStatus() == null ? other.getRegStatus() == null : this.getRegStatus().equals(other.getRegStatus()));
+            && (this.getRegStatus() == null ? other.getRegStatus() == null : this.getRegStatus().equals(other.getRegStatus()))
+            && (this.getMedicalRecordNo() == null ? other.getMedicalRecordNo() == null : this.getMedicalRecordNo().equals(other.getMedicalRecordNo()));
     }
 
     @Override
@@ -242,7 +242,6 @@ public class RegistrationListView implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getMedRecID() == null) ? 0 : getMedRecID().hashCode());
         result = prime * result + ((getPatientName() == null) ? 0 : getPatientName().hashCode());
         result = prime * result + ((getRegLevel() == null) ? 0 : getRegLevel().hashCode());
         result = prime * result + ((getRegistrationDate() == null) ? 0 : getRegistrationDate().hashCode());
@@ -257,6 +256,7 @@ public class RegistrationListView implements Serializable {
         result = prime * result + ((getAppearDate() == null) ? 0 : getAppearDate().hashCode());
         result = prime * result + ((getAppearUser() == null) ? 0 : getAppearUser().hashCode());
         result = prime * result + ((getRegStatus() == null) ? 0 : getRegStatus().hashCode());
+        result = prime * result + ((getMedicalRecordNo() == null) ? 0 : getMedicalRecordNo().hashCode());
         return result;
     }
 
@@ -267,7 +267,6 @@ public class RegistrationListView implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", medRecID=").append(medRecID);
         sb.append(", patientName=").append(patientName);
         sb.append(", regLevel=").append(regLevel);
         sb.append(", registrationDate=").append(registrationDate);
@@ -282,6 +281,7 @@ public class RegistrationListView implements Serializable {
         sb.append(", appearDate=").append(appearDate);
         sb.append(", appearUser=").append(appearUser);
         sb.append(", regStatus=").append(regStatus);
+        sb.append(", medicalRecordNo=").append(medicalRecordNo);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
