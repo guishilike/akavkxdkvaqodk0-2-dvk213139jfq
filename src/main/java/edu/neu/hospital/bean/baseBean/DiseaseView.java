@@ -1,5 +1,7 @@
 package edu.neu.hospital.bean.baseBean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -50,11 +52,11 @@ public class DiseaseView implements Serializable {
     private String dicaTypeName;
 
     private Integer appearUserId;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date appearDate;
 
     private Integer changeUserId;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date changeDate;
 
     /**

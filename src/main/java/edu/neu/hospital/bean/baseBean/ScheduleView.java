@@ -87,7 +87,7 @@ public class ScheduleView implements Serializable {
     private Integer changeUserID;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date appearDate;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date changeDate;
 
     /**

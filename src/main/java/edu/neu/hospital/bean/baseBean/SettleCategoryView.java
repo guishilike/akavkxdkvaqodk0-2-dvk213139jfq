@@ -1,5 +1,7 @@
 package edu.neu.hospital.bean.baseBean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -30,11 +32,11 @@ public class SettleCategoryView implements Serializable {
     private BigDecimal proportion3;
 
     private BigDecimal proportion4;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date appearDate;
 
     private Integer apearUserID;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date changeDate;
 
     private Integer changeUserID;

@@ -50,8 +50,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Resource
     UserViewDao userViewDao;
     SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    SimpleDateFormat simpleDateFormat2 =new SimpleDateFormat("yyyy-MM-dd");
-    SimpleDateFormat simpleDateFormat3 =new SimpleDateFormat("yyyy年MM月dd");
+    SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat simpleDateFormat3 = new SimpleDateFormat("yyyy年MM月dd");
 
     @Override
     public void add(Schedule schedule, Integer userID) {
@@ -93,18 +93,19 @@ public class ScheduleServiceImpl implements ScheduleService {
         schedule.setDeptID(userViewDao.getDeptIDByDoctorID(schedule.getOnDutyDoctorID()));
         schedule.setChangeDate(new Date());
         schedule.setChangeUserID(userID);
+        schedule.setRuleID(-1);
         scheduleDao.updateByPrimaryKeySelective(schedule);
     }
 
     @Override
     public boolean checkContent(Schedule schedule, int state) throws ParseException {
-        String onDutyDateStr=simpleDateFormat2.format(schedule.getOnDutyDate());
+        String onDutyDateStr = simpleDateFormat2.format(schedule.getOnDutyDate());
         Integer id;
         if (state == 1)
-            id=scheduleviewDao.getIDByDateAndUserNameExceptID(onDutyDateStr,schedule.getOnDutyDoctorID(),schedule.getId());
+            id = scheduleviewDao.getIDByDateAndUserNameExceptID(onDutyDateStr, schedule.getOnDutyDoctorID(), schedule.getId());
         else
-            id=scheduleviewDao.getIDByDateAndUserName(onDutyDateStr,schedule.getOnDutyDoctorID());
-        if (id!=null)
+            id = scheduleviewDao.getIDByDateAndUserName(onDutyDateStr, schedule.getOnDutyDoctorID());
+        if (id != null)
             return false;
         else
             return true;
@@ -129,6 +130,10 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public void generate() throws ParseException {
         ScheduleExample example = new ScheduleExample();
+        ScheduleExample.Criteria criteria = example.createCriteria();
+        criteria.andStatusEqualTo("1");
+        criteria.andRuleIDIsNotNull();
+        criteria.andRuleIDGreaterThan(-1);
         Date date = getDateRemoveTime(new Date());
         //当前日期30天后的日期
         Calendar endCalendar = Calendar.getInstance();
@@ -138,6 +143,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         calendar.setTime(date);
 
         if (scheduleDao.countByExample(example) != 0) {
+            System.out.println("enterMen" + scheduleDao.countByExample(example));
             example.setOrderByClause("onDutyDate desc");
             example.setLimit(1);
             Date lastDate = scheduleDao.selectByExample(example).get(0).getOnDutyDate();
@@ -152,14 +158,17 @@ public class ScheduleServiceImpl implements ScheduleService {
         若排班信息表为空或排班信息表的最后一条信息日期小于当前日期，则根据排班规则生成当天及以后三十天的排班信息。
         若最后一条信息大于等于当前日期，则生成信息对应日期之后直到三十天的信息
          */
+        System.out.println("startTest");
         while (calendar.compareTo(endCalendar) <= 0) {
             ScheduleRuleViewExample scheduleruleviewExample = new ScheduleRuleViewExample();
-            ScheduleRuleViewExample.Criteria criteria = scheduleruleviewExample.createCriteria();
-            criteria.andWeekEqualTo(calendar.get(Calendar.DAY_OF_WEEK) - 1);
+            ScheduleRuleViewExample.Criteria criteria1 = scheduleruleviewExample.createCriteria();
+            criteria1.andWeekEqualTo(calendar.get(Calendar.DAY_OF_WEEK) - 1);
             List<ScheduleRuleView> scheduleRuleViews = scheduleruleviewDao.selectByExample(scheduleruleviewExample);
             List<Schedule> schedules = getSchedulesByRule(scheduleRuleViews, calendar);
+            System.out.println(scheduleRuleViews.size());
             for (int i = 0; i < schedules.size(); i++) {
-                scheduleDao.insert(schedules.get(i));
+                if (checkContent(schedules.get(i), 0))
+                    scheduleDao.insert(schedules.get(i));
             }
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
@@ -168,6 +177,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<Schedule> getSchedulesByRule(List<ScheduleRuleView> scheduleRuleViews, Calendar calendar) {
+        ;
         List<Schedule> schedules = new ArrayList<Schedule>();
         for (int i = 0; i < scheduleRuleViews.size(); i++) {
             Schedule schedule = new Schedule();
@@ -181,7 +191,9 @@ public class ScheduleServiceImpl implements ScheduleService {
             schedule.setRuleID(scheduleRuleViews.get(i).getId());
             schedule.setAppearDate(new Date());
             schedule.setStatus("1");
+            schedules.add(schedule);
         }
+        System.out.println("生成规则大小" + schedules.size());
         return schedules;
     }
 
@@ -212,9 +224,9 @@ public class ScheduleServiceImpl implements ScheduleService {
                 Row row = sheet.getRow(i);
                 schedule.setOnDutyDate(row.getCell(0).getDateCellValue());
                 schedule.setOnDutyDoctorID(userViewDao.getIDByName(row.getCell(1).toString()));
-                schedule.setLevelNameID(constantItemDao.findIdByName(row.getCell(2).toString(),13).getId());
+                schedule.setLevelNameID(constantItemDao.findIdByName(row.getCell(2).toString(), 13).getId());
                 schedule.setDeptID(userViewDao.getDeptIDByDoctorID(schedule.getOnDutyDoctorID()));
-                schedule.setOnDutyTimeID(constantItemDao.findIdByName(row.getCell(3).toString(),15).getId());
+                schedule.setOnDutyTimeID(constantItemDao.findIdByName(row.getCell(3).toString(), 15).getId());
                 row.getCell(4).setCellType(CellType.STRING);
                 schedule.setLimitNumber(Integer.parseInt(row.getCell(4).toString()));
 
@@ -222,7 +234,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 if (checkContent(schedule, 0)) {
                     add(schedule, userID);
                 } else if (repeatCoverage) {
-                    schedule.setId(scheduleviewDao.getIDByDateAndUserName(simpleDateFormat2.format(schedule.getOnDutyDate()),schedule.getOnDutyDoctorID()));
+                    schedule.setId(scheduleviewDao.getIDByDateAndUserName(simpleDateFormat2.format(schedule.getOnDutyDate()), schedule.getOnDutyDoctorID()));
                     scheduleDao.updateByPrimaryKeySelective(schedule);
                 }
             } catch (Exception e) {
@@ -245,8 +257,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     public File createExcel() throws IOException {
         String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLS";
         String fileName = "schedule.xls";
-        List<ScheduleView> results =scheduleviewDao.selectByExample(new ScheduleViewExample());
-        String[] title = {"编号", "排班日期", "科室名称", "值班医生","号别", "排班限额","剩余号数",
+        List<ScheduleView> results = scheduleviewDao.selectByExample(new ScheduleViewExample());
+        String[] title = {"编号", "排班日期", "科室名称", "值班医生", "号别", "排班限额", "剩余号数",
                 "创建时间", "创建人", "修改时间", "修改人"};
         XSSFWorkbook wb = FileManage.createXLSTemplate(title);
         XSSFSheet sheet = wb.getSheet("sheet1");
@@ -278,7 +290,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     public File createXLSTemplate() throws IOException {
         String path = ResourceUtils.getURL("classpath:").getPath() + "static/basicXLSTemplate";
         String fileName = "scheduleTemplate.xls";
-        String[] title = { "排班日期","值班医生", "号别", "午别", "排班限额"};
+        String[] title = {"排班日期", "值班医生", "号别", "午别", "排班限额"};
         XSSFWorkbook wb = FileManage.createXLSTemplate(title);
         return FileManage.createXLSFile(wb, path, fileName);
     }
