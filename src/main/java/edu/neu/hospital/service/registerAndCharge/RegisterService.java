@@ -44,6 +44,10 @@ public interface RegisterService {
 
     List<RegistrationListView> find(Date start, Date end);
 
+    RegistrationListView selectByMedRecID(String medRecNo);
+
     User findUserByID(Integer id);
+
+    int retreat(Integer id);
 
 }

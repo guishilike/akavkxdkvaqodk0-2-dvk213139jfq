@@ -2,9 +2,11 @@ package edu.neu.hospital.dao.baseDao;
 
 import edu.neu.hospital.bean.baseBean.RegistrationListView;
 import edu.neu.hospital.example.baseExample.RegistrationListViewExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface RegistrationListViewDao {
@@ -21,4 +23,7 @@ public interface RegistrationListViewDao {
     int updateByExampleSelective(@Param("record") RegistrationListView record, @Param("example") RegistrationListViewExample example);
 
     int updateByExample(@Param("record") RegistrationListView record, @Param("example") RegistrationListViewExample example);
+
+    @Select("select * from registrationlistview where medicalRecordNo = #{medRecNo}")
+    RegistrationListView selectByMedRecID(String medRecNo);
 }

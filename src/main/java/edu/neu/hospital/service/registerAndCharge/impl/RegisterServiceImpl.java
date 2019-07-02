@@ -5,6 +5,7 @@ import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dao.baseDao.RegistrationListViewDao;
 import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.example.baseExample.RegistrationListViewExample;
+import edu.neu.hospital.example.basicTableExample.FeeExample;
 import edu.neu.hospital.service.registerAndCharge.RegisterService;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,9 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Resource
     RegistrationListViewDao regListViewDao;
+
+    @Resource
+    FeeDao feeDao;
 
     @Resource
     UserDao userDao;
@@ -86,6 +90,7 @@ public class RegisterServiceImpl implements RegisterService {
 
         System.out.println(medRecDao.toString() + "\n");
         medRecDao.insertSelective(medRec);
+        int medRecID = medRec.getId();
 
         //排班计划中，同一个医生可能多天有排班
         List<Schedule> schedules = scheduleDao.selectByDoctorID(regInfo.getDoctorID());
@@ -101,18 +106,40 @@ public class RegisterServiceImpl implements RegisterService {
         schedule.setLimitNumber(schedule.getLimitNumber() - 1);
         scheduleDao.updateByPrimaryKeySelective(schedule);
 
+        Date date = new Date();
+
         //插入一条挂号信息
         regInfo.setMedicalRecordID(medRec.getId());
         regInfo.setPatientID(patientID);
-        regInfo.setRegistrationDate(new Date());
+        regInfo.setRegistrationDate(date);
         regInfo.setIsSeenDocator("0");
         regInfo.setRegistrationStatus("1");
         regInfo.setAppearUserID(appearUserID);
-        regInfo.setAppearDate(new Date());
+        regInfo.setAppearDate(date);
+
+        regInfoDao.insertSelective(regInfo);
+        int regInfoID = regInfo.getId();
+
+        //插入一条收费信息
+        Fee fee = new Fee();
+        fee.setMedicalRecordID(medRecID);
+        fee.setFeeCategoryID(regInfo.getRegistrationLevelID());
+        fee.setChargeItemID(regInfoID);
+        fee.setExpID(1);
+        fee.setFee(regInfo.getExpense());
+        fee.setTollManID(appearUserID);
+        fee.setTollDate(date);
+        fee.setAppearUserID(appearUserID);
+        fee.setFeeAppearDate(date);
+        fee.setPayStatus(1);
+        fee.setDateStatus(2);
+        fee.setStatus("1");
+        fee.setCheckStatus("1");
+        feeDao.insertSelective(fee);
 
         System.out.println(regInfo.toString() + "\n");
 
-        return regInfoDao.insertSelective(regInfo);
+        return 1;
     }
 
     @Override
@@ -132,7 +159,38 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
+    public RegistrationListView selectByMedRecID(String medRecNo) {
+        return regListViewDao.selectByMedRecID(medRecNo);
+    }
+
+    @Override
     public User findUserByID(Integer id) {
         return userDao.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int retreat(Integer id) {
+
+        Registrationinfo regInfo = regInfoDao.selectByPrimaryKey(id);
+        if (regInfo.getIsSeenDocator().equals("0") && regInfo.getRegistrationStatus().equals("1")) {
+            regInfo.setRegistrationStatus("0");
+            regInfoDao.updateByPrimaryKeySelective(regInfo);
+
+            FeeExample example = new FeeExample();
+            FeeExample.Criteria criteria = example.createCriteria();
+
+            criteria.andChargeItemIDEqualTo(regInfo.getId());
+            criteria.andExpIDEqualTo(1);
+
+            List<Fee> fees = feeDao.selectByExample(example);
+            if(fees.size() == 1){
+                fees.get(0).setPayStatus(3);
+            } else {
+                System.out.println("error retreat");
+            }
+
+            return 1;
+        }
+        return 0;
     }
 }

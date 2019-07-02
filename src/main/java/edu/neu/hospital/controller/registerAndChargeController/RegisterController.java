@@ -284,6 +284,24 @@ public class RegisterController {
         }
     }
 
+    @RequestMapping("/getSelectRegInfo")
+    public @ResponseBody
+    ResultDTO<RegistrationListView> getSelectByRegInfo(String medRecNo) {
+
+        System.out.println("/register/getSelectRegInfo");
+        try {
+
+            System.out.println(medRecNo);
+            RegistrationListView view = regService.selectByMedRecID(medRecNo);
+            System.out.println(view.toString());
+            return new ResultDTO<>("OK", "获取成功", view);
+
+        } catch (Exception e) {
+            System.out.println(e.getCause().toString());
+            return new ResultDTO<>("error", "发生异常，获取挂号列表失败", null);
+        }
+    }
+
     @RequestMapping("/todayWorkload")
     public @ResponseBody
     ResultDTO<Integer> getTodayWorkload() {
@@ -305,5 +323,18 @@ public class RegisterController {
             System.out.println(e.toString());
             return new ResultDTO<>("error", "发生异常，获取挂号列表失败", null);
         }
+    }
+
+    @RequestMapping("/retreat")
+    public @ResponseBody
+    ResultDTO retreat(String regInfoID){
+
+        System.out.println("退号: /register/retreat");
+        System.out.println(regInfoID);
+
+        int res = regService.retreat(Integer.parseInt(regInfoID));
+
+        return new ResultDTO<>("OK", "退号成功", res);
+
     }
 }
