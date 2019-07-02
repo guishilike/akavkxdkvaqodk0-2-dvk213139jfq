@@ -513,6 +513,7 @@ public class TollServiceImpl implements TollService {
      *
      * @param tollManID 日结员编号
      * @param endDate 日结日期
+     * @return 日结结果
      */
     public  String  dailySettle(Integer tollManID,Date endDate){
         DailySettleViewExample dailysettleviewExample=new DailySettleViewExample();
@@ -554,6 +555,7 @@ public class TollServiceImpl implements TollService {
      * @param tollManID 日结员编号
      * @param startDate 开始日期
      * @param endDate 结束日期
+     * @return 日结信息
      */
     public  List<DailySettleView>  dailySettleSearch(Integer tollManID, Date startDate, Date endDate){
         DailySettleViewExample dailysettleviewExample=new DailySettleViewExample();
@@ -574,6 +576,7 @@ public class TollServiceImpl implements TollService {
      * @param tollManID 日结员编号
      * @param startDate 开始日期
      * @param endDate 结束日期
+     * @return 日结收费信息
      */
        public List<FeeView> dailySettleFee (Integer tollManID, Date startDate, Date endDate){
            FeeViewExample feeviewExample = new FeeViewExample();

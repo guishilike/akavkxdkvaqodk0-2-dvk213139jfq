@@ -139,54 +139,7 @@ public class TakeMedicineServiceImpl implements TakeMedicineService {
     }
 
 
-//    /**
-//     * 退药
-//     *
-//     * @param prescriptionID 处方编号
-//     * @param drugsID        药品编号
-//     * @param quantity       退药数量
-//     */
-//    public String withdrawMedicine(Integer prescriptionID, Integer drugsID, Integer quantity, Integer userID) {
-//        String result = "退药成功";
-//        //可退数量
-//        Integer withDrawQuantity = 0;
-//        TakeMedDetailsViewExample takemeddetailsviewExample = new TakeMedDetailsViewExample();
-//        TakeMedDetailsViewExample.Criteria criteria = takemeddetailsviewExample.createCriteria();
-//        criteria.andPrescriptionIDEqualTo(prescriptionID);
-//        criteria.andDrugIDEqualTo(drugsID);
-//        List<TakeMedDetailsView> takemeddetailsviewList = takemeddetailsviewDao.selectByExample(takemeddetailsviewExample);
-//        for (TakeMedDetailsView takemeddetailsview : takemeddetailsviewList) {
-//            if (takemeddetailsview.getIsGotDrugs() == 138) {
-//                withDrawQuantity += takemeddetailsview.getQuantity();
-//            }
-//            if (takemeddetailsview.getIsGotDrugs() == 140) {
-//                withDrawQuantity -= takemeddetailsview.getQuantity();
-//            }
-//        }
-//        if (withDrawQuantity - quantity < 0) {
-//            result = "无法退药";
-//            return result;
-//        } else {
-//            TakeMedDetailsView takemeddetailsview = takemeddetailsviewList.get(0);
-//            PrescriptionDetail prescriptiondetailR = new PrescriptionDetail();
-//            prescriptiondetailR.setPrescriptionID(takemeddetailsview.getPrescriptionID());
-//            prescriptiondetailR.setDrugID(takemeddetailsview.getDrugID());
-//            prescriptiondetailR.setUsage(takemeddetailsview.getUsage());
-//            prescriptiondetailR.setDosage(takemeddetailsview.getDosage());
-//            prescriptiondetailR.setFrequency(takemeddetailsview.getFrequency());
-//            prescriptiondetailR.setMedication(takemeddetailsview.getMedication());
-//            prescriptiondetailR.setQuantity(quantity);
-//            prescriptiondetailR.setAppearUserID(userID);
-//            prescriptiondetailR.setAppearDate(new Date());
-//            prescriptiondetailR.setStatus("1");
-//            prescriptiondetailR.setIsDrawn(131);
-//            prescriptiondetailR.setIsPaid(133);
-//            prescriptiondetailR.setIsGotDrugs(140);
-//            prescriptiondetailR.setIsAbolished(149);
-//            prescriptiondetailDao.insert(prescriptiondetailR);
-//        }
-//        return result;
-//    }
+
 }
 
 
