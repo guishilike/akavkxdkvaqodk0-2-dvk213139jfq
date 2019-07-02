@@ -346,6 +346,7 @@ private  RegistrationInfoDao registrationInfoDao;
      * 搜索药品信息
      *
      * @param search 药品表单信息
+     * @return 药品信息
      */
     public List<Drugs> searchDrugs(String search) {
         DrugsExample drugsExample = new DrugsExample();
@@ -371,9 +372,10 @@ private  RegistrationInfoDao registrationInfoDao;
     }
 
     /**
-     * 搜索药品信息
+     * 搜索材料信息
      *
-     * @param search 药品表单信息
+     * @param search 材料表单信息
+     * @return 材料信息
      */
     public List<Materials> searchMaterials(String search) {
         MaterialsExample materialsExample = new MaterialsExample();
@@ -556,6 +558,7 @@ private  RegistrationInfoDao registrationInfoDao;
      * 登记处置项目表单信息
      *
      * @param disposalDetailsID 药品材料关联编号列表
+     * @return 登记结果
      */
     public String registerdisposalDetails(Integer disposalDetailsID) {
         String result;

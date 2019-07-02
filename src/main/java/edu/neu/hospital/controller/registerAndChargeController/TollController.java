@@ -247,6 +247,7 @@ public class TollController {
      *
      * @param session 日结员编号
      * @param endDate 日结日期
+     * @return 日结结果
      */
     @RequestMapping("/dailySettle")
     public  @ResponseBody
@@ -280,6 +281,7 @@ public class TollController {
      * @param session 日结员编号
      * @param startDate 开始日期
      * @param endDate 结束日期
+     * @return 日结信息
      */
     @RequestMapping("/dailySettleSearch")
     public  @ResponseBody
@@ -309,6 +311,7 @@ public class TollController {
      * @param session 日结员编号
      * @param startDate 开始日期
      * @param endDate 结束日期
+     * @return 日结收费信息
      */
     @RequestMapping("/dailySettleFee")
     public @ResponseBody

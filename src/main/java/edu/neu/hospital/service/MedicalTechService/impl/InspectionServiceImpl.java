@@ -344,6 +344,7 @@ public class InspectionServiceImpl implements InspectionService {
      * 搜索药品信息
      *
      * @param search 药品表单信息
+     * @return 药品信息
      */
     public List<Drugs> searchDrugs(String search) {
         DrugsExample drugsExample = new DrugsExample();
@@ -371,6 +372,7 @@ public class InspectionServiceImpl implements InspectionService {
      * 搜索材料信息
      *
      * @param search 材料表单信息
+     * @return 材料信息
      */
     public List<Materials> searchMaterials(String search) {
         MaterialsExample materialsExample = new MaterialsExample();
@@ -594,6 +596,7 @@ public class InspectionServiceImpl implements InspectionService {
      *
      * @param inspectionresultWithBLOBs 检查结果
      * @param userID 录入结果用户
+     * @return 检查结果表单
      */
     public InspectionResultWithBLOBs importInspectResult(InspectionResultWithBLOBs inspectionresultWithBLOBs, Integer userID) {
         inspectionresultWithBLOBs.setDoctorID(userID);
@@ -609,6 +612,7 @@ public class InspectionServiceImpl implements InspectionService {
      *
      * @param  inspectionresultWithBLOBs 检查结果
      * @param  userID 删除检查结果用户
+     * @return 检查结果表单
      */
     public InspectionResultWithBLOBs updateInspectResult(InspectionResultWithBLOBs inspectionresultWithBLOBs,Integer userID) {
         inspectionresultWithBLOBs.setChangeUserID(userID);

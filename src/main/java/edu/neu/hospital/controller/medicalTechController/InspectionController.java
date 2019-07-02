@@ -31,6 +31,16 @@ public class InspectionController{
     @Resource
     private InspectionService inspectionService;
 
+
+    /**
+     *检查搜索表单信息
+     *
+     * @param search   检查搜索表单搜索框的内容
+     * @param date  检查搜索表单限制日期
+     * @param itemID 检查搜索表单项目名称
+     * @param mark      检查表单项目标识
+     * @return 检查搜索结果表单信息
+     */
     @RequestMapping("/inspectformview")
     public @ResponseBody
     ResultDTO<PageInfo<InspectFormView>> inspectformview(String search, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date, Integer itemID, Integer mark, Integer pageNum, Integer pageSize){
@@ -184,6 +194,7 @@ public class InspectionController{
      *删除药品材料表单信息
      *
      * @param medMatListID  药品材料关联编号
+     * @return 删除药品材料结果
      */
     @RequestMapping("/deleteMedMat")
     public @ResponseBody ResultDTO deleteMedMat(Integer medMatListID,HttpSession session){
@@ -206,6 +217,7 @@ public class InspectionController{
      *批量删除药品材料表单信息
      *
      * @param medMatListIDs  药品材料关联编号列表
+     * @return 删除药品材料结果
      */
     @RequestMapping("/deleteMedMatByList")
     public @ResponseBody ResultDTO deleteMedMatByList(@RequestBody IdDTO medMatListIDs,HttpSession session){
@@ -229,6 +241,7 @@ public class InspectionController{
      *修改药品材料表单信息
      *
      * @param medicinesmaterialslist  药品材料表单信息
+     * @return 修改药品材料结果
      */
     @RequestMapping("/updateMedMat")
     public @ResponseBody ResultDTO updateMedMat(@RequestBody MedicinesMaterialsList medicinesmaterialslist,HttpSession session){
@@ -251,6 +264,7 @@ public class InspectionController{
      *搜索药品信息
      *
      * @param search  药品表单信息
+     * @return 药品信息
      */
 
     @RequestMapping("/searchDrugs")
@@ -273,6 +287,7 @@ public class InspectionController{
      * 搜索材料信息
      *
      * @param search 材料表单信息
+     * @return 材料信息
      */
     @RequestMapping("/searchMaterials")
     public @ResponseBody
@@ -296,6 +311,7 @@ public class InspectionController{
      *
      * @param medicinesmaterialslist  药品材料表单信息
      * @param session 会话
+     * @return 添加药品材料结果
      */
     @RequestMapping("/insertMedMat")
     public @ResponseBody
@@ -321,6 +337,7 @@ public class InspectionController{
      *
      * @param matListIDs 药品材料关联编号列表
      * @param session 会话
+     * @return 批准材料结果
      */
     @RequestMapping("/approveMat")
     public @ResponseBody
@@ -346,6 +363,7 @@ public class InspectionController{
      *批准药品表单信息
      *
      * @param medListIDs 药品材料关联编号列表
+     * @return 批准药品结果
      */
     @RequestMapping("/approveMed")
     public @ResponseBody
@@ -371,6 +389,7 @@ public class InspectionController{
      * 完成审核检查项目表单信息
      *
      * @param inspectionDetailsID 药品材料关联编号列表
+     * @return 审核结果
      */
     @RequestMapping("/approveInspectionDetails")
     public @ResponseBody
@@ -432,6 +451,7 @@ public class InspectionController{
      *
      * @param inspectionresultWithBLOBs 检查结果
      * @param session 会话
+     * @return 检查结果表单
      */
     @RequestMapping("/importInspectResult")
     public @ResponseBody
@@ -459,6 +479,7 @@ public class InspectionController{
      *
      * @param  inspectionresultWithBLOBs 检查结果编号
      * @param  session 会话
+     * @return 检查结果表单
      */
     @RequestMapping("/updateInspectResult")
     public @ResponseBody
@@ -486,6 +507,7 @@ public class InspectionController{
      *
      * @param inspectionresultimage 结果图片信息
      * @param session 会话
+     * @return 导入检查结果图片结果
      */
     @RequestMapping("/importInspectResultImages")
     public @ResponseBody ResultDTO importInspectResultImages(@RequestBody InspectionResultImage inspectionresultimage, HttpSession session){
@@ -512,6 +534,7 @@ public class InspectionController{
      * 上传检查结果图片
      *
      * @param pic 图片对象
+     * @return 图片UUID名
      */
     @RequestMapping("/uploadInspectResultImages")
     public @ResponseBody ResultDTO<String> uploadInspectResultImages(MultipartFile pic){
@@ -552,6 +575,7 @@ public class InspectionController{
      *
      * @param  catalog 图片名称
      * @param  session 会话
+     * @return 删除结果图片结果
      */
     @RequestMapping("/deleteInspectResultImages")
     public @ResponseBody
@@ -585,6 +609,7 @@ public class InspectionController{
      * 完成检查
      *
      * @param inspectionDetailsID 检查详情ID
+     * @return 检查结果
      */
     @RequestMapping("/finishInspection")
     public @ResponseBody
@@ -604,12 +629,6 @@ public class InspectionController{
     }
 
 
-
-
-    @RequestMapping("/upload")
-    public String upload(){
-         return "upload";
-    }
 
 
 
