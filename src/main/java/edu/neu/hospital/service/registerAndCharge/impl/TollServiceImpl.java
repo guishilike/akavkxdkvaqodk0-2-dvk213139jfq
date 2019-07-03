@@ -2,6 +2,7 @@ package edu.neu.hospital.service.registerAndCharge.impl;
 
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.bean.tollBean.*;
+import edu.neu.hospital.config.CustomDateConverter;
 import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.dao.tollDao.*;
 import edu.neu.hospital.dto.IdDTO;
@@ -512,6 +513,7 @@ public class TollServiceImpl implements TollService {
      *
      * @param tollManID 日结员编号
      * @param endDate 日结日期
+     * @return 日结结果
      */
     public  String  dailySettle(Integer tollManID,Date endDate){
         DailySettleViewExample dailysettleviewExample=new DailySettleViewExample();
@@ -519,10 +521,17 @@ public class TollServiceImpl implements TollService {
         criteria.andUserIDEqualTo(tollManID);
         dailysettleviewExample.getOrderByClause("endTime asc");
         List<DailySettleView> dailySettleViewList = dailysettleviewDao.selectByExample(dailysettleviewExample);
-        Date startDate= dailySettleViewList.get(0).getEndTime();
-        if(endDate.compareTo(startDate)<0){
-            return "已日结";
+        Date startDate;
+        if(dailySettleViewList.size()==0){
+            CustomDateConverter customDateConverter=new CustomDateConverter();
+            startDate=customDateConverter.getLastDay(new Date());
+        }else {
+            startDate= dailySettleViewList.get(0).getEndTime();
+            if(endDate.compareTo(startDate)<0){
+                return "已日结";
+            }
         }
+        System.out.println(startDate);
         BigDecimal amount=new BigDecimal("0");
         List<FeeView> feeViewList =dailySettleFee(tollManID,startDate,endDate);
         for(FeeView feeview: feeViewList){
@@ -546,6 +555,7 @@ public class TollServiceImpl implements TollService {
      * @param tollManID 日结员编号
      * @param startDate 开始日期
      * @param endDate 结束日期
+     * @return 日结信息
      */
     public  List<DailySettleView>  dailySettleSearch(Integer tollManID, Date startDate, Date endDate){
         DailySettleViewExample dailysettleviewExample=new DailySettleViewExample();
@@ -566,6 +576,7 @@ public class TollServiceImpl implements TollService {
      * @param tollManID 日结员编号
      * @param startDate 开始日期
      * @param endDate 结束日期
+     * @return 日结收费信息
      */
        public List<FeeView> dailySettleFee (Integer tollManID, Date startDate, Date endDate){
            FeeViewExample feeviewExample = new FeeViewExample();

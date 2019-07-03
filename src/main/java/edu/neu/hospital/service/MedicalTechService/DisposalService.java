@@ -97,6 +97,7 @@ public interface DisposalService {
      *搜索药品信息
      *
      * @param search  药品表单信息
+     * @return 药品信息
      */
     List<Drugs> searchDrugs(String search);
 
@@ -104,6 +105,7 @@ public interface DisposalService {
      * 搜索材料信息
      *
      * @param search 材料表单信息
+     * @return 材料信息
      */
     List<Materials> searchMaterials(String search);
 
@@ -131,21 +133,23 @@ public interface DisposalService {
      * 完成审核处置项目表单信息
      *
      * @param disposalDetailsID 药品材料关联编号列表
+     * @return 审核结果
      */
-    void approvedisposalDetails(Integer disposalDetailsID);
+    String approvedisposalDetails(Integer disposalDetailsID);
 
 
     /**
      * 登记处置项目表单信息
      *
      * @param disposalDetailsID 药品材料关联编号列表
+     * @return 登记结果
      */
      String registerdisposalDetails(Integer disposalDetailsID);
 
     /**
      * 完成处置
      *
-     * @param disposalionDetailsID 处置详情ID
+     * @param disposalDetailsID 处置详情ID
      */
-    void finishDisposal(Integer disposalionDetailsID);
+    void finishDisposal(Integer disposalDetailsID);
 }

@@ -106,6 +106,7 @@ public interface TollService {
      *
      * @param tollManID 日结员编号
      * @param endDate 日结日期
+     * @return 日结结果
      */
      String  dailySettle(Integer tollManID, Date endDate);
 
@@ -116,6 +117,7 @@ public interface TollService {
      * @param tollManID 日结员编号
      * @param startDate 开始日期
      * @param endDate 结束日期
+     * @return 日结信息
      */
     List<DailySettleView>  dailySettleSearch(Integer tollManID, Date startDate, Date endDate);
 
@@ -126,6 +128,7 @@ public interface TollService {
      * @param tollManID 日结员编号
      * @param startDate 开始日期
      * @param endDate 结束日期
+     * @return 日结收费信息
      */
    List<FeeView> dailySettleFee(Integer tollManID, Date startDate, Date endDate);
 

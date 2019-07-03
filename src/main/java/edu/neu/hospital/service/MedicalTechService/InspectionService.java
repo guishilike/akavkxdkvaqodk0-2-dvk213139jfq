@@ -97,6 +97,7 @@ public interface InspectionService {
      *搜索药品信息
      *
      * @param search  药品表单信息
+     * @return 药品信息
      */
     List<Drugs> searchDrugs(String search);
 
@@ -104,6 +105,7 @@ public interface InspectionService {
      * 搜索材料信息
      *
      * @param search 材料表单信息
+     * @return 材料信息
      */
     List<Materials> searchMaterials(String search);
 
@@ -131,8 +133,9 @@ public interface InspectionService {
      * 完成审核检查项目表单信息
      *
      * @param inspectionDetailsID 药品材料关联编号列表
+     * @return 审核结果
      */
-    void approveInspectionDetails(Integer inspectionDetailsID);
+    String approveInspectionDetails(Integer inspectionDetailsID);
 
 
     /**
@@ -154,10 +157,11 @@ public interface InspectionService {
     InspectionResultWithBLOBs  importInspectResult(InspectionResultWithBLOBs inspectionresultWithBLOBs, Integer userID);
 
     /**
-     * 重新检查结果表单
+     * 重新导入检查结果表单
      *
      * @param  inspectionresultWithBLOBs 检查结果
      * @param userID 删除检查结果用户编号
+     * @return 检查结果表单
      */
     InspectionResultWithBLOBs updateInspectResult(InspectionResultWithBLOBs inspectionresultWithBLOBs,Integer userID);
 

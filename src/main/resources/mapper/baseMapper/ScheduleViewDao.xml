@@ -25,8 +25,6 @@
     <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
     <result column="deptCategoryID" jdbcType="INTEGER" property="deptCategoryID" />
     <result column="deptTypeID" jdbcType="INTEGER" property="deptTypeID" />
-    <result column="appearUserName" jdbcType="VARCHAR" property="appearUserName" />
-    <result column="changeUserName" jdbcType="VARCHAR" property="changeUserName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -90,7 +88,7 @@
     id, onDutyDate, deptID, deptCode, deptName, onDutyDoctorID, userName, levelNameID, 
     levelCode, levelName, onDutyTimeID, onDutyTimeCode, onDutyTimeName, limitNumber, 
     remainingAmount, ruleID, `status`, appearUserID, changeUserID, appearDate, changeDate, 
-    deptCategoryID, deptTypeID, appearUserName, changeUserName
+    deptCategoryID, deptTypeID
   </sql>
   <select id="selectByExample" parameterType="edu.neu.hospital.example.baseExample.ScheduleViewExample" resultMap="BaseResultMap">
     select
@@ -128,8 +126,7 @@
       onDutyTimeName, limitNumber, remainingAmount, 
       ruleID, `status`, appearUserID, 
       changeUserID, appearDate, changeDate, 
-      deptCategoryID, deptTypeID, appearUserName, 
-      changeUserName)
+      deptCategoryID, deptTypeID)
     values (#{id,jdbcType=INTEGER}, #{onDutyDate,jdbcType=DATE}, #{deptID,jdbcType=INTEGER}, 
       #{deptCode,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, #{onDutyDoctorID,jdbcType=INTEGER}, 
       #{userName,jdbcType=VARCHAR}, #{levelNameID,jdbcType=INTEGER}, #{levelCode,jdbcType=VARCHAR}, 
@@ -137,8 +134,7 @@
       #{onDutyTimeName,jdbcType=VARCHAR}, #{limitNumber,jdbcType=INTEGER}, #{remainingAmount,jdbcType=INTEGER}, 
       #{ruleID,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{appearUserID,jdbcType=INTEGER}, 
       #{changeUserID,jdbcType=INTEGER}, #{appearDate,jdbcType=TIMESTAMP}, #{changeDate,jdbcType=TIMESTAMP}, 
-      #{deptCategoryID,jdbcType=INTEGER}, #{deptTypeID,jdbcType=INTEGER}, #{appearUserName,jdbcType=VARCHAR}, 
-      #{changeUserName,jdbcType=VARCHAR})
+      #{deptCategoryID,jdbcType=INTEGER}, #{deptTypeID,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="edu.neu.hospital.bean.baseBean.ScheduleView">
     insert into scheduleview
@@ -212,12 +208,6 @@
       <if test="deptTypeID != null">
         deptTypeID,
       </if>
-      <if test="appearUserName != null">
-        appearUserName,
-      </if>
-      <if test="changeUserName != null">
-        changeUserName,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -288,12 +278,6 @@
       </if>
       <if test="deptTypeID != null">
         #{deptTypeID,jdbcType=INTEGER},
-      </if>
-      <if test="appearUserName != null">
-        #{appearUserName,jdbcType=VARCHAR},
-      </if>
-      <if test="changeUserName != null">
-        #{changeUserName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -375,12 +359,6 @@
       <if test="record.deptTypeID != null">
         deptTypeID = #{record.deptTypeID,jdbcType=INTEGER},
       </if>
-      <if test="record.appearUserName != null">
-        appearUserName = #{record.appearUserName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.changeUserName != null">
-        changeUserName = #{record.changeUserName,jdbcType=VARCHAR},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -410,9 +388,7 @@
       appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
       changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
       deptCategoryID = #{record.deptCategoryID,jdbcType=INTEGER},
-      deptTypeID = #{record.deptTypeID,jdbcType=INTEGER},
-      appearUserName = #{record.appearUserName,jdbcType=VARCHAR},
-      changeUserName = #{record.changeUserName,jdbcType=VARCHAR}
+      deptTypeID = #{record.deptTypeID,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -131,12 +132,15 @@ public class RegisterController {
 
     @RequestMapping("/getDoctor")
     public @ResponseBody
-    ResultDTO<List<NameCodeDTO>> getDoctor(Integer levelNameID, Integer deptID, String date) {
+    ResultDTO<List<NameCodeDTO>> getDoctor(Integer levelNameID, Integer deptID, String date) throws ParseException {
 
         System.out.println("url: /register/getDoctor");
 
         try {
 
+            System.out.println(levelNameID);
+            System.out.println(deptID);
+            System.out.println(date);
             Date date1 = null;
             if (date != null && !date.equals("")) {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -273,7 +277,7 @@ public class RegisterController {
         try {
 
             PageHelper.startPage(pageNum, pageSize);
-            List<RegistrationListView> regInfoList = regService.find(start,end);
+            List<RegistrationListView> regInfoList = regService.find(start, end);
             PageInfo<RegistrationListView> list = new PageInfo<>(regInfoList);
 
             return new ResultDTO<>("OK", "获取成功", list);
@@ -282,5 +286,59 @@ public class RegisterController {
             System.out.println(e.toString());
             return new ResultDTO<>("error", "发生异常，获取挂号列表失败", null);
         }
+    }
+
+    @RequestMapping("/getSelectRegInfo")
+    public @ResponseBody
+    ResultDTO<RegistrationListView> getSelectByRegInfo(String medRecNo) {
+
+        System.out.println("/register/getSelectRegInfo");
+        try {
+
+            System.out.println(medRecNo);
+            RegistrationListView view = regService.selectByMedRecID(medRecNo);
+            System.out.println(view.toString());
+            return new ResultDTO<>("OK", "获取成功", view);
+
+        } catch (Exception e) {
+            System.out.println(e.getCause().toString());
+            return new ResultDTO<>("error", "发生异常，获取挂号列表失败", null);
+        }
+    }
+
+    @RequestMapping("/todayWorkload")
+    public @ResponseBody
+    ResultDTO<Integer> getTodayWorkload() {
+
+        System.out.println("/register/todayWorkload");
+        try {
+
+            List<RegistrationListView> regInfoList = regService.find(null, null);
+            SimpleDateFormat simp = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = simp.parse(simp.format(new Date()));
+            int count = 0;
+            for (RegistrationListView view : regInfoList) {
+                if (date.equals(view.getRegistrationDate()))
+                    count++;
+            }
+            System.out.println(count);
+            return new ResultDTO<>("OK", "获取成功", count);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return new ResultDTO<>("error", "发生异常，获取挂号列表失败", null);
+        }
+    }
+
+    @RequestMapping("/retreat")
+    public @ResponseBody
+    ResultDTO retreat(String regInfoID){
+
+        System.out.println("退号: /register/retreat");
+        System.out.println(regInfoID);
+
+        int res = regService.retreat(Integer.parseInt(regInfoID));
+
+        return new ResultDTO<>("OK", "退号成功", res);
+
     }
 }

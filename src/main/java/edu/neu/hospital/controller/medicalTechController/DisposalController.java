@@ -32,6 +32,15 @@ public class DisposalController {
         @Resource
         private DisposalService disposalService;
 
+    /**
+     *处置搜索表单信息
+     *
+     * @param search   处置搜索表单搜索框的内容
+     * @param date  处置搜索表单限制日期
+     * @param itemID 处置搜索表单项目编号
+     * @param mark      处置表单项目标识
+     * @return 处置搜索结果表单信息
+     */
         @RequestMapping("/disposalformview")
         public @ResponseBody
         ResultDTO<PageInfo> disposalformview(String search, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date, Integer itemID, Integer mark,Integer pageNum,Integer pageSize) {
@@ -184,6 +193,7 @@ public class DisposalController {
          * 删除药品材料表单信息
          *
          * @param medMatListID 药品材料关联编号
+         * @return 删除药品材料结果
          */
         @RequestMapping("/deleteMedMat")
         public @ResponseBody
@@ -207,6 +217,7 @@ public class DisposalController {
          * 批量删除药品材料表单信息
          *
          * @param medMatListIDs 药品材料关联编号列表
+         * @return 批量删除药品材料结果
          */
         @RequestMapping("/deleteMedMatByList")
         public @ResponseBody
@@ -231,6 +242,7 @@ public class DisposalController {
          * 修改药品材料表单信息
          *
          * @param medicinesmaterialslist 药品材料表单信息
+         * @return 修改药品材料结果
          */
         @RequestMapping("/updateMedMat")
         public @ResponseBody
@@ -254,6 +266,7 @@ public class DisposalController {
          * 搜索药品信息
          *
          * @param search 药品表单信息
+         * @return 药品信息
          */
 
         @RequestMapping("/searchDrugs")
@@ -278,6 +291,7 @@ public class DisposalController {
          * 搜索材料信息
          *
          * @param search 材料表单信息
+         * @return 材料信息
          */
         @RequestMapping("/searchMaterials")
         public @ResponseBody
@@ -302,6 +316,7 @@ public class DisposalController {
          *
          * @param medicinesmaterialslist 药品材料表单信息
          * @param session                会话
+         * @return 添加药品材料信息
          */
         @RequestMapping("/insertMedMat")
         public @ResponseBody
@@ -328,6 +343,7 @@ public class DisposalController {
          *
          * @param matListIDs 药品材料关联编号列表
          * @param session    会话
+         * @return 批准材料信息结果
          */
         @RequestMapping("/approveMat")
         public @ResponseBody
@@ -354,6 +370,7 @@ public class DisposalController {
          * 批准药品表单信息
          *
          * @param medListIDs 药品材料关联编号列表
+         * @return 批准药品信息结果
          */
         @RequestMapping("/approveMed")
         public @ResponseBody
@@ -379,15 +396,21 @@ public class DisposalController {
          * 完成审核处置项目表单信息
          *
          * @param disposalDetailsID 药品材料关联编号列表
+         * @return 审核结果
          */
         @RequestMapping("/approveDisposalDetails")
         public @ResponseBody
         ResultDTO approveInspectionDetails(Integer disposalDetailsID){
             ResultDTO resultDTO = new ResultDTO();
             try {
-                disposalService.approvedisposalDetails(disposalDetailsID);
-                resultDTO.setStatus("OK");
-                resultDTO.setMsg("操作成功！");
+                String msg=disposalService.approvedisposalDetails(disposalDetailsID);
+                if(msg.equals("完成审核")) {
+                    resultDTO.setStatus("OK");
+                    resultDTO.setMsg(msg);
+                }else{
+                    resultDTO.setStatus("WARN");
+                    resultDTO.setMsg(msg);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -431,7 +454,12 @@ public class DisposalController {
 
 
 
-
+    /**
+     * 完成处置
+     *
+     * @param disposalDetailsID 处置详情ID
+     * @return 处置结果
+     */
         @RequestMapping("/finishDisposal")
         public @ResponseBody
         ResultDTO finishDisposal(Integer disposalDetailsID) {

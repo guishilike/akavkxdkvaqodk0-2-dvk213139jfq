@@ -79,6 +79,7 @@ public class TakeMedicineController {
      *
      * @param presdetailsIDs 取药编号列表
      * @param session 会话
+     * @return 批量取药结果
      */
     @RequestMapping("/takeMedicine")
     public @ResponseBody
@@ -103,6 +104,7 @@ public class TakeMedicineController {
      *
      * @param  presdetailsIDs 退药编号列表
      * @param session 会话
+     * @return 批量退药结果
      */
     @RequestMapping("/withdrawMedicine")
     public @ResponseBody
