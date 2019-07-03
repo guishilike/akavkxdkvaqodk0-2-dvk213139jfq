@@ -60,8 +60,7 @@ private  RegistrationInfoDao registrationInfoDao;
 
     public List<DisposalFormView> disposalformview(String search, Date date, Integer itemID, Integer mark) {
         DisposalFormViewExample disposalformviewExample = new DisposalFormViewExample();
-        //默认按时间升序显示
-        disposalformviewExample.getOrderByClause("disposalAppearDate asc");
+
         DisposalFormViewExample.Criteria criteria = disposalformviewExample.createCriteria();
         DisposalFormViewExample.Criteria criteria1 = disposalformviewExample.createCriteria();
         DisposalFormViewExample.Criteria criteria2 = disposalformviewExample.createCriteria();
@@ -335,10 +334,23 @@ private  RegistrationInfoDao registrationInfoDao;
      * @param medicinesmaterialslist 药品材料表单信息
      * @param userID 修改人编号
      */
-    public void updateMedMat(MedicinesMaterialsList medicinesmaterialslist,Integer userID) {
+    public String updateMedMat(MedicinesMaterialsList medicinesmaterialslist,Integer userID) {
+
+        MedicinesMaterialsListExample medicinesMaterialsListExample=new MedicinesMaterialsListExample();
+        MedicinesMaterialsListExample.Criteria criteria=medicinesMaterialsListExample.createCriteria();
+        criteria.andIdNotEqualTo(medicinesmaterialslist.getId());
+        criteria.andStatusEqualTo("1");
+        criteria.andMedicinesMaterialsIDEqualTo(medicinesmaterialslist.getMedicinesMaterialsID());
+
+        if(medicinesmaterialslistDao.countByExample(medicinesMaterialsListExample)>0){
+            return "处置药品材料已存在";
+        }
+
+
         medicinesmaterialslist.setChangeUserID(userID);
         medicinesmaterialslist.setChangeDate(new Date());
         medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
+        return "处置药品材料修改成功";
     }
 
 
@@ -401,7 +413,18 @@ private  RegistrationInfoDao registrationInfoDao;
      *
      * @param medicinesmaterialslist 药品材料表单信息
      */
-    public void insertMedMat(Integer userID, MedicinesMaterialsList medicinesmaterialslist) {
+    public String insertMedMat(Integer userID, MedicinesMaterialsList medicinesmaterialslist) {
+
+
+        MedicinesMaterialsListExample medicinesMaterialsListExample=new MedicinesMaterialsListExample();
+        MedicinesMaterialsListExample.Criteria criteria=medicinesMaterialsListExample.createCriteria();
+
+        criteria.andStatusEqualTo("1");
+        criteria.andMedicinesMaterialsIDEqualTo(medicinesmaterialslist.getMedicinesMaterialsID());
+
+        if(medicinesmaterialslistDao.countByExample(medicinesMaterialsListExample)>0){
+            return "处置药品材料已存在";
+        }
         medicinesmaterialslist.setIsDrawn(131);
         medicinesmaterialslist.setIsPaid(134);
         medicinesmaterialslist.setIsChecked(142);
@@ -412,6 +435,7 @@ private  RegistrationInfoDao registrationInfoDao;
         medicinesmaterialslist.setAppearDate(new Date());
         medicinesmaterialslist.setStatus("1");
         medicinesmaterialslistDao.insert(medicinesmaterialslist);
+        return "处置药品材料添加成功";
     }
 
 

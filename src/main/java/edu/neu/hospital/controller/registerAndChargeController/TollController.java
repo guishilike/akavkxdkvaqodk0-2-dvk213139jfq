@@ -18,6 +18,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 @Controller
 @RequestMapping("Toll")
 public class TollController {
@@ -251,15 +253,21 @@ public class TollController {
      */
     @RequestMapping("/dailySettle")
     public  @ResponseBody
-    ResultDTO<String> dailySettle(HttpSession session,@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date endDate){
-        ResultDTO<String> resultDTO = new ResultDTO<>();
+    ResultDTO<List<DailySettleView>> dailySettle(HttpSession session,@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date endDate){
+        ResultDTO<List<DailySettleView>> resultDTO = new ResultDTO<>();
         try {
             UserView user=(UserView) session.getAttribute("user");
             Integer tollManID=user.getId();
-            String msg=tollService.dailySettle(tollManID,endDate);
+            Map<String,Date> result=tollService.dailySettle(tollManID,endDate);
+            String msg="";
+            for (String key : result.keySet()) {
+                 msg = key;
+            }
             if(msg.equals("日结成功")){
-            resultDTO.setStatus("OK");
-            resultDTO.setMsg(msg);
+                Date startDate=result.get(msg);
+             resultDTO.setStatus("OK");
+             resultDTO.setMsg(msg);
+             resultDTO.setData(tollService.dailySettleSearch(tollManID,startDate,endDate));
             }
             else{
                 resultDTO.setStatus("WARN");

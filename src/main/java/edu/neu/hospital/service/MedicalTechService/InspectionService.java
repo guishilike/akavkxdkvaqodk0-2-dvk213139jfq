@@ -90,8 +90,9 @@ public interface InspectionService {
      *修改药品材料表单信息
      *
      * @param medicinesmaterialslist  药品材料表单信息
+     * @return 修改药品材料结果
      */
-    void updateMedMat(MedicinesMaterialsList medicinesmaterialslist,Integer userID);
+    String updateMedMat(MedicinesMaterialsList medicinesmaterialslist,Integer userID);
 
     /**
      *搜索药品信息
@@ -113,8 +114,9 @@ public interface InspectionService {
      *添加药品材料表单信息
      *
      * @param medicinesmaterialslist  药品材料表单信息
+     * @return 添加药品材料结果
      */
-    void insertMedMat(Integer userID, MedicinesMaterialsList medicinesmaterialslist);
+    String insertMedMat(Integer userID, MedicinesMaterialsList medicinesmaterialslist);
 
     /**
      *批准材料表单信息

@@ -5,6 +5,7 @@ import edu.neu.hospital.bean.tollBean.*;
 import edu.neu.hospital.dto.IdDTO;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface TollService {
     /**
@@ -108,7 +109,7 @@ public interface TollService {
      * @param endDate 日结日期
      * @return 日结结果
      */
-     String  dailySettle(Integer tollManID, Date endDate);
+    Map<String,Date> dailySettle(Integer tollManID, Date endDate);
 
 
     /**

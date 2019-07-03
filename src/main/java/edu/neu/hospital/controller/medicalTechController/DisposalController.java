@@ -251,9 +251,14 @@ public class DisposalController {
             try {
                 UserView user= (UserView) session.getAttribute("user");
                 Integer userID=user.getId();
-                disposalService.updateMedMat(medicinesmaterialslist,userID);
-                resultDTO.setMsg("操作成功！");
-                resultDTO.setStatus("OK");
+               String msg=disposalService.updateMedMat(medicinesmaterialslist,userID);
+               if(msg.equals("处置药品材料修改成功")) {
+                   resultDTO.setMsg(msg);
+                   resultDTO.setStatus("OK");
+               }else {
+                   resultDTO.setMsg(msg);
+                   resultDTO.setStatus("WARN");
+               }
             } catch (Exception e) {
                 e.printStackTrace();
                 resultDTO.setStatus("NG");
@@ -325,10 +330,14 @@ public class DisposalController {
             try {
                 UserView user = (UserView) session.getAttribute("user");
                 Integer userID = user.getId();
-                disposalService.insertMedMat(userID, medicinesmaterialslist);
-
-                resultDTO.setMsg("操作成功！");
+                String msg=disposalService.insertMedMat(userID, medicinesmaterialslist);
+                if(msg.equals("处置药品材料添加成功")){
+                resultDTO.setMsg(msg);
                 resultDTO.setStatus("OK");
+                }else{
+                    resultDTO.setMsg(msg);
+                    resultDTO.setStatus("WARN");
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
