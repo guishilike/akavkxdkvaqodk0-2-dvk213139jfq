@@ -32,15 +32,17 @@ public class PatientCardController {
 
         try {
 
-            Integer appearUserID = Integer.parseInt((String) session.getAttribute("userID"));
-            int result = patientCardService.applyCard(patient, passwd, appearUserID);
+        System.out.println(patient.toString());
+        UserView loginUser = (UserView) session.getAttribute("user");
+        int result = patientCardService.applyCard(patient, passwd, loginUser.getId());
 
-            if (0 == result) {
-                return new ResultDTO<>("NG", "申请失败", result);
-            }
-            return new ResultDTO<>("OK", "申请成功", result);
+        if (0 == result) {
+            return new ResultDTO<>("NG", "申请失败", result);
+        }
+        return new ResultDTO<>("OK", "申请成功", result);
 
         } catch (Exception e) {
+            System.out.println(e.getCause().toString());
             return new ResultDTO<>("error", "发生异常，申请就诊卡失败", e);
         }
     }
