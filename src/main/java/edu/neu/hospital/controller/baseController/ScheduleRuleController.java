@@ -49,7 +49,7 @@ public class ScheduleRuleController {
                 resultDTO.setData(schedulerule);
             }
             else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("排班规则重复，添加排班规则失败");
                 resultDTO.setData(schedulerule);
             }
@@ -94,7 +94,7 @@ public class ScheduleRuleController {
    @RequestMapping("/deleteByChoose")
     public @ResponseBody ResultDTO deleteByChoose(@RequestBody IdDTO ids, HttpSession session){
         ResultDTO<IdDTO> resultDTO=new ResultDTO<>();
-        if(ids.getId()!=null){
+        if(ids.getId()!=null&&ids.getId().size()!=0){
             try{
                 UserView loginUser=(UserView) session.getAttribute("user");
                 scheduleRuleService.deleteByChoose(ids,loginUser.getId());
@@ -133,7 +133,7 @@ public class ScheduleRuleController {
                resultDTO.setData(schedulerule);
            }
            else{
-               resultDTO.setStatus("FALSE");
+               resultDTO.setStatus("WARN");
                resultDTO.setMsg("存在重复的排班规则，修改排班规则失败");
                resultDTO.setData(schedulerule);
            }
