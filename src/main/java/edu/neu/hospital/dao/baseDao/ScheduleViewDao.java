@@ -2,12 +2,13 @@ package edu.neu.hospital.dao.baseDao;
 
 import edu.neu.hospital.bean.baseBean.ScheduleView;
 import edu.neu.hospital.example.baseExample.ScheduleViewExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 
-import javax.xml.crypto.Data;
+import java.util.List;
 
+@Repository
 public interface ScheduleViewDao {
     long countByExample(ScheduleViewExample example);
 
@@ -22,6 +23,7 @@ public interface ScheduleViewDao {
     int updateByExampleSelective(@Param("record") ScheduleView record, @Param("example") ScheduleViewExample example);
 
     int updateByExample(@Param("record") ScheduleView record, @Param("example") ScheduleViewExample example);
+
     @Select("select id from scheduleview where onDutyDate=#{onDutyDate} and onDutyDoctorID=#{userID}")
     Integer getIDByDateAndUserName(String onDutyDate, Integer userID);
     @Select("select id from scheduleview where onDutyDate=#{onDutyDate} and onDutyDoctorID=#{userID} and id !=#{id}")

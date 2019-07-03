@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -131,12 +132,15 @@ public class RegisterController {
 
     @RequestMapping("/getDoctor")
     public @ResponseBody
-    ResultDTO<List<NameCodeDTO>> getDoctor(Integer levelNameID, Integer deptID, String date) {
+    ResultDTO<List<NameCodeDTO>> getDoctor(Integer levelNameID, Integer deptID, String date) throws ParseException {
 
         System.out.println("url: /register/getDoctor");
 
         try {
 
+            System.out.println(levelNameID);
+            System.out.println(deptID);
+            System.out.println(date);
             Date date1 = null;
             if (date != null && !date.equals("")) {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

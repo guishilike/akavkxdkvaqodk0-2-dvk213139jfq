@@ -3,7 +3,6 @@ package edu.neu.hospital.service.baseService.impl;
 import edu.neu.hospital.bean.baseBean.ScheduleRuleView;
 import edu.neu.hospital.bean.baseBean.ScheduleView;
 import edu.neu.hospital.bean.basicTableBean.Schedule;
-import edu.neu.hospital.bean.basicTableBean.Schedulerule;
 import edu.neu.hospital.dao.baseDao.ScheduleRuleViewDao;
 import edu.neu.hospital.dao.baseDao.ScheduleViewDao;
 import edu.neu.hospital.dao.baseDao.UserViewDao;
@@ -275,10 +274,10 @@ public class ScheduleServiceImpl implements ScheduleService {
             row.createCell(6).setCellValue(results.get(i).getRemainingAmount());
             if (results.get(i).getAppearDate() != null)
                 row.createCell(7).setCellValue(simpleDateFormat1.format(results.get(i).getAppearDate()));
-            row.createCell(8).setCellValue(results.get(i).getAppearUserName());
+            row.createCell(8).setCellValue(results.get(i).getAppearUserID());
             if (results.get(i).getChangeDate() != null)
                 row.createCell(9).setCellValue(simpleDateFormat1.format(results.get(i).getChangeDate()));
-            row.createCell(10).setCellValue(results.get(i).getChangeUserName());
+            row.createCell(10).setCellValue(results.get(i).getChangeUserID());
 
         }
 
