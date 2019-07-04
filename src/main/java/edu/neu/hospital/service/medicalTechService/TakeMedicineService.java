@@ -1,4 +1,4 @@
-package edu.neu.hospital.service.MedicalTechService;
+package edu.neu.hospital.service.medicalTechService;
 
 import edu.neu.hospital.bean.takeMedicineBean.TakeMedDetailsView;
 import edu.neu.hospital.bean.takeMedicineBean.TakeMedicineFormView;

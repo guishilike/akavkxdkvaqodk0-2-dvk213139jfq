@@ -1,4 +1,4 @@
-package edu.neu.hospital.service.MedicalTechService.impl;
+package edu.neu.hospital.service.medicalTechService.impl;
 
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.bean.disposalBean.*;
@@ -9,7 +9,7 @@ import edu.neu.hospital.dao.disposalDao.*;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.basicTableExample.*;
 import edu.neu.hospital.example.disposalExample.*;
-import edu.neu.hospital.service.MedicalTechService.DisposalService;
+import edu.neu.hospital.service.medicalTechService.DisposalService;
 import edu.neu.hospital.utils.RegexProcess;
 import org.springframework.stereotype.Service;
 

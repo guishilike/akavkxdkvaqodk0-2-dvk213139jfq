@@ -7,7 +7,7 @@ import edu.neu.hospital.bean.takeMedicineBean.TakeMedDetailsView;
 import edu.neu.hospital.bean.takeMedicineBean.TakeMedicineFormView;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
-import edu.neu.hospital.service.MedicalTechService.TakeMedicineService;
+import edu.neu.hospital.service.medicalTechService.TakeMedicineService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;

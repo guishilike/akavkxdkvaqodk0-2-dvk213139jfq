@@ -1,17 +1,21 @@
-package edu.neu.hospital.service.patientcard.impl;
+package edu.neu.hospital.service.patientCard.impl;
 
+import edu.neu.hospital.bean.baseBean.PatientCardView;
 import edu.neu.hospital.bean.basicTableBean.Patient;
 import edu.neu.hospital.bean.basicTableBean.PatientCard;
 import edu.neu.hospital.bean.basicTableBean.PatientCardFeeRecord;
+import edu.neu.hospital.dao.baseDao.PatientCardViewDao;
 import edu.neu.hospital.dao.basicTableDao.PatientCardDao;
 import edu.neu.hospital.dao.basicTableDao.PatientCardFeeRecordDao;
 import edu.neu.hospital.dao.basicTableDao.PatientDao;
-import edu.neu.hospital.service.patientcard.PatientCardService;
+import edu.neu.hospital.example.baseExample.PatientCardViewExample;
+import edu.neu.hospital.service.patientCard.PatientCardService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author LiJie
@@ -27,7 +31,20 @@ public class PatientCardServiceImpl implements PatientCardService {
     PatientCardDao patientCardDao;
 
     @Resource
+    PatientCardViewDao patientCardViewDao;
+
+    @Resource
     PatientCardFeeRecordDao pcfRecDao;
+
+    @Override
+    public List<PatientCardView> getAll() {
+        return patientCardViewDao.selectByExample(new PatientCardViewExample());
+    }
+
+    @Override
+    public PatientCardView selectByID(Integer id) {
+        return patientCardViewDao.selectByID(id);
+    }
 
     @Override
     public int applyCard(Patient patient, String passwd, Integer appearUserID) {

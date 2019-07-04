@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.baseDao.PatientCardViewDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.baseBean.PatientCardView">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="patientName" jdbcType="VARCHAR" property="patientName" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="appearUser" jdbcType="VARCHAR" property="appearUser" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, patientName, money, appearUser, appearDate
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.baseExample.PatientCardViewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from patientcardview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.baseExample.PatientCardViewExample">
+    delete from patientcardview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.neu.hospital.bean.baseBean.PatientCardView">
+    insert into patientcardview (id, patientName, money, 
+      appearUser, appearDate)
+    values (#{id,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, 
+      #{appearUser,jdbcType=VARCHAR}, #{appearDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.neu.hospital.bean.baseBean.PatientCardView">
+    insert into patientcardview
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="patientName != null">
+        patientName,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="appearUser != null">
+        appearUser,
+      </if>
+      <if test="appearDate != null">
+        appearDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="patientName != null">
+        #{patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="appearUser != null">
+        #{appearUser,jdbcType=VARCHAR},
+      </if>
+      <if test="appearDate != null">
+        #{appearDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.baseExample.PatientCardViewExample" resultType="java.lang.Long">
+    select count(*) from patientcardview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update patientcardview
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.patientName != null">
+        patientName = #{record.patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null">
+        money = #{record.money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.appearUser != null">
+        appearUser = #{record.appearUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appearDate != null">
+        appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update patientcardview
+    set id = #{record.id,jdbcType=INTEGER},
+      patientName = #{record.patientName,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=DECIMAL},
+      appearUser = #{record.appearUser,jdbcType=VARCHAR},
+      appearDate = #{record.appearDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
