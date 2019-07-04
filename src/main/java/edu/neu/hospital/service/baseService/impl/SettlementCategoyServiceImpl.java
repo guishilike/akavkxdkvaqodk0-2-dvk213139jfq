@@ -1,6 +1,5 @@
 package edu.neu.hospital.service.baseService.impl;
 
-import edu.neu.hospital.bean.baseBean.DepartmentView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.SettleCategoryDetails;
 import edu.neu.hospital.bean.baseBean.SettleCategoryView;
@@ -9,17 +8,17 @@ import edu.neu.hospital.dao.basicTableDao.SettleCategoryDetailsDao;
 import edu.neu.hospital.dao.baseDao.SettleCategoryViewDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.NameCodeDTO;
-import edu.neu.hospital.example.baseExample.DepartmentViewExample;
 import edu.neu.hospital.example.baseExample.SettleCategoryViewExample;
 import edu.neu.hospital.service.baseService.SettlementCategoryService;
 import edu.neu.hospital.utils.FileManage;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
@@ -36,9 +35,10 @@ public class SettlementCategoyServiceImpl implements SettlementCategoryService {
     @Resource
     SettleCategoryDetailsDao settlecategorydetailsDao;
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
+    @CacheEvict(value="constantItem")
     public void add(ConstantItem constantitem, Integer userID) {
         constantitem.setStatus("1");
         constantitem.setAppearDate(new Date());
@@ -53,11 +53,13 @@ public class SettlementCategoyServiceImpl implements SettlementCategoryService {
     }
 
     @Override
+    @CachePut(value="constantItem",key="'findAllSettlementCategory'")
     public List<SettleCategoryView> findAll() {
         return settlecategoryviewDao.selectByExample(new SettleCategoryViewExample());
     }
 
     @Override
+    @CacheEvict(value="constantItem")
     public void deleteByID(Integer id, Integer userID) {
 
         ConstantItem settleCategory = constantitemDao.selectByPrimaryKey(id);
@@ -75,6 +77,7 @@ public class SettlementCategoyServiceImpl implements SettlementCategoryService {
     }
 
     @Override
+    @Cacheable(value="constantItem",key="'findByCodeOrName'")
     public List<SettleCategoryView> findByCodeOrName(String codeOrName) {
         SettleCategoryViewExample example = new SettleCategoryViewExample();
         SettleCategoryViewExample.Criteria criteria1 = example.createCriteria();
@@ -86,6 +89,7 @@ public class SettlementCategoyServiceImpl implements SettlementCategoryService {
     }
 
     @Override
+    @CacheEvict(value="constantItem")
     public void deleteByChoose(IdDTO ids, Integer userID) {
         for (Integer id:ids.getId()) {
             ConstantItem settleCategory = constantitemDao.selectByPrimaryKey(id);
@@ -104,6 +108,7 @@ public class SettlementCategoyServiceImpl implements SettlementCategoryService {
     }
 
     @Override
+    @CacheEvict(value="constantItem")
     public void change(ConstantItem constantitem, Integer userID) {
         constantitem.setChangeDate(new Date());
         constantitem.setChangeUserID(userID);
@@ -112,6 +117,7 @@ public class SettlementCategoyServiceImpl implements SettlementCategoryService {
     }
 
     @Override
+    @CacheEvict(value="constantItem")
     public void changeDetails(SettleCategoryDetails details, Integer userID) {
         settlecategorydetailsDao.updateByPrimaryKeySelective(details);
         ConstantItem constantitem = new ConstantItem();
@@ -123,6 +129,7 @@ public class SettlementCategoyServiceImpl implements SettlementCategoryService {
     }
 
     @Override
+    @Cacheable(value="constantItem",key="'getAllSetCatNamesAndCode'")
     public List<NameCodeDTO> getAllSetCatNamesAndCode() {
         return constantitemDao.findAllNamesAndCodesByType(12);
     }
@@ -166,8 +173,7 @@ public class SettlementCategoyServiceImpl implements SettlementCategoryService {
                 row.createCell(12).setCellValue(simpleDateFormat.format(results.get(i).getChangeDate()));
             row.createCell(13).setCellValue(results.get(i).getChangeUserName());
         }
-        File file = FileManage.createXLSFile(wb, path, fileName);
-        return file;
+        return  FileManage.createXLSFile(wb, path, fileName);
     }
 
 

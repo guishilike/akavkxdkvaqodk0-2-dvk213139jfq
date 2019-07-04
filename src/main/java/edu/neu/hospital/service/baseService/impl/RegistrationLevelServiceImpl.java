@@ -1,7 +1,6 @@
 package edu.neu.hospital.service.baseService.impl;
 
 import edu.neu.hospital.bean.baseBean.RegistrationLevelView;
-import edu.neu.hospital.bean.baseBean.SettleCategoryView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.RegistrationLevelDetails;
 import edu.neu.hospital.dao.basicTableDao.ConstantItemDao;
@@ -10,12 +9,14 @@ import edu.neu.hospital.dao.baseDao.RegistrationLevelViewDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.example.baseExample.RegistrationLevelViewExample;
-import edu.neu.hospital.example.baseExample.SettleCategoryViewExample;
 import edu.neu.hospital.service.baseService.RegistrationLevelService;
 import edu.neu.hospital.utils.FileManage;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
@@ -35,10 +36,11 @@ public class RegistrationLevelServiceImpl implements RegistrationLevelService {
     @Resource
     ConstantItemDao constantitemDao;
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
     @Override
+    @CacheEvict(value="constantItem")
     public void add(ConstantItem constantitem, Integer userID) {
         constantitem.setConstantTypeID(13);
         constantitem.setAppearDate(new Date());
@@ -54,12 +56,14 @@ public class RegistrationLevelServiceImpl implements RegistrationLevelService {
 
     //列出所有的挂号级别
     @Override
+    @CachePut(value="constantItem",key="'findAllRegistrationLevel'")
     public List<RegistrationLevelView> findAll() {
         return registrationlevelviewDao.selectByExample(new RegistrationLevelViewExample());
     }
 
     //根据id删除挂号级别
     @Override
+    @CacheEvict(value="constantItem")
     public void deleteByID(Integer id, Integer userID) {
         ConstantItem constantitem = constantitemDao.selectByPrimaryKey(id);
         if (constantitem != null) {
@@ -75,6 +79,7 @@ public class RegistrationLevelServiceImpl implements RegistrationLevelService {
     }
 
     @Override
+    @Cacheable(value="constantItem",key="'findRegistrationLevelByCodeOrName'")
     public List<RegistrationLevelView> findByCodeOrName(String codeOrName) {
         RegistrationLevelViewExample example = new RegistrationLevelViewExample();
         RegistrationLevelViewExample.Criteria criteria1 = example.createCriteria();
@@ -86,6 +91,7 @@ public class RegistrationLevelServiceImpl implements RegistrationLevelService {
     }
 
     @Override
+    @CacheEvict(value="constantItem")
     public void deleteByChoose(IdDTO ids, Integer userID) {
         for (Integer id : ids.getId()) {
             ConstantItem constantitem = constantitemDao.selectByPrimaryKey(id);
@@ -104,6 +110,7 @@ public class RegistrationLevelServiceImpl implements RegistrationLevelService {
     }
 
     @Override
+    @CacheEvict(value="constantItem")
     public void change(ConstantItem constantitem, Integer userID) {
         constantitem.setChangeDate(new Date());
         constantitem.setChangeUserID(userID);
@@ -111,6 +118,7 @@ public class RegistrationLevelServiceImpl implements RegistrationLevelService {
     }
 
     @Override
+    @CacheEvict(value="constantItem")
     public void changeDetails(RegistrationLevelDetails details, Integer userID) {
         if(details.getIsDefault()!=null&&details.getIsDefault().equals("1"))
             registrationleveldetailsDao.clearDefault();
@@ -124,7 +132,8 @@ public class RegistrationLevelServiceImpl implements RegistrationLevelService {
     }
 
     @Override
-    public List<NameCodeDTO> getAllSetCatNamesAndCode() {
+    @Cacheable(value="constantItem",key="'getAllRegLevNamesAndCode'")
+    public List<NameCodeDTO> getAllRegLevNamesAndCode() {
         return constantitemDao.findAllNamesAndCodesByType(13);
     }
 
@@ -156,8 +165,7 @@ public class RegistrationLevelServiceImpl implements RegistrationLevelService {
                 row.createCell(8).setCellValue(simpleDateFormat.format(results.get(i).getChangeDate()));
             row.createCell(9).setCellValue(results.get(i).getChangeUserName());
         }
-        File file = FileManage.createXLSFile(wb, path, fileName);
-        return file;
+        return FileManage.createXLSFile(wb, path, fileName);
     }
 
 

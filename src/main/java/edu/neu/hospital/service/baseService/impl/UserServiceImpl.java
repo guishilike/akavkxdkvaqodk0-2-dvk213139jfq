@@ -21,6 +21,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,10 +47,11 @@ public class UserServiceImpl implements UserService {
     @Resource
     DepartmentViewDao departmentViewDao;
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     //列出用户
+    @CachePut(value="user",key="'deptID'+#deptID+'typeID'+#typeID")
     public List<UserView> findUsers(Integer deptID, Integer typeID) {
         UserViewExample userviewExample = new UserViewExample();
         UserViewExample.Criteria criteria = userviewExample.createCriteria();
@@ -60,6 +64,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @CacheEvict(value="user")
     public void deleteById(Integer id, Integer userID) {
         User user = userDao.selectByPrimaryKey(id);
         if (user != null) {
@@ -71,6 +76,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @CacheEvict(value="user")
     public void deleteByChoose(IdDTO ids, Integer userID) {
         for (Integer id : ids.getId()) {
             User user = userDao.selectByPrimaryKey(id);
@@ -85,6 +91,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @CacheEvict(value="user")
     public void add(User user, Integer userID) {
         user.setAppearUserID(userID);
         user.setStatus("1");
@@ -93,6 +100,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @CacheEvict(value="user")
     public void change(User user, Integer userID) {
         user.setChangeUserID(userID);
         user.setChangeDate(new Date());
@@ -123,6 +131,7 @@ public class UserServiceImpl implements UserService {
 
     //根据真名或登录名查找用户
     @Override
+    @Cacheable(value="user",key="'userName'+#name")
     public List<UserView> findUserByName(String name) {
         UserViewExample example = new UserViewExample();
         UserViewExample.Criteria criteria1 = example.createCriteria();
@@ -134,21 +143,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable(value="user",key="'getAllUserNamesAndUserIDs'")
     public List<NameCodeDTO> getAllUserNamesAndUserIDs() {
         return userviewDao.selectAllUserNamesAndUserIDs();
     }
 
     @Override
+    @Cacheable(value = "constantItem",key="'getAllRankNamesAndCodes'")
     public List<NameCodeDTO> getAllRankNamesAndCodes() {
         return constantItemDao.findAllNamesAndCodesByType(8);
     }
 
     @Override
+    @Cacheable(value = "constantItem",key="'getAllUserTypeNamesAndCodes'")
     public List<NameCodeDTO> getAllUserTypeNamesAndCodes() {
         return constantItemDao.findAllNamesAndCodesByType(18);
     }
 
     @Override
+    @CacheEvict("user")
     public boolean uploadXls(MultipartFile file, Integer operateUserID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException {
         //标识文件内容是否有错
         Boolean state = true;

@@ -241,7 +241,7 @@ public class RegistrationLevelController {
     ResultDTO getAllRegLevNamesAndCodes() {
         ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
         try {
-            List<NameCodeDTO> list = registrationLevelService.getAllSetCatNamesAndCode();
+            List<NameCodeDTO> list = registrationLevelService.getAllRegLevNamesAndCode();
             resultDTO.setStatus("OK");
             resultDTO.setData(list);
             resultDTO.setMsg("获得挂号级别搜索列表成功");

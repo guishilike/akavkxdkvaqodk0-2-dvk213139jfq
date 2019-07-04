@@ -4,6 +4,7 @@ import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.dao.basicTableDao.ConstantItemDao;
 import edu.neu.hospital.example.basicTableExample.ConstantItemExample;
 import edu.neu.hospital.service.baseService.ConstantService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,14 +24,13 @@ public class ConstantServiceImpl implements ConstantService {
         criteria.andConstantTypeIDEqualTo(typeID);
         if (state == 1)
             criteria.andIdNotEqualTo(constantitem.getId());
-        if (constantitemDao.countByExample(example) > 0)
-            return false;
-        else
-            return true;
+        return constantitemDao.countByExample(example) ==0;
+
 
     }
 
     @Override
+    @Cacheable(value="constantItem",key="'typeID'+#typeID")
     public List<ConstantItem> findByTypeID(Integer typeID) {
 
         return constantitemDao.findByTypeID(typeID);

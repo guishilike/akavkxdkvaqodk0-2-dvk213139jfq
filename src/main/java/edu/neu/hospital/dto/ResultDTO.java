@@ -1,6 +1,8 @@
 package edu.neu.hospital.dto;
 
-public class ResultDTO<T> {
+import java.io.Serializable;
+
+public class ResultDTO<T> implements Serializable {
     private String status; // "OK";"NG"
     private String msg;
     private T data;
