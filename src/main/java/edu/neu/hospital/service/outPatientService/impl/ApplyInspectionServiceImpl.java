@@ -280,6 +280,7 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
         projectTemplate.setAppearDate(new Date());
         projectTemplate.setAppearUserID( userID);
         projectTemplate.setDoctorId(userID);
+        projectTemplate.setStatus("1");
         projectTemplateDao.insert(projectTemplate);
         return projectTemplate.getId();
     }
