@@ -11,7 +11,7 @@ import edu.neu.hospital.dao.basicTableDao.ScheduleDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.baseExample.ScheduleViewExample;
 import edu.neu.hospital.example.basicTableExample.ScheduleExample;
-import edu.neu.hospital.example.basicTableExample.ScheduleRuleViewExample;
+import edu.neu.hospital.example.baseExample.ScheduleRuleViewExample;
 import edu.neu.hospital.service.baseService.ScheduleService;
 import edu.neu.hospital.utils.FileManage;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;

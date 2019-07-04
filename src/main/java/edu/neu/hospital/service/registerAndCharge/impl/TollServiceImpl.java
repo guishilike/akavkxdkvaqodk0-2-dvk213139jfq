@@ -572,7 +572,6 @@ public class TollServiceImpl implements TollService {
             criteria.andEndTimeBetween(startDate, endDate);
         }
         criteria.andUserIDEqualTo(tollManID);
-        dailysettleviewExample.getOrderByClause("endTime asc");
         return dailysettleviewDao.selectByExample(dailysettleviewExample);
     }
 

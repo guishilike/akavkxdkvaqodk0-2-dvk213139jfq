@@ -89,7 +89,7 @@
     changeUserID, appearDate, changeDate, deptCategoryID, deptTypeID, appearUserName, 
     changeUserName
   </sql>
-  <select id="selectByExample" parameterType="edu.neu.hospital.example.basicTableExample.ScheduleRuleViewExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.baseExample.ScheduleRuleViewExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -111,7 +111,7 @@
       </if>
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.basicTableExample.ScheduleRuleViewExample">
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.baseExample.ScheduleRuleViewExample">
     delete from scheduleruleview
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -274,7 +274,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="edu.neu.hospital.example.basicTableExample.ScheduleRuleViewExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="edu.neu.hospital.example.baseExample.ScheduleRuleViewExample" resultType="java.lang.Long">
     select count(*) from scheduleruleview
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
