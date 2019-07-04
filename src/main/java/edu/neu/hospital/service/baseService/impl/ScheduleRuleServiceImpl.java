@@ -12,7 +12,7 @@ import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.example.basicTableExample.ScheduleExample;
 import edu.neu.hospital.example.basicTableExample.ScheduleRuleExample;
-import edu.neu.hospital.example.basicTableExample.ScheduleRuleViewExample;
+import edu.neu.hospital.example.baseExample.ScheduleRuleViewExample;
 import edu.neu.hospital.service.baseService.ScheduleRuleService;
 import edu.neu.hospital.utils.FileManage;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;

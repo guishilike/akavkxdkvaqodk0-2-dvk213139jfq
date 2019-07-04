@@ -1,4 +1,4 @@
-package edu.neu.hospital.example.basicTableExample;
+package edu.neu.hospital.example.baseExample;
 
 import java.util.ArrayList;
 import java.util.Date;

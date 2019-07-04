@@ -10,6 +10,7 @@ import edu.neu.hospital.example.basicTableExample.*;
 import edu.neu.hospital.example.inspectionExample.*;
 import edu.neu.hospital.service.medicalTechService.InspectionService;
 import edu.neu.hospital.utils.RegexProcess;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
