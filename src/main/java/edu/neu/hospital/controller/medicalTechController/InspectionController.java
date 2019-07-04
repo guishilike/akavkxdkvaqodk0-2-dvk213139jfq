@@ -249,9 +249,14 @@ public class InspectionController{
         try {
             UserView user= (UserView) session.getAttribute("user");
             Integer userID=user.getId();
-            inspectionService.updateMedMat(medicinesmaterialslist,userID);
+            String msg= inspectionService.updateMedMat(medicinesmaterialslist,userID);
+            if(msg.equals("检查检验药品材料修改成功")){
             resultDTO.setStatus("OK");
-            resultDTO.setMsg("操作成功！");
+            resultDTO.setMsg(msg);
+            }else{
+                resultDTO.setStatus("WARN");
+                resultDTO.setMsg(msg);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus("NG");
@@ -320,9 +325,14 @@ public class InspectionController{
         try {
             UserView user= (UserView) session.getAttribute("user");
             Integer userID=user.getId();
-            inspectionService.insertMedMat(userID,medicinesmaterialslist);
-            resultDTO.setStatus("OK");
-            resultDTO.setMsg("操作成功！");
+            String msg=inspectionService.insertMedMat(userID,medicinesmaterialslist);
+            if(msg.equals("检查检验药品材料添加成功")){
+             resultDTO.setStatus("OK");
+             resultDTO.setMsg(msg);
+            }else{
+                resultDTO.setStatus("WARN");
+                resultDTO.setMsg(msg);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

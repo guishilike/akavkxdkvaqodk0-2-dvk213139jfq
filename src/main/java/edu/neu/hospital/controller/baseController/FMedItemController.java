@@ -50,7 +50,7 @@ public class FMedItemController {
                 resultDTO.setMsg("添加非药品项目成功");
                 resultDTO.setData(fmeditem);
             }else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("存在重复的项目，添加非药品项目失败");
                 resultDTO.setData(fmeditem);
             }
@@ -96,7 +96,7 @@ public class FMedItemController {
     public @ResponseBody ResultDTO<IdDTO>
     deleteByChoose(@RequestBody IdDTO ids, HttpSession session){
         ResultDTO<IdDTO> resultDTO=new ResultDTO();
-        if(ids.getId()!=null) {
+        if(ids.getId()!=null&&ids.getId().size()!=0) {
             try {
                 UserView loginUser = (UserView) session.getAttribute("user");
                 fmeditemService.deleteByChoose(ids, loginUser.getId());
@@ -109,7 +109,7 @@ public class FMedItemController {
                 resultDTO.setData(ids);
             }
         }else{
-            resultDTO.setStatus("FALSE");
+            resultDTO.setStatus("WARN");
             resultDTO.setMsg("请先选择你要删除的非药品项目");
             resultDTO.setData(ids);
         }
@@ -135,7 +135,7 @@ public class FMedItemController {
                 resultDTO.setData(fmeditem);
             }
             else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("存在重复的项目，修改非药品项目失败");
                 resultDTO.setData(fmeditem);
             }
@@ -194,7 +194,7 @@ public class FMedItemController {
                 resultDTO.setData(list);
             }
             else{
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("非药品项目名或编号不存在");
             }
         }catch (Exception e){
@@ -333,7 +333,7 @@ public class FMedItemController {
         ResultDTO resultDTO = new ResultDTO();
         if (!file.isEmpty()) {
             try {
-                System.out.println("tset");
+//                System.out.println("tset");
                 UserView user = (UserView) session.getAttribute("adminUser");
                 System.out.println(user.getId());
                 if(fmeditemService.uploadXls(file, user.getId(),errorHappenContinue,repeatCoverage)){

@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TollServiceImpl implements TollService {
@@ -402,6 +400,9 @@ public class TollServiceImpl implements TollService {
         BigDecimal feeTotal = new BigDecimal(0);
         for (Integer feeID : feeIDList) {
             Fee fee = feeDao.selectByPrimaryKey(feeID);
+            if(fee.getDateStatus()==147){
+                return "已日结";
+            }
             if (fee.getExpID() == 3||fee.getExpID() == 5||fee.getExpID() == 7||fee.getExpID() == 9||fee.getExpID() == 11) {
                 InspectionDetails inspectiondetails = inspectiondetailsDao.selectByPrimaryKey(fee.getChargeItemID());
                 if(inspectiondetails.getIsRegistered()==137){
@@ -451,7 +452,6 @@ public class TollServiceImpl implements TollService {
             }
             else if(fee.getExpID() == 4||fee.getExpID() == 6||fee.getExpID() == 8||fee.getExpID() == 10||fee.getExpID() == 12||fee.getExpID() == 17
                     ||fee.getExpID() == 22||fee.getExpID() == 23){
-                System.out.println(fee.getChargeItemID());
                 MedicinesMaterialsList medicinesmaterialslist=medicinesmaterialslistDao.selectByPrimaryKey(fee.getChargeItemID());
                 if(medicinesmaterialslist.getIsRegistered()==137) {
                     fee.setTollManID(tollManID);
@@ -515,23 +515,26 @@ public class TollServiceImpl implements TollService {
      * @param endDate 日结日期
      * @return 日结结果
      */
-    public  String  dailySettle(Integer tollManID,Date endDate){
+    public Map<String,Date> dailySettle(Integer tollManID, Date endDate){
+        Map<String,Date> result=new HashMap<>();
         DailySettleViewExample dailysettleviewExample=new DailySettleViewExample();
         DailySettleViewExample.Criteria criteria=dailysettleviewExample.createCriteria();
         criteria.andUserIDEqualTo(tollManID);
-        dailysettleviewExample.getOrderByClause("endTime asc");
         List<DailySettleView> dailySettleViewList = dailysettleviewDao.selectByExample(dailysettleviewExample);
-        Date startDate;
+        Date startDate=new Date();
         if(dailySettleViewList.size()==0){
             CustomDateConverter customDateConverter=new CustomDateConverter();
-            startDate=customDateConverter.getLastDay(new Date());
+            startDate=customDateConverter.getLastDay(startDate);
         }else {
-            startDate= dailySettleViewList.get(0).getEndTime();
-            if(endDate.compareTo(startDate)<0){
-                return "已日结";
+
+            for(DailySettleView dailySettleView:dailySettleViewList){
+            startDate= dailySettleView.getEndTime();
+            }
+            if(endDate.compareTo(startDate)<=0){
+                result.put("已日结",null);
+                return result;
             }
         }
-        System.out.println(startDate);
         BigDecimal amount=new BigDecimal("0");
         List<FeeView> feeViewList =dailySettleFee(tollManID,startDate,endDate);
         for(FeeView feeview: feeViewList){
@@ -546,8 +549,12 @@ public class TollServiceImpl implements TollService {
         dailysettlement.setUserID(tollManID);
         dailysettlement.setStatus("1");
         dailysettlementDao.insert(dailysettlement);
-        return "日结成功";
+        result.put("日结成功",startDate);
+        return  result;
     }
+
+
+
 
     /**
      * 日结信息查询

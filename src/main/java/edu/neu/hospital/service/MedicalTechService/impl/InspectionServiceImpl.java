@@ -62,8 +62,7 @@ public class InspectionServiceImpl implements InspectionService {
 
     public List<InspectFormView> inspectformview(String search, Date date, Integer itemID, Integer mark) {
         InspectFormViewExample inspectformviewExample = new InspectFormViewExample();
-        //默认按时间升序显示
-        inspectformviewExample.getOrderByClause("inspectionAppearDate asc");
+
         InspectFormViewExample.Criteria criteria = inspectformviewExample.createCriteria();
         InspectFormViewExample.Criteria criteria1 = inspectformviewExample.createCriteria();
         InspectFormViewExample.Criteria criteria2 = inspectformviewExample.createCriteria();
@@ -327,16 +326,29 @@ public class InspectionServiceImpl implements InspectionService {
     }
 
 
+
+
     /**
      * 修改药品材料表单信息
      *
      * @param medicinesmaterialslist 药品材料表单信息
      * @param userID 修改人编号
+     * @return 药品材料修改结果
      */
-    public void updateMedMat(MedicinesMaterialsList medicinesmaterialslist,Integer userID) {
+    public String updateMedMat(MedicinesMaterialsList medicinesmaterialslist,Integer userID) {
+        MedicinesMaterialsListExample medicinesMaterialsListExample=new MedicinesMaterialsListExample();
+        MedicinesMaterialsListExample.Criteria criteria=medicinesMaterialsListExample.createCriteria();
+        criteria.andIdNotEqualTo(medicinesmaterialslist.getId());
+
+        criteria.andMedicinesMaterialsIDEqualTo(medicinesmaterialslist.getMedicinesMaterialsID());
+        criteria.andStatusEqualTo("1");
+        if(medicinesmaterialslistDao.countByExample(medicinesMaterialsListExample)>0){
+            return "检查检验药品材料已存在";
+        }
         medicinesmaterialslist.setChangeUserID(userID);
         medicinesmaterialslist.setChangeDate(new Date());
         medicinesmaterialslistDao.updateByPrimaryKeySelective(medicinesmaterialslist);
+            return "检查检验药品材料修改成功";
     }
 
 
@@ -398,8 +410,17 @@ public class InspectionServiceImpl implements InspectionService {
      * 添加药品材料表单信息
      *
      * @param medicinesmaterialslist 药品材料表单信息
+     * @return 药品材料修改结果
      */
-    public void insertMedMat(Integer userID, MedicinesMaterialsList medicinesmaterialslist) {
+    public String insertMedMat(Integer userID, MedicinesMaterialsList medicinesmaterialslist) {
+
+        MedicinesMaterialsListExample medicinesMaterialsListExample=new MedicinesMaterialsListExample();
+        MedicinesMaterialsListExample.Criteria criteria=medicinesMaterialsListExample.createCriteria();
+        criteria.andMedicinesMaterialsIDEqualTo(medicinesmaterialslist.getMedicinesMaterialsID());
+        criteria.andStatusEqualTo("1");
+        if(medicinesmaterialslistDao.countByExample(medicinesMaterialsListExample)>0){
+            return "检查检验药品材料已存在";
+        }
 
         medicinesmaterialslist.setIsDrawn(131);
         medicinesmaterialslist.setIsPaid(134);
@@ -411,6 +432,7 @@ public class InspectionServiceImpl implements InspectionService {
         medicinesmaterialslist.setAppearDate(new Date());
         medicinesmaterialslist.setStatus("1");
         medicinesmaterialslistDao.insert(medicinesmaterialslist);
+        return "检查检验药品材料添加成功";
     }
 
 
@@ -513,6 +535,7 @@ public class InspectionServiceImpl implements InspectionService {
             fee.setMedicalRecordID(inspectformview.getMedicalrecordId());
             fee.setFeeCategoryID(registrationinfoList.get(0).getPaymentCategoryID());
             fee.setChargeItemID(inspectmedreview.getMedMatListID());
+
             fee.setExpID(22);
             fee.setAppearUserID(userID);
             fee.setFeeAppearDate(new Date());

@@ -91,7 +91,7 @@ public interface DisposalService {
      *
      * @param medicinesmaterialslist  药品材料表单信息
      */
-    void updateMedMat(MedicinesMaterialsList medicinesmaterialslist,Integer userID);
+    String updateMedMat(MedicinesMaterialsList medicinesmaterialslist,Integer userID);
 
     /**
      *搜索药品信息
@@ -114,7 +114,7 @@ public interface DisposalService {
      *
      * @param medicinesmaterialslist  药品材料表单信息
      */
-    void insertMedMat(Integer userID, MedicinesMaterialsList medicinesmaterialslist);
+    String insertMedMat(Integer userID, MedicinesMaterialsList medicinesmaterialslist);
 
     /**
      *批准材料表单信息

@@ -43,8 +43,7 @@ public class TakeMedicineServiceImpl implements TakeMedicineService {
 
     public List<TakeMedicineFormView> takemedicineformview(String search, Date startDate,Date endDate) {
         TakeMedicineFormViewExample takemedicineformviewExample = new TakeMedicineFormViewExample();
-        //默认按时间升序显示
-        takemedicineformviewExample.getOrderByClause("appearDate asc");
+ 
         TakeMedicineFormViewExample.Criteria criteria = takemedicineformviewExample.createCriteria();
         TakeMedicineFormViewExample.Criteria criteria1 = takemedicineformviewExample.createCriteria();
         TakeMedicineFormViewExample.Criteria criteria2 = takemedicineformviewExample.createCriteria();

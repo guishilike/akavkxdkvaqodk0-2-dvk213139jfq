@@ -50,7 +50,7 @@ public class RegistrationLevelController {
                 resultDTO.setMsg("添加挂号级别成功");
                 resultDTO.setData(constantitem);
             } else {
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("存在重复的挂号级别名，添加挂号级别失败");
                 resultDTO.setData(constantitem);
             }
@@ -98,7 +98,7 @@ public class RegistrationLevelController {
     public @ResponseBody
     ResultDTO deleteByChoose(@RequestBody IdDTO ids, HttpSession session) {
         ResultDTO<IdDTO> resultDTO = new ResultDTO<>();
-        if (ids.getId() != null) {
+        if (ids.getId() != null&&ids.getId().size()!=0) {
             try {
                 UserView user = (UserView) session.getAttribute("user");
                 registrationLevelService.deleteByChoose(ids, user.getId());
@@ -110,7 +110,7 @@ public class RegistrationLevelController {
                 resultDTO.setMsg("发生异常，批量删除挂号级别失败");
             }
         } else {
-            resultDTO.setStatus("FALSE");
+            resultDTO.setStatus("WARN");
             resultDTO.setMsg("请先选择你要删除的挂号级别");
         }
         return resultDTO;
@@ -136,7 +136,7 @@ public class RegistrationLevelController {
                 resultDTO.setMsg("修改挂号级别成功");
                 resultDTO.setData(constantitem);
             } else {
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("存在重复的挂号级别名，修改挂号级别失败");
                 resultDTO.setData(constantitem);
             }
@@ -222,7 +222,7 @@ public class RegistrationLevelController {
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("查找成功");
             } else {
-                resultDTO.setStatus("FALSE");
+                resultDTO.setStatus("WARN");
                 resultDTO.setMsg("该挂号级别名称或编号不存在");
             }
         } catch (Exception e) {
