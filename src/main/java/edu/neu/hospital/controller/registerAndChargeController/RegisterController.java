@@ -302,7 +302,7 @@ public class RegisterController {
 
         } catch (Exception e) {
             System.out.println(e.getCause().toString());
-            return new ResultDTO<>("error", "发生异常，获取挂号列表失败", null);
+            return new ResultDTO<>("error", "发生异常，获取挂号失败", null);
         }
     }
 

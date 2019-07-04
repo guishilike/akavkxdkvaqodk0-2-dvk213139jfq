@@ -1,4 +1,4 @@
-package edu.neu.hospital.service.MedicalTechService;
+package edu.neu.hospital.service.medicalTechService;
 
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.bean.disposalBean.*;

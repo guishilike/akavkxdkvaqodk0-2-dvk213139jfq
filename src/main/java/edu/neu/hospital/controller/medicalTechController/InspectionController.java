@@ -7,7 +7,7 @@ import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.bean.inspectionBean.*;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
-import edu.neu.hospital.service.MedicalTechService.InspectionService;
+import edu.neu.hospital.service.medicalTechService.InspectionService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;

@@ -1,8 +1,10 @@
-package edu.neu.hospital.service.patientcard;
+package edu.neu.hospital.service.patientCard;
 
+import edu.neu.hospital.bean.baseBean.PatientCardView;
 import edu.neu.hospital.bean.basicTableBean.Patient;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 就诊卡服务，包括申请就诊卡，查询余额，修改密码和费用管理
@@ -11,6 +13,15 @@ import java.math.BigDecimal;
  * @date 2019/6/10 16:30
  */
 public interface PatientCardService {
+
+    /**
+     * 获取就诊卡视图列表
+     *
+     * @return 就诊卡视图列表
+     */
+    List<PatientCardView> getAll();
+
+    PatientCardView selectByID(Integer id);
 
     /**
      * 申请就诊卡
