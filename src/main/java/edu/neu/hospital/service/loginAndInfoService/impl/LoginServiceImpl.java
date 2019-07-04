@@ -33,9 +33,6 @@ public class LoginServiceImpl implements LoginService {
         }else {
             int i = -1;
             for (User user1 :list){
-//                if(user1.getStatus() == "1"){
-//                    i = user1.getId();
-//                }
                 i = user1.getId();
             }
             return i;

@@ -44,9 +44,6 @@ public class LoginController {
     @RequestMapping("/check")
     public @ResponseBody
     ResultDTO<UserView> check(HttpServletRequest request, @RequestBody User user){
-//        System.out.println("userName"+user.getUserName());
-////        System.out.println("passwd"+user.getPasswd());
-//        System.out.println("aaaaaa");
         HttpSession session = request.getSession(true);
         ResultDTO<UserView> resultDTO = new ResultDTO();
         try{
@@ -54,7 +51,6 @@ public class LoginController {
             if (i != -1){
                 UserView userView = new UserView();
                 userView = userInfoService.findUserInfo(i);
-//                user = loginService.findByID(i);
                 if(userView.getId() != null){
                     resultDTO.setStatus("OK");
                     resultDTO.setMsg("用户检查成功！可以登录");
@@ -79,8 +75,6 @@ public class LoginController {
                         session.setAttribute("pharmacyUser",userView);
                     }
                     session.setAttribute("user",userView);
-//                    UserView u = (UserView) session.getAttribute("user");
-//                    System.out.println(u.getId());
                 }else {
                     resultDTO.setStatus("NG");
                     resultDTO.setMsg("用户检查失败！");

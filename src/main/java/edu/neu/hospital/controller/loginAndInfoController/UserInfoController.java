@@ -61,7 +61,6 @@ public class UserInfoController {
      */
     @RequestMapping("/show")
     public @ResponseBody
-//    ResultDTO<User> show(int userID){
     ResultDTO<UserView> show(HttpServletRequest request){
         HttpSession session = request.getSession();
         UserView user1 = (UserView) session.getAttribute("user");
@@ -95,11 +94,8 @@ public class UserInfoController {
     @RequestMapping("/updatePic")
     public @ResponseBody
     ResultDTO<String> updatePic(MultipartFile pic,HttpSession session){
-//        System.out.println(pic.isEmpty());
         ResultDTO<String> resultDTO = new ResultDTO<>();
         UserView userView = (UserView) session.getAttribute("user");
-//        System.out.println("上传图");
-//        System.out.println(userView.getId());
         User user = new User();
         user.setId(userView.getId());
         user.setUserName(userView.getUserName());
@@ -149,7 +145,6 @@ public class UserInfoController {
         int userID = userView.getId();
         try{
             int i = userInfoService.updatePasswd(userID,oldPasswd,newPasswd);
-//            User user1 = userInfoService.updateUserInfo(id,userName,realName,passwd);
             if (i != -1){
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("密码更新成功！");
@@ -175,28 +170,16 @@ public class UserInfoController {
      */
     @RequestMapping("/updateUserInfo")
     public @ResponseBody
-//    ResultDTO<User> update(int id, String userName, String realName, String passwd){
     ResultDTO<UserView> update( User user, HttpSession session){
-//        System.out.println(user.getUserName());
-//        System.out.println(user.getId());
-//        System.out.println(user.getRealName());
-//        System.out.println(user.getContact());
-//        MultipartFile pic = pic1;
         UserView userView = (UserView) session.getAttribute("user");
-//        System.out.println(userView.getId());
-        //只能更新自己的用户信息
         user.setId(userView.getId());
-        //更新用户密码时需要验证旧密码，不能直接修改，使用updatePasswd
         user.setPasswd(null);
         if(user.getUserName() == null){
             user.setUserName(userView.getUserName());
         }
         ResultDTO<UserView> resultDTO = new ResultDTO();
-
         try{
-
             User user1 = userInfoService.updateUserInfo(user);
-//            User user1 = userInfoService.updateUserInfo(id,userName,realName,passwd);
             if (user1 != null){
                 UserView userview = userInfoService.findUserInfo(user1.getId());
                 resultDTO.setStatus("OK");
@@ -224,7 +207,6 @@ public class UserInfoController {
      */
     @RequestMapping("/showMyWorkload")
     public @ResponseBody
-//    ResultDTO<List<WorkLoadStatistics>> showMyWorkload(String realName) {
     ResultDTO<PageInfo> showMyWorkload(HttpServletRequest request,Integer pageNum,Integer pageSize) {
         ResultDTO<PageInfo> resultDTO = new ResultDTO();
         HttpSession session = request.getSession();
@@ -239,7 +221,6 @@ public class UserInfoController {
                 resultDTO.setMsg("工作量检查成功!");
                 resultDTO.setData(list);
             } else {
-//                System.out.println("list为空？？？");
                 resultDTO.setStatus("NG");
                 resultDTO.setMsg("工作量检查失败！");
                 resultDTO.setData(null);
