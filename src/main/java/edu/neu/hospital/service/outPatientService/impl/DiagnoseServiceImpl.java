@@ -164,9 +164,9 @@ public class    DiagnoseServiceImpl implements DiagnoseService {
     }
 
 
-    public List<Drugs> listDrugs(){
-        DrugsExample drugsExample = new DrugsExample();
-        DrugsExample.Criteria criteria = drugsExample.createCriteria();
-        return drugsDao.selectByExample(drugsExample);
+    public List<Disease> listDisease(){
+        DiseaseExample diseaseExample = new DiseaseExample();
+        DiseaseExample.Criteria criteria = diseaseExample.createCriteria();
+        return diseaseDao.selectByExample(diseaseExample);
     }
 }

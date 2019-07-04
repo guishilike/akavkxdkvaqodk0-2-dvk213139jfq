@@ -35,6 +35,6 @@ public interface DiagnoseService {
 
     public  List<DiagnosisView> getIndexDiagnosis(Integer medicalRecordID);
 
-    public List<Drugs> listDrugs();
+    public List<Disease> listDisease();
 
 }

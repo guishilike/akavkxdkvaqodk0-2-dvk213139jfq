@@ -284,14 +284,14 @@ public class DiagnosisController {
         }
 
 
-    @RequestMapping("/listDrugs")
+    @RequestMapping("/listDisease")
     public @ResponseBody
-    ResultDTO listDrugs() {
-        ResultDTO<List<Drugs>> resultDTO = new ResultDTO<>();
+    ResultDTO listDisease() {
+        ResultDTO<List<Disease>> resultDTO = new ResultDTO<>();
         try {
 
 
-            List<Drugs> list = diagnoseService.listDrugs();
+            List<Disease> list = diagnoseService.listDisease();
             resultDTO.setStatus("OK");
             resultDTO.setMsg("确诊成功");
             resultDTO.setData(list);
