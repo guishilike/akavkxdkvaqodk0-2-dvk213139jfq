@@ -1,16 +1,15 @@
 package edu.neu.hospital.service.outPatientService.impl;
 
+import edu.neu.hospital.bean.baseBean.DiseaseView;
 import edu.neu.hospital.bean.basicTableBean.DiagnosisView;
 import edu.neu.hospital.bean.basicTableBean.Diagnosis;
 import edu.neu.hospital.bean.basicTableBean.Disease;
 import edu.neu.hospital.bean.basicTableBean.Drugs;
+import edu.neu.hospital.dao.baseDao.DiseaseViewDao;
 import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
-import edu.neu.hospital.example.basicTableExample.DiagnosisExample;
-import edu.neu.hospital.example.basicTableExample.DiagnosisViewExample;
-import edu.neu.hospital.example.basicTableExample.DiseaseExample;
-import edu.neu.hospital.example.basicTableExample.DrugsExample;
+import edu.neu.hospital.example.basicTableExample.*;
 import edu.neu.hospital.service.outPatientService.DiagnoseService;
 import edu.neu.hospital.utils.RegexProcess;
 import org.springframework.stereotype.Service;
@@ -25,6 +24,8 @@ public class    DiagnoseServiceImpl implements DiagnoseService {
     @Resource
     DiagnosisDao diagnosisDao;
 
+    @Resource
+    DiseaseViewDao diseaseViewDao;
     @Resource
     CommonDiagnosisDao commonDiagnosisDao;
 
@@ -85,12 +86,12 @@ public class    DiagnoseServiceImpl implements DiagnoseService {
      * @return
      */
     @Override
-    public List<Disease> searchDisease(String str) {
-        DiseaseExample diseaseExample = new DiseaseExample();
-        DiseaseExample.Criteria criteria = diseaseExample.createCriteria();
-        DiseaseExample.Criteria criteria1 = diseaseExample.createCriteria();
-        DiseaseExample.Criteria criteria2 = diseaseExample.createCriteria();
-        // DiseaseExample.Criteria criteria3 = diseaseExample.createCriteria();
+    public List<DiseaseView> searchDisease(String str) {
+        DiseaseViewExample diseaseViewExample = new DiseaseViewExample();
+        DiseaseViewExample.Criteria criteria = diseaseViewExample.createCriteria();
+        DiseaseViewExample.Criteria criteria1 = diseaseViewExample.createCriteria();
+        DiseaseViewExample.Criteria criteria2 = diseaseViewExample.createCriteria();
+        //DiseaseViewExample.Criteria criteria3 = diseaseViewExample.createCriteria();
         System.out.println("1-----");
         if( str != null){
             System.out.println("2-----");
@@ -100,10 +101,12 @@ public class    DiagnoseServiceImpl implements DiagnoseService {
             criteria1.andCodeLike("%" + searchd + "%");
             criteria2.andDiseaseIcdLike("%" + searchd + "%");
         }
-        diseaseExample.or(criteria1);
-        diseaseExample.or(criteria2);
+        diseaseViewExample.or(criteria1);
+        diseaseViewExample.or(criteria2);
+
+
         System.out.println("3-----");
-        return diseaseDao.selectByExample(diseaseExample);
+        return diseaseViewDao.selectByExample(diseaseViewExample);
     }
 
     @Override

@@ -2,6 +2,7 @@ package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.DiseaseView;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Diagnosis;
 import edu.neu.hospital.bean.basicTableBean.DiagnosisView;
@@ -76,14 +77,14 @@ public class DiagnosisController {
     }
     @RequestMapping("/searchDisease")
     public @ResponseBody
-    ResultDTO<PageInfo<Disease>> searchDisease(String str, Integer pageNum, Integer pageSize){
-        ResultDTO<PageInfo<Disease>> resultDTO = new ResultDTO<>();
+    ResultDTO<PageInfo<DiseaseView>> searchDisease(String str, Integer pageNum, Integer pageSize){
+        ResultDTO<PageInfo<DiseaseView>> resultDTO = new ResultDTO<>();
 
         try {
             PageHelper.startPage(pageNum, pageSize);
-            List<Disease> diseaseList = diagnoseService.searchDisease(str);
+            List<DiseaseView> diseaseList = diagnoseService.searchDisease(str);
             System.out.println("-----");
-            PageInfo<Disease> list = new PageInfo<>(diseaseList);
+            PageInfo<DiseaseView> list = new PageInfo<>(diseaseList);
             System.out.println("-----");
             resultDTO.setMsg("模糊查询疾病");
             resultDTO.setStatus("OK");

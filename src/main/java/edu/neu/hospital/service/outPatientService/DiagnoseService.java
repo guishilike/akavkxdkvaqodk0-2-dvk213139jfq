@@ -1,5 +1,6 @@
 package edu.neu.hospital.service.outPatientService;
 
+import edu.neu.hospital.bean.baseBean.DiseaseView;
 import edu.neu.hospital.bean.basicTableBean.Diagnosis;
 import edu.neu.hospital.bean.basicTableBean.DiagnosisView;
 import edu.neu.hospital.bean.basicTableBean.Disease;
@@ -21,7 +22,7 @@ public interface DiagnoseService {
     //增
     public  boolean addDiagnosis(Diagnosis diagnosis, Integer userID);
     public boolean addDiagnosisList(DataListDTO<Diagnosis> diagnosisList, Integer userID);
-    public List<Disease> searchDisease(String str);
+    public List<DiseaseView> searchDisease(String str);
     //删
 
     public  boolean deleteDiagnosis(Integer diagnosisID, Integer userID);
