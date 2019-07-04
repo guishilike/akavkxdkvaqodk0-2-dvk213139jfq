@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.basicTableDao.ProjectTemplateViewDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.basicTableBean.ProjectTemplateView">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="doctorId" jdbcType="INTEGER" property="doctorId" />
+    <result column="projectTemplateName" jdbcType="VARCHAR" property="projectTemplateName" />
+    <result column="templateCode" jdbcType="VARCHAR" property="templateCode" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="area" jdbcType="INTEGER" property="area" />
+    <result column="relevantID" jdbcType="INTEGER" property="relevantID" />
+    <result column="dosage" jdbcType="INTEGER" property="dosage" />
+    <result column="fMedItemName" jdbcType="VARCHAR" property="fMedItemName" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, doctorId, projectTemplateName, templateCode, category, area, relevantID, dosage, 
+    fMedItemName, code, price
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.basicTableExample.ProjectTemplateViewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from projecttemplateview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.basicTableExample.ProjectTemplateViewExample">
+    delete from projecttemplateview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.neu.hospital.bean.basicTableBean.ProjectTemplateView">
+    insert into projecttemplateview (id, doctorId, projectTemplateName, 
+      templateCode, category, area, 
+      relevantID, dosage, fMedItemName, 
+      code, price)
+    values (#{id,jdbcType=INTEGER}, #{doctorId,jdbcType=INTEGER}, #{projectTemplateName,jdbcType=VARCHAR}, 
+      #{templateCode,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{area,jdbcType=INTEGER}, 
+      #{relevantID,jdbcType=INTEGER}, #{dosage,jdbcType=INTEGER}, #{fMedItemName,jdbcType=VARCHAR}, 
+      #{code,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.neu.hospital.bean.basicTableBean.ProjectTemplateView">
+    insert into projecttemplateview
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="doctorId != null">
+        doctorId,
+      </if>
+      <if test="projectTemplateName != null">
+        projectTemplateName,
+      </if>
+      <if test="templateCode != null">
+        templateCode,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="relevantID != null">
+        relevantID,
+      </if>
+      <if test="dosage != null">
+        dosage,
+      </if>
+      <if test="fMedItemName != null">
+        fMedItemName,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="doctorId != null">
+        #{doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="projectTemplateName != null">
+        #{projectTemplateName,jdbcType=VARCHAR},
+      </if>
+      <if test="templateCode != null">
+        #{templateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=INTEGER},
+      </if>
+      <if test="relevantID != null">
+        #{relevantID,jdbcType=INTEGER},
+      </if>
+      <if test="dosage != null">
+        #{dosage,jdbcType=INTEGER},
+      </if>
+      <if test="fMedItemName != null">
+        #{fMedItemName,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.basicTableExample.ProjectTemplateViewExample" resultType="java.lang.Long">
+    select count(*) from projecttemplateview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update projecttemplateview
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.doctorId != null">
+        doctorId = #{record.doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectTemplateName != null">
+        projectTemplateName = #{record.projectTemplateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.templateCode != null">
+        templateCode = #{record.templateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null">
+        area = #{record.area,jdbcType=INTEGER},
+      </if>
+      <if test="record.relevantID != null">
+        relevantID = #{record.relevantID,jdbcType=INTEGER},
+      </if>
+      <if test="record.dosage != null">
+        dosage = #{record.dosage,jdbcType=INTEGER},
+      </if>
+      <if test="record.fMedItemName != null">
+        fMedItemName = #{record.fMedItemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update projecttemplateview
+    set id = #{record.id,jdbcType=INTEGER},
+      doctorId = #{record.doctorId,jdbcType=INTEGER},
+      projectTemplateName = #{record.projectTemplateName,jdbcType=VARCHAR},
+      templateCode = #{record.templateCode,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=INTEGER},
+      relevantID = #{record.relevantID,jdbcType=INTEGER},
+      dosage = #{record.dosage,jdbcType=INTEGER},
+      fMedItemName = #{record.fMedItemName,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
