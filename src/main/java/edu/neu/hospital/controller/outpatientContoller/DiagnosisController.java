@@ -6,6 +6,7 @@ import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Diagnosis;
 import edu.neu.hospital.bean.basicTableBean.DiagnosisView;
 import edu.neu.hospital.bean.basicTableBean.Disease;
+import edu.neu.hospital.bean.basicTableBean.Drugs;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
@@ -283,6 +284,28 @@ public class DiagnosisController {
         }
 
 
+    @RequestMapping("/listDrugs")
+    public @ResponseBody
+    ResultDTO listDrugs() {
+        ResultDTO<List<Drugs>> resultDTO = new ResultDTO<>();
+        try {
+
+
+            List<Drugs> list = diagnoseService.listDrugs();
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("确诊成功");
+            resultDTO.setData(list);
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发生异常");
+            //resultDTO.setData(diagnosisID);
+            System.out.println(e);
+
+        }
+        return resultDTO;
+
+
+    }
 
 
 

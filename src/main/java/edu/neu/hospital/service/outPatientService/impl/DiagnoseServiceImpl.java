@@ -3,15 +3,14 @@ package edu.neu.hospital.service.outPatientService.impl;
 import edu.neu.hospital.bean.basicTableBean.DiagnosisView;
 import edu.neu.hospital.bean.basicTableBean.Diagnosis;
 import edu.neu.hospital.bean.basicTableBean.Disease;
-import edu.neu.hospital.dao.basicTableDao.CommonDiagnosisDao;
-import edu.neu.hospital.dao.basicTableDao.DiagnosisDao;
-import edu.neu.hospital.dao.basicTableDao.DiagnosisViewDao;
-import edu.neu.hospital.dao.basicTableDao.DiseaseDao;
+import edu.neu.hospital.bean.basicTableBean.Drugs;
+import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.basicTableExample.DiagnosisExample;
 import edu.neu.hospital.example.basicTableExample.DiagnosisViewExample;
 import edu.neu.hospital.example.basicTableExample.DiseaseExample;
+import edu.neu.hospital.example.basicTableExample.DrugsExample;
 import edu.neu.hospital.service.outPatientService.DiagnoseService;
 import edu.neu.hospital.utils.RegexProcess;
 import org.springframework.stereotype.Service;
@@ -36,6 +35,9 @@ public class    DiagnoseServiceImpl implements DiagnoseService {
 
     @Resource
     DiagnosisViewDao diagnosisViewDao;
+
+    @Resource
+    DrugsDao drugsDao;
 
     /**
      * 确诊
@@ -159,5 +161,12 @@ public class    DiagnoseServiceImpl implements DiagnoseService {
         criteria.andMedicalRecordIDEqualTo(medicalRecordID);
 
         return diagnosisViewDao.selectByExample(diagnosisViewExample);
+    }
+
+
+    public List<Drugs> listDrugs(){
+        DrugsExample drugsExample = new DrugsExample();
+        DrugsExample.Criteria criteria = drugsExample.createCriteria();
+        return drugsDao.selectByExample(drugsExample);
     }
 }
