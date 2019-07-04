@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Diagnosis;
+import edu.neu.hospital.bean.basicTableBean.DiagnosisView;
 import edu.neu.hospital.bean.basicTableBean.Disease;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
@@ -254,6 +255,32 @@ public class DiagnosisController {
 
 
     }
+
+    //public List<Diagnosis> getIndexDiagnosis(Integer medicalRecordID) {
+
+        @RequestMapping("/getIndexDiagnosis")
+        public @ResponseBody
+        ResultDTO getIndexDiagnosis(Integer medicalRecordID){
+            ResultDTO<List<DiagnosisView>> resultDTO = new ResultDTO<>();
+
+            try {
+
+
+                List<DiagnosisView> list = diagnoseService.getIndexDiagnosis(medicalRecordID);
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("确诊成功");
+                resultDTO.setData(list);
+            }catch (Exception e){
+                resultDTO.setStatus("FALSE");
+                resultDTO.setMsg("发生异常");
+                //resultDTO.setData(diagnosisID);
+                System.out.println(e);
+
+            }
+            return resultDTO;
+
+
+        }
 
 
 

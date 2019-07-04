@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ProjectTempService {
     //该医生能看到的模板(权限
-    public List<Integer> getThisDoctorTemp(Integer userID);
+    public List<ProjectTemplate> getThisDoctorTemp(Integer userID);
     //病历模板管理
     //增删改查(模板级别的增删改查
     //1.	新增病历模板：输入病历模板编码、病历模板名称、模板适用范围（个人、科室、全院）、病历内容：包括主诉、现病史、体格检查、初步诊断（西医）或初步诊断（中医），点击“保存”，保存模板。

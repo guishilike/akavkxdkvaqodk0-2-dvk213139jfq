@@ -19,7 +19,7 @@ public interface MedicalRecHomeTempService {
     //模糊查询
     public List<MedicalRecHomeTemplate> findMedicalRecHomeTemplate(String str);
     //该医生能看到的模板
-    public List<Integer> getThisDoctorTemp(Integer userID);
+    public List<MedicalRecHomeTemplate> getThisDoctorTemp(Integer userID);
 
 
 }

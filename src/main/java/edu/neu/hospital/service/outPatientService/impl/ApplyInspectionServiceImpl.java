@@ -5,10 +5,7 @@ import edu.neu.hospital.dao.baseDao.InspectionViewDao;
 import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
-import edu.neu.hospital.example.basicTableExample.FMedItemExample;
-import edu.neu.hospital.example.basicTableExample.InspectionExample;
-import edu.neu.hospital.example.basicTableExample.InspectionFeeExample;
-import edu.neu.hospital.example.basicTableExample.InspectionResultExample;
+import edu.neu.hospital.example.basicTableExample.*;
 import edu.neu.hospital.service.outPatientService.ApplyInspectionService;
 import edu.neu.hospital.utils.RegexProcess;
 import org.springframework.stereotype.Service;
@@ -47,6 +44,8 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
 
 
     @Resource
+    ProjectTemplateViewDao projectTemplateViewDao;
+    @Resource
     FMedItemDao fMedItemDao;
 
 
@@ -55,6 +54,9 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
 
     @Resource
     FeeDao feeDao;
+
+    @Resource
+    InspectionDetailsViewDao inspectionDetailsViewDao;
 
 
     //根据inspectionID判断，存每个人的list
@@ -74,20 +76,26 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
             //表里没有
             return false;
         }
-
         return true;
     }
     @Override
-    public boolean newInspection(Inspection inspection, Integer userID) {
+    public Inspection newInspection(Inspection inspection, Integer userID) {
         inspection.setAppearUserID(userID);
         inspection.setAppearDate(new Date());
+        inspection.setDoctorID(userID);
+        inspection.setStatus("1");
         boolean isHaven = this.checkIsHaven(inspection.getMedicalRecordID());
         if( isHaven){
             //已存在inspection记录
-            return false;
+            InspectionExample inspectionExample = new InspectionExample();
+            InspectionExample.Criteria criteria = inspectionExample.createCriteria();
+            criteria.andMedicalRecordIDEqualTo(inspection.getMedicalRecordID());
+
+            return inspectionDao.selectByExample(inspectionExample).get(0);
         }else{
-            inspectionDao.insert(inspection);
-            return true;
+            Integer id = inspectionDao.insert(inspection);
+            return inspectionDao.selectByPrimaryKey(id);
+
         }
 
     }
@@ -198,6 +206,14 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
         return list;
     }
 
+    @Override
+    public boolean deleteInspectionDetailsByID(Integer inspectionDetailsId, Integer userID) {
+        InspectionDetails inspectionDetails = inspectionDetailsDao.selectByPrimaryKey(inspectionDetailsId);
+        inspectionDetails.setStatus("0");
+        inspectionDetailsDao.updateByPrimaryKeySelective(inspectionDetails);
+        return true;
+    }
+
     /**
      * 删除项目(未开立
      * @param inspectionDetailsIdList
@@ -281,7 +297,20 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
     }
 
     @Override
-    public ProjectTemplate use_Check(Integer projectTemplateID) {
+    public ProjectTemplate use_Check(Integer projectTemplateID  , Integer inspectionID ,Integer userID) {
+        ProjectTemplateViewExample projectTemplateViewExample = new ProjectTemplateViewExample();
+        ProjectTemplateViewExample.Criteria criteria = projectTemplateViewExample.createCriteria();
+        criteria.andIdEqualTo(projectTemplateID);
+        List<ProjectTemplateView> projectTemplateViewList = projectTemplateViewDao.selectByExample(projectTemplateViewExample);
+        Inspection inspection = inspectionDao.selectByPrimaryKey(inspectionID);
+        for( int i = 0 ; i < projectTemplateViewList.size() ; i ++){
+
+            InspectionDetails inspectionDetails = new InspectionDetails();
+            inspectionDetails.setInspectionID(inspectionID);
+            inspectionDetails.setFmedItemID(projectTemplateViewList.get(i).getRelevantID());
+            inspectionDetails.setNumber(projectTemplateViewList.get(i).getDosage());
+            this.addInspectionDetails( inspection,inspectionDetails ,userID);
+        }
         return projectTemplateDao.selectByPrimaryKey(projectTemplateID);
     }
 
@@ -370,6 +399,16 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
 
 
         return fMedItemDao.selectByExample(fMedItemExample);
+    }
+
+
+
+    public List<InspectionDetailsView> listIndexInspection(Integer medicalRecordID){
+        InspectionDetailsViewExample inspectionDetailsViewExample = new InspectionDetailsViewExample();
+        InspectionDetailsViewExample.Criteria criteria = inspectionDetailsViewExample.createCriteria();
+        criteria.andMedicalRecordIDEqualTo(medicalRecordID);
+        return inspectionDetailsViewDao.selectByExample(inspectionDetailsViewExample);
+
     }
 
 

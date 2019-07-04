@@ -2,12 +2,9 @@ package edu.neu.hospital.dao.basicTableDao;
 
 import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
 import edu.neu.hospital.example.basicTableExample.CommonDiposalsExample;
-import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
-@Mapper
 public interface CommonDiposalsDao {
     long countByExample(CommonDiposalsExample example);
 

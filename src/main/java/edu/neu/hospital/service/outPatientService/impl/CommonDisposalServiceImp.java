@@ -1,11 +1,14 @@
 package edu.neu.hospital.service.outPatientService.impl;
 
 import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
+import edu.neu.hospital.bean.basicTableBean.CommonDisposalsView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.dao.basicTableDao.CommonDiposalsDao;
+import edu.neu.hospital.dao.basicTableDao.CommonDisposalsViewDao;
 import edu.neu.hospital.dao.basicTableDao.FMedItemDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.basicTableExample.CommonDiposalsExample;
+import edu.neu.hospital.example.basicTableExample.CommonDisposalsViewExample;
 import edu.neu.hospital.example.basicTableExample.FMedItemExample;
 import edu.neu.hospital.service.outPatientService.CommonDisposalService;
 import edu.neu.hospital.utils.RegexProcess;
@@ -21,6 +24,8 @@ public class CommonDisposalServiceImp implements CommonDisposalService {
     @Resource
     FMedItemDao fMedItemDao;
 
+    @Resource
+    CommonDisposalsViewDao commonDisposalsViewDao;
     RegexProcess regexProcess = new RegexProcess();
     /**
      * 列出该位医生的常用诊断
@@ -28,13 +33,13 @@ public class CommonDisposalServiceImp implements CommonDisposalService {
      * @return
      */
     @Override
-    public List<CommonDiposals> listCommonDiposals(Integer doctorID) {
-        CommonDiposalsExample commonDiposalsExample = new CommonDiposalsExample();
-        CommonDiposalsExample.Criteria criteria = commonDiposalsExample.createCriteria();
+    public List<CommonDisposalsView> listCommonDiposals(Integer doctorID) {
+        CommonDisposalsViewExample commonDisposalsViewExample = new CommonDisposalsViewExample();
+        CommonDisposalsViewExample.Criteria criteria = commonDisposalsViewExample.createCriteria();
         if( doctorID != null){
             criteria.andDoctorIDEqualTo(doctorID);
         }
-        return commonDiposalsDao.selectByExample(commonDiposalsExample);
+        return commonDisposalsViewDao.selectByExample(commonDisposalsViewExample);
     }
 
     /**
@@ -49,7 +54,8 @@ public class CommonDisposalServiceImp implements CommonDisposalService {
         System.out.println("1");
         commonDiposals.setAppearUserID(doctorID);
         commonDiposals.setDoctorID(doctorID);
-        commonDiposals.setDiposalID(diposalID);
+        //当时参数写错了，应该是添加项目ID
+        commonDiposals.setfMedtItemID(diposalID);
         System.out.println("2");
         //commonDiposals.setAppearDate(new Date());
         commonDiposals.setStatus("1");

@@ -1,6 +1,7 @@
 package edu.neu.hospital.service.outPatientService;
 
 import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
+import edu.neu.hospital.bean.basicTableBean.CommonDisposalsView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.dto.IdDTO;
 
@@ -11,7 +12,7 @@ public interface CommonDisposalService {
     //常用处置管理
     //列出
     //根据医生ID列出他的常用处置
-    public List<CommonDiposals> listCommonDiposals(Integer doctorID);
+    public List<CommonDisposalsView> listCommonDiposals(Integer doctorID);
 
     //增
     public Integer addCommonDiposals(Integer doctorID, Integer diposalID);

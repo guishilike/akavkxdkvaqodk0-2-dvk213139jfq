@@ -38,11 +38,14 @@ public class ProjectTempServiceImpl implements ProjectTempService {
     RegexProcess regexProcess = new RegexProcess();
 
     @Override
-    public List<Integer> getThisDoctorTemp(Integer userID) {
+    public List<ProjectTemplate> getThisDoctorTemp(Integer userID) {
         //返回该医生的模板
-        List<Integer> lists = new LinkedList<>();
+        List<ProjectTemplate> lists = new LinkedList<>();
         ProjectTemplateExample projectTemplateExample = new ProjectTemplateExample();
+        ProjectTemplateExample.Criteria criteria0 = projectTemplateExample.createCriteria();
+
         List<ProjectTemplate> projectTemplates = projectTemplateDao.selectByExample(projectTemplateExample);
+        System.out.println(projectTemplates.size()+ "总长度！   ");
         //取该医生所在科室
         UserDepartExample userDepartExample = new UserDepartExample();
         UserDepartExample.Criteria criteria = userDepartExample.createCriteria();
@@ -51,31 +54,34 @@ public class ProjectTempServiceImpl implements ProjectTempService {
         //首先，范围是个人，doctorid==userID
         for( int i = 0 ; i < projectTemplates.size() ; i++){
             ProjectTemplate m= projectTemplates.get(i);
-            if( m.getDoctorId() == userID && m.getArea() == 106 && !lists.contains(m.getId())) {
-                lists.add(m.getId());
+            if( m.getDoctorId() == userID && m.getArea() == 106 && !lists.contains(m)) {
+                lists.add(m);
+                System.out.println("增一个个人的");
                 continue;
             }
             //取当前医生所在科室
             UserDepartExample userDepartExample1 = new UserDepartExample();
             UserDepartExample.Criteria criteria1 = userDepartExample.createCriteria();
-            criteria.andIdEqualTo(userID);
+            criteria1.andIdEqualTo(userID);
             Integer departID1 = userDepartDao.selectByExample(userDepartExample).get(0).getDepartmentID();
 
             //范围是科室，科室=userID 的科室
 
 
 
-            if( m.getArea() == 105 && departID == departID1 && !lists.contains(m.getId() )){
-                lists.add(m.getId());
+            if( m.getArea() == 105 && departID == departID1 && !lists.contains(m )){
+                lists.add(m);
+                System.out.println("增加一个科室的");
                 continue;
             }
             //范围是全院
-            if( m.getArea() == 104 && !lists.contains(m.getId() )){
-                lists.add(m.getId());
+            if( m.getArea() == 104 && !lists.contains(m )){
+                System.out.println("赠一个全院的");
+                lists.add(m);
                 continue;
             }
         }
-        return null;
+        return lists;
     }
 
     @Override

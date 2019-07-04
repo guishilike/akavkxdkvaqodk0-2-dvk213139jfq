@@ -8,6 +8,7 @@ import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.basicTableExample.DisposalExample;
 import edu.neu.hospital.example.basicTableExample.DisposalFeeExample;
 import edu.neu.hospital.example.basicTableExample.FMedItemExample;
+import edu.neu.hospital.example.basicTableExample.DisposalDetailsViewExample;
 import edu.neu.hospital.service.outPatientService.ApplyDisposalService;
 import edu.neu.hospital.utils.RegexProcess;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,9 @@ public class ApplyDisposalServiceImpl implements ApplyDisposalService {
     FeeDao feeDao;
     @Resource
     DisposalFeeDao disposalFeeDao;
+
+    @Resource
+    DisposalDetailsViewDao disposalDetailsViewDao;
     @Override
     public boolean checkIsHaven(Integer medicalRecordID) {
         DisposalExample disposalExample = new DisposalExample();
@@ -50,16 +54,21 @@ public class ApplyDisposalServiceImpl implements ApplyDisposalService {
     }
 
     @Override
-    public boolean newDisposal(Disposal disposal, Integer userID) {
+    public Disposal newDisposal(Disposal disposal, Integer userID) {
 
         disposal.setAppearUserID(userID);
         disposal.setAppearDate(new Date());
+        disposal.setDoctorID(userID);
         boolean isHaven = this.checkIsHaven(disposal.getMedicalRecordID());
         if( isHaven){
-            return false;
+            DisposalExample disposalExample = new DisposalExample();
+            DisposalExample.Criteria criteria = disposalExample.createCriteria();
+            criteria.andMedicalRecordIDEqualTo(disposal.getMedicalRecordID());
+
+            return disposalDao.selectByExample(disposalExample).get(0);
         }else{
-            disposalDao.insert(disposal);
-            return true;
+            Integer id = disposalDao.insert(disposal);
+            return disposalDao.selectByPrimaryKey(id);
         }
 
     }
@@ -122,14 +131,12 @@ public class ApplyDisposalServiceImpl implements ApplyDisposalService {
         FMedItemExample.Criteria criteria1 = fMedItemExample.createCriteria();
         FMedItemExample.Criteria criteria2 = fMedItemExample.createCriteria();
         FMedItemExample.Criteria criteria3 = fMedItemExample.createCriteria();
-
         if( str != null){
             String searchd = regexProcess.regexProcess02(str);
             criteria.andNameLike("%" + searchd + "%");
             criteria1.andCodeLike("%" + searchd + "%");
             criteria2.andMnemonicCodeLike("%" + searchd + "%");
             criteria3.andRecordTypeEqualTo(119);
-
         }
         fMedItemExample.or(criteria1);
         fMedItemExample.or(criteria2);
@@ -262,4 +269,13 @@ public class ApplyDisposalServiceImpl implements ApplyDisposalService {
 
         return fMedItemDao.selectByExample(fMedItemExample);
     }
+
+    public List<DisposalDetailsView> listIndexDisposal(Integer medicalRecordID){
+        DisposalDetailsViewExample disposalDetailsViewExample = new DisposalDetailsViewExample();
+        DisposalDetailsViewExample.Criteria criteria = disposalDetailsViewExample.createCriteria();
+        criteria.andMedicalRecordIDEqualTo(medicalRecordID);
+        return disposalDetailsViewDao.selectByExample(disposalDetailsViewExample);
+
+    }
+
 }

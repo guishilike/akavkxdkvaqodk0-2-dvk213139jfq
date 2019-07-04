@@ -1,6 +1,7 @@
 package edu.neu.hospital.service.outPatientService;
 
 import edu.neu.hospital.bean.basicTableBean.Diagnosis;
+import edu.neu.hospital.bean.basicTableBean.DiagnosisView;
 import edu.neu.hospital.bean.basicTableBean.Disease;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
@@ -30,5 +31,7 @@ public interface DiagnoseService {
 
     //查
     public Diagnosis searchDiagnosis(Integer diagnosisID);
+
+    public  List<DiagnosisView> getIndexDiagnosis(Integer medicalRecordID);
 
 }

@@ -9,6 +9,7 @@ import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.ApplyInspectionService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,14 +39,15 @@ public class ApplyInspectionController {
 
             UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
             System.out.println(outpatientUser.getId());
-            applyInspectionService.newInspection(inspection, outpatientUser.getId());
+            Inspection res =  applyInspectionService.newInspection(inspection, outpatientUser.getId());
             resultDTO.setStatus("OK");
-            resultDTO.setMsg("增加处置成功");
-            resultDTO.setData(inspection);
+            resultDTO.setMsg("增加检查成功");
+            resultDTO.setData(res);
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
-            resultDTO.setData(inspection);
+            //resultDTO.setData(inspection);
+            System.out.println(e);
 
         }
         return resultDTO;
@@ -191,21 +193,45 @@ public class ApplyInspectionController {
         return resultDTO;
     }
 
+    @RequestMapping("/deleteInspectionDetailsByID")
+    public @ResponseBody
+    ResultDTO deleteInspectionDetailsByID(Integer inspectionDetailsId, HttpSession session) {
+        ResultDTO resultDTO = new ResultDTO<>();
+        try {
+            //PageHelper.startPage(pageNum, pageSize);
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            applyInspectionService.deleteInspectionDetailsByID(inspectionDetailsId, outpatientUser.getId());
+            //List<InspectionDetails> list = new LinkedList<>();
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("删除成功");
+            //resultDTO.setData(inspectionDetailsList);
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发生异常");
+            e.printStackTrace();
+            //resultDTO.setData(page);
+
+        }
+        return resultDTO;
+    }
+
+
 
 
     @RequestMapping("/deleteInspectionDetails")
     public @ResponseBody
-    ResultDTO<PageInfo<InspectionDetails>> deleteInspectionDetails(IdDTO inspectionDetailsIdList, HttpSession session, Integer pageNum, Integer pageSize) {
-        ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
+    ResultDTO<List<InspectionDetails>> deleteInspectionDetails(@RequestBody IdDTO inspectionDetailsIdList, HttpSession session) {
+        ResultDTO<List<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
-            PageHelper.startPage(pageNum, pageSize);
+            //PageHelper.startPage(pageNum, pageSize);
             UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
             System.out.println(outpatientUser.getId());
             List<InspectionDetails> inspectionDetailsList = applyInspectionService.deleteInspectionDetails(inspectionDetailsIdList, outpatientUser.getId());
-            PageInfo<InspectionDetails> list = new PageInfo<>(inspectionDetailsList);
+            //List<InspectionDetails> list = new LinkedList<>();
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
-            resultDTO.setData(list);
+            resultDTO.setData(inspectionDetailsList);
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
@@ -304,16 +330,16 @@ public class ApplyInspectionController {
 
     @RequestMapping("/use_Check")
     public @ResponseBody
-    ResultDTO use_Check(Integer projectTemplateID , HttpSession session) {
+    ResultDTO use_Check(Integer projectTemplateID  , Integer inspectionID , HttpSession session) {
         ResultDTO<ProjectTemplate> resultDTO = new ResultDTO<>();
         try {
 
             UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
             System.out.println(outpatientUser.getId());
-            ProjectTemplate p = applyInspectionService.use_Check(projectTemplateID);
+            ProjectTemplate p = applyInspectionService.use_Check(projectTemplateID , inspectionID , outpatientUser.getId());
 
             resultDTO.setStatus("OK");
-            resultDTO.setMsg("模板详细存储成功");
+            resultDTO.setMsg("使用模板成功");
             resultDTO.setData(p);
 
         } catch (Exception e) {
@@ -356,17 +382,17 @@ public class ApplyInspectionController {
 
     @RequestMapping("/listInspection")
     public @ResponseBody
-    ResultDTO<PageInfo<FMedItem>> listInspection(Integer pageNum , Integer pageSize){
-        ResultDTO<PageInfo<FMedItem>> resultDTO = new ResultDTO<>();
+    ResultDTO<List<FMedItem>> listInspection(){
+        ResultDTO<List<FMedItem>> resultDTO = new ResultDTO<>();
 
         try {
-            PageHelper.startPage(pageNum, pageSize);
+           // PageHelper.startPage(pageNum, pageSize);
             System.out.println("1");
             List<FMedItem> fMedItemList = applyInspectionService.listInspection();
             resultDTO.setMsg("listInspection操作成功");
             System.out.println("1");
-            PageInfo<FMedItem> list = new PageInfo<>(fMedItemList);
-            resultDTO.setData(list);
+           // PageInfo<FMedItem> list = new PageInfo<>(fMedItemList);
+            resultDTO.setData(fMedItemList);
             System.out.println("1");
             for (int i = 0; i < fMedItemList.size(); i++) {
                 System.out.println(fMedItemList.get(i).toString());
@@ -385,6 +411,29 @@ public class ApplyInspectionController {
         return resultDTO;
 
     }
+
+
+
+    @RequestMapping("/listIndexInspection")
+    public @ResponseBody
+    ResultDTO<List<InspectionDetailsView>> listIndexInspection(Integer medicalRecordID) {
+        ResultDTO<List<InspectionDetailsView>> resultDTO = new ResultDTO<>();
+        try{
+            List<InspectionDetailsView > list = applyInspectionService.listIndexInspection(medicalRecordID);
+            resultDTO.setData(list);
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("listIndexInspection操作成功");
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+
+            resultDTO.setMsg("listIndexInspection失败");
+
+            System.out.println(e);
+        }
+
+        return resultDTO;
+    }
+
 
 
 

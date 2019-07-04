@@ -61,38 +61,18 @@ public class MedicalRecHomeServiceImpl implements MedicalRecHomeService {
      */
     @Override
     public List<PatientMedicalRec> findPatient(String nameOrMedicalRecNo) {
-        System.out.println("传入" + nameOrMedicalRecNo);
-       /* PatientExample patientExample = new PatientExample();
 
-        PatientExample.Criteria criteria1 = patientExample.createCriteria();
-        PatientExample.Criteria criteria2 = patientExample.createCriteria();
-        System.out.println("1111111");
-
-        if( nameOrMedicalRecNo != null){
-            criteria1.andPatientNameEqualTo(nameOrMedicalRecNo);//根据名字
-            System.out.println("根据名字查到辣");
-            patients1 = patientDao.selectByExample(patientExample);
-
-        }
-        //根据病历ID
-        System.out.println("根据病历no查");
-*/
        List<PatientMedicalRec> patientMedicalRecList = new LinkedList<>();
-
         //先在view里用病历号查patientID，在用id在patient里查patient
         PatientMedicalRecExample patientMedicalRecExample = new PatientMedicalRecExample();
         PatientMedicalRecExample.Criteria criteria = patientMedicalRecExample.createCriteria();
         PatientMedicalRecExample.Criteria criteria2 = patientMedicalRecExample.createCriteria();
-
         if( nameOrMedicalRecNo != null){
             criteria.andMedicalRecordNoEqualTo(nameOrMedicalRecNo);
             criteria2.andPatientNameEqualTo(nameOrMedicalRecNo);
         }
         patientMedicalRecExample.or(criteria2);
         List<PatientMedicalRec> list = patientMedicalRecDao.selectByExample(patientMedicalRecExample);
-
-
-
         return list;
     }
 
@@ -235,7 +215,7 @@ public class MedicalRecHomeServiceImpl implements MedicalRecHomeService {
     public List<PatientMedicalRec> listPatientNoDiagnosis(){
         PatientMedicalRecExample patientMedicalRecExample = new PatientMedicalRecExample();
         PatientMedicalRecExample.Criteria criteria = patientMedicalRecExample.createCriteria();
-        criteria.andDiagnosisStatusEqualTo("0");
+       // criteria.andDiagnosisStatusEqualTo("0");
         return patientMedicalRecDao.selectByExample(patientMedicalRecExample);
     }
 }

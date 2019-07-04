@@ -1,13 +1,16 @@
 package edu.neu.hospital.service.outPatientService.impl;
 
+import edu.neu.hospital.bean.basicTableBean.DiagnosisView;
 import edu.neu.hospital.bean.basicTableBean.Diagnosis;
 import edu.neu.hospital.bean.basicTableBean.Disease;
 import edu.neu.hospital.dao.basicTableDao.CommonDiagnosisDao;
 import edu.neu.hospital.dao.basicTableDao.DiagnosisDao;
+import edu.neu.hospital.dao.basicTableDao.DiagnosisViewDao;
 import edu.neu.hospital.dao.basicTableDao.DiseaseDao;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.basicTableExample.DiagnosisExample;
+import edu.neu.hospital.example.basicTableExample.DiagnosisViewExample;
 import edu.neu.hospital.example.basicTableExample.DiseaseExample;
 import edu.neu.hospital.service.outPatientService.DiagnoseService;
 import edu.neu.hospital.utils.RegexProcess;
@@ -18,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class DiagnoseServiceImpl implements DiagnoseService {
+public class    DiagnoseServiceImpl implements DiagnoseService {
 
     @Resource
     DiagnosisDao diagnosisDao;
@@ -30,6 +33,9 @@ public class DiagnoseServiceImpl implements DiagnoseService {
     DiseaseDao diseaseDao;
 
     RegexProcess regexProcess = new RegexProcess();
+
+    @Resource
+    DiagnosisViewDao diagnosisViewDao;
 
     /**
      * 确诊
@@ -91,8 +97,6 @@ public class DiagnoseServiceImpl implements DiagnoseService {
             criteria.andNameLike("%" + searchd + "%");
             criteria1.andCodeLike("%" + searchd + "%");
             criteria2.andDiseaseIcdLike("%" + searchd + "%");
-
-
         }
         diseaseExample.or(criteria1);
         diseaseExample.or(criteria2);
@@ -146,5 +150,14 @@ public class DiagnoseServiceImpl implements DiagnoseService {
         System.out.println(diagnosisID);
         System.out.println(diagnosisDao.selectByPrimaryKey(diagnosisID).toString());
         return diagnosisDao.selectByPrimaryKey(diagnosisID);
+    }
+
+    @Override
+    public List<DiagnosisView> getIndexDiagnosis(Integer medicalRecordID) {
+        DiagnosisViewExample diagnosisViewExample = new DiagnosisViewExample();
+        DiagnosisViewExample.Criteria criteria = diagnosisViewExample.createCriteria();
+        criteria.andMedicalRecordIDEqualTo(medicalRecordID);
+
+        return diagnosisViewDao.selectByExample(diagnosisViewExample);
     }
 }
