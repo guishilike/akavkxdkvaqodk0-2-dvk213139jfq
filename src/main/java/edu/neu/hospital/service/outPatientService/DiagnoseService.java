@@ -7,6 +7,7 @@ import edu.neu.hospital.bean.basicTableBean.Disease;
 import edu.neu.hospital.bean.basicTableBean.Drugs;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.example.basicTableExample.DiseaseExample;
 
 
 import java.util.List;
@@ -37,5 +38,7 @@ public interface DiagnoseService {
     public  List<DiagnosisView> getIndexDiagnosis(Integer medicalRecordID);
 
     public List<Disease> listDisease();
+
+    public Integer getDiseaseID(String str);
 
 }

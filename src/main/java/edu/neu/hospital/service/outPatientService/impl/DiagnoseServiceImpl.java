@@ -172,4 +172,16 @@ public class    DiagnoseServiceImpl implements DiagnoseService {
         DiseaseExample.Criteria criteria = diseaseExample.createCriteria();
         return diseaseDao.selectByExample(diseaseExample);
     }
+
+
+
+    public Integer getDiseaseID(String str){
+        DiseaseExample diseaseExample = new DiseaseExample();
+        DiseaseExample.Criteria criteria = diseaseExample.createCriteria();
+        DiseaseExample.Criteria criteria1 = diseaseExample.createCriteria();
+        criteria.andNameEqualTo(str);
+        criteria1.andCodeEqualTo(str);
+        diseaseExample.or(criteria1);
+        return  diseaseDao.selectByExample(diseaseExample).get(0).getId();
+    }
 }

@@ -294,7 +294,7 @@ public class DiagnosisController {
 
             List<Disease> list = diagnoseService.listDisease();
             resultDTO.setStatus("OK");
-            resultDTO.setMsg("确诊成功");
+            resultDTO.setMsg("列出疾病成功");
             resultDTO.setData(list);
         }catch (Exception e){
             resultDTO.setStatus("FALSE");
@@ -308,6 +308,30 @@ public class DiagnosisController {
 
     }
 
+
+
+@RequestMapping("/getDiseaseID")
+    public @ResponseBody
+    ResultDTO getDiseaseID(String str) {
+        ResultDTO<Integer> resultDTO = new ResultDTO<>();
+        try {
+
+
+            Integer id = diagnoseService.getDiseaseID(str);
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("找病成功");
+            resultDTO.setData(id);
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发生异常");
+            //resultDTO.setData(diagnosisID);
+            System.out.println(e);
+
+        }
+        return resultDTO;
+
+
+    }
 
 
 
