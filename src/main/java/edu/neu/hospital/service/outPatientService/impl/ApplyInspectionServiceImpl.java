@@ -279,6 +279,8 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
     public Integer saveTemplate(ProjectTemplate projectTemplate, Integer userID) {
         projectTemplate.setAppearDate(new Date());
         projectTemplate.setAppearUserID( userID);
+        projectTemplate.setDoctorId(userID);
+        projectTemplate.setStatus("1");
         projectTemplateDao.insert(projectTemplate);
         return projectTemplate.getId();
     }
