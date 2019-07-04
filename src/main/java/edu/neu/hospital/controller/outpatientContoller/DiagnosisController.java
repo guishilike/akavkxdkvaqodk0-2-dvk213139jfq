@@ -13,6 +13,7 @@ import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.DiagnoseService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -77,18 +78,20 @@ public class DiagnosisController {
     }
     @RequestMapping("/searchDisease")
     public @ResponseBody
-    ResultDTO<PageInfo<DiseaseView>> searchDisease(String str, Integer pageNum, Integer pageSize){
-        ResultDTO<PageInfo<DiseaseView>> resultDTO = new ResultDTO<>();
+    ResultDTO<List<DiseaseView>> searchDisease(String str){
+        ResultDTO<List<DiseaseView>> resultDTO = new ResultDTO<>();
+        System.out.println("start search");
+        System.out.println("str"+str);
 
         try {
-            PageHelper.startPage(pageNum, pageSize);
+
             List<DiseaseView> diseaseList = diagnoseService.searchDisease(str);
+            System.out.println("长度为"+diseaseList.size());
             System.out.println("-----");
-            PageInfo<DiseaseView> list = new PageInfo<>(diseaseList);
             System.out.println("-----");
+            resultDTO.setData(diseaseList);
             resultDTO.setMsg("模糊查询疾病");
             resultDTO.setStatus("OK");
-            resultDTO.setData(list);
         }catch (Exception e){
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
