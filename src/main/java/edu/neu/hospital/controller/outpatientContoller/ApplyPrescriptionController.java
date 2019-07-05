@@ -8,6 +8,7 @@ import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.ApplyPrescriptionService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -89,16 +90,39 @@ public class ApplyPrescriptionController {
 
     @RequestMapping("/addDrugs")
     public @ResponseBody
-    ResultDTO addDrugs(Integer prescriptionID , PrescriptionDetail prescriptionDetail , HttpSession session, Integer pageNum, Integer pageSize) {
+    ResultDTO addDrugs(Integer preID , PrescriptionDetail prescriptionDetail , HttpSession session) {
         ResultDTO resultDTO = new ResultDTO<>();
-
-
         UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
         System.out.println(outpatientUser.getId());
-        applyPrescriptionService.addDrugs(prescriptionID, prescriptionDetail, outpatientUser.getId());
+        applyPrescriptionService.addDrugs(preID, prescriptionDetail, outpatientUser.getId());
         resultDTO.setStatus("OK");
         resultDTO.setMsg("增加处方药成功");
-        resultDTO.setData(prescriptionID);
+        resultDTO.setData(preID);
+
+        return resultDTO;
+
+    }
+
+    @RequestMapping("/addDetails")
+    public @ResponseBody
+    ResultDTO addDrugs(@RequestBody DataListDTO<PrescriptionDetail> dataListDTO , HttpSession session) {
+        ResultDTO resultDTO = new ResultDTO<>();
+        try {
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            int preID=dataListDTO.getData().get(0).getPrescriptionID();
+            System.out.println(preID);
+            System.out.println(outpatientUser.getId());
+            applyPrescriptionService.deleteAllDetails(preID);
+            for(int i=0;i<dataListDTO.getData().size();i++){
+                applyPrescriptionService.addDrugs(preID, dataListDTO.getData().get(i), outpatientUser.getId());
+            }
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("增加处方详情成功");
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("增加处方详情失败");
+            e.printStackTrace();
+        }
 
         return resultDTO;
 
@@ -200,6 +224,7 @@ public class ApplyPrescriptionController {
     @RequestMapping("/deletePrescription")
     public @ResponseBody
     ResultDTO deletePrescription(Integer prescriptionID , HttpSession session) {
+        System.out.println(prescriptionID);
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
@@ -213,6 +238,7 @@ public class ApplyPrescriptionController {
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
+            e.printStackTrace();
             //resultDTO.setData(page);
 
         }
@@ -229,6 +255,7 @@ public class ApplyPrescriptionController {
             UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
             System.out.println(outpatientUser.getId());
             applyPrescriptionService.abolishPrescription(prescriptionID, outpatientUser.getId());
+            System.out.println("作废后"+prescriptionID);
             //PageInfo<PrescriptionDetail> list = new PageInfo<>(prescriptionDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("废除成功");
@@ -236,6 +263,28 @@ public class ApplyPrescriptionController {
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
+            //resultDTO.setData(page);
+
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping("/sendPrescription")
+    public @ResponseBody
+    ResultDTO sendPrescription(Integer prescriptionID, HttpSession session) {
+        ResultDTO resultDTO = new ResultDTO<>();
+        try {
+
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            applyPrescriptionService.sendPrescription(prescriptionID, outpatientUser.getId());
+            //PageInfo<PrescriptionDetail> list = new PageInfo<>(prescriptionDetailsList);
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("发送成功");
+            resultDTO.setData(prescriptionID);
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发送异常");
             //resultDTO.setData(page);
 
         }
@@ -397,11 +446,11 @@ public class ApplyPrescriptionController {
 
     @RequestMapping("/listPrescriptionDetail")
     public @ResponseBody
-    ResultDTO<List<Prescriptiondetailview>> listPrescriptionDetails(Integer prescriptionID){
-        ResultDTO<List<Prescriptiondetailview>> resultDTO = new ResultDTO<>();
+    ResultDTO<List<PrescriptionDetailView>> listPrescriptionDetails(Integer prescriptionID){
+        ResultDTO<List<PrescriptionDetailView>> resultDTO = new ResultDTO<>();
 
         try {
-            List<Prescriptiondetailview> prescriptiondetailList= applyPrescriptionService.findAllPrescriptionDetails(prescriptionID);
+            List<PrescriptionDetailView> prescriptiondetailList= applyPrescriptionService.findAllPrescriptionDetails(prescriptionID);
             resultDTO.setMsg("listP操作成功");
             resultDTO.setData(prescriptiondetailList);
             System.out.println("1");
