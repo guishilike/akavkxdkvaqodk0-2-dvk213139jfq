@@ -344,17 +344,13 @@ public class ApplyPrescriptionController {
 
     @RequestMapping("/listDrugs")
     public @ResponseBody
-    ResultDTO<PageInfo<Drugs>> listDrugs(Integer pageNum , Integer pageSize){
-        ResultDTO<PageInfo<Drugs>> resultDTO = new ResultDTO<>();
+    ResultDTO<List<Drugsview>> listDrugs(){
+        ResultDTO<List<Drugsview>> resultDTO = new ResultDTO<>();
 
         try {
-            PageHelper.startPage(pageNum, pageSize);
-            System.out.println("1");
-            List<Drugs> drugsList= applyPrescriptionService.listDrugs();
+            List<Drugsview> drugsList= applyPrescriptionService.listDrugs();
             resultDTO.setMsg("listDrugs操作成功");
-            System.out.println("1");
-            PageInfo<Drugs> list = new PageInfo<>(drugsList);
-            resultDTO.setData(list);
+            resultDTO.setData(drugsList);
             System.out.println("1");
             for (int i = 0; i < drugsList.size(); i++) {
                 System.out.println(drugsList.get(i).toString());
@@ -368,6 +364,57 @@ public class ApplyPrescriptionController {
             resultDTO.setMsg("listPatientNoDiagnosis失败");
 
             System.out.println(e);
+        }
+
+        return resultDTO;
+
+    }
+    @RequestMapping("/listPrescription")
+    public @ResponseBody
+    ResultDTO<List<Prescriptionview>> listPrescription(){
+        ResultDTO<List<Prescriptionview>> resultDTO = new ResultDTO<>();
+
+        try {
+            List<Prescriptionview> prescriptionList= applyPrescriptionService.findAllPrescription();
+            resultDTO.setMsg("listP操作成功");
+            resultDTO.setData(prescriptionList);
+            System.out.println("1");
+
+            resultDTO.setStatus("OK");
+
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+
+            resultDTO.setMsg("listP失败");
+
+            System.out.println(e);
+            e.printStackTrace();
+        }
+
+        return resultDTO;
+
+    }
+
+    @RequestMapping("/listPrescriptionDetail")
+    public @ResponseBody
+    ResultDTO<List<Prescriptiondetailview>> listPrescriptionDetails(Integer prescriptionID){
+        ResultDTO<List<Prescriptiondetailview>> resultDTO = new ResultDTO<>();
+
+        try {
+            List<Prescriptiondetailview> prescriptiondetailList= applyPrescriptionService.findAllPrescriptionDetails(prescriptionID);
+            resultDTO.setMsg("listP操作成功");
+            resultDTO.setData(prescriptiondetailList);
+            System.out.println("1");
+
+            resultDTO.setStatus("OK");
+
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+
+            resultDTO.setMsg("listP失败");
+
+            System.out.println(e);
+            e.printStackTrace();
         }
 
         return resultDTO;

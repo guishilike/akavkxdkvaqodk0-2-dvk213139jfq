@@ -3,9 +3,7 @@ package edu.neu.hospital.service.outPatientService.impl;
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.dto.DataListDTO;
-import edu.neu.hospital.example.basicTableExample.DrugsExample;
-import edu.neu.hospital.example.basicTableExample.PrescriptionFeeExample;
-import edu.neu.hospital.example.basicTableExample.PrescriptionDetailExample;
+import edu.neu.hospital.example.basicTableExample.*;
 import edu.neu.hospital.service.outPatientService.ApplyPrescriptionService;
 import edu.neu.hospital.utils.RegexProcess;
 import org.springframework.stereotype.Service;
@@ -42,14 +40,22 @@ public class ApplyPrescriptionServiceImpl implements ApplyPrescriptionService {
 
     @Resource
     PrescriptionFeeDao prescriptionFeeDao;
+    @Resource
+    DrugsviewDao drugsViewDao;
     
     @Resource
     FeeDao feeDao;
+    @Resource
+    PrescriptionviewDao prescriptionViewDao;
+    @Resource
+    PrescriptiondetailviewDao prescriptionDetailViewDao;
+
 
     @Override
     public boolean addPrescription(Prescription prescription, Integer userID) {
         prescription.setAppearDate(new Date());
         prescription.setAppearUserID(userID);
+        prescription.setDoctorID(userID);
         prescription.setStatus("1");
         prescriptionDao.insert(prescription);
         return true;
@@ -247,10 +253,21 @@ public class ApplyPrescriptionServiceImpl implements ApplyPrescriptionService {
     public CommonDrugs useCommonDrugs(Integer commonDrugsID) {
         return commonDrugsDao.selectByPrimaryKey(commonDrugsID);
     }
+    @Override
+    public   List<Drugsview> listDrugs(){
+        return drugsViewDao.selectByExample(new DrugsviewExample());
+    }
 
-    public   List<Drugs> listDrugs(){
-        DrugsExample drugsExample = new DrugsExample();
-        DrugsExample.Criteria criteria = drugsExample.createCriteria();
-        return drugsDao.selectByExample(drugsExample);
+    @Override
+    public List<Prescriptionview> findAllPrescription() {
+        return prescriptionViewDao.selectByExample(new PrescriptionviewExample());
+    }
+
+    @Override
+    public List<Prescriptiondetailview> findAllPrescriptionDetails(Integer prescription) {
+        PrescriptiondetailviewExample prescriptiondetailviewExample=new PrescriptiondetailviewExample();
+        PrescriptiondetailviewExample.Criteria criteria=prescriptiondetailviewExample.createCriteria();
+        criteria.andPrescriptionIDEqualTo(prescription);
+        return  prescriptionDetailViewDao.selectByExample(new PrescriptiondetailviewExample());
     }
 }
