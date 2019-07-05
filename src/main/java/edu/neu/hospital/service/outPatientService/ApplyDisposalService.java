@@ -1,5 +1,6 @@
 package edu.neu.hospital.service.outPatientService;
 
+import edu.neu.hospital.bean.baseBean.FmeditemView;
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
@@ -9,8 +10,8 @@ import java.util.List;
 
 public interface ApplyDisposalService {
 
-    //新建该患者的inspection
-    //首先判断Inspection表里是否已经有该病例的检查了
+    //新建该患者的disposal
+    //首先判断Disposal表里是否已经有该病例的检查了
     public boolean checkIsHaven(Integer medicalRecordID);
     public Disposal newDisposal(Disposal disposal, Integer userID);
     //1.	新增项目
@@ -31,8 +32,13 @@ public interface ApplyDisposalService {
     //9.	常用项目管理（此次为引用
     public CommonDiposals useCommonDisposal(Integer commonDisposalID);
     //开立时向fee中插一条未缴费的记录
-    public Fee addProjectFee(Integer inspectionDetailID, Integer userID);
+    public Fee addProjectFee(Integer disposalDetailID, Integer userID);
     public   List<FMedItem> listDisposal();
     public List<DisposalDetailsView> listIndexDisposal(Integer medicalRecordID);
+    public FmeditemView getIndexFMedItem(DisposalDetails disposalDetails);
+
+    public boolean deleteDisposalDetailsByID(Integer disposalDetailsId, Integer userID) ;
+
+    public ProjectTemplate use_Check(Integer projectTemplateID  , Integer disposalID ,Integer userID) ;
 
 }

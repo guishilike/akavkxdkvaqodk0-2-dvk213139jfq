@@ -1,10 +1,13 @@
 package edu.neu.hospital.service.outPatientService.impl;
 
+import edu.neu.hospital.bean.baseBean.FmeditemView;
 import edu.neu.hospital.bean.basicTableBean.*;
+import edu.neu.hospital.dao.baseDao.FMedItemViewDao;
 import edu.neu.hospital.dao.baseDao.InspectionViewDao;
 import edu.neu.hospital.dao.basicTableDao.*;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.example.baseExample.FMedItemViewExample;
 import edu.neu.hospital.example.basicTableExample.*;
 import edu.neu.hospital.service.outPatientService.ApplyInspectionService;
 import edu.neu.hospital.utils.RegexProcess;
@@ -57,6 +60,9 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
 
     @Resource
     InspectionDetailsViewDao inspectionDetailsViewDao;
+
+    @Resource
+    FMedItemViewDao fMedItemViewDao;
 
 
     //根据inspectionID判断，存每个人的list
@@ -410,6 +416,17 @@ public class ApplyInspectionServiceImpl implements ApplyInspectionService {
         InspectionDetailsViewExample.Criteria criteria = inspectionDetailsViewExample.createCriteria();
         criteria.andMedicalRecordIDEqualTo(medicalRecordID);
         return inspectionDetailsViewDao.selectByExample(inspectionDetailsViewExample);
+
+    }
+
+
+    public FmeditemView getIndexFMedItem(InspectionDetails inspectionDetails){
+        Integer fMedItemID = inspectionDetails.getFmedItemID();
+        FMedItemViewExample fMedItemViewExample = new FMedItemViewExample();
+        FMedItemViewExample.Criteria criteria = fMedItemViewExample.createCriteria();
+        criteria.andIdEqualTo(fMedItemID);
+        return fMedItemViewDao.selectByExample(fMedItemViewExample).get(0);
+
 
     }
 

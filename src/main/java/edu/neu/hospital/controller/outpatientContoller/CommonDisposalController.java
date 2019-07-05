@@ -170,9 +170,9 @@ public class CommonDisposalController {
 
     }
 
-    @RequestMapping("/getThisDoctorTemp")
+    @RequestMapping("/listCommonDisposal")
     public @ResponseBody
-    ResultDTO getThisDoctorTemp(HttpSession session){
+    ResultDTO listCommonDisposal(HttpSession session){
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
