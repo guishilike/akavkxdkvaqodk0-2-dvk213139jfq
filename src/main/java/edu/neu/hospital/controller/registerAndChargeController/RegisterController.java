@@ -16,7 +16,6 @@ import edu.neu.hospital.service.baseService.*;
 import edu.neu.hospital.service.registerAndCharge.RegisterService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,8 +34,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("register")
-@CrossOrigin
-public class RegisterController<CrossOrigin> {
+public class RegisterController {
 
     @Resource
     ScheduleService scheduleService;
@@ -45,16 +43,10 @@ public class RegisterController<CrossOrigin> {
     ConstantService constantService;
 
     @Resource
-    RegistrationLevelService registrationLevelService;
-
-    @Resource
     DepartmentService departmentService;
 
     @Resource
     RegisterService regService;
-
-    @Resource
-    UserService userService;
 
     /**
      * 挂号
