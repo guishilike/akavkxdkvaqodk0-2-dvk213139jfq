@@ -3,10 +3,8 @@ package edu.neu.hospital.dao.basicTableDao;
 import edu.neu.hospital.bean.basicTableBean.MedicalRecHome;
 import edu.neu.hospital.example.basicTableExample.MedicalRecHomeExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-@Mapper
+
 public interface MedicalRecHomeDao {
     long countByExample(MedicalRecHomeExample example);
 

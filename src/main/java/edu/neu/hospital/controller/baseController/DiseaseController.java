@@ -106,7 +106,7 @@ public class DiseaseController {
     deleteById(Integer id, HttpSession session) {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
         try {
-            UserView loginUser = (UserView) session.getAttribute("user");
+            UserView loginUser = (UserView) session.getAttribute("adminUser");
             diseaseService.deleteById(id, loginUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除疾病成功");
@@ -132,7 +132,7 @@ public class DiseaseController {
         ResultDTO<IdDTO> resultDTO = new ResultDTO<>();
         if (ids.getId() != null&&ids.getId().size()!=0) {
             try {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("adminUser");
                 diseaseService.deleteByChoose(ids, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除成功");
@@ -163,7 +163,7 @@ public class DiseaseController {
         ResultDTO<Disease> resultDTO = new ResultDTO<>();
         try {
             if (diseaseService.checkDiseaseContent(disease, 1)) {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("adminUser");
                 diseaseService.change(disease,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改疾病成功");
@@ -195,7 +195,7 @@ public class DiseaseController {
         ResultDTO<Disease> resultDTO=new ResultDTO<>();
         try {
             if (diseaseService.checkDiseaseContent(disease, 0)) {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("adminUser");
                 diseaseService.add(disease,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加疾病成功");
@@ -249,7 +249,7 @@ public class DiseaseController {
         ResultDTO<ConstantItem> resultDTO=new ResultDTO<>();
         try {
             if (constantService.checkContent(constantitem, 0, 22)) {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("adminUser");
                 diseaseService.addDicaType(constantitem,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加疾病一级目录成功");
@@ -279,7 +279,7 @@ public class DiseaseController {
     ResultDTO deleteDicaType(Integer id,HttpSession session) {
         ResultDTO<Integer> resultDTO=new ResultDTO<>();
         try {
-            UserView loginUser = (UserView) session.getAttribute("user");
+            UserView loginUser = (UserView) session.getAttribute("adminUser");
             diseaseService.deleteDicaType(id,loginUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除一级目录成功");
@@ -305,7 +305,7 @@ public class DiseaseController {
         ResultDTO<ConstantItem> resultDTO=new ResultDTO<>();
         try {
             if (constantService.checkContent(constantitem, 1, 22)) {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("adminUser");
                 diseaseService.changeDicaType(constantitem,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改一级目录成功");
@@ -336,7 +336,7 @@ public class DiseaseController {
         ResultDTO<DiseaseCategory> resultDTO=new ResultDTO<>();
         try {
             if (diseaseService.checkDiseaseCategoryContent(diseasecategory, 0)) {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("adminUser");
                 diseaseService.addDiseaseCategory(diseasecategory,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加二级目录成功");
@@ -368,7 +368,7 @@ public class DiseaseController {
         ResultDTO<DiseaseCategory> resultDTO=new ResultDTO<>();
         try {
             if (diseaseService.checkDiseaseCategoryContent(diseasecategory, 1)) {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("adminUser");
                 diseaseService.changeDiseaseCategory(diseasecategory,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改二级目录成功");
@@ -398,7 +398,7 @@ public class DiseaseController {
     ResultDTO deleteDiseaseCategory(Integer id,HttpSession session) {
         ResultDTO<Integer> resultDTO=new ResultDTO<>();
         try {
-            UserView loginUser = (UserView) session.getAttribute("user");
+            UserView loginUser = (UserView) session.getAttribute("adminUser");
             diseaseService.deleteDiseaseCategory(id,loginUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除二级目录成功");

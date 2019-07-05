@@ -44,7 +44,7 @@ public class RegistrationLevelController {
         ResultDTO<ConstantItem> resultDTO = new ResultDTO<>();
         try {
             if (constantService.checkContent(constantitem, 0, 13)) {
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("adminUser");
                 registrationLevelService.add(constantitem, user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加挂号级别成功");
@@ -74,7 +74,7 @@ public class RegistrationLevelController {
     ResultDTO deleteById(Integer id, HttpSession session) {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
         try {
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("adminUser");
             registrationLevelService.deleteByID(id, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除挂号级别成功");
@@ -100,7 +100,7 @@ public class RegistrationLevelController {
         ResultDTO<IdDTO> resultDTO = new ResultDTO<>();
         if (ids.getId() != null&&ids.getId().size()!=0) {
             try {
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("adminUser");
                 registrationLevelService.deleteByChoose(ids, user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除挂号级别成功");
@@ -130,7 +130,7 @@ public class RegistrationLevelController {
         ResultDTO<ConstantItem> resultDTO = new ResultDTO<>();
         try {
             if (constantService.checkContent(constantitem, 1, 13)) {
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("adminUser");
                 registrationLevelService.change(constantitem, user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改挂号级别成功");
@@ -160,7 +160,7 @@ public class RegistrationLevelController {
     ResultDTO updateDetails(RegistrationLevelDetails registrationLevelDetails, HttpSession session) {
         ResultDTO<RegistrationLevelDetails> resultDTO = new ResultDTO<>();
         try {
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("adminUser");
             registrationLevelService.changeDetails(registrationLevelDetails, user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("修改挂号级别详情成功");

@@ -2,7 +2,6 @@ package edu.neu.hospital.service.outPatientService.impl;
 
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dao.basicTableDao.*;
-import edu.neu.hospital.example.basicTableExample.PatientExample;
 import edu.neu.hospital.example.basicTableExample.PatientMedicalRecExample;
 import edu.neu.hospital.service.outPatientService.MedicalRecHomeService;
 import org.springframework.stereotype.Service;
@@ -122,7 +121,7 @@ public class MedicalRecHomeServiceImpl implements MedicalRecHomeService {
         if (( recHome.getPhysicalExamination() == null)) flag = false;
         if ( recHome.getInitialDiagnosis() == null) flag = false;
         if ( recHome.getInitialDiagnosisType() == null) flag = false;
-        if ( recHome.getInspectRecommend() == null) flag = false;
+//        if ( recHome.getInspectRecommend() == null) flag = false;
         if ( recHome.getAttention() == null) flag = false;
         return false;
     }

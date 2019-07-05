@@ -40,7 +40,7 @@ public class UserController {
         ResultDTO<User> resultDTO=new ResultDTO<>();
         try {
             if (userService.checkContent(user, 0)) {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("adminUser");
                 userService.add(user, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加用户成功");
@@ -127,7 +127,7 @@ public class UserController {
     ResultDTO deleteByID(Integer id,HttpSession session){
         ResultDTO<Integer> resultDTO=new ResultDTO<>();
         try {
-            UserView loginUser=(UserView) session.getAttribute("user");
+            UserView loginUser=(UserView) session.getAttribute("adminUser");
             userService.deleteById(id,loginUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除用户成功");
@@ -151,7 +151,7 @@ public class UserController {
         ResultDTO<IdDTO> resultDTO=new ResultDTO<>();
         if(ids.getId()!=null&&ids.getId().size()!=0) {
             try {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("adminUser");
                 userService.deleteByChoose(ids, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除用户成功");
@@ -178,7 +178,7 @@ public class UserController {
         ResultDTO<User> resultDTO=new ResultDTO<>();
         try {
             if (userService.checkContent(user, 1)) {
-                UserView loginUser=(UserView) session.getAttribute("user");
+                UserView loginUser=(UserView) session.getAttribute("adminUser");
                 userService.change(user,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改用户成功");
@@ -304,7 +304,7 @@ public class UserController {
         if (!file.isEmpty()) {
             try {
 //                System.out.println("tset");
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("adminUser");
                 System.out.println(user.getId());
                 if(userService.uploadXls(file, user.getId(),errorHappenContinue,repeatCoverage)){
                     resultDTO.setStatus("OK");

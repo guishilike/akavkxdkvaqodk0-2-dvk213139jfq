@@ -96,6 +96,7 @@ public class CheckworkController {
             resultDTO.setMsg("修改对账状态成功");
             resultDTO.setData(feeID);
         } catch (Exception e) {
+            e.printStackTrace();
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，修改对账状态失败");
             resultDTO.setData(feeID);

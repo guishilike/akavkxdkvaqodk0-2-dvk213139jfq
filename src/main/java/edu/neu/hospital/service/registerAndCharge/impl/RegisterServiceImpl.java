@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -123,18 +124,16 @@ public class RegisterServiceImpl implements RegisterService {
         //插入一条收费信息
         Fee fee = new Fee();
         fee.setMedicalRecordID(medRecID);
-        fee.setFeeCategoryID(regInfo.getRegistrationLevelID());
+        fee.setFeeCategoryID(regInfo.getPaymentCategoryID());
         fee.setChargeItemID(regInfoID);
         fee.setExpID(1);
         fee.setFee(regInfo.getExpense());
-        fee.setTollManID(appearUserID);
-        fee.setTollDate(date);
         fee.setAppearUserID(appearUserID);
         fee.setFeeAppearDate(date);
-        fee.setPayStatus(1);
-        fee.setDateStatus(2);
+        fee.setPayStatus(134);
+        fee.setDateStatus(148);
         fee.setStatus("1");
-        fee.setCheckStatus("1");
+        fee.setCheckStatus("未对账");
         feeDao.insertSelective(fee);
 
         System.out.println(regInfo.toString() + "\n");
@@ -150,8 +149,15 @@ public class RegisterServiceImpl implements RegisterService {
 
         if (start != null)
             criteria.andRegistrationDateGreaterThanOrEqualTo(start);
-        if (end != null)
+        if (end != null) {
+
+            Calendar c = Calendar.getInstance();
+            c.setTime(end);
+            c.add(Calendar.DAY_OF_MONTH,1);
+            end = c.getTime();
             criteria.andRegistrationDateLessThanOrEqualTo(end);
+        }
+
 
         example.setOrderByClause("registrationDate desc");
 

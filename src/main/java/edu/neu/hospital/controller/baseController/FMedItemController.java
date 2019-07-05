@@ -44,7 +44,7 @@ public class FMedItemController {
         ResultDTO<FMedItem> resultDTO=new ResultDTO();
         try{
             if(fmeditemService.checkContent(fmeditem,0)) {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("adminUser");
                 fmeditemService.add(fmeditem, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加非药品项目成功");
@@ -73,7 +73,7 @@ public class FMedItemController {
     public @ResponseBody ResultDTO<Integer> delete(Integer id,HttpSession session){
         ResultDTO<Integer> resultDTO=new ResultDTO();
         try{
-            UserView loginUser=(UserView) session.getAttribute("user");
+            UserView loginUser=(UserView) session.getAttribute("adminUser");
             fmeditemService.deleteById(id,loginUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除非药品项目成功");
@@ -98,7 +98,7 @@ public class FMedItemController {
         ResultDTO<IdDTO> resultDTO=new ResultDTO();
         if(ids.getId()!=null&&ids.getId().size()!=0) {
             try {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("adminUser");
                 fmeditemService.deleteByChoose(ids, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除非药品项目成功");
@@ -128,7 +128,7 @@ public class FMedItemController {
         ResultDTO<FMedItem> resultDTO=new ResultDTO();
         try{
             if(fmeditemService.checkContent(fmeditem,1)) {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("adminUser");
                 fmeditemService.change(fmeditem, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改非药品项目成功");

@@ -4,10 +4,10 @@ import edu.neu.hospital.bean.baseBean.DiseaseView;
 import edu.neu.hospital.bean.basicTableBean.ConstantItem;
 import edu.neu.hospital.bean.basicTableBean.Disease;
 import edu.neu.hospital.bean.basicTableBean.DiseaseCategory;
-import edu.neu.hospital.dao.basicTableDao.ConstantItemDao;
-import edu.neu.hospital.dao.basicTableDao.DiseaseDao;
-import edu.neu.hospital.dao.basicTableDao.DiseaseCategoryDao;
 import edu.neu.hospital.dao.baseDao.DiseaseViewDao;
+import edu.neu.hospital.dao.basicTableDao.ConstantItemDao;
+import edu.neu.hospital.dao.basicTableDao.DiseaseCategoryDao;
+import edu.neu.hospital.dao.basicTableDao.DiseaseDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.example.basicTableExample.DiseaseCategoryExample;
@@ -22,13 +22,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -49,7 +45,7 @@ public class DiseaseServiceImpl implements DiseaseService {
 
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @Override
-    @CachePut(value = "disease",key="'diseaseCategory'+#diseaseCategoryID+'dicaTypeID'+#dicaTypeID")
+//    @CachePut(value = "disease",key="'diseaseCategory'+#diseaseCategoryID+'dicaTypeID'+#dicaTypeID")
     public List<DiseaseView> findDiseasesByCategory(Integer diseaseCategoryID,Integer dicaTypeID) {
         DiseaseViewExample example=new DiseaseViewExample();
         DiseaseViewExample.Criteria criteria=example.createCriteria();
@@ -61,7 +57,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    @CacheEvict(value="disease")
+//    @CacheEvict(value="disease")
     public void deleteById(Integer id, Integer userID) {
         Disease disease=diseaseDao.selectByPrimaryKey(id);
         if(disease!=null) {
@@ -73,7 +69,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    @CacheEvict(value="disease")
+//    @CacheEvict(value="disease")
     public void deleteByChoose(IdDTO ids, Integer userID) {
         for(Integer id:ids.getId()){
             Disease disease=diseaseDao.selectByPrimaryKey(id);
@@ -88,25 +84,25 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    @Cacheable(value="constantItem",key="'findAllNamesAndCodesByType'")
+//    @Cacheable(value="constantItem",key="'findAllNamesAndCodesByType'")
     public List<NameCodeDTO> findALLDicaType() {
         return constantitemDao.findAllNamesAndCodesByType(22);
     }
 
     @Override
-    @Cacheable(value="diseaseCategory")
+//    @Cacheable(value="diseaseCategory")
     public List<NameCodeDTO> findALLDiseaseCategory() {
         return diseasecategoryDao.findAll();
     }
 
     @Override
-    @Cacheable(value="diseaseCategory",key="'id'+#id")
+//    @Cacheable(value="diseaseCategory",key="'id'+#id")
     public List<NameCodeDTO> findAllDiseaseCategoryByDicaTypeID(Integer id) {
         return diseasecategoryDao.findByTypeID(id);
     }
 
     @Override
-    @CacheEvict("disease")
+//    @CacheEvict("disease")
     public void add(Disease disease,Integer userID) {
         disease.setStatus("1");
         disease.setAppearUserId(userID);
@@ -115,7 +111,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    @CacheEvict("disease")
+//    @CacheEvict("disease")
     public void change(Disease disease,Integer userID) {
         disease.setChangeDate(new Date());
         disease.setChangeUserId(userID);
@@ -123,7 +119,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    @Cacheable(value="disease",key="'nameOrCode'+#nameOrCode")
+//    @Cacheable(value="disease",key="'nameOrCode'+#nameOrCode")
     public List<DiseaseView> findDiseaseByNameOrCode(String nameOrCode) {
         DiseaseViewExample example=new DiseaseViewExample();
         DiseaseViewExample.Criteria criteria1=example.createCriteria();
@@ -146,7 +142,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    @CacheEvict(value = "constantItem")
+//    @CacheEvict(value = "constantItem")
     public void addDicaType(ConstantItem constantitem, Integer userID) {
         constantitem.setConstantTypeID(22);
         constantitem.setStatus("1");
@@ -156,7 +152,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    @CacheEvict(value = "constantItem")
+//    @CacheEvict(value = "constantItem")
     public void deleteDicaType(Integer id,Integer userID) {
         ConstantItem constantitem=constantitemDao.selectByPrimaryKey(id);
         if(constantitem!=null) {
@@ -168,7 +164,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    @CacheEvict(value = "constantItem")
+//    @CacheEvict(value = "constantItem")
     public void changeDicaType(ConstantItem constantitem, Integer userID) {
         constantitem.setChangeDate(new Date());
         constantitem.setChangeUserID(userID);
@@ -176,7 +172,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    @CacheEvict(value = "diseaseCategory")
+//    @CacheEvict(value = "diseaseCategory")
     public void addDiseaseCategory(DiseaseCategory diseasecategory, Integer userID) {
         diseasecategory.setAppearDate(new Date());
         diseasecategory.setAppearUserId(userID);
@@ -185,7 +181,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    @CacheEvict(value = "diseaseCategory")
+//    @CacheEvict(value = "diseaseCategory")
     public void deleteDiseaseCategory(Integer id,Integer userID) {
          DiseaseCategory diseasecategory=diseasecategoryDao.selectByPrimaryKey(id);
          if(diseasecategory!=null) {
@@ -197,7 +193,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    @CacheEvict(value = "diseaseCategory")
+//    @CacheEvict(value = "diseaseCategory")
     public void changeDiseaseCategory(DiseaseCategory diseasecategory, Integer userID) {
         diseasecategory.setChangeDate(new Date());
         diseasecategory.setChangeUserId(userID);
@@ -218,13 +214,13 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    @Cacheable(value="disease",key="'getAllDiseaseNamesAndDeptCodes'")
+//    @Cacheable(value="disease",key="'getAllDiseaseNamesAndDeptCodes'")
     public List<NameCodeDTO> getAllDiseaseNamesAndDeptCodes() {
         return diseaseviewDao.selectAllDiseaseNamesAndCodes();
     }
 
     @Override
-    @CacheEvict(value="disease")
+//    @CacheEvict(value="disease")
     public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException {
         //标识文件内容是否有错
         boolean state = true;

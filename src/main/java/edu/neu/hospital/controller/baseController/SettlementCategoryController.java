@@ -98,7 +98,7 @@ public class SettlementCategoryController {
     public @ResponseBody ResultDTO deleteByID(Integer id, HttpSession session){
         ResultDTO<Integer> resultDTO=new ResultDTO<>();
         try {
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("adminUser");
             settlementCategoryService.deleteByID(id,user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除结算类别成功");
@@ -122,7 +122,7 @@ public class SettlementCategoryController {
         ResultDTO<IdDTO> resultDTO=new ResultDTO<>();
         if(ids.getId()!=null&&ids.getId().size()!=0){
             try{
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("adminUser");
                 settlementCategoryService.deleteByChoose(ids,user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除结算类别成功");
@@ -151,7 +151,7 @@ public class SettlementCategoryController {
         ResultDTO<ConstantItem> resultDTO=new ResultDTO<>();
         try {
             if (constantService.checkContent(constantitem, 0, 12)) {
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("adminUser");
                 settlementCategoryService.add(constantitem,user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加结算类别成功");
@@ -181,7 +181,7 @@ public class SettlementCategoryController {
         ResultDTO<ConstantItem> resultDTO=new ResultDTO<>();
         try {
             if (constantService.checkContent(constantitem, 1, 12)) {
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("adminUser");
                 settlementCategoryService.change(constantitem,user.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改结算类别成功");
@@ -212,7 +212,7 @@ public class SettlementCategoryController {
         ResultDTO<SettleCategoryDetails> resultDTO=new ResultDTO<>();
         System.out.println(settlecategorydetails);
         try {
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("adminUser");
             settlementCategoryService.changeDetails(settlecategorydetails,user.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("修改结算类别详情成功");

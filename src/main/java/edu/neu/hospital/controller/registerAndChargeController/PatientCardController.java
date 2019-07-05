@@ -83,7 +83,7 @@ public class PatientCardController {
         try {
 
             System.out.println(patient.toString());
-            UserView loginUser = (UserView) session.getAttribute("user");
+            UserView loginUser = (UserView) session.getAttribute("registerAndChargeUser");
             int result = patientCardService.applyCard(patient, passwd, loginUser.getId());
 
             if (0 == result) {
@@ -108,7 +108,7 @@ public class PatientCardController {
     ResultDTO changePasswd(Integer id, String passwd, HttpSession session) {
 
         try {
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("registerAndChargeUser");
             Integer changeUserID = user.getId();
             int result = patientCardService.changePasswd(id, passwd, changeUserID);
 
@@ -152,7 +152,7 @@ public class PatientCardController {
     ResultDTO recharge(Integer id, BigDecimal money, HttpSession session) {
 
         try {
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("registerAndChargeUser");
             Integer appearUserID = user.getId();
             int result = patientCardService.recharge(id, money, appearUserID);
 

@@ -43,7 +43,7 @@ public class ScheduleController {
         ResultDTO<Schedule> resultDTO=new ResultDTO<>();
         try{
             if(scheduleService.checkContent(schedule,0)){
-                UserView loginUser=(UserView) session.getAttribute("user");
+                UserView loginUser=(UserView) session.getAttribute("adminUser");
                 scheduleService.add(schedule,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("添加排班信息成功");
@@ -70,7 +70,7 @@ public class ScheduleController {
     public @ResponseBody ResultDTO delete(Integer id,HttpSession session){
         ResultDTO<Integer> resultDTO=new ResultDTO<>();
         try{
-            UserView loginUser=(UserView) session.getAttribute("user");
+            UserView loginUser=(UserView) session.getAttribute("adminUser");
             scheduleService.delete(id,loginUser.getId());
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除排班信息成功");
@@ -94,7 +94,7 @@ public class ScheduleController {
         ResultDTO<IdDTO> resultDTO=new ResultDTO<>();
         if(ids.getId()!=null&&ids.getId().size()!=0) {
             try {
-                UserView loginUser=(UserView) session.getAttribute("user");
+                UserView loginUser=(UserView) session.getAttribute("adminUser");
                 scheduleService.deleteByChoose(ids,loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("批量删除排班信息成功");
@@ -126,7 +126,7 @@ public class ScheduleController {
         ResultDTO<Schedule> resultDTO=new ResultDTO<>();
         try{
             if(scheduleService.checkContent(schedule,1)) {
-                UserView loginUser = (UserView) session.getAttribute("user");
+                UserView loginUser = (UserView) session.getAttribute("adminUser");
                 scheduleService.change(schedule, loginUser.getId());
                 resultDTO.setStatus("OK");
                 resultDTO.setMsg("修改排班信息成功");

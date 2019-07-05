@@ -1,14 +1,14 @@
 package edu.neu.hospital.service.baseService.impl;
 
-import edu.neu.hospital.bean.basicTableBean.Department;
 import edu.neu.hospital.bean.baseBean.DepartmentView;
+import edu.neu.hospital.bean.basicTableBean.Department;
+import edu.neu.hospital.dao.baseDao.DepartmentViewDao;
 import edu.neu.hospital.dao.basicTableDao.ConstantItemDao;
 import edu.neu.hospital.dao.basicTableDao.DepartmentDao;
-import edu.neu.hospital.dao.baseDao.DepartmentViewDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.NameCodeDTO;
-import edu.neu.hospital.example.basicTableExample.DepartmentExample;
 import edu.neu.hospital.example.baseExample.DepartmentViewExample;
+import edu.neu.hospital.example.basicTableExample.DepartmentExample;
 import edu.neu.hospital.service.baseService.DepartmentService;
 import edu.neu.hospital.utils.FileManage;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -20,8 +20,6 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,7 +44,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //查询科室列表
     @Override
-    @CachePut(value="department",key="'deptCategoryID'+#deptCategoryID+'deptTypeID'+#deptTypeID")
+//    @CachePut(value="department",key="'deptCategoryID'+#deptCategoryID+'deptTypeID'+#deptTypeID")
     public List<DepartmentView> findDepartments(Integer deptCategoryID, Integer deptTypeID) {
         DepartmentViewExample example = new DepartmentViewExample();
         DepartmentViewExample.Criteria criteria = example.createCriteria();
@@ -76,7 +74,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //批量删除科室
     @Override
-    @CacheEvict(value="department")
+//    @CacheEvict(value="department")
     public void deleteByChoose(IdDTO ids, Integer userID) {
         for (Integer id : ids.getId()) {
             Department department = departmentDao.selectByPrimaryKey(id);
@@ -92,7 +90,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //列出所有科室类型或科室分类的id
     @Override
-    @Cacheable(value="constantItem",key="'deptState'+#i")
+//    @Cacheable(value="constantItem",key="'deptState'+#i")
     public List<NameCodeDTO> findALLDeptTypeOrCategoryId(int i) {
         if (i == 0)
             return constantitemDao.findAllNamesAndCodesByType(21);
@@ -103,7 +101,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //添加新科室
     @Override
-    @CacheEvict("department")
+//    @CacheEvict("department")
     public void add(Department department, Integer userID) {
         department.setStatus("1");
         department.setAppearUserID(userID);
@@ -113,7 +111,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //修改科室信息
     @Override
-    @CacheEvict("department")
+//    @CacheEvict("department")
     public void change(Department department, Integer userID) {
         department.setChangeUserID(userID);
         department.setChangeDate(new Date());
@@ -122,7 +120,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //根据科室名称或编号查询科室
     @Override
-    @Cacheable(value="department",key="'nameOrCode'+#nameOrCode")
+//    @Cacheable(value="department",key="'nameOrCode'+#nameOrCode")
     public List<DepartmentView> findDepartmentByNameOrCode(String nameOrCode) {
         DepartmentViewExample departmentviewExample = new DepartmentViewExample();
         DepartmentViewExample.Criteria criteria1 = departmentviewExample.createCriteria();
@@ -148,13 +146,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    @Cacheable(value="constantItem",key="'getALLDeptNamesAndDeptCodes'")
     public List<NameCodeDTO> getAllDeptNamesAndDeptCodes() {
         return departmentviewDao.selectAllDeptNamesAndCodes();
     }
 
     @Override
-    @CacheEvict(value="department")
+//    @CacheEvict(value="department")
     public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException {
         //标识文件内容是否有错
         boolean state=true;

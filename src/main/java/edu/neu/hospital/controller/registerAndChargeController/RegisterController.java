@@ -12,7 +12,9 @@ import edu.neu.hospital.bean.basicTableBean.Registrationinfo;
 import edu.neu.hospital.bean.basicTableBean.User;
 import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
-import edu.neu.hospital.service.baseService.*;
+import edu.neu.hospital.service.baseService.ConstantService;
+import edu.neu.hospital.service.baseService.DepartmentService;
+import edu.neu.hospital.service.baseService.ScheduleService;
 import edu.neu.hospital.service.registerAndCharge.RegisterService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -76,22 +78,22 @@ public class RegisterController {
         regInfo.setPaymentCategoryID(payID);
         regInfo.setExpense(expense);
 
-        try {
+        //try {
 
-            UserView user = (UserView) session.getAttribute("user");
-            Integer appearUserID = user.getId();
-            int result = regService.addRegisteredInfo(isHaveCard, patient, passwd, regInfo, appearUserID);
+        UserView user = (UserView) session.getAttribute("registerAndChargeUser");
+        Integer appearUserID = user.getId();
+        int result = regService.addRegisteredInfo(isHaveCard, patient, passwd, regInfo, appearUserID);
 
-            if (0 == result) {
-                return new ResultDTO<>("FALSE", "挂号失败", result);
-            }
-
-            return new ResultDTO<>("OK", "挂号成功", result);
-
-        } catch (Exception e) {
-            System.out.println(e.toString());
-            return new ResultDTO<>("error", "发生异常，挂号失败", e);
+        if (0 == result) {
+            return new ResultDTO<>("FALSE", "挂号失败", result);
         }
+
+        return new ResultDTO<>("OK", "挂号成功", result);
+
+//        } catch (Exception e) {
+//            System.out.println(e.toString());
+//            return new ResultDTO<>("error", "发生异常，挂号失败", e);
+//        }
     }
 
     @RequestMapping("/getDeptList")
@@ -130,43 +132,43 @@ public class RegisterController {
 
         System.out.println("url: /register/getDoctor");
 
-        try {
+        //try {
 
-            System.out.println(levelNameID);
-            System.out.println(deptID);
-            System.out.println(date);
-            Date date1 = null;
-            if (date != null && !date.equals("")) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(levelNameID);
+        System.out.println(deptID);
+        System.out.println(date);
+        Date date1 = null;
+        if (date != null && !date.equals("")) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-                date1 = simpleDateFormat.parse(date);
-            }
-
-            List<ScheduleView> scheduleViews = scheduleService.find(date1, date1, null, null);
-            List<NameCodeDTO> nameCodeDTOS = new ArrayList<>();
-
-            for (ScheduleView view : scheduleViews) {
-
-                if (view.getLevelNameID().equals(levelNameID) && view.getDeptID().equals(deptID)) {
-
-                    NameCodeDTO nameCodeDTO = new NameCodeDTO();
-                    nameCodeDTO.setId(view.getOnDutyDoctorID());
-
-                    nameCodeDTO.setCode(view.getUserName());
-                    User user = regService.findUserByID(view.getOnDutyDoctorID());
-                    nameCodeDTO.setName(user.getRealName());
-
-                    nameCodeDTOS.add(nameCodeDTO);
-
-                    System.out.println(nameCodeDTO.toString());
-                }
-            }
-
-            return new ResultDTO<>("OK", "获取成功", nameCodeDTOS);
-
-        } catch (Exception e) {
-            return new ResultDTO<>("error", "发生异常，获取失败", null);
+            date1 = simpleDateFormat.parse(date);
         }
+
+        List<ScheduleView> scheduleViews = scheduleService.find(date1, date1, null, null);
+        List<NameCodeDTO> nameCodeDTOS = new ArrayList<>();
+
+        for (ScheduleView view : scheduleViews) {
+
+            if (view.getLevelNameID().equals(levelNameID) && view.getDeptID().equals(deptID)) {
+
+                NameCodeDTO nameCodeDTO = new NameCodeDTO();
+                nameCodeDTO.setId(view.getOnDutyDoctorID());
+
+                nameCodeDTO.setCode(view.getUserName());
+                User user = regService.findUserByID(view.getOnDutyDoctorID());
+                nameCodeDTO.setName(user.getRealName());
+
+                nameCodeDTOS.add(nameCodeDTO);
+
+                System.out.println(nameCodeDTO.toString());
+            }
+        }
+
+        return new ResultDTO<>("OK", "获取成功", nameCodeDTOS);
+
+//        } catch (Exception e) {
+//            return new ResultDTO<>("error", "发生异常，获取失败", null);
+//        }
     }
 
 
@@ -198,11 +200,11 @@ public class RegisterController {
         //挂号费
         switch (regLevelID) {
             case 95:
-                //急诊挂号
+                //专家挂号
                 regFee = 20;
                 break;
             case 96:
-                //专家挂号
+                //急诊挂号
                 regFee = 30;
                 break;
             case 94:
@@ -234,18 +236,24 @@ public class RegisterController {
 
     private ResultDTO<List<NameCodeDTO>> getConstants(Integer typeID) {
 
-        try {
+        //try {
 
             List<ConstantItem> constantItemList = constantService.findByTypeID(typeID);
             List<NameCodeDTO> nameCodeDTOS = new ArrayList<>();
 
-            for (ConstantItem item : constantItemList) {
+        System.out.println(constantItemList.size());
+            for (int i=0;i<constantItemList.size();i++) {
 
                 NameCodeDTO nameCodeDTO = new NameCodeDTO();
 
-                nameCodeDTO.setId(item.getId());
-                nameCodeDTO.setCode(item.getConstantCode());
-                nameCodeDTO.setName(item.getConstantName());
+                System.out.println(constantItemList.getClass());
+                System.out.println(constantItemList.get(i).toString());
+
+
+
+                nameCodeDTO.setId(constantItemList.get(i).getId());
+                nameCodeDTO.setCode(constantItemList.get(i).getConstantCode());
+                nameCodeDTO.setName(constantItemList.get(i).getConstantName());
 
                 nameCodeDTOS.add(nameCodeDTO);
 
@@ -255,9 +263,9 @@ public class RegisterController {
             return new ResultDTO<>("OK", "获取成功", nameCodeDTOS);
 
 
-        } catch (Exception e) {
-            return new ResultDTO<>("error", "发生异常，获取失败", null);
-        }
+//        } catch (Exception e) {
+//            return new ResultDTO<>("error", "发生异常，获取失败", null);
+//        }
     }
 
     @RequestMapping("/allInfo")
@@ -312,6 +320,7 @@ public class RegisterController {
             Date date = simp.parse(simp.format(new Date()));
             int count = 0;
             for (RegistrationListView view : regInfoList) {
+                view.setRegistrationDate(simp.parse(simp.format(view.getRegistrationDate())));
                 if (date.equals(view.getRegistrationDate()))
                     count++;
             }

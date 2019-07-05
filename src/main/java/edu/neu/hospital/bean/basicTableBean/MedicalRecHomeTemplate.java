@@ -5,49 +5,64 @@ import java.util.Date;
 
 /**
  * medicalrechometemplate
- *
- * @author
+ * @author 
  */
 public class MedicalRecHomeTemplate implements Serializable {
-    private static final long serialVersionUID = 1L;
     /**
      * 病历首页模板ID
      */
     private Integer id;
+
     /**
      * 医生id
      */
     private Integer doctorId;
+
     /**
      * 名称
      */
     private String name;
+
     /**
      * 主诉
      */
     private String chiefCompliant;
+
     /**
      * 现病史
      */
     private String currentMedicalHistory;
+
     /**
      * 现状况
      */
     private String currentTreatmentSituation;
+
     private String pastMedicalHistory;
+
     private String allergies;
+
     private String physicalExamination;
+
+    private String assistantExamination;
+
     private String attention;
+
     /**
-     * 类别
+     * 类别17
      */
     private Integer type;
+
     /**
      * 状态
      */
     private String status;
+
     private Date appearDate;
+
     private Date changeDate;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
@@ -121,6 +136,14 @@ public class MedicalRecHomeTemplate implements Serializable {
         this.physicalExamination = physicalExamination;
     }
 
+    public String getAssistantExamination() {
+        return assistantExamination;
+    }
+
+    public void setAssistantExamination(String assistantExamination) {
+        this.assistantExamination = assistantExamination;
+    }
+
     public String getAttention() {
         return attention;
     }
@@ -174,19 +197,20 @@ public class MedicalRecHomeTemplate implements Serializable {
         }
         MedicalRecHomeTemplate other = (MedicalRecHomeTemplate) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-                && (this.getDoctorId() == null ? other.getDoctorId() == null : this.getDoctorId().equals(other.getDoctorId()))
-                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-                && (this.getChiefCompliant() == null ? other.getChiefCompliant() == null : this.getChiefCompliant().equals(other.getChiefCompliant()))
-                && (this.getCurrentMedicalHistory() == null ? other.getCurrentMedicalHistory() == null : this.getCurrentMedicalHistory().equals(other.getCurrentMedicalHistory()))
-                && (this.getCurrentTreatmentSituation() == null ? other.getCurrentTreatmentSituation() == null : this.getCurrentTreatmentSituation().equals(other.getCurrentTreatmentSituation()))
-                && (this.getPastMedicalHistory() == null ? other.getPastMedicalHistory() == null : this.getPastMedicalHistory().equals(other.getPastMedicalHistory()))
-                && (this.getAllergies() == null ? other.getAllergies() == null : this.getAllergies().equals(other.getAllergies()))
-                && (this.getPhysicalExamination() == null ? other.getPhysicalExamination() == null : this.getPhysicalExamination().equals(other.getPhysicalExamination()))
-                && (this.getAttention() == null ? other.getAttention() == null : this.getAttention().equals(other.getAttention()))
-                && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
-                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-                && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
-                && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()));
+            && (this.getDoctorId() == null ? other.getDoctorId() == null : this.getDoctorId().equals(other.getDoctorId()))
+            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getChiefCompliant() == null ? other.getChiefCompliant() == null : this.getChiefCompliant().equals(other.getChiefCompliant()))
+            && (this.getCurrentMedicalHistory() == null ? other.getCurrentMedicalHistory() == null : this.getCurrentMedicalHistory().equals(other.getCurrentMedicalHistory()))
+            && (this.getCurrentTreatmentSituation() == null ? other.getCurrentTreatmentSituation() == null : this.getCurrentTreatmentSituation().equals(other.getCurrentTreatmentSituation()))
+            && (this.getPastMedicalHistory() == null ? other.getPastMedicalHistory() == null : this.getPastMedicalHistory().equals(other.getPastMedicalHistory()))
+            && (this.getAllergies() == null ? other.getAllergies() == null : this.getAllergies().equals(other.getAllergies()))
+            && (this.getPhysicalExamination() == null ? other.getPhysicalExamination() == null : this.getPhysicalExamination().equals(other.getPhysicalExamination()))
+            && (this.getAssistantExamination() == null ? other.getAssistantExamination() == null : this.getAssistantExamination().equals(other.getAssistantExamination()))
+            && (this.getAttention() == null ? other.getAttention() == null : this.getAttention().equals(other.getAttention()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
+            && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()));
     }
 
     @Override
@@ -202,6 +226,7 @@ public class MedicalRecHomeTemplate implements Serializable {
         result = prime * result + ((getPastMedicalHistory() == null) ? 0 : getPastMedicalHistory().hashCode());
         result = prime * result + ((getAllergies() == null) ? 0 : getAllergies().hashCode());
         result = prime * result + ((getPhysicalExamination() == null) ? 0 : getPhysicalExamination().hashCode());
+        result = prime * result + ((getAssistantExamination() == null) ? 0 : getAssistantExamination().hashCode());
         result = prime * result + ((getAttention() == null) ? 0 : getAttention().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
@@ -225,6 +250,7 @@ public class MedicalRecHomeTemplate implements Serializable {
         sb.append(", pastMedicalHistory=").append(pastMedicalHistory);
         sb.append(", allergies=").append(allergies);
         sb.append(", physicalExamination=").append(physicalExamination);
+        sb.append(", assistantExamination=").append(assistantExamination);
         sb.append(", attention=").append(attention);
         sb.append(", type=").append(type);
         sb.append(", status=").append(status);
