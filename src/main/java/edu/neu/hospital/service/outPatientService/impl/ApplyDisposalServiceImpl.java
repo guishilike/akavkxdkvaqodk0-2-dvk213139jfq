@@ -1,14 +1,14 @@
 package edu.neu.hospital.service.outPatientService.impl;
 
+import edu.neu.hospital.bean.baseBean.FmeditemView;
 import edu.neu.hospital.bean.basicTableBean.*;
+import edu.neu.hospital.dao.baseDao.FMedItemViewDao;
 import edu.neu.hospital.dao.basicTableDao.*;
 
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
-import edu.neu.hospital.example.basicTableExample.DisposalExample;
-import edu.neu.hospital.example.basicTableExample.DisposalFeeExample;
-import edu.neu.hospital.example.basicTableExample.FMedItemExample;
-import edu.neu.hospital.example.basicTableExample.DisposalDetailsViewExample;
+import edu.neu.hospital.example.baseExample.FMedItemViewExample;
+import edu.neu.hospital.example.basicTableExample.*;
 import edu.neu.hospital.service.outPatientService.ApplyDisposalService;
 import edu.neu.hospital.utils.RegexProcess;
 import org.springframework.stereotype.Service;
@@ -36,12 +36,25 @@ public class ApplyDisposalServiceImpl implements ApplyDisposalService {
     FMedItemDao fMedItemDao;
 
     @Resource
+    DisposalDetailsDao disposalDetailsDao;
+
+    @Resource
     FeeDao feeDao;
     @Resource
     DisposalFeeDao disposalFeeDao;
 
     @Resource
     DisposalDetailsViewDao disposalDetailsViewDao;
+
+    @Resource
+    FMedItemViewDao fMedItemViewDao;
+
+    @Resource
+    ProjectTemplateViewDao projectTemplateViewDao;
+
+    @Resource
+    ProjectTemplateDao projectTemplateDao;
+
     @Override
     public boolean checkIsHaven(Integer medicalRecordID) {
         DisposalExample disposalExample = new DisposalExample();
@@ -52,6 +65,15 @@ public class ApplyDisposalServiceImpl implements ApplyDisposalService {
         }
         return true;
     }
+
+    @Override
+    public boolean deleteDisposalDetailsByID(Integer disposalDetailsId, Integer userID) {
+        DisposalDetails disposalDetails = disposalDetailsDao.selectByPrimaryKey(disposalDetailsId);
+        disposalDetails.setStatus("0");
+        disposalDetailsDao.updateByPrimaryKeySelective(disposalDetails);
+        return true;
+    }
+
 
     @Override
     public Disposal newDisposal(Disposal disposal, Integer userID) {
@@ -277,5 +299,37 @@ public class ApplyDisposalServiceImpl implements ApplyDisposalService {
         return disposalDetailsViewDao.selectByExample(disposalDetailsViewExample);
 
     }
+
+
+    public FmeditemView getIndexFMedItem(DisposalDetails disposalDetails){
+        Integer fMedItemID = disposalDetails.getfMedItemID();
+        FMedItemViewExample fMedItemViewExample = new FMedItemViewExample();
+        FMedItemViewExample.Criteria criteria = fMedItemViewExample.createCriteria();
+        criteria.andIdEqualTo(fMedItemID);
+        return fMedItemViewDao.selectByExample(fMedItemViewExample).get(0);
+
+
+    }
+
+
+
+    @Override
+    public ProjectTemplate use_Check(Integer projectTemplateID  , Integer disposalID ,Integer userID) {
+        ProjectTemplateViewExample projectTemplateViewExample = new ProjectTemplateViewExample();
+        ProjectTemplateViewExample.Criteria criteria = projectTemplateViewExample.createCriteria();
+        criteria.andIdEqualTo(projectTemplateID);
+        List<ProjectTemplateView> projectTemplateViewList = projectTemplateViewDao.selectByExample(projectTemplateViewExample);
+        Disposal disposal = disposalDao.selectByPrimaryKey(disposalID);
+        for( int i = 0 ; i < projectTemplateViewList.size() ; i ++){
+
+            DisposalDetails disposalDetails = new DisposalDetails();
+            disposalDetails.setDisposalID(disposalID);
+            disposalDetails.setfMedItemID(projectTemplateViewList.get(i).getRelevantID());
+            disposalDetails.setNumber(projectTemplateViewList.get(i).getDosage());
+            this.addDisposalDetails( disposal,disposalDetails ,userID);
+        }
+        return projectTemplateDao.selectByPrimaryKey(projectTemplateID);
+    }
+
 
 }

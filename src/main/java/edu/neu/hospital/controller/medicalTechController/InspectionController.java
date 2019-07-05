@@ -200,7 +200,7 @@ public class InspectionController{
     public @ResponseBody ResultDTO deleteMedMat(Integer medMatListID,HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            UserView user= (UserView) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("medicalTechUser");
             Integer userID=user.getId();
             inspectionService.deleteMedMat(medMatListID,userID);
             resultDTO.setStatus("OK");
@@ -223,7 +223,7 @@ public class InspectionController{
     public @ResponseBody ResultDTO deleteMedMatByList(@RequestBody IdDTO medMatListIDs,HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            UserView user= (UserView) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("medicalTechUser");
             Integer userID=user.getId();
             inspectionService.deleteMedMatByList(medMatListIDs,userID);
             resultDTO.setStatus("OK");
@@ -247,7 +247,7 @@ public class InspectionController{
     public @ResponseBody ResultDTO updateMedMat(@RequestBody MedicinesMaterialsList medicinesmaterialslist,HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            UserView user= (UserView) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("medicalTechUser");
             Integer userID=user.getId();
             String msg= inspectionService.updateMedMat(medicinesmaterialslist,userID);
             if(msg.equals("检查检验药品材料修改成功")){
@@ -323,7 +323,7 @@ public class InspectionController{
     ResultDTO insertMedMat(HttpSession session,@RequestBody MedicinesMaterialsList medicinesmaterialslist){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            UserView user= (UserView) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("medicalTechUser");
             Integer userID=user.getId();
             String msg=inspectionService.insertMedMat(userID,medicinesmaterialslist);
             if(msg.equals("检查检验药品材料添加成功")){
@@ -354,7 +354,7 @@ public class InspectionController{
     ResultDTO approveMat(@RequestBody IdDTO matListIDs,HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            UserView user= (UserView) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("medicalTechUser");
             Integer userID=user.getId();
             inspectionService.approveMat(matListIDs,userID);
             resultDTO.setStatus("OK");
@@ -380,7 +380,7 @@ public class InspectionController{
     ResultDTO approveMed(@RequestBody IdDTO medListIDs, HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            UserView user= (UserView) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("medicalTechUser");
             Integer userID=user.getId();
             inspectionService.approveMed(medListIDs,userID);
             resultDTO.setStatus("OK");
@@ -468,7 +468,7 @@ public class InspectionController{
     ResultDTO<InspectionResultWithBLOBs>  importInspectResult(@RequestBody InspectionResultWithBLOBs inspectionresultWithBLOBs, HttpSession session){
         ResultDTO<InspectionResultWithBLOBs> resultDTO = new ResultDTO<>();
         try {
-            UserView user= (UserView) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("medicalTechUser");
             Integer userID=user.getId();
 
             resultDTO.setStatus("OK");
@@ -496,7 +496,7 @@ public class InspectionController{
     ResultDTO<InspectionResultWithBLOBs> deleteInspectResult(@RequestBody InspectionResultWithBLOBs inspectionresultWithBLOBs,HttpSession session){
         ResultDTO<InspectionResultWithBLOBs> resultDTO = new ResultDTO<>();
         try {
-            UserView user= (UserView) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("medicalTechUser");
             Integer userID=user.getId();
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功！");
@@ -523,7 +523,7 @@ public class InspectionController{
     public @ResponseBody ResultDTO importInspectResultImages(@RequestBody InspectionResultImage inspectionresultimage, HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-                UserView user= (UserView) session.getAttribute("user");
+                UserView user= (UserView) session.getAttribute("medicalTechUser");
                 Integer userID=user.getId();
                 inspectionService.importInspectResultImages(inspectionresultimage,userID);
                 resultDTO.setStatus("OK");
@@ -597,7 +597,7 @@ public class InspectionController{
 
             boolean delete = file.delete();
             if(delete){
-            UserView user= (UserView) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("medicalTechUser");
             Integer userID=user.getId();
             inspectionService.deleteInspectResultImages(catalog,userID);
             resultDTO.setStatus("OK");

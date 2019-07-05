@@ -200,7 +200,7 @@ public class DisposalController {
         ResultDTO deleteMedMat(Integer medMatListID,HttpSession session) {
             ResultDTO resultDTO = new ResultDTO();
             try {
-                UserView user= (UserView) session.getAttribute("user");
+                UserView user= (UserView) session.getAttribute("medicalTechUser");
                 Integer userID=user.getId();
                 disposalService.deleteMedMat(medMatListID,userID);
                 resultDTO.setMsg("操作成功！");
@@ -224,7 +224,7 @@ public class DisposalController {
         ResultDTO deleteMedMatByList(@RequestBody IdDTO medMatListIDs,HttpSession session) {
             ResultDTO resultDTO = new ResultDTO();
             try {
-                UserView user= (UserView) session.getAttribute("user");
+                UserView user= (UserView) session.getAttribute("medicalTechUser");
                 Integer userID=user.getId();
                 disposalService.deleteMedMatByList(medMatListIDs,userID);
                 resultDTO.setMsg("操作成功！");
@@ -249,7 +249,7 @@ public class DisposalController {
         ResultDTO updateMedMat(@RequestBody MedicinesMaterialsList medicinesmaterialslist,HttpSession session) {
             ResultDTO resultDTO = new ResultDTO();
             try {
-                UserView user= (UserView) session.getAttribute("user");
+                UserView user= (UserView) session.getAttribute("medicalTechUser");
                 Integer userID=user.getId();
                String msg=disposalService.updateMedMat(medicinesmaterialslist,userID);
                if(msg.equals("处置药品材料修改成功")) {
@@ -328,7 +328,7 @@ public class DisposalController {
         ResultDTO insertMedMat(HttpSession session,@RequestBody MedicinesMaterialsList medicinesmaterialslist) {
             ResultDTO resultDTO = new ResultDTO();
             try {
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("medicalTechUser");
                 Integer userID = user.getId();
                 String msg=disposalService.insertMedMat(userID, medicinesmaterialslist);
                 if(msg.equals("处置药品材料添加成功")){
@@ -359,7 +359,7 @@ public class DisposalController {
         ResultDTO approveMat(@RequestBody IdDTO matListIDs, HttpSession session) {
             ResultDTO resultDTO = new ResultDTO();
             try {
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("medicalTechUser");
                 Integer userID = user.getId();
                 disposalService.approveMat(matListIDs, userID);
 
@@ -386,7 +386,7 @@ public class DisposalController {
         ResultDTO approveMed(@RequestBody IdDTO medListIDs, HttpSession session) {
             ResultDTO resultDTO = new ResultDTO();
             try {
-                UserView user = (UserView) session.getAttribute("user");
+                UserView user = (UserView) session.getAttribute("medicalTechUser");
                 Integer userID = user.getId();
                 disposalService.approveMed(medListIDs, userID);
                 resultDTO.setMsg("操作成功！");

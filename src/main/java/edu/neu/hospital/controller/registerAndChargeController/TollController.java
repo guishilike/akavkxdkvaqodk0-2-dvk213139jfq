@@ -190,7 +190,7 @@ public class TollController {
     ResultDTO toll(@RequestBody IdDTO feeIDs, HttpSession session) {
         ResultDTO resultDTO = new ResultDTO();
         try {
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("registerAndChargeUser");
             Integer tollManID = user.getId();
 
             String msg = tollService.toll(feeIDs, tollManID);
@@ -222,7 +222,7 @@ public class TollController {
     ResultDTO<String> refund(@RequestBody IdDTO feeIDs, HttpSession session) {
         ResultDTO<String> resultDTO = new ResultDTO<>();
         try {
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("registerAndChargeUser");
             Integer tollManID = user.getId();
             String msg = tollService.refund(feeIDs, tollManID);
             if (msg.equals("退费成功")) {
@@ -253,7 +253,7 @@ public class TollController {
     ResultDTO<List<DailySettleView>> dailySettle(HttpSession session, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endDate) {
         ResultDTO<List<DailySettleView>> resultDTO = new ResultDTO<>();
         try {
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("registerAndChargeUser");
             Integer tollManID = user.getId();
             Map<String, Date> result = tollService.dailySettle(tollManID, endDate);
             String msg = "";
@@ -292,7 +292,7 @@ public class TollController {
     ResultDTO<PageInfo<DailySettleView>> dailySettleSearch(HttpSession session, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endDate, Integer pageNum, Integer pageSize) {
         ResultDTO<PageInfo<DailySettleView>> resultDTO = new ResultDTO<>();
         try {
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("registerAndChargeUser");
             Integer tollManID = user.getId();
             PageHelper.startPage(pageNum, pageSize);
             List<DailySettleView> dailySettleViewList = tollService.dailySettleSearch(tollManID, startDate, endDate);
@@ -322,7 +322,7 @@ public class TollController {
     ResultDTO<List<FeeView>> dailySettleFee(HttpSession session, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endDate) {
         ResultDTO<List<FeeView>> resultDTO = new ResultDTO<>();
         try {
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("registerAndChargeUser");
             Integer tollManID = user.getId();
             resultDTO.setStatus("OK");
             resultDTO.setMsg("操作成功！");
