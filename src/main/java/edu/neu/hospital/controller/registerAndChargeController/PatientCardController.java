@@ -8,7 +8,6 @@ import edu.neu.hospital.bean.basicTableBean.Patient;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.patientCard.PatientCardService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,7 +22,6 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("patientCard")
-@CrossOrigin
 public class PatientCardController {
 
     @Resource
