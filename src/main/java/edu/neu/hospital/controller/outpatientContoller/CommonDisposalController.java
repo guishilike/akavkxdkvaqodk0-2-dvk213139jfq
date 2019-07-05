@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.example.basicTableExample.CommonDisposalsView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.bean.basicTableBean.Inspection;
@@ -190,6 +191,24 @@ public class CommonDisposalController {
             System.out.println(e + "getThisDoctorTemp");
         }
         return resultDTO;
+    }
+
+    @RequestMapping("/findAllFMedItemNamesAndCodes")
+    public @ResponseBody
+    ResultDTO getAllFMedItemNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = commonDisposalService.getAllFMedItemNamesAndCodes();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得项目搜索列表成功");
+
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得项目搜索列表失败");
+        }
+        return resultDTO;
+
     }
 
 }

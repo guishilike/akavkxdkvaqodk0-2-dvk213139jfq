@@ -1,6 +1,8 @@
 package edu.neu.hospital.service.outPatientService.impl;
 
 import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
+import edu.neu.hospital.dao.baseDao.FMedItemViewDao;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.example.basicTableExample.CommonDisposalsView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.dao.basicTableDao.CommonDiposalsDao;
@@ -26,6 +28,9 @@ public class CommonDisposalServiceImp implements CommonDisposalService {
     @Resource
     CommonDisposalsViewDao commonDisposalsViewDao;
     RegexProcess regexProcess = new RegexProcess();
+
+    @Resource
+    FMedItemViewDao fMedItemViewDao;
     /**
      * 列出该位医生的常用诊断
      * @param doctorID
@@ -161,5 +166,10 @@ public class CommonDisposalServiceImp implements CommonDisposalService {
     public CommonDiposals searchCommonDiposals(Integer commonDiposalsID) {
         return commonDiposalsDao.selectByPrimaryKey(commonDiposalsID);
     }
+
+@Override
+public List<NameCodeDTO> getAllFMedItemNamesAndCodes() {
+    return fMedItemViewDao.selectAllFMedNamesAndCodes();
+}
 }
 
