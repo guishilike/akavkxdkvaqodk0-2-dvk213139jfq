@@ -16,10 +16,15 @@ public interface ApplyPrescriptionService {
     public boolean deletePrescription(Integer prescriptionID, Integer userID);
     //5.	作废处方
     public  boolean abolishPrescription(Integer prescriptionID, Integer userID);
+
+    boolean sendPrescription(Integer prescriptionID, Integer userID);
+
     //6.	增药、删药：在某个处方中，增加或删除药品。
     // 已发送的处方中，不能再增药或删药。：在增药时，取这个处方的ID，取处方里药的ID，若isDrawn则不能增
     public boolean addDrugs(Integer prescriptionID, PrescriptionDetail prescriptionDetail, Integer userID);
     public   boolean deleteDrugs(Integer prescriptionID, Integer prescriptionDetailID, Integer userID);
+
+    boolean deleteAllDetails(Integer prescriptionID);
 
     //模糊查询
     public List<Drugs>  searchDrugs(String str);
@@ -34,5 +39,8 @@ public interface ApplyPrescriptionService {
     public CommonDrugs useCommonDrugs(Integer commonDrugsID);
     //开立时向fee中插一条未缴费的记录
     public Fee addProjectFee(Integer prescriptionDetailID, Integer userID);
-    public   List<Drugs> listDrugs();
+    public   List<Drugsview> listDrugs();
+    public List<Prescriptionview> findAllPrescription();
+
+    List<PrescriptionDetailView> findAllPrescriptionDetails(Integer prescription);
 }

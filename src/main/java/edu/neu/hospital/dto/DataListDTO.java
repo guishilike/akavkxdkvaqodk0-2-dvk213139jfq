@@ -9,7 +9,7 @@ public class DataListDTO<T> implements Serializable {
         return data;
     }
 
-    public void setId(List<T> data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 
