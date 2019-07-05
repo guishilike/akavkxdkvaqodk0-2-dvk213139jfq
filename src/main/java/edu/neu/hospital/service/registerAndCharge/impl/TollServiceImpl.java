@@ -111,6 +111,7 @@ public class TollServiceImpl implements TollService {
                 TollInspectViewExample tollinspectviewExample = new TollInspectViewExample();
                 TollInspectViewExample.Criteria criteriaV = tollinspectviewExample.createCriteria();
                 criteriaV.andMedicalRecordIDEqualTo(fee.getMedicalRecordID());
+                criteriaV.andChargeItemIDEqualTo(fee.getChargeItemID());
                 criteriaV.andExpIDEqualTo(fee.getExpID());
                 tollInspectViewList.addAll(tollinspectviewDao.selectByExample(tollinspectviewExample));
             }
@@ -143,6 +144,7 @@ public class TollServiceImpl implements TollService {
                 TollDisposalViewExample tolldisposalviewExample = new TollDisposalViewExample();
                 TollDisposalViewExample.Criteria criteriaV = tolldisposalviewExample.createCriteria();
                 criteriaV.andMedicalRecordIDEqualTo(fee.getMedicalRecordID());
+                criteriaV.andChargeItemIDEqualTo(fee.getChargeItemID());
                 criteriaV.andExpIDEqualTo(fee.getExpID());
                 tollDisposalViewList.addAll(tolldisposalviewDao.selectByExample(tolldisposalviewExample));
             }
@@ -176,6 +178,7 @@ public class TollServiceImpl implements TollService {
                 TollPresViewExample tollpresviewExample = new TollPresViewExample();
                 TollPresViewExample.Criteria criteriaV = tollpresviewExample.createCriteria();
                 criteriaV.andMedicalRecordIDEqualTo(fee.getMedicalRecordID());
+                criteriaV.andChargeItemIDEqualTo(fee.getChargeItemID());
                 criteriaV.andExpIDEqualTo(fee.getExpID());
                 tollPresViewList.addAll(tollpresviewDao.selectByExample(tollpresviewExample));
             }
@@ -208,6 +211,7 @@ public class TollServiceImpl implements TollService {
                 TollMatViewExample tollmatviewExample = new TollMatViewExample();
                 TollMatViewExample.Criteria criteriaV = tollmatviewExample.createCriteria();
                 criteriaV.andMedicalRecordIDEqualTo(fee.getMedicalRecordID());
+                criteriaV.andChargeItemIDEqualTo(fee.getChargeItemID());
                 criteriaV.andExpIDEqualTo(fee.getExpID());
                 tollMatViewList.addAll(tollmatviewDao.selectByExample(tollmatviewExample));
             }
@@ -240,6 +244,7 @@ public class TollServiceImpl implements TollService {
                 TollMedViewExample tollmedviewExample = new TollMedViewExample();
                 TollMedViewExample.Criteria criteriaV = tollmedviewExample.createCriteria();
                 criteriaV.andMedicalRecordIDEqualTo(fee.getMedicalRecordID());
+                criteriaV.andChargeItemIDEqualTo(fee.getChargeItemID());
                 criteriaV.andExpIDEqualTo(fee.getExpID());
                 tollMedViewList.addAll(tollmedviewDao.selectByExample(tollmedviewExample));
             }
@@ -272,6 +277,7 @@ public class TollServiceImpl implements TollService {
                 TollRegViewExample tollregviewExample = new TollRegViewExample();
                 TollRegViewExample.Criteria criteriaV = tollregviewExample.createCriteria();
                 criteriaV.andMedicalRecordIDEqualTo(fee.getMedicalRecordID());
+                criteriaV.andChargeItemIDEqualTo(fee.getChargeItemID());
                 criteriaV.andExpIDEqualTo(fee.getExpID());
                 tollRegViewList.addAll(tollregviewDao.selectByExample(tollregviewExample));
             }

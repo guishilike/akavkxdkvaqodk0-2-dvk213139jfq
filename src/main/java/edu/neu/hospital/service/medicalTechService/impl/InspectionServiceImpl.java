@@ -459,7 +459,7 @@ public class InspectionServiceImpl implements InspectionService {
 
             InspectMatReViewExample inspectmatreviewExample=new InspectMatReViewExample();
             InspectMatReViewExample.Criteria criteriaM=inspectmatreviewExample.createCriteria();
-            criteriaM.andMedicinesMaterialsIDEqualTo(ID);
+            criteriaM.andMedMatListIDEqualTo(ID);
             InspectMatReView inspectmatreview=inspectmatreviewDao.selectByExample(inspectmatreviewExample).get(0);
 
             InspectFormViewExample inspectformviewExample=new InspectFormViewExample();
