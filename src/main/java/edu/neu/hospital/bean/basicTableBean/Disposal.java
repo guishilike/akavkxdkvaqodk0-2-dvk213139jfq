@@ -5,32 +5,39 @@ import java.util.Date;
 
 /**
  * disposal
- *
- * @author
+ * @author 
  */
 public class Disposal implements Serializable {
-    private static final long serialVersionUID = 1L;
     private Integer id;
+
     /**
      * 病历id
      */
     private Integer medicalRecordID;
+
     /**
      * 医生id
      */
     private Integer doctorID;
+
     private Integer num;
+
     /**
      * 处置标志
      */
     private Integer mark;
+
     private Integer appearUserID;
+
     private Integer changeUserID;
+
     private Date appearDate;
+
     private Date changeDate;
-    private String isDrawn;
-    private String isRegistered;
+
     private String status;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
@@ -104,22 +111,6 @@ public class Disposal implements Serializable {
         this.changeDate = changeDate;
     }
 
-    public String getIsDrawn() {
-        return isDrawn;
-    }
-
-    public void setIsDrawn(String isDrawn) {
-        this.isDrawn = isDrawn;
-    }
-
-    public String getIsRegistered() {
-        return isRegistered;
-    }
-
-    public void setIsRegistered(String isRegistered) {
-        this.isRegistered = isRegistered;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -141,17 +132,15 @@ public class Disposal implements Serializable {
         }
         Disposal other = (Disposal) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-                && (this.getMedicalRecordID() == null ? other.getMedicalRecordID() == null : this.getMedicalRecordID().equals(other.getMedicalRecordID()))
-                && (this.getDoctorID() == null ? other.getDoctorID() == null : this.getDoctorID().equals(other.getDoctorID()))
-                && (this.getNum() == null ? other.getNum() == null : this.getNum().equals(other.getNum()))
-                && (this.getMark() == null ? other.getMark() == null : this.getMark().equals(other.getMark()))
-                && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
-                && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
-                && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
-                && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
-                && (this.getIsDrawn() == null ? other.getIsDrawn() == null : this.getIsDrawn().equals(other.getIsDrawn()))
-                && (this.getIsRegistered() == null ? other.getIsRegistered() == null : this.getIsRegistered().equals(other.getIsRegistered()))
-                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
+            && (this.getMedicalRecordID() == null ? other.getMedicalRecordID() == null : this.getMedicalRecordID().equals(other.getMedicalRecordID()))
+            && (this.getDoctorID() == null ? other.getDoctorID() == null : this.getDoctorID().equals(other.getDoctorID()))
+            && (this.getNum() == null ? other.getNum() == null : this.getNum().equals(other.getNum()))
+            && (this.getMark() == null ? other.getMark() == null : this.getMark().equals(other.getMark()))
+            && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
+            && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
+            && (this.getAppearDate() == null ? other.getAppearDate() == null : this.getAppearDate().equals(other.getAppearDate()))
+            && (this.getChangeDate() == null ? other.getChangeDate() == null : this.getChangeDate().equals(other.getChangeDate()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
     }
 
     @Override
@@ -167,8 +156,6 @@ public class Disposal implements Serializable {
         result = prime * result + ((getChangeUserID() == null) ? 0 : getChangeUserID().hashCode());
         result = prime * result + ((getAppearDate() == null) ? 0 : getAppearDate().hashCode());
         result = prime * result + ((getChangeDate() == null) ? 0 : getChangeDate().hashCode());
-        result = prime * result + ((getIsDrawn() == null) ? 0 : getIsDrawn().hashCode());
-        result = prime * result + ((getIsRegistered() == null) ? 0 : getIsRegistered().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         return result;
     }
@@ -188,8 +175,6 @@ public class Disposal implements Serializable {
         sb.append(", changeUserID=").append(changeUserID);
         sb.append(", appearDate=").append(appearDate);
         sb.append(", changeDate=").append(changeDate);
-        sb.append(", isDrawn=").append(isDrawn);
-        sb.append(", isRegistered=").append(isRegistered);
         sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

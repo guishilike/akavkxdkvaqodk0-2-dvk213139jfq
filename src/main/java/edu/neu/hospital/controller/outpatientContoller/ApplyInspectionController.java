@@ -2,6 +2,7 @@ package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.FmeditemView;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dto.DataListDTO;
@@ -148,22 +149,21 @@ public class ApplyInspectionController {
 
     @RequestMapping("/drawInspectionDetails")
     public @ResponseBody
-    ResultDTO<PageInfo<InspectionDetails>> drawInspectionDetails(IdDTO inspectionDetailsIdList, HttpSession session, Integer pageNum, Integer pageSize) {
-        ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
+    ResultDTO<List<InspectionDetails>> drawInspectionDetails(@RequestBody IdDTO inspectionDetailsIdList, HttpSession session) {
+        ResultDTO<List<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
-            PageHelper.startPage(pageNum, pageSize);
+            //PageHelper.startPage(pageNum, pageSize);
             UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
             System.out.println(outpatientUser.getId());
             List<InspectionDetails> inspectionDetailsList = applyInspectionService.drawInspectionDetails(inspectionDetailsIdList, outpatientUser.getId());
-            PageInfo<InspectionDetails> list = new PageInfo<>(inspectionDetailsList);
+            //PageInfo<InspectionDetails> list = new PageInfo<>(inspectionDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("开立成功");
-            resultDTO.setData(list);
+            resultDTO.setData(inspectionDetailsList);
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
-            //resultDTO.setData(page);
-
+            e.printStackTrace();
         }
         return resultDTO;
     }
@@ -242,17 +242,17 @@ public class ApplyInspectionController {
     }
     @RequestMapping("/abolishInspectionDetails")
     public @ResponseBody
-    ResultDTO<PageInfo<InspectionDetails>> abolishInspectionDetails(IdDTO inspectionDetailsIdList, HttpSession session, Integer pageNum, Integer pageSize) {
-        ResultDTO<PageInfo<InspectionDetails>> resultDTO = new ResultDTO<>();
+    ResultDTO<List<InspectionDetails>> abolishInspectionDetails(IdDTO inspectionDetailsIdList, HttpSession session) {
+        ResultDTO<List<InspectionDetails>> resultDTO = new ResultDTO<>();
         try {
-            PageHelper.startPage(pageNum, pageSize);
+            //PageHelper.startPage(pageNum, pageSize);
             UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
             System.out.println(outpatientUser.getId());
             List<InspectionDetails> inspectionDetailsList = applyInspectionService.abolishInspectionDetails(inspectionDetailsIdList, outpatientUser.getId());
-            PageInfo<InspectionDetails> list = new PageInfo<>(inspectionDetailsList);
+            //PageInfo<InspectionDetails> list = new PageInfo<>(inspectionDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("废除成功");
-            resultDTO.setData(list);
+            resultDTO.setData(inspectionDetailsList);
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
@@ -435,10 +435,30 @@ public class ApplyInspectionController {
     }
 
 
+        @RequestMapping("/getIndexFMedItem")
+        public @ResponseBody
+        ResultDTO<FmeditemView> getIndexFMedItem(InspectionDetails inspectionDetails) {
+            ResultDTO<FmeditemView> resultDTO = new ResultDTO<>();
+            try{
+                FmeditemView fMeditemView = applyInspectionService.getIndexFMedItem(inspectionDetails);
+                resultDTO.setData(fMeditemView);
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("listIndexInspection操作成功");
+            }catch (Exception e){
+                resultDTO.setStatus("FALSE");
+
+                resultDTO.setMsg("listIndexInspection失败");
+
+                System.out.println(e);
+            }
+
+            return resultDTO;
+        }
 
 
 
 
 
-}
+
+    }
 

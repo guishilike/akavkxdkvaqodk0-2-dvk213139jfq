@@ -1,5 +1,6 @@
 package edu.neu.hospital.service.outPatientService;
 
+import edu.neu.hospital.bean.baseBean.FmeditemView;
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
@@ -45,4 +46,5 @@ public interface ApplyInspectionService {
     public boolean deleteInspectionDetailsByID(Integer inspectionDetailsId, Integer userID) ;
 
 
+    public FmeditemView getIndexFMedItem(InspectionDetails inspectionDetails);
 }
