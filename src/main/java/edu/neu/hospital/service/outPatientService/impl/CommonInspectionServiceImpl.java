@@ -3,10 +3,12 @@ package edu.neu.hospital.service.outPatientService.impl;
 import edu.neu.hospital.bean.basicTableBean.CommonInspection;
 import edu.neu.hospital.bean.basicTableBean.CommonInspectionView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
+import edu.neu.hospital.dao.baseDao.FMedItemViewDao;
 import edu.neu.hospital.dao.basicTableDao.CommonInspectionDao;
 import edu.neu.hospital.dao.basicTableDao.CommonInspectionViewDao;
 import edu.neu.hospital.dao.basicTableDao.FMedItemDao;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.example.basicTableExample.CommonInspectionExample;
 import edu.neu.hospital.example.basicTableExample.CommonInspectionViewExample;
 import edu.neu.hospital.example.basicTableExample.FMedItemExample;
@@ -25,6 +27,8 @@ public class CommonInspectionServiceImpl implements CommonInspectionService {
 
     @Resource
     FMedItemDao fMedItemDao;
+    @Resource
+    FMedItemViewDao fMedItemViewDao;
 
     @Resource
     CommonInspectionViewDao commonInspectionViewDao;
@@ -155,6 +159,10 @@ public class CommonInspectionServiceImpl implements CommonInspectionService {
      */
     public CommonInspection searchCommonInspection(Integer commonInspectionID) {
         return commonInspectionDao.selectByPrimaryKey(commonInspectionID);
+    }
+    @Override
+    public List<NameCodeDTO> getAllFMedItemNamesAndCodes() {
+        return fMedItemViewDao.selectAllFMedNamesAndCodes();
     }
 }
 
