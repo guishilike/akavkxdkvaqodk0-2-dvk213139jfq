@@ -1,6 +1,7 @@
 package edu.neu.hospital.service.outPatientService;
 
 import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.example.basicTableExample.CommonDisposalsView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.dto.IdDTO;
@@ -29,4 +30,5 @@ public interface CommonDisposalService {
 
     //查
     public CommonDiposals searchCommonDiposals(Integer commonDiposalsID);
+    public List<NameCodeDTO> getAllFMedItemNamesAndCodes();
 }

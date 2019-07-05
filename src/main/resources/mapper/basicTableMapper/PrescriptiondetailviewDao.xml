@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="edu.neu.hospital.dao.basicTableDao.PrescriptiondetailviewDao">
-  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.basicTableBean.Prescriptiondetailview">
+<mapper namespace="edu.neu.hospital.dao.basicTableDao.PrescriptionDetailViewDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.basicTableBean.PrescriptionDetailView">
     <result column="id" jdbcType="INTEGER" property="id" />
     <result column="prescriptionID" jdbcType="INTEGER" property="prescriptionID" />
     <result column="drugID" jdbcType="INTEGER" property="drugID" />
@@ -23,6 +23,7 @@
     <result column="drugsDosage" jdbcType="VARCHAR" property="drugsDosage" />
     <result column="drugsType" jdbcType="VARCHAR" property="drugsType" />
     <result column="isGotDrugs" jdbcType="INTEGER" property="isGotDrugs" />
+    <result column="status" jdbcType="CHAR" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -85,9 +86,9 @@
   <sql id="Base_Column_List">
     id, prescriptionID, drugID, `usage`, dosage, frequency, quantity, medication, isDrawn, 
     isPaid, isAbolished, drugsName, drugsCode, drugsFormat, manufacturer, drugsUnit, 
-    drugsDosageID, drugsTypeID, drugsDosage, drugsType, isGotDrugs
+    drugsDosageID, drugsTypeID, drugsDosage, drugsType, isGotDrugs, `status`
   </sql>
-  <select id="selectByExample" parameterType="edu.neu.hospital.example.basicTableExample.PrescriptiondetailviewExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.basicTableExample.PrescriptionDetailViewExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -109,31 +110,31 @@
       </if>
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.basicTableExample.PrescriptiondetailviewExample">
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.basicTableExample.PrescriptionDetailViewExample">
     delete from prescriptiondetailview
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="edu.neu.hospital.bean.basicTableBean.Prescriptiondetailview">
+  <insert id="insert" parameterType="edu.neu.hospital.bean.basicTableBean.PrescriptionDetailView">
     insert into prescriptiondetailview (id, prescriptionID, drugID, 
       `usage`, dosage, frequency, 
       quantity, medication, isDrawn, 
       isPaid, isAbolished, drugsName, 
       drugsCode, drugsFormat, manufacturer, 
       drugsUnit, drugsDosageID, drugsTypeID, 
-      drugsDosage, drugsType, isGotDrugs
-      )
+      drugsDosage, drugsType, isGotDrugs, 
+      `status`)
     values (#{id,jdbcType=INTEGER}, #{prescriptionID,jdbcType=INTEGER}, #{drugID,jdbcType=INTEGER}, 
       #{usage,jdbcType=VARCHAR}, #{dosage,jdbcType=DECIMAL}, #{frequency,jdbcType=INTEGER}, 
       #{quantity,jdbcType=INTEGER}, #{medication,jdbcType=VARCHAR}, #{isDrawn,jdbcType=INTEGER}, 
       #{isPaid,jdbcType=INTEGER}, #{isAbolished,jdbcType=INTEGER}, #{drugsName,jdbcType=VARCHAR}, 
       #{drugsCode,jdbcType=CHAR}, #{drugsFormat,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, 
       #{drugsUnit,jdbcType=VARCHAR}, #{drugsDosageID,jdbcType=INTEGER}, #{drugsTypeID,jdbcType=INTEGER}, 
-      #{drugsDosage,jdbcType=VARCHAR}, #{drugsType,jdbcType=VARCHAR}, #{isGotDrugs,jdbcType=INTEGER}
-      )
+      #{drugsDosage,jdbcType=VARCHAR}, #{drugsType,jdbcType=VARCHAR}, #{isGotDrugs,jdbcType=INTEGER}, 
+      #{status,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="edu.neu.hospital.bean.basicTableBean.Prescriptiondetailview">
+  <insert id="insertSelective" parameterType="edu.neu.hospital.bean.basicTableBean.PrescriptionDetailView">
     insert into prescriptiondetailview
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -198,6 +199,9 @@
       </if>
       <if test="isGotDrugs != null">
         isGotDrugs,
+      </if>
+      <if test="status != null">
+        `status`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -264,9 +268,12 @@
       <if test="isGotDrugs != null">
         #{isGotDrugs,jdbcType=INTEGER},
       </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="edu.neu.hospital.example.basicTableExample.PrescriptiondetailviewExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="edu.neu.hospital.example.basicTableExample.PrescriptionDetailViewExample" resultType="java.lang.Long">
     select count(*) from prescriptiondetailview
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -338,6 +345,9 @@
       <if test="record.isGotDrugs != null">
         isGotDrugs = #{record.isGotDrugs,jdbcType=INTEGER},
       </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=CHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -365,7 +375,8 @@
       drugsTypeID = #{record.drugsTypeID,jdbcType=INTEGER},
       drugsDosage = #{record.drugsDosage,jdbcType=VARCHAR},
       drugsType = #{record.drugsType,jdbcType=VARCHAR},
-      isGotDrugs = #{record.isGotDrugs,jdbcType=INTEGER}
+      isGotDrugs = #{record.isGotDrugs,jdbcType=INTEGER},
+      `status` = #{record.status,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
