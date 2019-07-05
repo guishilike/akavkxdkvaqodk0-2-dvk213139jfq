@@ -1,13 +1,12 @@
 package edu.neu.hospital.service.outPatientService.impl;
 
 import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
-import edu.neu.hospital.bean.basicTableBean.CommonDisposalsView;
+import edu.neu.hospital.example.basicTableExample.CommonDisposalsView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.dao.basicTableDao.CommonDiposalsDao;
 import edu.neu.hospital.dao.basicTableDao.CommonDisposalsViewDao;
 import edu.neu.hospital.dao.basicTableDao.FMedItemDao;
 import edu.neu.hospital.dto.IdDTO;
-import edu.neu.hospital.example.basicTableExample.CommonDiposalsExample;
 import edu.neu.hospital.example.basicTableExample.CommonDisposalsViewExample;
 import edu.neu.hospital.example.basicTableExample.FMedItemExample;
 import edu.neu.hospital.service.outPatientService.CommonDisposalService;

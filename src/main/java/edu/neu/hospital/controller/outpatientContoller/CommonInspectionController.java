@@ -5,6 +5,7 @@ import edu.neu.hospital.bean.basicTableBean.CommonInspection;
 import edu.neu.hospital.bean.basicTableBean.CommonInspectionView;
 import edu.neu.hospital.bean.basicTableBean.Inspection;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.CommonInspectionService;
 import org.springframework.stereotype.Controller;
@@ -170,5 +171,22 @@ public class CommonInspectionController {
 
         }
         return resultDTO;
+    }
+    @RequestMapping("/findAllFMedItemNamesAndCodes")
+    public @ResponseBody
+    ResultDTO getAllFMedItemNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = commonInspectionService.getAllFMedItemNamesAndCodes();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得项目搜索列表成功");
+
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得项目搜索列表失败");
+        }
+        return resultDTO;
+
     }
 }

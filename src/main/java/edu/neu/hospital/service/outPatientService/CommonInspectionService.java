@@ -4,6 +4,7 @@ import edu.neu.hospital.bean.basicTableBean.CommonInspection;
 import edu.neu.hospital.bean.basicTableBean.CommonInspectionView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 
 import java.util.List;
 
@@ -29,4 +30,5 @@ public interface CommonInspectionService {
     public CommonInspection searchCommonInspection(Integer commonInspectionID);
     public List<FMedItem> searchDiposal(String str);
 
+    List<NameCodeDTO> getAllFMedItemNamesAndCodes();
 }

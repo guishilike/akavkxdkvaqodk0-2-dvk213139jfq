@@ -1,7 +1,7 @@
 package edu.neu.hospital.service.outPatientService;
 
 import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
-import edu.neu.hospital.bean.basicTableBean.CommonDisposalsView;
+import edu.neu.hospital.example.basicTableExample.CommonDisposalsView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.dto.IdDTO;
 

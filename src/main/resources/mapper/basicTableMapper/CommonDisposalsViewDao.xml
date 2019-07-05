@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.neu.hospital.dao.basicTableDao.CommonDisposalsViewDao">
-  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.basicTableBean.CommonDisposalsView">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.example.basicTableExample.CommonDisposalsView">
     <result column="id" jdbcType="INTEGER" property="id" />
     <result column="fMedtItemID" jdbcType="INTEGER" property="fMedtItemID" />
     <result column="doctorID" jdbcType="INTEGER" property="doctorID" />
@@ -104,7 +104,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="edu.neu.hospital.bean.basicTableBean.CommonDisposalsView">
+  <insert id="insert" parameterType="edu.neu.hospital.example.basicTableExample.CommonDisposalsView">
     insert into commondisposalsview (id, fMedtItemID, doctorID, 
       code, `name`, format, 
       price, expClassID, deptID, 
@@ -114,7 +114,7 @@
       #{price,jdbcType=DECIMAL}, #{expClassID,jdbcType=INTEGER}, #{deptID,jdbcType=INTEGER}, 
       #{mnemonicCode,jdbcType=VARCHAR}, #{recordType,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="edu.neu.hospital.bean.basicTableBean.CommonDisposalsView">
+  <insert id="insertSelective" parameterType="edu.neu.hospital.example.basicTableExample.CommonDisposalsView">
     insert into commondisposalsview
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

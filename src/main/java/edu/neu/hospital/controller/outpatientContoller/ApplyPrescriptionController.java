@@ -54,7 +54,7 @@ public class ApplyPrescriptionController {
 
     @RequestMapping("/tempStore")
     public @ResponseBody
-    ResultDTO<PageInfo<PrescriptionDetail>> tmpStore(DataListDTO dataListDTO, HttpSession session, Integer pageNum, Integer pageSize) {
+    ResultDTO<PageInfo<PrescriptionDetail>> tmpStore(DataListDTO<PrescriptionDetail> dataListDTO, HttpSession session, Integer pageNum, Integer pageSize) {
         ResultDTO<PageInfo<PrescriptionDetail>> resultDTO = new ResultDTO<>();
         try {
             PageHelper.startPage(pageNum, pageSize);

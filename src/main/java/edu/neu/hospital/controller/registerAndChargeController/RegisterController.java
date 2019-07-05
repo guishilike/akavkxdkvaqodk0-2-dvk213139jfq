@@ -43,16 +43,10 @@ public class RegisterController {
     ConstantService constantService;
 
     @Resource
-    RegistrationLevelService registrationLevelService;
-
-    @Resource
     DepartmentService departmentService;
 
     @Resource
     RegisterService regService;
-
-    @Resource
-    UserService userService;
 
     /**
      * 挂号

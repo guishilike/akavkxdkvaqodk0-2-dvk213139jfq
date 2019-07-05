@@ -1,13 +1,10 @@
 package edu.neu.hospital.dao.basicTableDao;
 
-import edu.neu.hospital.bean.basicTableBean.CommonDisposalsView;
-
-import java.util.List;
-
+import edu.neu.hospital.example.basicTableExample.CommonDisposalsView;
 import edu.neu.hospital.example.basicTableExample.CommonDisposalsViewExample;
-import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
-@Mapper
+
 public interface CommonDisposalsViewDao {
     long countByExample(CommonDisposalsViewExample example);
 

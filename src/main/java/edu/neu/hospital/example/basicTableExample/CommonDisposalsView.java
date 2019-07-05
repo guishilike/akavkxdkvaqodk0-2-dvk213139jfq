@@ -1,4 +1,4 @@
-package edu.neu.hospital.bean.basicTableBean;
+package edu.neu.hospital.example.basicTableExample;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
