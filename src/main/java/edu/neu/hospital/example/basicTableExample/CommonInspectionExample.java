@@ -244,63 +244,63 @@ public class CommonInspectionExample {
             return (Criteria) this;
         }
 
-        public Criteria andInspectionIDIsNull() {
-            addCriterion("inspectionID is null");
+        public Criteria andFMedItemIDIsNull() {
+            addCriterion("fMedItemID is null");
             return (Criteria) this;
         }
 
-        public Criteria andInspectionIDIsNotNull() {
-            addCriterion("inspectionID is not null");
+        public Criteria andFMedItemIDIsNotNull() {
+            addCriterion("fMedItemID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andInspectionIDEqualTo(Integer value) {
-            addCriterion("inspectionID =", value, "inspectionID");
+        public Criteria andFMedItemIDEqualTo(Integer value) {
+            addCriterion("fMedItemID =", value, "fMedItemID");
             return (Criteria) this;
         }
 
-        public Criteria andInspectionIDNotEqualTo(Integer value) {
-            addCriterion("inspectionID <>", value, "inspectionID");
+        public Criteria andFMedItemIDNotEqualTo(Integer value) {
+            addCriterion("fMedItemID <>", value, "fMedItemID");
             return (Criteria) this;
         }
 
-        public Criteria andInspectionIDGreaterThan(Integer value) {
-            addCriterion("inspectionID >", value, "inspectionID");
+        public Criteria andFMedItemIDGreaterThan(Integer value) {
+            addCriterion("fMedItemID >", value, "fMedItemID");
             return (Criteria) this;
         }
 
-        public Criteria andInspectionIDGreaterThanOrEqualTo(Integer value) {
-            addCriterion("inspectionID >=", value, "inspectionID");
+        public Criteria andFMedItemIDGreaterThanOrEqualTo(Integer value) {
+            addCriterion("fMedItemID >=", value, "fMedItemID");
             return (Criteria) this;
         }
 
-        public Criteria andInspectionIDLessThan(Integer value) {
-            addCriterion("inspectionID <", value, "inspectionID");
+        public Criteria andFMedItemIDLessThan(Integer value) {
+            addCriterion("fMedItemID <", value, "fMedItemID");
             return (Criteria) this;
         }
 
-        public Criteria andInspectionIDLessThanOrEqualTo(Integer value) {
-            addCriterion("inspectionID <=", value, "inspectionID");
+        public Criteria andFMedItemIDLessThanOrEqualTo(Integer value) {
+            addCriterion("fMedItemID <=", value, "fMedItemID");
             return (Criteria) this;
         }
 
-        public Criteria andInspectionIDIn(List<Integer> values) {
-            addCriterion("inspectionID in", values, "inspectionID");
+        public Criteria andFMedItemIDIn(List<Integer> values) {
+            addCriterion("fMedItemID in", values, "fMedItemID");
             return (Criteria) this;
         }
 
-        public Criteria andInspectionIDNotIn(List<Integer> values) {
-            addCriterion("inspectionID not in", values, "inspectionID");
+        public Criteria andFMedItemIDNotIn(List<Integer> values) {
+            addCriterion("fMedItemID not in", values, "fMedItemID");
             return (Criteria) this;
         }
 
-        public Criteria andInspectionIDBetween(Integer value1, Integer value2) {
-            addCriterion("inspectionID between", value1, value2, "inspectionID");
+        public Criteria andFMedItemIDBetween(Integer value1, Integer value2) {
+            addCriterion("fMedItemID between", value1, value2, "fMedItemID");
             return (Criteria) this;
         }
 
-        public Criteria andInspectionIDNotBetween(Integer value1, Integer value2) {
-            addCriterion("inspectionID not between", value1, value2, "inspectionID");
+        public Criteria andFMedItemIDNotBetween(Integer value1, Integer value2) {
+            addCriterion("fMedItemID not between", value1, value2, "fMedItemID");
             return (Criteria) this;
         }
 

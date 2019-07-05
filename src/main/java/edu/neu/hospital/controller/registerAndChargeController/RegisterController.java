@@ -16,6 +16,7 @@ import edu.neu.hospital.service.baseService.*;
 import edu.neu.hospital.service.registerAndCharge.RegisterService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,7 +35,8 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("register")
-public class RegisterController {
+@CrossOrigin
+public class RegisterController<CrossOrigin> {
 
     @Resource
     ScheduleService scheduleService;
@@ -302,7 +304,7 @@ public class RegisterController {
 
         } catch (Exception e) {
             System.out.println(e.getCause().toString());
-            return new ResultDTO<>("error", "发生异常，获取挂号列表失败", null);
+            return new ResultDTO<>("error", "发生异常，获取挂号失败", null);
         }
     }
 

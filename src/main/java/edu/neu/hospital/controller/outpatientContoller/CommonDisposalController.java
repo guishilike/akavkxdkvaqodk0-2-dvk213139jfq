@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.CommonDiposals;
+import edu.neu.hospital.example.basicTableExample.CommonDisposalsView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
 import edu.neu.hospital.bean.basicTableBean.Inspection;
 import edu.neu.hospital.dto.IdDTO;
@@ -177,15 +178,16 @@ public class CommonDisposalController {
 
             UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
             System.out.println(outpatientUser.getId());
-            List<CommonDiposals> commonDisposalList = commonDisposalService.listCommonDiposals(outpatientUser.getId());
+            List<CommonDisposalsView> commonDisposalList = commonDisposalService.listCommonDiposals(outpatientUser.getId());
             System.out.println("-----");
             System.out.println("-----");
-            resultDTO.setMsg("模糊查询处置");
+            resultDTO.setMsg("getThisDoctorTemp");
             resultDTO.setStatus("OK");
             resultDTO.setData(commonDisposalList);
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
+            System.out.println(e + "getThisDoctorTemp");
         }
         return resultDTO;
     }

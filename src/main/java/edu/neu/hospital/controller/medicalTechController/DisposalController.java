@@ -10,7 +10,7 @@ import edu.neu.hospital.bean.basicTableBean.MedicinesMaterialsList;
 import edu.neu.hospital.bean.disposalBean.*;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
-import edu.neu.hospital.service.MedicalTechService.DisposalService;
+import edu.neu.hospital.service.medicalTechService.DisposalService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;

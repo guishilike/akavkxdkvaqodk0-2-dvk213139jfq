@@ -11,7 +11,7 @@ import edu.neu.hospital.dao.basicTableDao.ScheduleDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.baseExample.ScheduleViewExample;
 import edu.neu.hospital.example.basicTableExample.ScheduleExample;
-import edu.neu.hospital.example.basicTableExample.ScheduleRuleViewExample;
+import edu.neu.hospital.example.baseExample.ScheduleRuleViewExample;
 import edu.neu.hospital.service.baseService.ScheduleService;
 import edu.neu.hospital.utils.FileManage;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -22,6 +22,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,6 +56,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     SimpleDateFormat simpleDateFormat3 = new SimpleDateFormat("yyyy年MM月dd");
 
     @Override
+    @CacheEvict(value = "schedule")
     public void add(Schedule schedule, Integer userID) {
         schedule.setAppearDate(new Date());
         schedule.setAppearUserID(userID);
@@ -63,6 +67,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    @CacheEvict(value = "schedule")
     public void delete(Integer id, Integer userID) {
         Schedule schedule = scheduleDao.selectByPrimaryKey(id);
         if (schedule != null) {
@@ -74,6 +79,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    @CacheEvict(value = "schedule")
     public void deleteByChoose(IdDTO idDTO, Integer userID) {
         for (Integer id : idDTO.getId()) {
             Schedule schedule = scheduleDao.selectByPrimaryKey(id);
@@ -88,6 +94,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    @CacheEvict(value = "schedule")
     public void change(Schedule schedule, Integer userID) {
         schedule.setDeptID(userViewDao.getDeptIDByDoctorID(schedule.getOnDutyDoctorID()));
         schedule.setChangeDate(new Date());
@@ -111,6 +118,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    @CachePut(value = "schedule",key="'startDate'+#startDate+'endDate'+#endDate+'deptID'+#deptID+'userID'+#userID")
     public List<ScheduleView> find(Date startDate, Date endDate, Integer deptID, Integer userID) {
         ScheduleViewExample example = new ScheduleViewExample();
         ScheduleViewExample.Criteria criteria = example.createCriteria();
@@ -127,6 +135,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    @CacheEvict(value = "schedule")
     public void generate() throws ParseException {
         ScheduleExample example = new ScheduleExample();
         ScheduleExample.Criteria criteria = example.createCriteria();
@@ -205,6 +214,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    @CacheEvict("schedule")
     public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException {
         //标识文件内容是否有错
         Boolean state = true;

@@ -66,10 +66,15 @@ public class MedicalRecHomeTempServiceImpl implements MedicalRecHomeTempService 
         return medicalRecHomeTemplateDao.selectByExample(medicalRecHomeTemplateExample);
     }
 
+    /**
+     * 检索该医生对应权限下的模板
+     * @param userID
+     * @return
+     */
     @Override
-    public List<Integer> getThisDoctorTemp(Integer userID) {
+    public List<MedicalRecHomeTemplate> getThisDoctorTemp(Integer userID) {
         //返回该医生的模板
-        List<Integer> lists = new LinkedList<>();
+        List<MedicalRecHomeTemplate> lists = new LinkedList<>();
         MedicalRecHomeTemplateExample medicalRecHomeTemplateExample = new MedicalRecHomeTemplateExample();
         List<MedicalRecHomeTemplate> medicalRecHomeTemplates = medicalRecHomeTemplateDao.selectByExample(medicalRecHomeTemplateExample);
         //取该医生所在科室
@@ -77,11 +82,13 @@ public class MedicalRecHomeTempServiceImpl implements MedicalRecHomeTempService 
         UserDepartExample.Criteria criteria = userDepartExample.createCriteria();
         criteria.andIdEqualTo(userID);
         Integer departID = userDepartDao.selectByExample(userDepartExample).get(0).getDepartmentID();
+        System.out.println("该医生的对应科室"+departID);
         //首先，范围是个人，doctorid==userID
         for( int i = 0 ; i < medicalRecHomeTemplates.size() ; i++){
             MedicalRecHomeTemplate m= medicalRecHomeTemplates.get(i);
             if( m.getDoctorId() == userID && m.getType() == 106 && !lists.contains(m.getId())) {
-                lists.add(m.getId());
+                System.out.println("个人");
+                lists.add(m);
                 continue;
             }
             //取当前医生所在科室
@@ -89,23 +96,20 @@ public class MedicalRecHomeTempServiceImpl implements MedicalRecHomeTempService 
             UserDepartExample.Criteria criteria1 = userDepartExample.createCriteria();
             criteria.andIdEqualTo(userID);
             Integer departID1 = userDepartDao.selectByExample(userDepartExample).get(0).getDepartmentID();
-
+            System.out.println("模板的对应科室"+departID1);
             //范围是科室，科室=userID 的科室
-
-
-
             if( m.getType() == 105 && departID == departID1 && !lists.contains(m.getId() )){
-                lists.add(m.getId());
+                System.out.println("科室");
+                lists.add(m);
                 continue;
             }
             //范围是全院
             if( m.getType() == 104 && !lists.contains(m.getId() )){
-                lists.add(m.getId());
+                System.out.println("全院");
+                lists.add(m);
                 continue;
             }
         }
-
-
         return lists;
     }
 }

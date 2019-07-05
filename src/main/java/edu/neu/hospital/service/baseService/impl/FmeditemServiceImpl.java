@@ -23,6 +23,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,10 +54,11 @@ public class FmeditemServiceImpl implements FmeditemService {
     ConstantItemDao constantItemDao;
 
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
     @Override
+    @CacheEvict("fMedItem")
     public void add(FMedItem fmeditem, Integer userID) {
         fmeditem.setStatus("1");
         fmeditem.setCode(new Date().toString());
@@ -64,6 +68,7 @@ public class FmeditemServiceImpl implements FmeditemService {
     }
 
     @Override
+    @CacheEvict("fMedItem")
     public void change(FMedItem fmeditem, Integer userID) {
         fmeditem.setChangeUserId(userID);
         fmeditem.setAppearDate(new Date());
@@ -71,6 +76,7 @@ public class FmeditemServiceImpl implements FmeditemService {
     }
 
     @Override
+    @CacheEvict("fMedItem")
     public void deleteById(Integer id, Integer userID) {
         FMedItem fmeditem = fmeditemDao.selectByPrimaryKey(id);
         if (fmeditem != null) {
@@ -82,6 +88,7 @@ public class FmeditemServiceImpl implements FmeditemService {
     }
 
     @Override
+    @CacheEvict("fMedItem")
     public void deleteByChoose(IdDTO ids, Integer userID) {
         for (int i = 0; i < ids.getId().size(); i++) {
             FMedItem fmeditem = fmeditemDao.selectByPrimaryKey(ids.getId().get(i));
@@ -95,6 +102,7 @@ public class FmeditemServiceImpl implements FmeditemService {
     }
 
     @Override
+    @CachePut(value="fMedItem",key="'deptID'+#deptID+'recordType'+#recordType")
     public List<FmeditemView> find(Integer deptID, Integer recordType) {
         FMedItemViewExample fmeditemviewExample = new FMedItemViewExample();
         fmeditemviewExample.clear();
@@ -105,11 +113,11 @@ public class FmeditemServiceImpl implements FmeditemService {
         if (recordType != null) {
             criteria.andRecordTypeEqualTo(recordType);
         }
-        List<FmeditemView> list = fmeditemviewDao.selectByExample(fmeditemviewExample);
-        return list;
+        return fmeditemviewDao.selectByExample(fmeditemviewExample);
     }
 
     @Override
+    @Cacheable(value="fMedItem",key="'nameOrCode'+#nameOrCode")
     public List<FmeditemView> findByNameOrCode(String nameOrCode) {
         FMedItemViewExample example = new FMedItemViewExample();
         FMedItemViewExample.Criteria criteria1 = example.createCriteria();
@@ -127,29 +135,29 @@ public class FmeditemServiceImpl implements FmeditemService {
         criteria.andNameEqualTo(fmeditem.getName());
         if (state == 1)
             criteria.andIdNotEqualTo(fmeditem.getId());
-        if (fmeditemviewDao.countByExample(example) > 0)
-            return false;
-        else
-            return true;
+        return fmeditemviewDao.countByExample(example) ==0;
     }
 
     @Override
+    @Cacheable(value="fMedItem",key="'getAllFMedItemNamesAndCodes'")
     public List<NameCodeDTO> getAllFMedItemNamesAndCodes() {
-
         return fmeditemviewDao.selectAllFMedNamesAndCodes();
     }
 
     @Override
+    @Cacheable(value="constantItem",key="'getAllFMedItemTypeNamesAndCodes'")
     public List<NameCodeDTO> getAllFMedItemTypeNamesAndCodes() {
         return constantItemDao.findAllNamesAndCodesByType(20);
     }
 
     @Override
+    @Cacheable(value="department",key="'getAllDeptNamesAndDeptCodes'")
     public List<NameCodeDTO> getAllDeptNamesAndDeptCodes() {
         return departmentViewDao.selectAllDeptNamesAndCodesByDeptType(121);
     }
 
     @Override
+    @Cacheable(value="expense",key="'getAllExpClassNamesAndDeptCodes'")
     public List<NameCodeDTO> getAllExpClassNamesAndDeptCodes() {
         return expenseClassViewDao.selectAllExpClass();
     }
@@ -163,9 +171,10 @@ public class FmeditemServiceImpl implements FmeditemService {
      * @throws IOException
      */
     @Override
+    @CacheEvict(value="fMedItem")
     public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException {
         //标识文件内容是否有错
-        Boolean state = true;
+        boolean state = true;
         FMedItem fmeditem;
         Workbook book;
         try {

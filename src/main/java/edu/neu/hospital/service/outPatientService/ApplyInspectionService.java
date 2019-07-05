@@ -11,7 +11,7 @@ public interface ApplyInspectionService {
     //新建该患者的inspection
     //首先判断Inspection表里是否已经有该病例的检查了
     public boolean checkIsHaven(Integer medicalRecordID);
-    public boolean newInspection(Inspection inspection, Integer userID);
+    public Inspection newInspection(Inspection inspection, Integer userID);
     //1.	新增项目
     public int addInspectionDetailsList(Inspection inspection, DataListDTO inspectionDetailsList, Integer userID);
     public int addInspectionDetails(Inspection inspection, InspectionDetails inspectionDetails, Integer userID);
@@ -30,17 +30,19 @@ public interface ApplyInspectionService {
     public Integer saveTemplate(ProjectTemplate projectTemplate, Integer userID);
     public boolean  saveTemplateDetails(DataListDTO lists, Integer userID);
     //7.	引用组套
-    public ProjectTemplate use_Check(Integer projectTemplateID);
+    public ProjectTemplate use_Check(Integer projectTemplateID, Integer inspectionID, Integer userID);
     //8.	查看检查结果
     public List<InspectionResult>    lookInspectionRes(Integer inspectionDetailsID);
     //9.	常用项目管理（此次为引用
     public CommonInspection useCommonInspection(Integer commonInspectionID);
     //开立时向fee中插一条未缴费的记录
-    public Fee addProjectFee(  Integer inspectionDetailID  , Integer userID);
+    public Fee addProjectFee(Integer inspectionDetailID, Integer userID);
 
 
     public   List<FMedItem> listInspection();
+    public List<InspectionDetailsView> listIndexInspection(Integer medicalRecordID);
 
+    public boolean deleteInspectionDetailsByID(Integer inspectionDetailsId, Integer userID) ;
 
 
 }

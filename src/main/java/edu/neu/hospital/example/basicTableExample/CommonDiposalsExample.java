@@ -184,63 +184,63 @@ public class CommonDiposalsExample {
             return (Criteria) this;
         }
 
-        public Criteria andDiposalIDIsNull() {
-            addCriterion("diposalID is null");
+        public Criteria andFMedtItemIDIsNull() {
+            addCriterion("fMedtItemID is null");
             return (Criteria) this;
         }
 
-        public Criteria andDiposalIDIsNotNull() {
-            addCriterion("diposalID is not null");
+        public Criteria andFMedtItemIDIsNotNull() {
+            addCriterion("fMedtItemID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDiposalIDEqualTo(Integer value) {
-            addCriterion("diposalID =", value, "diposalID");
+        public Criteria andFMedtItemIDEqualTo(Integer value) {
+            addCriterion("fMedtItemID =", value, "fMedtItemID");
             return (Criteria) this;
         }
 
-        public Criteria andDiposalIDNotEqualTo(Integer value) {
-            addCriterion("diposalID <>", value, "diposalID");
+        public Criteria andFMedtItemIDNotEqualTo(Integer value) {
+            addCriterion("fMedtItemID <>", value, "fMedtItemID");
             return (Criteria) this;
         }
 
-        public Criteria andDiposalIDGreaterThan(Integer value) {
-            addCriterion("diposalID >", value, "diposalID");
+        public Criteria andFMedtItemIDGreaterThan(Integer value) {
+            addCriterion("fMedtItemID >", value, "fMedtItemID");
             return (Criteria) this;
         }
 
-        public Criteria andDiposalIDGreaterThanOrEqualTo(Integer value) {
-            addCriterion("diposalID >=", value, "diposalID");
+        public Criteria andFMedtItemIDGreaterThanOrEqualTo(Integer value) {
+            addCriterion("fMedtItemID >=", value, "fMedtItemID");
             return (Criteria) this;
         }
 
-        public Criteria andDiposalIDLessThan(Integer value) {
-            addCriterion("diposalID <", value, "diposalID");
+        public Criteria andFMedtItemIDLessThan(Integer value) {
+            addCriterion("fMedtItemID <", value, "fMedtItemID");
             return (Criteria) this;
         }
 
-        public Criteria andDiposalIDLessThanOrEqualTo(Integer value) {
-            addCriterion("diposalID <=", value, "diposalID");
+        public Criteria andFMedtItemIDLessThanOrEqualTo(Integer value) {
+            addCriterion("fMedtItemID <=", value, "fMedtItemID");
             return (Criteria) this;
         }
 
-        public Criteria andDiposalIDIn(List<Integer> values) {
-            addCriterion("diposalID in", values, "diposalID");
+        public Criteria andFMedtItemIDIn(List<Integer> values) {
+            addCriterion("fMedtItemID in", values, "fMedtItemID");
             return (Criteria) this;
         }
 
-        public Criteria andDiposalIDNotIn(List<Integer> values) {
-            addCriterion("diposalID not in", values, "diposalID");
+        public Criteria andFMedtItemIDNotIn(List<Integer> values) {
+            addCriterion("fMedtItemID not in", values, "fMedtItemID");
             return (Criteria) this;
         }
 
-        public Criteria andDiposalIDBetween(Integer value1, Integer value2) {
-            addCriterion("diposalID between", value1, value2, "diposalID");
+        public Criteria andFMedtItemIDBetween(Integer value1, Integer value2) {
+            addCriterion("fMedtItemID between", value1, value2, "fMedtItemID");
             return (Criteria) this;
         }
 
-        public Criteria andDiposalIDNotBetween(Integer value1, Integer value2) {
-            addCriterion("diposalID not between", value1, value2, "diposalID");
+        public Criteria andFMedtItemIDNotBetween(Integer value1, Integer value2) {
+            addCriterion("fMedtItemID not between", value1, value2, "fMedtItemID");
             return (Criteria) this;
         }
 

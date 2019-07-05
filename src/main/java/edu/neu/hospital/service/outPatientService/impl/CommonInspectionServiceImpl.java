@@ -1,11 +1,16 @@
 package edu.neu.hospital.service.outPatientService.impl;
 
 import edu.neu.hospital.bean.basicTableBean.CommonInspection;
+import edu.neu.hospital.bean.basicTableBean.CommonInspectionView;
 import edu.neu.hospital.bean.basicTableBean.FMedItem;
+import edu.neu.hospital.dao.baseDao.FMedItemViewDao;
 import edu.neu.hospital.dao.basicTableDao.CommonInspectionDao;
+import edu.neu.hospital.dao.basicTableDao.CommonInspectionViewDao;
 import edu.neu.hospital.dao.basicTableDao.FMedItemDao;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.example.basicTableExample.CommonInspectionExample;
+import edu.neu.hospital.example.basicTableExample.CommonInspectionViewExample;
 import edu.neu.hospital.example.basicTableExample.FMedItemExample;
 import edu.neu.hospital.service.outPatientService.CommonInspectionService;
 import edu.neu.hospital.utils.RegexProcess;
@@ -22,6 +27,11 @@ public class CommonInspectionServiceImpl implements CommonInspectionService {
 
     @Resource
     FMedItemDao fMedItemDao;
+    @Resource
+    FMedItemViewDao fMedItemViewDao;
+
+    @Resource
+    CommonInspectionViewDao commonInspectionViewDao;
 
     RegexProcess regexProcess = new RegexProcess();
     /**
@@ -30,13 +40,13 @@ public class CommonInspectionServiceImpl implements CommonInspectionService {
      * @return
      */
     @Override
-    public List<CommonInspection> listCommonInspection(Integer doctorID) {
-        CommonInspectionExample commonInspectionExample = new CommonInspectionExample();
-        CommonInspectionExample.Criteria criteria = commonInspectionExample.createCriteria();
+    public List<CommonInspectionView> listCommonInspection(Integer doctorID) {
+        CommonInspectionViewExample commonInspectionViewExample = new CommonInspectionViewExample();
+        CommonInspectionViewExample.Criteria criteria = commonInspectionViewExample.createCriteria();
         if( doctorID != null){
             criteria.andDoctorIDEqualTo(doctorID);
         }
-        return commonInspectionDao.selectByExample(commonInspectionExample);
+        return commonInspectionViewDao.selectByExample(commonInspectionViewExample);
     }
 
     /**
@@ -50,7 +60,7 @@ public class CommonInspectionServiceImpl implements CommonInspectionService {
         CommonInspection commonInspection = new CommonInspection();
         commonInspection.setAppearUserID(doctorID);
         commonInspection.setDoctorID(doctorID);
-        commonInspection.setInspectionID(inspectionID);
+        commonInspection.setfMedItemID(inspectionID);
         //commonInspection.setAppearDate(new Date());
         commonInspection.setStatus("1");
         return commonInspectionDao.insert(commonInspection);
@@ -149,6 +159,10 @@ public class CommonInspectionServiceImpl implements CommonInspectionService {
      */
     public CommonInspection searchCommonInspection(Integer commonInspectionID) {
         return commonInspectionDao.selectByPrimaryKey(commonInspectionID);
+    }
+    @Override
+    public List<NameCodeDTO> getAllFMedItemNamesAndCodes() {
+        return fMedItemViewDao.selectAllFMedNamesAndCodes();
     }
 }
 

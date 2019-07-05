@@ -1,16 +1,21 @@
 package edu.neu.hospital.controller.registerAndChargeController;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.PatientCardView;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Patient;
 import edu.neu.hospital.dto.ResultDTO;
-import edu.neu.hospital.service.patientcard.PatientCardService;
+import edu.neu.hospital.service.patientCard.PatientCardService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author LiJie
@@ -18,10 +23,57 @@ import java.math.BigDecimal;
  */
 @Controller
 @RequestMapping("patientCard")
+@CrossOrigin
 public class PatientCardController {
 
     @Resource
     PatientCardService patientCardService;
+
+
+    /**
+     * 获取所有的就诊卡列表
+     *
+     * @param pageNum  分页号
+     * @param pageSize 分页大小
+     * @return 就诊卡列表
+     */
+    @RequestMapping("/getPatientCardList")
+    public @ResponseBody
+    ResultDTO<PageInfo> getPatientCardList(Integer pageNum, Integer pageSize) {
+
+        System.out.println("/patientCard/getPatientCardList");
+
+        try {
+
+            PageHelper.startPage(pageNum, pageSize);
+            List<PatientCardView> patientCardList = patientCardService.getAll();
+            PageInfo<PatientCardView> list = new PageInfo<>(patientCardList);
+
+            return new ResultDTO<>("OK", "获取成功", list);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return new ResultDTO<>("error", "发生异常，获取列表失败", null);
+        }
+    }
+
+    @RequestMapping("/getPatientCard")
+    public @ResponseBody
+    ResultDTO<PatientCardView> getPatientCard(Integer patientCardID) {
+
+        System.out.println("/patientCard/getPatientCard");
+
+        try {
+
+            System.out.println(patientCardID);
+            PatientCardView view = patientCardService.selectByID(patientCardID);
+            System.out.println(view.toString());
+            return new ResultDTO<>("OK", "获取成功", view);
+
+        } catch (Exception e) {
+            System.out.println(e.getCause().toString());
+            return new ResultDTO<>("error", "发生异常，获取就诊卡失败", null);
+        }
+    }
 
     /**
      * 申请就诊卡
@@ -32,8 +84,9 @@ public class PatientCardController {
 
         try {
 
-            Integer appearUserID = Integer.parseInt((String) session.getAttribute("userID"));
-            int result = patientCardService.applyCard(patient, passwd, appearUserID);
+            System.out.println(patient.toString());
+            UserView loginUser = (UserView) session.getAttribute("user");
+            int result = patientCardService.applyCard(patient, passwd, loginUser.getId());
 
             if (0 == result) {
                 return new ResultDTO<>("NG", "申请失败", result);
@@ -41,6 +94,7 @@ public class PatientCardController {
             return new ResultDTO<>("OK", "申请成功", result);
 
         } catch (Exception e) {
+            System.out.println(e.getCause().toString());
             return new ResultDTO<>("error", "发生异常，申请就诊卡失败", e);
         }
     }
@@ -105,9 +159,9 @@ public class PatientCardController {
             int result = patientCardService.recharge(id, money, appearUserID);
 
             if (0 == result) {
-                return new ResultDTO<>("NG", "充值失败", result);
+                return new ResultDTO<>("FALSE", "充值失败！", result);
             }
-            return new ResultDTO<>("OK", "充值成功", result);
+            return new ResultDTO<>("OK", "充值成功！", result);
 
         } catch (Exception e) {
             return new ResultDTO<>("error", "发生异常，就诊卡充值失败", e);

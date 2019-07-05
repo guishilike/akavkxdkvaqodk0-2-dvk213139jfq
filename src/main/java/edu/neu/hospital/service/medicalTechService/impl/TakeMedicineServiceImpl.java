@@ -1,18 +1,17 @@
-package edu.neu.hospital.service.MedicalTechService.impl;
+package edu.neu.hospital.service.medicalTechService.impl;
 
 
 import edu.neu.hospital.bean.basicTableBean.PrescriptionDetail;
 
 import edu.neu.hospital.bean.takeMedicineBean.TakeMedDetailsView;
 import edu.neu.hospital.bean.takeMedicineBean.TakeMedicineFormView;
-import edu.neu.hospital.config.CustomDateConverter;
 import edu.neu.hospital.dao.TakeMedicineDao.TakeMedDetailsViewDao;
 import edu.neu.hospital.dao.TakeMedicineDao.TakeMedicineFormViewDao;
 import edu.neu.hospital.dao.basicTableDao.PrescriptionDetailDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.example.takeMedicineExample.TakeMedDetailsViewExample;
 import edu.neu.hospital.example.takeMedicineExample.TakeMedicineFormViewExample;
-import edu.neu.hospital.service.MedicalTechService.TakeMedicineService;
+import edu.neu.hospital.service.medicalTechService.TakeMedicineService;
 import edu.neu.hospital.utils.RegexProcess;
 import org.springframework.stereotype.Service;
 

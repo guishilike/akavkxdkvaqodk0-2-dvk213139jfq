@@ -10,6 +10,7 @@ import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.registerAndCharge.TollService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("Toll")
+@CrossOrigin
 public class TollController {
     @Resource
     private TollService tollService;

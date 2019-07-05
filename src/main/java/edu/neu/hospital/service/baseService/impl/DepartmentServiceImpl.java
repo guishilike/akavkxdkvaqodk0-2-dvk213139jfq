@@ -19,15 +19,16 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -41,10 +42,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Resource
     ConstantItemDao constantitemDao;
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     //查询科室列表
     @Override
+    @CachePut(value="department",key="'deptCategoryID'+#deptCategoryID+'deptTypeID'+#deptTypeID")
     public List<DepartmentView> findDepartments(Integer deptCategoryID, Integer deptTypeID) {
         DepartmentViewExample example = new DepartmentViewExample();
         DepartmentViewExample.Criteria criteria = example.createCriteria();
@@ -59,6 +61,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //删除科室
     @Override
+    @CacheEvict(value="department")
     public void deleteById(Integer id, Integer userID) {
 
         Department department = departmentDao.selectByPrimaryKey(id);
@@ -73,6 +76,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //批量删除科室
     @Override
+    @CacheEvict(value="department")
     public void deleteByChoose(IdDTO ids, Integer userID) {
         for (Integer id : ids.getId()) {
             Department department = departmentDao.selectByPrimaryKey(id);
@@ -88,6 +92,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //列出所有科室类型或科室分类的id
     @Override
+    @Cacheable(value="constantItem",key="'deptState'+#i")
     public List<NameCodeDTO> findALLDeptTypeOrCategoryId(int i) {
         if (i == 0)
             return constantitemDao.findAllNamesAndCodesByType(21);
@@ -98,6 +103,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //添加新科室
     @Override
+    @CacheEvict("department")
     public void add(Department department, Integer userID) {
         department.setStatus("1");
         department.setAppearUserID(userID);
@@ -107,6 +113,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //修改科室信息
     @Override
+    @CacheEvict("department")
     public void change(Department department, Integer userID) {
         department.setChangeUserID(userID);
         department.setChangeDate(new Date());
@@ -115,6 +122,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //根据科室名称或编号查询科室
     @Override
+    @Cacheable(value="department",key="'nameOrCode'+#nameOrCode")
     public List<DepartmentView> findDepartmentByNameOrCode(String nameOrCode) {
         DepartmentViewExample departmentviewExample = new DepartmentViewExample();
         DepartmentViewExample.Criteria criteria1 = departmentviewExample.createCriteria();
@@ -135,21 +143,21 @@ public class DepartmentServiceImpl implements DepartmentService {
             criteria.andIdNotEqualTo(department.getId());
         criteria.andDeptNameEqualTo(department.getDeptName());
         criteria.andStatusEqualTo("1");
-        if (departmentDao.countByExample(example) > 0)
-            return false;
-        else
-            return true;
+        return departmentDao.countByExample(example) ==0;
+
     }
 
     @Override
+    @Cacheable(value="constantItem",key="'getALLDeptNamesAndDeptCodes'")
     public List<NameCodeDTO> getAllDeptNamesAndDeptCodes() {
         return departmentviewDao.selectAllDeptNamesAndCodes();
     }
 
     @Override
+    @CacheEvict(value="department")
     public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException {
         //标识文件内容是否有错
-        Boolean state=true;
+        boolean state=true;
         Department department;
         Workbook book;
         try {
@@ -184,9 +192,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             } catch (Exception e) {
                 //遇到错误是否继续执行
                 state=false;
-                if (errorHappenContinue)
-                    continue;
-                else
+                if (!errorHappenContinue)
                     return false;
 
             }
@@ -223,8 +229,7 @@ public class DepartmentServiceImpl implements DepartmentService {
                 row.createCell(7).setCellValue(simpleDateFormat.format(results.get(i).getChangeDate()));
             row.createCell(8).setCellValue(results.get(i).getChangeUserName());
         }
-        File file = FileManage.createXLSFile(wb, path, fileName);
-        return file;
+        return FileManage.createXLSFile(wb, path, fileName);
 
     }
 

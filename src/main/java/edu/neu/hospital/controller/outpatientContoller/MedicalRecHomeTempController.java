@@ -87,18 +87,18 @@ public class MedicalRecHomeTempController {
 
     @RequestMapping("/findMedicalRecHomeTemplate")
     public @ResponseBody
-    ResultDTO<PageInfo<MedicalRecHomeTemplate>> findMedicalRecHomeTemplate(String str, Integer pageNum, Integer pageSize) {
-        ResultDTO<PageInfo<MedicalRecHomeTemplate>> resultDTO = new ResultDTO<>();
+    ResultDTO<List<MedicalRecHomeTemplate>> findMedicalRecHomeTemplate(String str) {
+        ResultDTO<List<MedicalRecHomeTemplate>> resultDTO = new ResultDTO<>();
 
         try {
-            PageHelper.startPage(pageNum, pageSize);
+            //PageHelper.startPage(pageNum, pageSize);
             List<MedicalRecHomeTemplate> medicalRecHomeTemplateList = medicalRecHomeTempService.findMedicalRecHomeTemplate(str);
             System.out.println("-----");
             PageInfo<MedicalRecHomeTemplate> list = new PageInfo<>(medicalRecHomeTemplateList);
             System.out.println("-----");
             resultDTO.setMsg("模糊查询处置");
             resultDTO.setStatus("OK");
-            resultDTO.setData(list);
+            resultDTO.setData(medicalRecHomeTemplateList);
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
@@ -110,12 +110,12 @@ public class MedicalRecHomeTempController {
     @RequestMapping("/getThisDoctorTemp")
     public @ResponseBody
     ResultDTO getThisDoctorTemp(HttpSession session){
-        ResultDTO resultDTO = new ResultDTO<>();
+        ResultDTO<List<MedicalRecHomeTemplate>> resultDTO = new ResultDTO<>();
         try {
 
             UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
             System.out.println(outpatientUser.getId());
-            List<Integer> medicalRecHomeTemplateList = medicalRecHomeTempService.getThisDoctorTemp(outpatientUser.getId());
+            List<MedicalRecHomeTemplate> medicalRecHomeTemplateList = medicalRecHomeTempService.getThisDoctorTemp(outpatientUser.getId());
             System.out.println("-----");
             System.out.println("-----");
             resultDTO.setMsg("该医生的模板");
@@ -124,6 +124,7 @@ public class MedicalRecHomeTempController {
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
+            System.out.println(e);
         }
         return resultDTO;
     }

@@ -1,6 +1,9 @@
 package edu.neu.hospital.dto;
+
+import java.io.Serializable;
+
 //用于存储用户名和密码
-public class UserNameAndPassDTO {
+public class UserNameAndPassDTO implements Serializable {
     private String userName;
     private  String password;
 

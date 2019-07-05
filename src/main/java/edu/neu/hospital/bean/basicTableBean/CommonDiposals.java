@@ -4,19 +4,26 @@ import java.io.Serializable;
 
 /**
  * commondiposals
- *
- * @author
+ * @author 
  */
 public class CommonDiposals implements Serializable {
-    private static final long serialVersionUID = 1L;
     private Integer id;
-    private Integer diposalID;
+
+    private Integer fMedtItemID;
+
     private Integer doctorID;
+
     private Integer appearUserID;
+
     private Integer changeUserID;
+
     private String status;
+
     private String reserve1;
+
     private String reserve2;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
@@ -26,12 +33,12 @@ public class CommonDiposals implements Serializable {
         this.id = id;
     }
 
-    public Integer getDiposalID() {
-        return diposalID;
+    public Integer getfMedtItemID() {
+        return fMedtItemID;
     }
 
-    public void setDiposalID(Integer diposalID) {
-        this.diposalID = diposalID;
+    public void setfMedtItemID(Integer fMedtItemID) {
+        this.fMedtItemID = fMedtItemID;
     }
 
     public Integer getDoctorID() {
@@ -95,13 +102,13 @@ public class CommonDiposals implements Serializable {
         }
         CommonDiposals other = (CommonDiposals) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-                && (this.getDiposalID() == null ? other.getDiposalID() == null : this.getDiposalID().equals(other.getDiposalID()))
-                && (this.getDoctorID() == null ? other.getDoctorID() == null : this.getDoctorID().equals(other.getDoctorID()))
-                && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
-                && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
-                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-                && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
-                && (this.getReserve2() == null ? other.getReserve2() == null : this.getReserve2().equals(other.getReserve2()));
+            && (this.getfMedtItemID() == null ? other.getfMedtItemID() == null : this.getfMedtItemID().equals(other.getfMedtItemID()))
+            && (this.getDoctorID() == null ? other.getDoctorID() == null : this.getDoctorID().equals(other.getDoctorID()))
+            && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
+            && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
+            && (this.getReserve2() == null ? other.getReserve2() == null : this.getReserve2().equals(other.getReserve2()));
     }
 
     @Override
@@ -109,7 +116,7 @@ public class CommonDiposals implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getDiposalID() == null) ? 0 : getDiposalID().hashCode());
+        result = prime * result + ((getfMedtItemID() == null) ? 0 : getfMedtItemID().hashCode());
         result = prime * result + ((getDoctorID() == null) ? 0 : getDoctorID().hashCode());
         result = prime * result + ((getAppearUserID() == null) ? 0 : getAppearUserID().hashCode());
         result = prime * result + ((getChangeUserID() == null) ? 0 : getChangeUserID().hashCode());
@@ -126,7 +133,7 @@ public class CommonDiposals implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", diposalID=").append(diposalID);
+        sb.append(", fMedtItemID=").append(fMedtItemID);
         sb.append(", doctorID=").append(doctorID);
         sb.append(", appearUserID=").append(appearUserID);
         sb.append(", changeUserID=").append(changeUserID);

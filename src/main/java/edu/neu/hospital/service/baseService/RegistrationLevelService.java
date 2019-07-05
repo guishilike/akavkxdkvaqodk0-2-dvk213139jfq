@@ -61,7 +61,7 @@ public interface RegistrationLevelService {
      * 获得所有挂号级别的名称和编号
      * @return
      */
-    public List<NameCodeDTO> getAllSetCatNamesAndCode();
+    public List<NameCodeDTO> getAllRegLevNamesAndCode();
     /**
      * 从数据库导出
      */

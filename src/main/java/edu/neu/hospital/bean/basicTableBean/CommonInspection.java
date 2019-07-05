@@ -4,19 +4,26 @@ import java.io.Serializable;
 
 /**
  * commoninspection
- *
- * @author
+ * @author 
  */
 public class CommonInspection implements Serializable {
-    private static final long serialVersionUID = 1L;
     private Integer id;
+
     private Integer doctorID;
-    private Integer inspectionID;
+
+    private Integer fMedItemID;
+
     private Integer appearUserID;
+
     private Integer changeUserID;
+
     private String status;
+
     private String reserve1;
+
     private String reserve2;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
@@ -34,12 +41,12 @@ public class CommonInspection implements Serializable {
         this.doctorID = doctorID;
     }
 
-    public Integer getInspectionID() {
-        return inspectionID;
+    public Integer getfMedItemID() {
+        return fMedItemID;
     }
 
-    public void setInspectionID(Integer inspectionID) {
-        this.inspectionID = inspectionID;
+    public void setfMedItemID(Integer fMedItemID) {
+        this.fMedItemID = fMedItemID;
     }
 
     public Integer getAppearUserID() {
@@ -95,13 +102,13 @@ public class CommonInspection implements Serializable {
         }
         CommonInspection other = (CommonInspection) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-                && (this.getDoctorID() == null ? other.getDoctorID() == null : this.getDoctorID().equals(other.getDoctorID()))
-                && (this.getInspectionID() == null ? other.getInspectionID() == null : this.getInspectionID().equals(other.getInspectionID()))
-                && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
-                && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
-                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-                && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
-                && (this.getReserve2() == null ? other.getReserve2() == null : this.getReserve2().equals(other.getReserve2()));
+            && (this.getDoctorID() == null ? other.getDoctorID() == null : this.getDoctorID().equals(other.getDoctorID()))
+            && (this.getfMedItemID() == null ? other.getfMedItemID() == null : this.getfMedItemID().equals(other.getfMedItemID()))
+            && (this.getAppearUserID() == null ? other.getAppearUserID() == null : this.getAppearUserID().equals(other.getAppearUserID()))
+            && (this.getChangeUserID() == null ? other.getChangeUserID() == null : this.getChangeUserID().equals(other.getChangeUserID()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getReserve1() == null ? other.getReserve1() == null : this.getReserve1().equals(other.getReserve1()))
+            && (this.getReserve2() == null ? other.getReserve2() == null : this.getReserve2().equals(other.getReserve2()));
     }
 
     @Override
@@ -110,7 +117,7 @@ public class CommonInspection implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getDoctorID() == null) ? 0 : getDoctorID().hashCode());
-        result = prime * result + ((getInspectionID() == null) ? 0 : getInspectionID().hashCode());
+        result = prime * result + ((getfMedItemID() == null) ? 0 : getfMedItemID().hashCode());
         result = prime * result + ((getAppearUserID() == null) ? 0 : getAppearUserID().hashCode());
         result = prime * result + ((getChangeUserID() == null) ? 0 : getChangeUserID().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
@@ -127,7 +134,7 @@ public class CommonInspection implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", doctorID=").append(doctorID);
-        sb.append(", inspectionID=").append(inspectionID);
+        sb.append(", fMedItemID=").append(fMedItemID);
         sb.append(", appearUserID=").append(appearUserID);
         sb.append(", changeUserID=").append(changeUserID);
         sb.append(", status=").append(status);

@@ -110,6 +110,7 @@ public class MedicalRecHomeController {
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常，操作失败");
+            System.out.println(e);
         }
         return resultDTO;
 

@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neu.hospital.dao.basicTableDao.InspectionDetailsViewDao">
+  <resultMap id="BaseResultMap" type="edu.neu.hospital.bean.basicTableBean.InspectionDetailsView">
+    <result column="inspectionID" jdbcType="INTEGER" property="inspectionID" />
+    <result column="medicalRecordID" jdbcType="INTEGER" property="medicalRecordID" />
+    <result column="inspectionDetailsID" jdbcType="INTEGER" property="inspectionDetailsID" />
+    <result column="FmedItemID" jdbcType="INTEGER" property="fmedItemID" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="appearDate" jdbcType="TIMESTAMP" property="appearDate" />
+    <result column="isDrawn" jdbcType="INTEGER" property="isDrawn" />
+    <result column="isPaid" jdbcType="INTEGER" property="isPaid" />
+    <result column="isAbolished" jdbcType="INTEGER" property="isAbolished" />
+    <result column="isExecuted" jdbcType="INTEGER" property="isExecuted" />
+    <result column="appearUserID" jdbcType="INTEGER" property="appearUserID" />
+    <result column="appearUserName" jdbcType="VARCHAR" property="appearUserName" />
+    <result column="changeUserName" jdbcType="VARCHAR" property="changeUserName" />
+    <result column="changeUserID" jdbcType="INTEGER" property="changeUserID" />
+    <result column="changeDate" jdbcType="TIMESTAMP" property="changeDate" />
+    <result column="doctorID" jdbcType="INTEGER" property="doctorID" />
+    <result column="isPaidName" jdbcType="VARCHAR" property="isPaidName" />
+    <result column="isAbolishedName" jdbcType="VARCHAR" property="isAbolishedName" />
+    <result column="isDrawnName" jdbcType="VARCHAR" property="isDrawnName" />
+    <result column="isExecutedName" jdbcType="VARCHAR" property="isExecutedName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    inspectionID, medicalRecordID, inspectionDetailsID, FmedItemID, `number`, `name`, 
+    price, appearDate, isDrawn, isPaid, isAbolished, isExecuted, appearUserID, appearUserName, 
+    changeUserName, changeUserID, changeDate, doctorID, isPaidName, isAbolishedName, 
+    isDrawnName, isExecutedName
+  </sql>
+  <select id="selectByExample" parameterType="edu.neu.hospital.example.basicTableExample.InspectionDetailsViewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from inspectiondetailsview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.neu.hospital.example.basicTableExample.InspectionDetailsViewExample">
+    delete from inspectiondetailsview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.neu.hospital.bean.basicTableBean.InspectionDetailsView">
+    insert into inspectiondetailsview (inspectionID, medicalRecordID, inspectionDetailsID, 
+      FmedItemID, `number`, `name`, 
+      price, appearDate, isDrawn, 
+      isPaid, isAbolished, isExecuted, 
+      appearUserID, appearUserName, changeUserName, 
+      changeUserID, changeDate, doctorID, 
+      isPaidName, isAbolishedName, isDrawnName, 
+      isExecutedName)
+    values (#{inspectionID,jdbcType=INTEGER}, #{medicalRecordID,jdbcType=INTEGER}, #{inspectionDetailsID,jdbcType=INTEGER}, 
+      #{fmedItemID,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{appearDate,jdbcType=TIMESTAMP}, #{isDrawn,jdbcType=INTEGER}, 
+      #{isPaid,jdbcType=INTEGER}, #{isAbolished,jdbcType=INTEGER}, #{isExecuted,jdbcType=INTEGER}, 
+      #{appearUserID,jdbcType=INTEGER}, #{appearUserName,jdbcType=VARCHAR}, #{changeUserName,jdbcType=VARCHAR}, 
+      #{changeUserID,jdbcType=INTEGER}, #{changeDate,jdbcType=TIMESTAMP}, #{doctorID,jdbcType=INTEGER}, 
+      #{isPaidName,jdbcType=VARCHAR}, #{isAbolishedName,jdbcType=VARCHAR}, #{isDrawnName,jdbcType=VARCHAR}, 
+      #{isExecutedName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.neu.hospital.bean.basicTableBean.InspectionDetailsView">
+    insert into inspectiondetailsview
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="inspectionID != null">
+        inspectionID,
+      </if>
+      <if test="medicalRecordID != null">
+        medicalRecordID,
+      </if>
+      <if test="inspectionDetailsID != null">
+        inspectionDetailsID,
+      </if>
+      <if test="fmedItemID != null">
+        FmedItemID,
+      </if>
+      <if test="number != null">
+        `number`,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="appearDate != null">
+        appearDate,
+      </if>
+      <if test="isDrawn != null">
+        isDrawn,
+      </if>
+      <if test="isPaid != null">
+        isPaid,
+      </if>
+      <if test="isAbolished != null">
+        isAbolished,
+      </if>
+      <if test="isExecuted != null">
+        isExecuted,
+      </if>
+      <if test="appearUserID != null">
+        appearUserID,
+      </if>
+      <if test="appearUserName != null">
+        appearUserName,
+      </if>
+      <if test="changeUserName != null">
+        changeUserName,
+      </if>
+      <if test="changeUserID != null">
+        changeUserID,
+      </if>
+      <if test="changeDate != null">
+        changeDate,
+      </if>
+      <if test="doctorID != null">
+        doctorID,
+      </if>
+      <if test="isPaidName != null">
+        isPaidName,
+      </if>
+      <if test="isAbolishedName != null">
+        isAbolishedName,
+      </if>
+      <if test="isDrawnName != null">
+        isDrawnName,
+      </if>
+      <if test="isExecutedName != null">
+        isExecutedName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="inspectionID != null">
+        #{inspectionID,jdbcType=INTEGER},
+      </if>
+      <if test="medicalRecordID != null">
+        #{medicalRecordID,jdbcType=INTEGER},
+      </if>
+      <if test="inspectionDetailsID != null">
+        #{inspectionDetailsID,jdbcType=INTEGER},
+      </if>
+      <if test="fmedItemID != null">
+        #{fmedItemID,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="appearDate != null">
+        #{appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDrawn != null">
+        #{isDrawn,jdbcType=INTEGER},
+      </if>
+      <if test="isPaid != null">
+        #{isPaid,jdbcType=INTEGER},
+      </if>
+      <if test="isAbolished != null">
+        #{isAbolished,jdbcType=INTEGER},
+      </if>
+      <if test="isExecuted != null">
+        #{isExecuted,jdbcType=INTEGER},
+      </if>
+      <if test="appearUserID != null">
+        #{appearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="appearUserName != null">
+        #{appearUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="changeUserName != null">
+        #{changeUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="changeUserID != null">
+        #{changeUserID,jdbcType=INTEGER},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doctorID != null">
+        #{doctorID,jdbcType=INTEGER},
+      </if>
+      <if test="isPaidName != null">
+        #{isPaidName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAbolishedName != null">
+        #{isAbolishedName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDrawnName != null">
+        #{isDrawnName,jdbcType=VARCHAR},
+      </if>
+      <if test="isExecutedName != null">
+        #{isExecutedName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.neu.hospital.example.basicTableExample.InspectionDetailsViewExample" resultType="java.lang.Long">
+    select count(*) from inspectiondetailsview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update inspectiondetailsview
+    <set>
+      <if test="record.inspectionID != null">
+        inspectionID = #{record.inspectionID,jdbcType=INTEGER},
+      </if>
+      <if test="record.medicalRecordID != null">
+        medicalRecordID = #{record.medicalRecordID,jdbcType=INTEGER},
+      </if>
+      <if test="record.inspectionDetailsID != null">
+        inspectionDetailsID = #{record.inspectionDetailsID,jdbcType=INTEGER},
+      </if>
+      <if test="record.fmedItemID != null">
+        FmedItemID = #{record.fmedItemID,jdbcType=INTEGER},
+      </if>
+      <if test="record.number != null">
+        `number` = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.appearDate != null">
+        appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDrawn != null">
+        isDrawn = #{record.isDrawn,jdbcType=INTEGER},
+      </if>
+      <if test="record.isPaid != null">
+        isPaid = #{record.isPaid,jdbcType=INTEGER},
+      </if>
+      <if test="record.isAbolished != null">
+        isAbolished = #{record.isAbolished,jdbcType=INTEGER},
+      </if>
+      <if test="record.isExecuted != null">
+        isExecuted = #{record.isExecuted,jdbcType=INTEGER},
+      </if>
+      <if test="record.appearUserID != null">
+        appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+      </if>
+      <if test="record.appearUserName != null">
+        appearUserName = #{record.appearUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changeUserName != null">
+        changeUserName = #{record.changeUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changeUserID != null">
+        changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeDate != null">
+        changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.doctorID != null">
+        doctorID = #{record.doctorID,jdbcType=INTEGER},
+      </if>
+      <if test="record.isPaidName != null">
+        isPaidName = #{record.isPaidName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAbolishedName != null">
+        isAbolishedName = #{record.isAbolishedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDrawnName != null">
+        isDrawnName = #{record.isDrawnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isExecutedName != null">
+        isExecutedName = #{record.isExecutedName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update inspectiondetailsview
+    set inspectionID = #{record.inspectionID,jdbcType=INTEGER},
+      medicalRecordID = #{record.medicalRecordID,jdbcType=INTEGER},
+      inspectionDetailsID = #{record.inspectionDetailsID,jdbcType=INTEGER},
+      FmedItemID = #{record.fmedItemID,jdbcType=INTEGER},
+      `number` = #{record.number,jdbcType=INTEGER},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      appearDate = #{record.appearDate,jdbcType=TIMESTAMP},
+      isDrawn = #{record.isDrawn,jdbcType=INTEGER},
+      isPaid = #{record.isPaid,jdbcType=INTEGER},
+      isAbolished = #{record.isAbolished,jdbcType=INTEGER},
+      isExecuted = #{record.isExecuted,jdbcType=INTEGER},
+      appearUserID = #{record.appearUserID,jdbcType=INTEGER},
+      appearUserName = #{record.appearUserName,jdbcType=VARCHAR},
+      changeUserName = #{record.changeUserName,jdbcType=VARCHAR},
+      changeUserID = #{record.changeUserID,jdbcType=INTEGER},
+      changeDate = #{record.changeDate,jdbcType=TIMESTAMP},
+      doctorID = #{record.doctorID,jdbcType=INTEGER},
+      isPaidName = #{record.isPaidName,jdbcType=VARCHAR},
+      isAbolishedName = #{record.isAbolishedName,jdbcType=VARCHAR},
+      isDrawnName = #{record.isDrawnName,jdbcType=VARCHAR},
+      isExecutedName = #{record.isExecutedName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

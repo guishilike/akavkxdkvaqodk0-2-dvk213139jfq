@@ -1,9 +1,13 @@
 package edu.neu.hospital.service.outPatientService;
 
+import edu.neu.hospital.bean.baseBean.DiseaseView;
 import edu.neu.hospital.bean.basicTableBean.Diagnosis;
+import edu.neu.hospital.bean.basicTableBean.DiagnosisView;
 import edu.neu.hospital.bean.basicTableBean.Disease;
+import edu.neu.hospital.bean.basicTableBean.Drugs;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.example.basicTableExample.DiseaseExample;
 
 
 import java.util.List;
@@ -19,7 +23,7 @@ public interface DiagnoseService {
     //增
     public  boolean addDiagnosis(Diagnosis diagnosis, Integer userID);
     public boolean addDiagnosisList(DataListDTO<Diagnosis> diagnosisList, Integer userID);
-    public List<Disease> searchDisease(String str);
+    public List<DiseaseView> searchDisease(String str);
     //删
 
     public  boolean deleteDiagnosis(Integer diagnosisID, Integer userID);
@@ -30,5 +34,11 @@ public interface DiagnoseService {
 
     //查
     public Diagnosis searchDiagnosis(Integer diagnosisID);
+
+    public  List<DiagnosisView> getIndexDiagnosis(Integer medicalRecordID);
+
+    public List<Disease> listDisease();
+
+    public Integer getDiseaseID(String str);
 
 }

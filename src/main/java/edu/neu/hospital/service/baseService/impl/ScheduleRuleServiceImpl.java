@@ -1,6 +1,5 @@
 package edu.neu.hospital.service.baseService.impl;
 
-import edu.neu.hospital.bean.basicTableBean.Disease;
 import edu.neu.hospital.bean.basicTableBean.Schedule;
 import edu.neu.hospital.bean.basicTableBean.Schedulerule;
 import edu.neu.hospital.bean.baseBean.ScheduleRuleView;
@@ -9,15 +8,12 @@ import edu.neu.hospital.dao.basicTableDao.ConstantItemDao;
 import edu.neu.hospital.dao.basicTableDao.ScheduleDao;
 import edu.neu.hospital.dao.basicTableDao.ScheduleRuleDao;
 import edu.neu.hospital.dao.baseDao.ScheduleRuleViewDao;
-import edu.neu.hospital.dao.basicTableDao.UserDao;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.NameCodeDTO;
-import edu.neu.hospital.example.basicTableExample.DiseaseViewExample;
 import edu.neu.hospital.example.basicTableExample.ScheduleExample;
 import edu.neu.hospital.example.basicTableExample.ScheduleRuleExample;
-import edu.neu.hospital.example.basicTableExample.ScheduleRuleViewExample;
+import edu.neu.hospital.example.baseExample.ScheduleRuleViewExample;
 import edu.neu.hospital.service.baseService.ScheduleRuleService;
-import edu.neu.hospital.service.baseService.ScheduleService;
 import edu.neu.hospital.utils.FileManage;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellType;
@@ -27,7 +23,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,13 +50,13 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
     UserViewDao userViewDao;
     @Resource
     ConstantItemDao constantItemDao;
-    @Autowired
-    ScheduleService scheduleService;
 
-    String[] weekDay={"星期日","星期一","星期二","星期三","星期四","星期五","星期六"};
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    private String[] weekDay={"星期日","星期一","星期二","星期三","星期四","星期五","星期六"};
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
+    @CacheEvict(value={"schedule","scheduleRule"})
     public void add(Schedulerule schedulerule, Integer userID) {
         schedulerule.setAppearDate(new Date());
         schedulerule.setAppearUserID(userID);
@@ -81,6 +79,7 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
     }
 
     @Override
+    @CacheEvict(value={"schedule","scheduleRule"})
     public void delete(Integer id, Integer userID) {
         Schedulerule schedulerule = scheduleruleDao.selectByPrimaryKey(id);
         if (schedulerule != null) {
@@ -101,6 +100,7 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
     }
 
     @Override
+    @CacheEvict(value={"schedule","scheduleRule"})
     public void deleteByChoose(IdDTO idDTO, Integer userID) {
         for (Integer id : idDTO.getId()) {
             Schedulerule schedulerule = scheduleruleDao.selectByPrimaryKey(id);
@@ -124,6 +124,7 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
     }
 
     @Override
+    @CacheEvict(value={"schedule","scheduleRule"})
     public void change(Schedulerule schedulerule, Integer userID) {
         schedulerule.setChangeDate(new Date());
         schedulerule.setChangeUserID(userID);
@@ -149,13 +150,11 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
         criteria.andOnDutyDoctorIDEqualTo(schedulerule.getOnDutyDoctorID());
         if (state == 1)
             criteria.andIdNotEqualTo(schedulerule.getId());
-        if (scheduleruleDao.countByExample(example) > 0)
-            return false;
-        else
-            return true;
+        return scheduleruleDao.countByExample(example) ==0;
     }
 
     @Override
+    @CachePut(value="scheduleRule",key="'week'+#week+'deptID'+#deptID+'onDutyDoctorID'+#onDutyDoctorID")
     public List<ScheduleRuleView> find(Integer week, Integer deptID, Integer onDutyDoctorID) {
         ScheduleRuleViewExample example = new ScheduleRuleViewExample();
         ScheduleRuleViewExample.Criteria criteria = example.createCriteria();
@@ -198,25 +197,29 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
     }
 
     @Override
+    @Cacheable(value="constantItem",key="'getAllOnDutyTimeNamesAndCodes'")
     public List<NameCodeDTO> getAllOnDutyTimeNamesAndCodes() {
         return constantItemDao.findAllNamesAndCodesByType(15);
     }
 
     @Override
+    @Cacheable(value = "user",key="'getAllDoctors'")
     public List<NameCodeDTO> getAllDoctors() {
         return userViewDao.selectAllDoctor();
     }
 
     @Override
+    @Cacheable(value = "user",key="'getAllDoctorsByDeptID'+#deptID")
     public List<NameCodeDTO> getAllDoctorsByDeptID(Integer deptID) {
         return userViewDao.selectAllDoctorByDeptID(deptID);
     }
 
 
     @Override
+    @CacheEvict(value={"schedule","scheduleRule"})
     public boolean uploadXls(MultipartFile file, Integer userID, boolean errorHappenContinue, boolean repeatCoverage) throws IOException {
         //标识文件内容是否有错
-        Boolean state = true;
+        boolean state = true;
         Schedulerule scheduleRule;
         Workbook book;
         try {
@@ -257,9 +260,7 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
                 e.printStackTrace();
                 //遇到错误是否继续执行
                 state = false;
-                if (errorHappenContinue)
-                    continue;
-                else
+                if (!errorHappenContinue)
                     return false;
 
             }
@@ -297,9 +298,7 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
             row.createCell(9).setCellValue(results.get(i).getChangeUserName());
 
         }
-
-        File file = FileManage.createXLSFile(wb, path, fileName);
-        return file;
+        return FileManage.createXLSFile(wb, path, fileName);
     }
 
     @Override

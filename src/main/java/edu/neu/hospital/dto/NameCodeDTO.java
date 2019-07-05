@@ -1,6 +1,8 @@
 package edu.neu.hospital.dto;
 
-public class NameCodeDTO {
+import java.io.Serializable;
+
+public class NameCodeDTO implements Serializable {
     private int id;
     private String name;
     private String code;

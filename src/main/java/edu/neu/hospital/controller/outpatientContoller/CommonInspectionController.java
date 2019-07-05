@@ -2,8 +2,10 @@ package edu.neu.hospital.controller.outpatientContoller;
 
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.CommonInspection;
+import edu.neu.hospital.bean.basicTableBean.CommonInspectionView;
 import edu.neu.hospital.bean.basicTableBean.Inspection;
 import edu.neu.hospital.dto.IdDTO;
+import edu.neu.hospital.dto.NameCodeDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.CommonInspectionService;
 import org.springframework.stereotype.Controller;
@@ -12,12 +14,38 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("CommonInspection")
 public class CommonInspectionController {
     @Resource
     CommonInspectionService commonInspectionService;
+
+
+    @RequestMapping("/listCommonInspection")
+    public @ResponseBody
+    ResultDTO<List<CommonInspectionView>> listCommonInspection(HttpSession session) {
+        ResultDTO<List<CommonInspectionView>> resultDTO = new ResultDTO<>();
+        try {
+
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            //System.out.println("111111111111");
+            List<CommonInspectionView> list =  commonInspectionService.listCommonInspection( outpatientUser.getId() );
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("增加模板成功");
+            resultDTO.setData(list);
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发生异常");
+            //resultDTO.setData(commonInspection);
+
+        }
+        return resultDTO;
+
+    }
+
     /*
         //常用诊断管理
     //列出
@@ -143,5 +171,22 @@ public class CommonInspectionController {
 
         }
         return resultDTO;
+    }
+    @RequestMapping("/findAllFMedItemNamesAndCodes")
+    public @ResponseBody
+    ResultDTO getAllFMedItemNamesAndCodes() {
+        ResultDTO<List<NameCodeDTO>> resultDTO = new ResultDTO<>();
+        try {
+            List<NameCodeDTO> list = commonInspectionService.getAllFMedItemNamesAndCodes();
+            resultDTO.setStatus("OK");
+            resultDTO.setData(list);
+            resultDTO.setMsg("获得项目搜索列表成功");
+
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("获得项目搜索列表失败");
+        }
+        return resultDTO;
+
     }
 }

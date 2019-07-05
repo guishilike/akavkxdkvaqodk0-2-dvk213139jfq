@@ -12,7 +12,7 @@ public interface ApplyDisposalService {
     //新建该患者的inspection
     //首先判断Inspection表里是否已经有该病例的检查了
     public boolean checkIsHaven(Integer medicalRecordID);
-    public boolean newDisposal(Disposal disposal, Integer userID);
+    public Disposal newDisposal(Disposal disposal, Integer userID);
     //1.	新增项目
     public int addDisposalDetailsList(Disposal disposal, DataListDTO disposalDetialsList, Integer userID);
     public int addDisposalDetails(Disposal disposal, DisposalDetails disposalDetails, Integer userID);
@@ -31,7 +31,8 @@ public interface ApplyDisposalService {
     //9.	常用项目管理（此次为引用
     public CommonDiposals useCommonDisposal(Integer commonDisposalID);
     //开立时向fee中插一条未缴费的记录
-    public Fee addProjectFee(Integer inspectionDetailID  , Integer userID);
+    public Fee addProjectFee(Integer inspectionDetailID, Integer userID);
     public   List<FMedItem> listDisposal();
+    public List<DisposalDetailsView> listIndexDisposal(Integer medicalRecordID);
 
 }

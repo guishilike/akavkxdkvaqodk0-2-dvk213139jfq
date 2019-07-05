@@ -50,7 +50,7 @@ public class ProjectTempController {
         ResultDTO<ProjectTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("outpatientUser");
             System.out.println(user.getId());
             projectTempService.addProjectTemplate(projectTemplate, user.getId());
             resultDTO.setStatus("OK");
@@ -71,7 +71,7 @@ public class ProjectTempController {
         ResultDTO<ProjectTemplate> resultDTO = new ResultDTO<>();
         try {
 
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("outpatientUser");
             System.out.println(user.getId());
             projectTempService.updateProjectTemplate(projectTemplate, user.getId());
             resultDTO.setStatus("OK");
@@ -93,7 +93,7 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("outpatientUser");
             System.out.println(user.getId());
             projectTempService.deleteProjectTemplate(projectTemplateID ,user.getId());
 
@@ -115,7 +115,7 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("outpatientUser");
             System.out.println(user.getId());
             projectTempService.deleteProjectTemplateList(idDTO ,user.getId());
 
@@ -159,12 +159,13 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
 
 
-        UserView user = (UserView) session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("outpatientUser");
         System.out.println(user.getId());
-            List<Integer> projectTemplateList = projectTempService.getThisDoctorTemp(user.getId());
+            List<ProjectTemplate> projectTemplateList = projectTempService.getThisDoctorTemp(user.getId());
             System.out.println("-----");
             System.out.println("-----");
-            resultDTO.setMsg("模糊查询处置");
+            System.out.println("后台计算" + projectTemplateList.size());
+            resultDTO.setMsg("getThisDoctorTemp成功");
             resultDTO.setStatus("OK");
             resultDTO.setData(projectTemplateList);
 
@@ -197,7 +198,7 @@ public class ProjectTempController {
         ResultDTO<ProjectTemplateDetail> resultDTO = new ResultDTO<>();
         try {
 
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("outpatientUser");
             System.out.println(user.getId());
             projectTempService.addProjectTmpDetails(projectTempID, projectTemplateDetail,user.getId());
             resultDTO.setStatus("OK");
@@ -218,7 +219,7 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("outpatientUser");
             System.out.println(user.getId());
             projectTempService.updateProjectTmpDetails(projectTemplateDetail, user.getId());
             resultDTO.setStatus("OK");
@@ -240,7 +241,7 @@ public class ProjectTempController {
         ResultDTO resultDTO = new ResultDTO<>();
         try {
 
-            UserView user = (UserView) session.getAttribute("user");
+            UserView user = (UserView) session.getAttribute("outpatientUser");
             System.out.println(user.getId());
             projectTempService.deleteProjectTmpDetails(projectTemplateDetailID ,user.getId());
 

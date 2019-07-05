@@ -2,14 +2,18 @@ package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.DiseaseView;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.Diagnosis;
+import edu.neu.hospital.bean.basicTableBean.DiagnosisView;
 import edu.neu.hospital.bean.basicTableBean.Disease;
+import edu.neu.hospital.bean.basicTableBean.Drugs;
 import edu.neu.hospital.dto.DataListDTO;
 import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.DiagnoseService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -74,18 +78,20 @@ public class DiagnosisController {
     }
     @RequestMapping("/searchDisease")
     public @ResponseBody
-    ResultDTO<PageInfo<Disease>> searchDisease(String str, Integer pageNum, Integer pageSize){
-        ResultDTO<PageInfo<Disease>> resultDTO = new ResultDTO<>();
+    ResultDTO<List<DiseaseView>> searchDisease(String str){
+        ResultDTO<List<DiseaseView>> resultDTO = new ResultDTO<>();
+        System.out.println("start search");
+        System.out.println("str"+str);
 
         try {
-            PageHelper.startPage(pageNum, pageSize);
-            List<Disease> diseaseList = diagnoseService.searchDisease(str);
+
+            List<DiseaseView> diseaseList = diagnoseService.searchDisease(str);
+            System.out.println("长度为"+diseaseList.size());
             System.out.println("-----");
-            PageInfo<Disease> list = new PageInfo<>(diseaseList);
             System.out.println("-----");
+            resultDTO.setData(diseaseList);
             resultDTO.setMsg("模糊查询疾病");
             resultDTO.setStatus("OK");
-            resultDTO.setData(list);
         }catch (Exception e){
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
@@ -255,8 +261,80 @@ public class DiagnosisController {
 
     }
 
+    //public List<Diagnosis> getIndexDiagnosis(Integer medicalRecordID) {
+
+        @RequestMapping("/getIndexDiagnosis")
+        public @ResponseBody
+        ResultDTO getIndexDiagnosis(Integer medicalRecordID){
+            ResultDTO<List<DiagnosisView>> resultDTO = new ResultDTO<>();
+
+            try {
 
 
+                List<DiagnosisView> list = diagnoseService.getIndexDiagnosis(medicalRecordID);
+                resultDTO.setStatus("OK");
+                resultDTO.setMsg("确诊成功");
+                resultDTO.setData(list);
+            }catch (Exception e){
+                resultDTO.setStatus("FALSE");
+                resultDTO.setMsg("发生异常");
+                //resultDTO.setData(diagnosisID);
+                System.out.println(e);
+
+            }
+            return resultDTO;
+
+
+        }
+
+
+    @RequestMapping("/listDisease")
+    public @ResponseBody
+    ResultDTO listDisease() {
+        ResultDTO<List<Disease>> resultDTO = new ResultDTO<>();
+        try {
+
+
+            List<Disease> list = diagnoseService.listDisease();
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("列出疾病成功");
+            resultDTO.setData(list);
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发生异常");
+            //resultDTO.setData(diagnosisID);
+            System.out.println(e);
+
+        }
+        return resultDTO;
+
+
+    }
+
+
+
+@RequestMapping("/getDiseaseID")
+    public @ResponseBody
+    ResultDTO getDiseaseID(String str) {
+        ResultDTO<Integer> resultDTO = new ResultDTO<>();
+        try {
+
+
+            Integer id = diagnoseService.getDiseaseID(str);
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("找病成功");
+            resultDTO.setData(id);
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发生异常");
+            //resultDTO.setData(diagnosisID);
+            System.out.println(e);
+
+        }
+        return resultDTO;
+
+
+    }
 
 
 
