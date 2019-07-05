@@ -86,7 +86,7 @@ public class TakeMedicineController {
     ResultDTO takeMedicine(@RequestBody  IdDTO presdetailsIDs, HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            UserView user= (UserView) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("pharmacyUser");
             Integer userID=user.getId();
             takeMedicineService.takeMedicine(presdetailsIDs,userID);
             resultDTO.setStatus("OK");
@@ -111,7 +111,7 @@ public class TakeMedicineController {
     ResultDTO withdrawMedicine(@RequestBody IdDTO presdetailsIDs, HttpSession session){
         ResultDTO resultDTO = new ResultDTO();
         try {
-            UserView user= (UserView) session.getAttribute("user");
+            UserView user= (UserView) session.getAttribute("pharmacyUser");
             Integer userID=user.getId();
             takeMedicineService.withdrawMedicine(presdetailsIDs,userID);
             resultDTO.setStatus("OK");

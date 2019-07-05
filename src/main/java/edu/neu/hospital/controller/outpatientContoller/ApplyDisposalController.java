@@ -3,6 +3,7 @@ package edu.neu.hospital.controller.outpatientContoller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.neu.hospital.bean.baseBean.FmeditemView;
 import edu.neu.hospital.bean.baseBean.UserView;
 import edu.neu.hospital.bean.basicTableBean.*;
 import edu.neu.hospital.dto.DataListDTO;
@@ -10,6 +11,7 @@ import edu.neu.hospital.dto.IdDTO;
 import edu.neu.hospital.dto.ResultDTO;
 import edu.neu.hospital.service.outPatientService.ApplyDisposalService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -51,6 +53,30 @@ public class ApplyDisposalController {
         }
         return resultDTO;
 
+    }
+
+
+    @RequestMapping("/deleteDisposalDetailsByID")
+    public @ResponseBody
+    ResultDTO deleteDisposalDetailsByID(Integer disposalDetailsId, HttpSession session) {
+        ResultDTO resultDTO = new ResultDTO<>();
+        try {
+            //PageHelper.startPage(pageNum, pageSize);
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            applyDisposalService.deleteDisposalDetailsByID(disposalDetailsId, outpatientUser.getId());
+            //List<DisposalDetails> list = new LinkedList<>();
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("删除成功");
+            //resultDTO.setData(disposalDetailsList);
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发生异常");
+            e.printStackTrace();
+            //resultDTO.setData(page);
+
+        }
+        return resultDTO;
     }
 
     @RequestMapping("/addDisposalDetailsList")
@@ -160,21 +186,22 @@ public class ApplyDisposalController {
 
     @RequestMapping("/drawDisposalDetails")
     public @ResponseBody
-    ResultDTO<PageInfo<DisposalDetails>> drawDisposalDetails(IdDTO disposalDetailsIdList, HttpSession session, Integer pageNum, Integer pageSize) {
-        ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
+    ResultDTO<List<DisposalDetails>> drawDisposalDetails(@RequestBody IdDTO disposalDetailsIdList, HttpSession session) {
+        ResultDTO<List<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
-            PageHelper.startPage(pageNum, pageSize);
+            //PageHelper.startPage(pageNum, pageSize);
             UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
             System.out.println(outpatientUser.getId());
             List<DisposalDetails> disposalDetailsList = applyDisposalService.drawDisposalDetails(disposalDetailsIdList, outpatientUser.getId());
-            PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
+            //PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("开立成功");
-            resultDTO.setData(list);
+            resultDTO.setData(disposalDetailsList);
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
             //resultDTO.setData(page);
+            e.printStackTrace();
             System.out.println(e+ "drawDisposalDetails");
 
         }
@@ -207,17 +234,17 @@ public class ApplyDisposalController {
 
     @RequestMapping("/deleteDisposalDetails")
     public @ResponseBody
-    ResultDTO<PageInfo<DisposalDetails>> deleteDisposalDetails(IdDTO disposalDetailsIdList, HttpSession session, Integer pageNum, Integer pageSize) {
-        ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
+    ResultDTO<List<DisposalDetails>> deleteDisposalDetails(IdDTO disposalDetailsIdList, HttpSession session) {
+        ResultDTO<List<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
-            PageHelper.startPage(pageNum, pageSize);
+
             UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
             System.out.println(outpatientUser.getId());
             List<DisposalDetails> disposalDetailsList = applyDisposalService.deleteDisposalDetails(disposalDetailsIdList, outpatientUser.getId());
-            PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
+           // PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("删除成功");
-            resultDTO.setData(list);
+            resultDTO.setData(disposalDetailsList);
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
@@ -229,17 +256,17 @@ public class ApplyDisposalController {
     }
     @RequestMapping("/abolishDisposalDetails")
     public @ResponseBody
-    ResultDTO<PageInfo<DisposalDetails>> abolishDisposalDetails(IdDTO disposalDetailsIdList, HttpSession session, Integer pageNum, Integer pageSize) {
-        ResultDTO<PageInfo<DisposalDetails>> resultDTO = new ResultDTO<>();
+    ResultDTO<List<DisposalDetails>> abolishDisposalDetails(IdDTO disposalDetailsIdList, HttpSession session) {
+        ResultDTO<List<DisposalDetails>> resultDTO = new ResultDTO<>();
         try {
-            PageHelper.startPage(pageNum, pageSize);
+           
             UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
             System.out.println(outpatientUser.getId());
             List<DisposalDetails> disposalDetailsList = applyDisposalService.abolishDisposalDetails(disposalDetailsIdList, outpatientUser.getId());
-            PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
+           // PageInfo<DisposalDetails> list = new PageInfo<>(disposalDetailsList);
             resultDTO.setStatus("OK");
             resultDTO.setMsg("废除成功");
-            resultDTO.setData(list);
+            resultDTO.setData(disposalDetailsList);
         } catch (Exception e) {
             resultDTO.setStatus("FALSE");
             resultDTO.setMsg("发生异常");
@@ -328,4 +355,53 @@ public class ApplyDisposalController {
 
         return resultDTO;
     }
+
+
+    @RequestMapping("/getIndexFMedItem")
+    public @ResponseBody
+    ResultDTO<FmeditemView> getIndexFMedItem(DisposalDetails disposalDetails) {
+        ResultDTO<FmeditemView> resultDTO = new ResultDTO<>();
+        try{
+            FmeditemView fMeditemView = applyDisposalService.getIndexFMedItem(disposalDetails);
+            resultDTO.setData(fMeditemView);
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("listIndexDisposal操作成功");
+        }catch (Exception e){
+            resultDTO.setStatus("FALSE");
+
+            resultDTO.setMsg("listIndexDisposal失败");
+
+            System.out.println(e);
+        }
+
+        return resultDTO;
+    }
+
+
+    @RequestMapping("/use_Check")
+    public @ResponseBody
+    ResultDTO use_Check(Integer projectTemplateID  , Integer disposalID , HttpSession session) {
+        ResultDTO<ProjectTemplate> resultDTO = new ResultDTO<>();
+        try {
+
+            UserView outpatientUser = (UserView) session.getAttribute("outpatientUser");
+            System.out.println(outpatientUser.getId());
+            ProjectTemplate p = applyDisposalService.use_Check(projectTemplateID , disposalID , outpatientUser.getId());
+
+            resultDTO.setStatus("OK");
+            resultDTO.setMsg("使用模板成功");
+            resultDTO.setData(p);
+
+        } catch (Exception e) {
+            resultDTO.setStatus("FALSE");
+            resultDTO.setMsg("发生异常");
+            //resultDTO.setData(page);
+
+        }
+        return resultDTO;
+    }
+
+
+
+
 }

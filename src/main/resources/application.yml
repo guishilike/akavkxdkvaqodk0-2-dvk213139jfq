@@ -32,9 +32,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   #配置Redis
   redis:
-    host: 192.168.220.133
+    host: 39.107.34.225
     password: 123456
-    port: 6380
+    port: 6379
 
 #配置Mybatis
 mybatis:
